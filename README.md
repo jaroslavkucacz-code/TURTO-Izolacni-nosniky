@@ -5,15 +5,15 @@ Vytvořil Ing. Jaroslav Kučera
 
 Lokální Windows aplikace pro vyhledávání, porovnávání a projektové soupisy izolačních nosníků podle katalogových dimenzačních tabulek.
 
-## Jednorázový přechod z v0.4.0 na GitHub verzi
+## Jednorázový přechod z v0.4.0 nebo v0.5.0 na GitHub verzi
 
-Aktuální přechod využívá vaši existující složku **TURTO_Izolacni_nosniky_v0.4.0**. Díky tomu není nutné znovu přenášet velké katalogové soubory a během převodu se **nestahují žádné instalační části z internetu**.
+Aktuální přechod využívá vaši existující funkční složku TURTO **v0.4.0 nebo v0.5.0**. Díky tomu není nutné znovu přenášet velké katalogové soubory a během převodu se **nestahují žádné instalační části z internetu**.
 
 1. Klikněte nahoře na zelené tlačítko **Code → Download ZIP**.
 2. Stažený ZIP celý rozbalte do nové složky.
 3. V rozbalené složce spusťte **`00_INSTALOVAT_TURTO.bat`**.
-4. Pokud se otevře výběr složky, vyberte svoji stávající složku **`TURTO_Izolacni_nosniky_v0.4.0`**.
-5. Převod nejprve ověří všechny nové programové soubory pomocí SHA-256, vytvoří zálohu změněných souborů v `.backup_pred_github_v0.5.1` a teprve potom je nahradí.
+4. Pokud se otevře výběr složky, vyberte svoji stávající funkční složku **`TURTO_Izolacni_nosniky_v0.5.0`** nebo **`TURTO_Izolacni_nosniky_v0.4.0`**.
+5. Převod nejprve ověří nové programové soubory pomocí SHA-256, vytvoří zálohu změněných souborů v `.backup_pred_github_v0.5.1` a teprve potom je nahradí.
 6. Katalogová data Schöck + ISOPRO i ostatní původní soubory zůstanou zachované.
 7. Po dokončení se TURTO pokusí automaticky spustit přes stávající **`Spustit_program.vbs`**.
 
@@ -24,7 +24,7 @@ Je potřeba běžný 64bitový Python pro Windows s Tkinterem. Převod použív�
 V konzoli se zobrazí přibližně:
 
 ```text
-TURTO - převod v0.4.0 na GitHub verzi v0.5.1
+TURTO - převod v0.4.0 / v0.5.0 na GitHub verzi v0.5.1
 Tento krok nestahuje instalační data z internetu.
 ...
   OK  app.pyw
