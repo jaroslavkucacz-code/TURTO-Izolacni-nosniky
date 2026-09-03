@@ -1,0 +1,116 @@
+c={
+                            'moment_class':product,'shear_class':sc,'concrete_min':concrete,'cover':cover,'height_mm':h,
+                            'designation':internal,'aliases':[source_des,f'MAX FRANK {source_des}',f'Egcobox {source_des}'],
+                            'results':[mres,sres],'source_pages':[pno],
+                            'insulation_thickness_mm':insulation,'compression_transfer':comp,
+                        }
+                        fam['records'].append(rec)
+                        # VS..V4 optionally also permitted as lifting version. Keep catalog caveat.
+                        if uplift and sc in {'VS','V1','V2','V3','V4'}:
+                            neg=uplift(cover,int(h)) if callable(uplift) else float(uplift)
+                            if neg is not None:
+                                r2=dict(rec); r2['results']=[dict(mres), dict(sres)]
+                                sr2=r2['results'][1]
+                                if 'value' in sr2:
+                                    sr2.pop('value',None); sr2['positive']=float(sres.get('value',0)); sr2['negative']=-abs(float(neg))
+                                elif 'positive' in sr2:
+                                    sr2['negative']=-abs(float(neg))
+                                sc2=sc+'±'; r2['shear_class']=sc2
+                                source_des2=f'{product}{suffix}-{sc2}-{cover}-h{h}'
+                                r2['designation']=f'Egcobox® {source_des2} [{concrete}]'
+                                r2['aliases']=[source_des2,f'MAX FRANK {source_des2}',f'Egcobox {source_des2}']
+                                r2['notes']=['Varianta se zápornou (zdvihovou) smykovou silou dle poznámky v návrhové tabulce; ověřte geometrickou podmínku výšky/krytí.']
+                                fam['records'].append(r2)
+        families.append(fam)
+    return families
+
+def reinforcement_compression_map(pdf,pno,prefix):
+    p=pdf.pages[pno-1]
+    tables=p.extract_tables()
+    # use first table containing product names and compression data
+    for t in tables:
+        joined=' '.join(clean(x) for r in t for x in r)
+        if 'compression bearings' not in joined.lower() and 'compression bars' not in joined.lower():continue
+        # names may be first row after leading label
+        header=t[0]
+        text=' '.join(clean(x) for x in header)
+        names=re.findall(rf'\b{re.escape(prefix)}\d+(?:-K)?(?:±)?\b',text)
+        if not names:
+            # product names might be in previous design table not reinforcement merged row; infer number from bearing row impossible here
+            continue
+        bearing_row=next((r for r in t if 'compression bearings' in clean(r[0]).lower()),None)
+        bar_row=next((r for r in t if 'compression bars' in clean(r[0]).lower()),None)
+        out={}
+        offset=len(header)-len(names)
+        for j,n in enumerate(names):
+            idx=offset+j
+            b=clean(bearing_row[idx]) if bearing_row and idx<len(bearing_row) else ''
+            br=clean(bar_row[idx]) if bar_row and idx<len(bar_row) else ''
+            if b and b not in {'-','—'}: out[n]='betonová tlaková ložiska'
+            elif br and br not in {'-','—'}: out[n]='tlačené ocelové pruty'
+            else: out[n]='bez samostatných tlakových ložisek'
+        return out
+    return {}
+
+def parse_co_page(pdf,pno,prefix,concrete,insulation,series):
+    mt,st=pdf.pages[pno-1].extract_tables()[:2]
+    joined=' '.join(clean(x) for x in mt[0])
+    bases=[]
+    for n in re.findall(rf'\b{re.escape(prefix)}\d+-CO-[LR]\b',joined):
+        base=n[:-2]
+        if base not in bases:bases.append(base)
+    if not bases:
+        raise RuntimeError('CO product names were not found in table header')
+    covers=['C30','C35','C50']; second={'C30':'C45','C35':'C50','C50':'C65'}
+    # parse shear rows: values are 2 subcolumns per base
+    srows=[]; cur=''
+    for row in st[2:]:
+        if clean(row[1]):cur=clean(row[1])
+        if not cur:continue
+        srows.append((cur,[clean(row[2]),clean(row[3]),clean(row[4])],[clean(x) for x in row[5:]]))
+    classes=[]
+    for c,_,_ in srows:
+        if c not in classes:classes.append(c)
+    fam=family_common(series,f'{prefix}-CO',insulation,'Rohové balkónové prvky','tabulkové návrhové hodnoty únosnosti',[pno],'tlaková ložiska / tlačené ocelové pruty dle dílčího prvku')
+    for row in mt[4:]:
+        heights=[clean(row[1]),clean(row[2]),clean(row[3])]
+        for ci,(cover,h) in enumerate(zip(covers,heights)):
+            if not h.isdigit():continue
+            for bi,base in enumerate(bases):
+                m1=result_obj('m_rd_y_layer1','MRd 1. vrstva','moment',row[4+2*bi],'kNm/element')
+                m2=result_obj('m_rd_y_layer2','MRd 2. vrstva','moment',row[5+2*bi],'kNm/element')
+                if not (m1 or m2):continue
+                for sc in classes:
+                    sr=next((x for x in srows if x[0]==sc and in_range(h,x[1][ci])),None)
+                    if not sr:continue
+                    s1=result_obj('v_rd_z_layer1','VRd 1. vrstva','shear',sr[2][2*bi] if 2*bi<len(sr[2]) else '','kN/element')
+                    s2=result_obj('v_rd_z_layer2','VRd 2. vrstva','shear',sr[2][2*bi+1] if 2*bi+1<len(sr[2]) else '','kN/element')
+                    if not (s1 or s2):continue
+                    for lr in ['L','R']:
+                        mc=f'{base}-{lr}'
+                        src=f'{mc}-{sc}-{cover}-h{h}'
+                        fam['records'].append({
+                            'moment_class':mc,'shear_class':sc,'concrete_min':concrete,
+                            'cover':f'{cover} (2. vrstva {second[cover]})','height_mm':h,
+                            'designation':f'Egcobox® {src} [{concrete}]','aliases':[src,f'MAX FRANK {src}'],
+                            'results':[x for x in [m1,m2,s1,s2] if x], 'source_pages':[pno],
+                            'insulation_thickness_mm':insulation,'compression_transfer':'tlaková ložiska / tlačené ocelové pruty dle dílčího prvku',
+                            'notes':['Krytí v označení se vztahuje k 1. vrstvě; krytí 2. vrstvy je uvedeno v poli varianty.']
+                        })
+    return fam
+
+def parse_shear_family(pdf,pno,table_index,typ,insulation,series,concrete,compression):
+    t=pdf.pages[pno-1].extract_tables()[table_index]
+    names=[clean(x).replace('\n',' ') for x in t[0][3:] if clean(x)]
+    covers=['C30','C35','C50']
+    fam=family_common(series,typ,insulation,'Smykové prvky','tabulkové návrhové hodnoty smyku',[pno],compression)
+    # each type can appear across up to 3 height range rows
+    for row in t[5:]:
+        ranges=[clean(row[0]),clean(row[1]),clean(row[2])]
+        for ci,(cover,rg) in enumerate(zip(covers,ranges)):
+            for h in iter_range(rg):
+                for j,name in enumerate(names):
+                    cell=clean(row[3+j]) if 3+j<len(row) else ''
+                    sres=result_obj('v_rd_z','VRd','shear',cell,'kN/element')
+                    if not sres:continue
+       
