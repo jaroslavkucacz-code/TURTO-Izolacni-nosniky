@@ -1,45 +1,45 @@
 {
-  "version": "0.6.0",
-  "notes": "MAX FRANK Egcobox M/XL; tloušťka izolantu 80/120 mm; tlakový přenos; nové údaje v projektu, detailu a našeptávači.",
+  "version": "0.6.1",
+  "notes": "Beton projektu s výchozí preferencí C25/30 pro všechny výrobce; možnost přepočítat existující řádky na zvolený beton; zápis ± lze zadávat také jako +- nebo +/-. Obsah MAX FRANK z v0.6.0 zůstává zachován.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/app.pyw",
-      "sha256": "22afc144c2641268ee90d495488b4af9ee39c15c9ec9c5180a47292b394ae440"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.1/app.pyw",
+      "sha256": "d0dc6962b4386b1b28e3a74807543de69ab41b1e0b5c720eefd9cf6a13c62a54"
     },
     {
       "path": "catalog_engine.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/catalog_engine.py",
-      "sha256": "cb53697bb089ed8b8c6d88f8e8b00fb7c6c5a5f86353d11dc5b20515ca904a63"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.1/catalog_engine.py",
+      "sha256": "1bcecf6c6bd3d70fddbfa1b484d2da9bf65bc440db87ac0eb88926ec54330bca"
     },
     {
       "path": "project_model.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/project_model.py",
-      "sha256": "b1e287e29364c265df8fed08c7c5631fba61d4170d9aa676e6c8b1a8fedfaf27"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.1/project_model.py",
+      "sha256": "ea9794cec924f5720f3565548e05d158a5eaa9bbf5a74cb0c58e3252ba8eca92"
     },
     {
       "path": "project_ui.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/project_ui.py",
-      "sha256": "f5d5839078d4e6a230c5c9b36d1bf9cad40ac85078c15f05b0c7d0f286e1903f"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.1/project_ui.py",
+      "sha256": "f0f3e08aeed3ea34f87bfe297a9075eae2ec11e5d6c4f1198971d7bd5260ae34"
     },
     {
       "path": "autocomplete.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/autocomplete.py",
-      "sha256": "80ba8b6518bc540a81ff7ae048e3672c00028b4cf0855449137028a609e7e197"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.1/autocomplete.py",
+      "sha256": "3e50f958a0040490e8002053c53695c6154acbe2e765111ece3525a30511b873"
     },
     {
       "path": "updater.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/updater.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.1/updater.py",
       "sha256": "67ae0ac3a4d908992adc05532584166bf4a42f792317508d502317c3f2b8fd05"
     },
     {
       "path": "catalogs/maxfrank_egcobox_m_2022.json.gz.b64",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/catalogs/maxfrank_egcobox_m_2022.json.gz.b64",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.1/catalogs/maxfrank_egcobox_m_2022.json.gz.b64",
       "sha256": "ef2a12a092eaf7ab124ad415065617dd782743a0d64e5082e229d406237da7f6"
     },
     {
       "path": "catalogs/maxfrank_egcobox_xl_2022.json.gz.b64",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/catalogs/maxfrank_egcobox_xl_2022.json.gz.b64",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.1/catalogs/maxfrank_egcobox_xl_2022.json.gz.b64",
       "sha256": "96db8b4770952fe1c9e1f3723c9415db32af056b17a06c1726bef11c469e924a"
     }
   ]
