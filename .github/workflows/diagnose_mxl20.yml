@@ -1,0 +1,52 @@
+name: Diagnose MXL20 V6 C30 h200
+
+on:
+  push:
+    paths:
+      - ".github/workflows/diagnose_mxl20.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Inspect current v0.6.1 catalog
+        run: |
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          root=Path.cwd()
+          sys.path.insert(0, str(root/'updates'/'0.6.1'))
+          from catalog_engine import CatalogDatabase
+          db=CatalogDatabase(root/'updates'/'0.6.1'/'catalogs')
+          fams=[f for f in db.families if f.get('manufacturer')=='MAX FRANK' and f.get('model')=='XL' and f.get('type')=='MXL']
+          print('families', len(fams))
+          for fam in fams:
+              print('catalog', fam.get('catalog_id'), 'backend', fam.get('backend'))
+              print('MXL20 concretes', db.concrete_classes(fam,'MXL20'))
+              for concrete in db.concrete_classes(fam,'MXL20'):
+                  shears=db.shear_classes(fam,'MXL20',concrete)
+                  print('concrete',concrete,'shears',shears)
+                  for sc in shears:
+                      if sc in {'V6±','V6','V6+-','V6+/-'}:
+                          print(' shear',sc,'covers',db.covers(fam,'MXL20',concrete,sc))
+                          for cv in db.covers(fam,'MXL20',concrete,sc):
+                              hs=db.heights(fam,'MXL20',concrete,cv,sc)
+                              print('  ',cv,'h around 200',[h for h in hs if str(h) in {'185','190','195','200','205','210','215','220'}])
+                              if cv=='C30' and '200' in [str(h) for h in hs]:
+                                  q=db.query(catalog_id=str(fam['catalog_id']),manufacturer='MAX FRANK',model='XL',type_name='MXL',generation=str(fam['generation']),moment_class='MXL20',concrete_min=concrete,shear_class=sc,cover='C30',height_mm='200')
+                                  print('FOUND',q.designation,q.all_results_text)
+          for text in ['MXL20-V6±-C30-h200','MXL20-V6+-C30-h200','EGCOBOX MXL20-V6±-C30-h200-REI120-SW']:
+              try:
+                  q=db.resolve_designation(text, preferred_concrete='C25/30')
+                  print('RESOLVE OK',text,'=>',q.designation)
+              except Exception as exc:
+                  print('RESOLVE FAIL',text,'=>',type(exc).__name__,exc)
+          PY
