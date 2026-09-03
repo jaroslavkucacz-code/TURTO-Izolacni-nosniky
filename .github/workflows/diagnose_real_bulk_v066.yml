@@ -1,0 +1,19 @@
+name: Diagnose real Egcobox bulk v0.6.6
+
+on:
+  push:
+    paths:
+      - ".github/workflows/diagnose_real_bulk_v066.yml"
+      - "tools/diagnose_real_bulk_v066.py"
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run real bulk diagnostic
+        run: python tools/diagnose_real_bulk_v066.py
