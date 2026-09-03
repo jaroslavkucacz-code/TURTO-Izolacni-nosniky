@@ -1,0 +1,120 @@
+® {src} [{concrete}]','aliases':[src,name], 'results':vals,'source_pages':[pno],
+                    'insulation_thickness_mm':insulation,'compression_transfer':'dle modulu – viz výztuž'
+                })
+    return fam
+
+def merge_family_records(families):
+    # combine same model/type/generation families from C25+C20 pages
+    merged={}
+    for f in families:
+        key=(f['manufacturer'],f['model'],f['type'],f['generation'])
+        if key not in merged:
+            merged[key]=f
+        else:
+            merged[key]['records'].extend(f['records'])
+            merged[key]['source_pages']=sorted(set(merged[key]['source_pages'])|set(f['source_pages']))
+            # merge notes
+            if f.get('notes'):
+                merged[key].setdefault('notes',[])
+                for n in f['notes']:
+                    if n not in merged[key]['notes']: merged[key]['notes'].append(n)
+    return list(merged.values())
+
+def package(path,series,insulation,prefix,vprefix,aprefix,fprefix,oprefix):
+    allf=[]
+    with pdfplumber.open(path) as pdf:
+        # compression maps from reinforcement pages (standard); explicit fallback by product high classes if parser can't infer
+        cmap_std=reinf_std_map(pdf,5,prefix)
+        cmap_hvs={n:'betonová tlaková ložiska' for n in product_names_main(pdf.pages[14-1].extract_tables()[0],prefix)}
+        cmap_bh={n:'betonová tlaková ložiska' for n in product_names_main(pdf.pages[22-1].extract_tables()[0],prefix)}
+        cmap_pm={n:'tlačené ocelové pruty' for n in product_names_main(pdf.pages[29-1].extract_tables()[0],prefix)}
+        def uplift_m(cover,h): return 24.3
+        def uplift_xl(cover,h):
+            boundary={'C30':190,'C35':195,'C50':210}[cover]
+            return 18.2 if h<=boundary else 24.3
+        uplift=uplift_m if insulation==80 else uplift_xl
+        for concrete,base in [('C25/30',0),('C20/25',46)]:
+            allf += parse_main_page(pdf,4+base,prefix,concrete,[''],insulation,series,cmap_std,uplift)
+            allf.append(parse_co_page(pdf,11+base,prefix,concrete,insulation,series))
+            allf += parse_main_page(pdf,14+base,prefix,concrete,['HVS','WOS'],insulation,series,cmap_hvs,uplift)
+            allf += parse_main_page(pdf,22+base,prefix,concrete,['BH','WU','BHS','WUS'],insulation,series,cmap_bh,uplift)
+            allf += parse_main_page(pdf,29+base,prefix,concrete,[''],insulation,series,cmap_pm,None)
+            # Rename ± family type after parse so it doesn't merge with standard
+            allf[-1]['type']=prefix+'±'
+            # shear-only tables
+            p_vm=33+base; allf.append(parse_shear_family(pdf,p_vm,0,vprefix,insulation,series,concrete,'betonová tlaková ložiska'))
+            allf.append(parse_shear_family(pdf,p_vm,2,vprefix+'-K',insulation,series,concrete,'betonová tlaková ložiska'))
+            p_pm=35+base; allf.append(parse_shear_family(pdf,p_pm,0,vprefix+'±',insulation,series,concrete,'betonová tlaková ložiska'))
+            allf.append(parse_shear_family(pdf,p_pm,2,vprefix+'-K±',insulation,series,concrete,'betonová tlaková ložiska'))
+            p_z=37+base; allf.append(parse_shear_family(pdf,p_z,0,vprefix+' Z',insulation,series,concrete,'bez tlakových ložisek'))
+            allf.append(parse_shear_family(pdf,p_z,2,vprefix+' Z-K',insulation,series,concrete,'bez tlakových ložisek'))
+            allf.append(parse_eccentric(pdf,40+base,vprefix+' – excentrické připojení',insulation,series,concrete))
+            allf.append(parse_module(pdf,47+base,prefix,insulation,series,concrete))
+        # AM/FM/OM from first occurrence, contain both concrete strengths
+        allf.append(parse_interaction_family(pdf,41,aprefix,insulation,series,'AM'))
+        allf.append(parse_interaction_family(pdf,43,fprefix,insulation,series,'FM'))
+        allf.append(parse_om(pdf,45,oprefix,insulation,series))
+    allf=merge_family_records(allf)
+    # source pages for AM/FM/OM also duplicated in second section
+    for f in allf:
+        if f['type']==aprefix:f['source_pages']=sorted(set(f['source_pages']+[87]))
+        if f['type']==fprefix:f['source_pages']=sorted(set(f['source_pages']+[89]))
+        if f['type']==oprefix:f['source_pages']=sorted(set(f['source_pages']+[91]))
+        # ensure unique record keys
+        seen=set(); unique=[]
+        for r in f['records']:
+            key=(r['moment_class'],r['shear_class'],r['concrete_min'],r['cover'],r['height_mm'])
+            if key in seen:
+                # If duplicate only because same named family from C25/C20 parsing issue, skip exact duplicates
+                continue
+            seen.add(key); unique.append(r)
+        f['records']=unique
+    catalog={
+        'id':f'maxfrank-egcobox-{series.lower().replace(" ","-")}-eta-19-0046-2022',
+        'manufacturer':'MAX FRANK','title':f'MAX FRANK Egcobox® {series}',
+        'edition':'International / ETA-19/0046','publication_date':'2022-10-24','publication_label':'2022-10-24',
+        'language':'en','country_scope':['EU'],'source_filename':Path(path).name,
+        'source_reference':'uživatelem dodaný katalog MAX FRANK','status':'zdrojové vydání',
+        'notes':[f'Tloušťka tepelné izolace {insulation} mm.','Obsahuje návrhové tabulky pro beton C25/30 a C20/25.']
+    }
+    return {'schema_version':2,'catalog':catalog,'families':allf}
+
+def reinf_std_map(pdf,pno,prefix):
+    # page 5/51 table 0 contains product list in first row and pressure rows
+    tables=pdf.pages[pno-1].extract_tables()
+    t=tables[0]
+    header=t[0]
+    names=[]
+    # first cell label then product cells? inspect all cells and regex
+    for cell in header:
+        for n in re.findall(rf'\b{re.escape(prefix)}\d+(?:-K)?\b',clean(cell)):
+            if n not in names:names.append(n)
+    # If header table omits prefix due extraction, fallback from design page
+    if not names:
+        names=product_names_main(pdf.pages[(4 if pno<50 else 50)-1].extract_tables()[0],prefix)
+    bearing=next((r for r in t if 'compression bearings' in clean(r[0]).lower()),None)
+    bars=next((r for r in t if 'compression bars' in clean(r[0]).lower()),None)
+    # value cells align after first cell
+    out={}
+    for j,n in enumerate(names):
+        idx=1+j
+        b=clean(bearing[idx]) if bearing and idx<len(bearing) else ''
+        s=clean(bars[idx]) if bars and idx<len(bars) else ''
+        if b and b not in {'-','—'}:out[n]='betonová tlaková ložiska'
+        elif s and s not in {'-','—'}:out[n]='tlačené ocelové pruty'
+        else:out[n]='dle typu – viz katalog'
+    # robust known standard split from reinforcement table if alignment failed
+    return out
+
+def save_package(pkg,out):
+    raw=json.dumps(pkg,ensure_ascii=False,separators=(',',':')).encode('utf-8')
+    txt=base64.b64encode(gzip.compress(raw,compresslevel=9)).decode('ascii')
+    Path(out).write_text(txt,encoding='ascii')
+    return len(raw),len(txt),hashlib.sha256(txt.encode()).hexdigest()
+
+
+import base64,gzip,json,hashlib
+from pathlib import Path
+
+ROOT=WORK
+MATRIX_TYPES_M={'MM','MM-CO','MM-HVS','MM-
