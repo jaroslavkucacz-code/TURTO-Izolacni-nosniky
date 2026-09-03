@@ -1,0 +1,6 @@
+TURTO v0.6.8
+- Hromadné vložení umí přímo formát Popis | jednotka | množství z rozpočtů a výkazů výměr.
+- Množství jako 86,000 / 2,000 se bezpečně převede na 86 / 2 ks; nenulové zlomkové množství se odmítne.
+- Prefix 'M+D Nosný tepelně izolační prvek' se při vyhledání ignoruje.
+- Technické označení Schöck zůstává celé: generace 5.3, 5.0, 7.2, 6.2 a 1.0 se nikdy neodřezává.
+- Přidány regresní testy přesně pro šest skutečných řádků Schöck dodaných z výkazu.
