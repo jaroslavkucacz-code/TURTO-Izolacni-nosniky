@@ -22,6 +22,23 @@ jobs:
         run: python -m pip install --disable-pip-version-check pdfplumber==0.11.7
       - name: Reassemble release builder
         run: cat release_builder_parts/part_*.txt > /tmp/build_v060_release.py
+      - name: Normalize split-boundary indentation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('/tmp/build_v060_release.py')
+          s = p.read_text(encoding='utf-8')
+          s, n = re.subn(
+              r"(if not sres:continue)\n +src=f'\{name\}-\{cover\}-h\{h\}'",
+              r"\1\n                    src=f'{name}-{cover}-h{h}'",
+              s,
+              count=1,
+          )
+          if n != 1:
+              raise SystemExit('Expected split-boundary pattern was not found exactly once')
+          p.write_text(s, encoding='utf-8')
+          PY
       - name: Build and verify v0.6.0
         run: python /tmp/build_v060_release.py
       - name: Commit generated update
