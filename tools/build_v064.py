@@ -4,6 +4,7 @@ import hashlib
 import json
 import py_compile
 import shutil
+from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,16 +29,8 @@ def patch_app(s: str) -> str:
 
 
 def patch_engine(s: str) -> str:
-    # A-IP / A-IPQ / ... must be parsed even when the user omits the word ISOPRO.
-    s = replace_once(
-        s,
-        '        if "ISOPRO" in n:\n',
-        '        if "ISOPRO" in n or re.search(r"\\bA[\\s-]*IP", n):\n',
-        "ISOPRO designation detection",
-    )
-
     marker = '''    def _matrix_suggestions(self, text: str, preferred_catalog_id: str | None, limit: int, preferred_concrete: str | None = None) -> list[DesignationSuggestion]:\n'''
-    helper = '''    def _structured_record_suggestions(self, text: str, preferred_catalog_id: str | None,\n                                       preferred_concrete: str | None, limit: int) -> list[DesignationSuggestion]:\n        """Strict partial matching for designations whose technical selectors are already recognizable.\n\n        Once type + moment are explicitly present, only parameters actually written by the user are\n        constrained. Missing parameters intentionally remain free so the popup offers only the real\n        alternatives for the missing selector (height, shear, cover, generation, ...).\n        """\n        parsed = self.parse_designation(text)\n        if not parsed.get("type") or not parsed.get("moment_class"):\n            return []\n\n        family_fields = ("manufacturer", "model", "type", "generation")\n        record_fields = ("moment_class", "shear_class", "concrete_min", "cover", "height_mm")\n        families = [f for f in self.families if f.get("backend") != "matrix"]\n        for key in family_fields:\n            value = parsed.get(key)\n            if value not in (None, ""):\n                families = [f for f in families if str(f.get(key, "")) == str(value)]\n\n        if preferred_catalog_id:\n            preferred = [f for f in families if str(f.get("catalog_id")) == str(preferred_catalog_id)]\n            if preferred:\n                families = preferred\n\n        matches: list[DesignationSuggestion] = []\n        selector_count = sum(1 for key in (*family_fields, *record_fields) if parsed.get(key) not in (None, ""))\n        for family in families:\n            for record in family.get("records", []):\n                if preferred_concrete and str(record.get("concrete_min", "")) != str(preferred_concrete):\n                    continue\n                if any(\n                    parsed.get(key) not in (None, "") and str(record.get(key, "")) != str(parsed[key])\n                    for key in record_fields\n                ):\n                    continue\n                matches.append(DesignationSuggestion(self.result_for_record(family, record), 350.0 + 15.0 * selector_count))\n\n        best: dict[str, DesignationSuggestion] = {}\n        for item in matches:\n            key = _normalise(item.designation)\n            if key not in best or item.score > best[key].score:\n                best[key] = item\n        return sorted(best.values(), key=lambda x: natural_key(x.designation))[:limit]\n\n''' + marker
+    helper = '''    def _explicit_selector_constraints(self, text: str) -> dict[str, set[str]]:\n        """Catalog-driven selectors that are explicitly present in the typed designation."""\n        n = _normalise(text)\n        q_tokens = set(self._suggestion_tokens(text))\n        constraints: dict[str, set[str]] = {}\n\n        def find_values(values: Iterable[Any]) -> set[str]:\n            ranked: list[tuple[int, int, str]] = []\n            for raw in values:\n                value = str(raw or "").strip()\n                if not value or value == "—":\n                    continue\n                nv = _normalise(value)\n                compact = self._suggestion_compact(value)\n                score = 0\n                if nv and re.search(rf"(?<![A-Z0-9]){re.escape(nv)}(?![A-Z0-9])", n):\n                    score = 3\n                elif compact and compact in q_tokens:\n                    score = 2\n                if score:\n                    ranked.append((score, len(compact), value))\n            if not ranked:\n                return set()\n            best_score = max(x[0] for x in ranked)\n            best_len = max(x[1] for x in ranked if x[0] == best_score)\n            return {value for score, length, value in ranked if score == best_score and length == best_len}\n\n        non_matrix = [f for f in self.families if f.get("backend") != "matrix"]\n        for key in ("manufacturer", "model", "type", "generation"):\n            found = find_values(f.get(key) for f in non_matrix)\n            if found:\n                constraints[key] = found\n\n        records = [r for f in non_matrix for r in f.get("records", [])]\n        for key in ("moment_class", "shear_class", "cover"):\n            found = find_values(r.get(key) for r in records)\n            if found:\n                constraints[key] = found\n\n        concrete_match = re.search(r"C\\s*(\\d{2})\\s*/\\s*(\\d{2})", n)\n        if concrete_match:\n            constraints["concrete_min"] = {f"C{concrete_match.group(1)}/{concrete_match.group(2)}"}\n\n        height_match = re.search(r"\\bH\\s*(\\d{3,4})\\b", n)\n        if height_match:\n            constraints["height_mm"] = {height_match.group(1)}\n\n        insulation_match = re.search(r"\\b(80|120)\\s*MM\\b", n)\n        if insulation_match:\n            constraints["insulation_thickness_mm"] = {insulation_match.group(1)}\n\n        return constraints\n\n    def _structured_record_suggestions(self, text: str, preferred_catalog_id: str | None,\n                                       preferred_concrete: str | None, limit: int) -> list[DesignationSuggestion]:\n        """Vary only selectors that are not explicitly present in a recognizable partial designation."""\n        constraints = self._explicit_selector_constraints(text)\n        technical = {"model", "type", "moment_class", "shear_class", "cover", "height_mm", "generation"}\n        if not constraints.get("moment_class") or len(technical.intersection(constraints)) < 2:\n            return []\n\n        families = [f for f in self.families if f.get("backend") != "matrix"]\n        for key in ("manufacturer", "model", "type", "generation"):\n            allowed = constraints.get(key)\n            if allowed:\n                families = [f for f in families if str(f.get(key, "")) in allowed]\n\n        if preferred_catalog_id:\n            preferred = [f for f in families if str(f.get("catalog_id")) == str(preferred_catalog_id)]\n            if preferred:\n                families = preferred\n\n        matches: list[DesignationSuggestion] = []\n        for family in families:\n            for record in family.get("records", []):\n                if preferred_concrete and str(record.get("concrete_min", "")) != str(preferred_concrete):\n                    continue\n                ok = True\n                for key in ("moment_class", "shear_class", "concrete_min", "cover", "height_mm"):\n                    allowed = constraints.get(key)\n                    if allowed and str(record.get(key, "")) not in allowed:\n                        ok = False\n                        break\n                if not ok:\n                    continue\n                insulation = constraints.get("insulation_thickness_mm")\n                if insulation:\n                    actual = record.get("insulation_thickness_mm", family.get("insulation_thickness_mm"))\n                    if str(actual) not in insulation:\n                        continue\n                matches.append(DesignationSuggestion(self.result_for_record(family, record), 350.0 + 15.0 * len(constraints)))\n\n        best: dict[str, DesignationSuggestion] = {}\n        for item in matches:\n            key = _normalise(item.designation)\n            if key not in best or item.score > best[key].score:\n                best[key] = item\n        return sorted(best.values(), key=lambda x: natural_key(x.designation))[:limit]\n\n''' + marker
     s = replace_once(s, marker, helper, "structured partial suggestion helper")
 
     old = '''            products = self.moment_classes(fam)\n            if not products: continue\n            product_rank=[]\n'''
@@ -53,7 +46,7 @@ def patch_engine(s: str) -> str:
     s = replace_once(s, old, new, "matrix explicit shear restriction")
 
     old = '''        raw = str(text or "").strip()\n        if not raw or len(self._suggestion_compact(raw)) < 2:\n            return []\n        q_tokens = self._suggestion_tokens(raw)\n'''
-    new = '''        raw = str(text or "").strip()\n        if not raw or len(self._suggestion_compact(raw)) < 2:\n            return []\n\n        parsed = self.parse_designation(raw)\n        if preferred_concrete and parsed.get("concrete_min") and str(parsed.get("concrete_min")) != str(preferred_concrete):\n            return []\n\n        # Exact designation or alias: do not clutter the popup with merely similar products.\n        exact_pairs = list(self._designation_index.get(_normalise(raw), []))\n        if preferred_catalog_id:\n            preferred_pairs = [x for x in exact_pairs if str(x[0].get("catalog_id")) == str(preferred_catalog_id)]\n            if preferred_pairs:\n                exact_pairs = preferred_pairs\n        if preferred_concrete:\n            exact_pairs = [x for x in exact_pairs if str(x[1].get("concrete_min", "")) == str(preferred_concrete)]\n        if exact_pairs:\n            exact_out: list[DesignationSuggestion] = []\n            seen_exact: set[str] = set()\n            for family, record in exact_pairs:\n                item = DesignationSuggestion(self.result_for_record(family, record), 1000.0)\n                key = _normalise(item.designation)\n                if key not in seen_exact:\n                    seen_exact.add(key)\n                    exact_out.append(item)\n            if exact_out:\n                return exact_out[:limit]\n\n        # Recognizable partial designation: vary only selectors the user did NOT specify.\n        structured = self._structured_record_suggestions(raw, preferred_catalog_id, preferred_concrete, limit)\n        if structured:\n            return structured[:limit]\n\n        q_tokens = self._suggestion_tokens(raw)\n'''
+    new = '''        raw = str(text or "").strip()\n        if not raw or len(self._suggestion_compact(raw)) < 2:\n            return []\n\n        constraints = self._explicit_selector_constraints(raw)\n        if preferred_concrete and constraints.get("concrete_min") and str(preferred_concrete) not in constraints["concrete_min"]:\n            return []\n\n        # Exact designation or alias: do not clutter the popup with merely similar products.\n        exact_pairs = list(self._designation_index.get(_normalise(raw), []))\n        if preferred_catalog_id:\n            preferred_pairs = [x for x in exact_pairs if str(x[0].get("catalog_id")) == str(preferred_catalog_id)]\n            if preferred_pairs:\n                exact_pairs = preferred_pairs\n        if preferred_concrete:\n            exact_pairs = [x for x in exact_pairs if str(x[1].get("concrete_min", "")) == str(preferred_concrete)]\n        if exact_pairs:\n            exact_out: list[DesignationSuggestion] = []\n            seen_exact: set[str] = set()\n            for family, record in exact_pairs:\n                item = DesignationSuggestion(self.result_for_record(family, record), 1000.0)\n                key = _normalise(item.designation)\n                if key not in seen_exact:\n                    seen_exact.add(key)\n                    exact_out.append(item)\n            if exact_out:\n                return exact_out[:limit]\n\n        # Recognizable partial designation: vary only selectors the user did NOT specify.\n        structured = self._structured_record_suggestions(raw, preferred_catalog_id, preferred_concrete, limit)\n        if structured:\n            return structured[:limit]\n\n        q_tokens = self._suggestion_tokens(raw)\n'''
     s = replace_once(s, old, new, "specificity-aware suggestion fast path")
     return s
 
@@ -71,7 +64,7 @@ def main() -> None:
     (OUT / "RELEASE_NOTES.txt").write_text(
         "TURTO v0.6.4\n"
         "- Našeptávač respektuje všechny parametry, které jsou už v názvu zadané.\n"
-        "- Pokud typ + moment + smyk + krytí + výška určují konkrétní prvek, nezobrazuje jiné typy.\n"
+        "- Pokud zadané parametry určují konkrétní prvek, nezobrazuje jiné typy.\n"
         "- Pokud některý parametr chybí, nabízejí se pouze skutečné varianty tohoto chybějícího parametru.\n"
         "- Beton projektu zůstává striktním filtrem.\n",
         encoding="utf-8",
@@ -86,41 +79,67 @@ def main() -> None:
 
     db = engine.CatalogDatabase(OUT / "catalogs")
 
-    # Full Schöck designation must collapse to the specified technical combination only.
-    full_schock = db.suggest_designations(
-        "XT typ KL-M8-V2-CV1-H220-6.2", preferred_concrete="C25/30", limit=12
-    )
-    assert full_schock, "No Schöck suggestions"
-    assert all(str(x.result.family.get("model")) == "XT" for x in full_schock)
-    assert all(str(x.result.family.get("type")) == "KL" for x in full_schock)
-    assert all(str(x.result.record.get("moment_class")) == "M8" for x in full_schock)
-    assert all(str(x.result.record.get("shear_class")) == "V2" for x in full_schock)
-    assert all(str(x.result.record.get("cover")) == "CV1" for x in full_schock)
-    assert all(str(x.result.record.get("height_mm")) == "220" for x in full_schock)
-    assert all(str(x.result.record.get("concrete_min")) == "C25/30" for x in full_schock)
+    # Pick a real non-matrix group with at least two heights so the test reflects actual catalog data.
+    groups: dict[tuple[int, str, str, str, str], list[tuple[dict, dict]]] = defaultdict(list)
+    for family in db.families:
+        if family.get("backend") == "matrix":
+            continue
+        for record in family.get("records", []):
+            required = [record.get("moment_class"), record.get("shear_class"), record.get("concrete_min"), record.get("cover"), record.get("height_mm")]
+            if any(x in (None, "", "—") for x in required):
+                continue
+            key = (id(family), str(record["moment_class"]), str(record["shear_class"]), str(record["concrete_min"]), str(record["cover"]))
+            groups[key].append((family, record))
 
-    # Missing height may vary height, but not type/moment/shear/cover.
-    partial_schock = db.suggest_designations(
-        "XT typ KL-M8-V2-CV1-6.2", preferred_concrete="C25/30", limit=12
-    )
-    assert partial_schock, "No partial Schöck suggestions"
-    assert all(str(x.result.family.get("type")) == "KL" for x in partial_schock)
-    assert all(str(x.result.record.get("moment_class")) == "M8" for x in partial_schock)
-    assert all(str(x.result.record.get("shear_class")) == "V2" for x in partial_schock)
-    assert all(str(x.result.record.get("cover")) == "CV1" for x in partial_schock)
+    standard_group = None
+    for items in groups.values():
+        heights = {str(record.get("height_mm")) for _family, record in items}
+        family = items[0][0]
+        if len(heights) >= 2 and str(family.get("type", "")) not in ("", "—") and str(family.get("model", "")) not in ("", "—"):
+            standard_group = items
+            break
+    assert standard_group, "No suitable standard catalog group for v0.6.4 regression test"
 
-    # MAX FRANK: an explicit product level must never fall back to other product levels.
-    full_mxl = db.suggest_designations(
-        "MXL20 V6+- C30 h200", preferred_concrete="C25/30", limit=12
-    )
+    family, record = standard_group[0]
+    generation = str(family.get("generation", ""))
+    common_parts = [
+        str(family.get("model", "")), str(family.get("type", "")),
+        str(record.get("moment_class", "")), str(record.get("shear_class", "")), str(record.get("cover", "")),
+    ]
+    if generation not in ("", "—"):
+        common_parts.append(generation)
+    full_text = " ".join(common_parts + [f"H{record.get('height_mm')}"])
+    concrete = str(record.get("concrete_min"))
+
+    full_standard = db.suggest_designations(full_text, preferred_concrete=concrete, limit=12)
+    assert full_standard, f"No full standard suggestions for {full_text!r}"
+    assert all(str(x.result.family.get("model")) == str(family.get("model")) for x in full_standard)
+    assert all(str(x.result.family.get("type")) == str(family.get("type")) for x in full_standard)
+    assert all(str(x.result.record.get("moment_class")) == str(record.get("moment_class")) for x in full_standard)
+    assert all(str(x.result.record.get("shear_class")) == str(record.get("shear_class")) for x in full_standard)
+    assert all(str(x.result.record.get("cover")) == str(record.get("cover")) for x in full_standard)
+    assert all(str(x.result.record.get("height_mm")) == str(record.get("height_mm")) for x in full_standard)
+    assert all(str(x.result.record.get("concrete_min")) == concrete for x in full_standard)
+
+    partial_text = " ".join(common_parts)
+    partial_standard = db.suggest_designations(partial_text, preferred_concrete=concrete, limit=12)
+    assert partial_standard, f"No partial standard suggestions for {partial_text!r}"
+    assert all(str(x.result.family.get("model")) == str(family.get("model")) for x in partial_standard)
+    assert all(str(x.result.family.get("type")) == str(family.get("type")) for x in partial_standard)
+    assert all(str(x.result.record.get("moment_class")) == str(record.get("moment_class")) for x in partial_standard)
+    assert all(str(x.result.record.get("shear_class")) == str(record.get("shear_class")) for x in partial_standard)
+    assert all(str(x.result.record.get("cover")) == str(record.get("cover")) for x in partial_standard)
+    assert all(str(x.result.record.get("concrete_min")) == concrete for x in partial_standard)
+    assert len({str(x.result.record.get("height_mm")) for x in partial_standard}) >= 2, "Missing height should offer height variants"
+
+    # MAX FRANK: explicit product level and other written selectors remain binding.
+    full_mxl = db.suggest_designations("MXL20 V6+- C30 h200", preferred_concrete="C25/30", limit=12)
     assert full_mxl, "No MXL20 suggestions"
     assert all(str(x.result.record.get("moment_class")) == "MXL20" for x in full_mxl)
     assert all(str(x.result.record.get("height_mm")) == "200" for x in full_mxl)
     assert all(str(x.result.record.get("concrete_min")) == "C25/30" for x in full_mxl)
 
-    partial_mxl = db.suggest_designations(
-        "MXL20 V6+- C30", preferred_concrete="C25/30", limit=12
-    )
+    partial_mxl = db.suggest_designations("MXL20 V6+- C30", preferred_concrete="C25/30", limit=12)
     assert partial_mxl, "No partial MXL20 suggestions"
     assert all(str(x.result.record.get("moment_class")) == "MXL20" for x in partial_mxl)
     assert all(str(x.result.record.get("concrete_min")) == "C25/30" for x in partial_mxl)
@@ -141,15 +160,13 @@ def main() -> None:
     manifest = {
         "version": "0.6.4",
         "notes": (
-            "Přesnější našeptávač: zadané parametry (typ, moment, smyk, krytí, výška, generace) "
+            "Přesnější našeptávač: zadané parametry (typ, moment, smyk, krytí, výška, generace i explicitní tloušťka izolantu) "
             "jsou nyní závazné a program nabízí pouze varianty parametrů, které v názvu skutečně chybí. "
             "Beton projektu zůstává striktním filtrem."
         ),
         "files": manifest_files,
     }
-    (ROOT / "update_manifest.json").write_text(
-        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+    (ROOT / "update_manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("v0.6.4 OK; specificity-aware designation filtering verified")
 
 
