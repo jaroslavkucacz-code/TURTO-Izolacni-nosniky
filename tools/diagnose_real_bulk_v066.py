@@ -33,14 +33,33 @@ ROWS = [
 
 def main() -> None:
     db = engine.CatalogDatabase(BASE / "catalogs")
-    print("=== RELEVANT MATRIX FAMILIES ===")
+    print("=== RELEVANT FAMILIES ===")
     for fam in db.families:
-        if fam.get("backend") != "matrix":
-            continue
         label = " ".join(str(fam.get(k, "")) for k in ("manufacturer", "model", "type", "generation"))
-        if any(x in label.upper() for x in ("MXL-WU", "VXL")):
-            moments = db.moment_classes(fam)
-            print(label, "| moments=", moments[:20])
+        rec_designations = [str(r.get("designation", "")) for r in fam.get("records", [])]
+        if any(x in label.upper() for x in ("MXL-WU", "VXL")) or any("VXL" in d.upper() for d in rec_designations):
+            if fam.get("backend") == "matrix":
+                moments = db.moment_classes(fam)
+                print("MATRIX", label, "| moments=", moments[:30])
+            else:
+                print("RECORD", label, "| count=", len(rec_designations))
+                for r in fam.get("records", []):
+                    d = str(r.get("designation", ""))
+                    aliases = [str(a) for a in (r.get("aliases") or [])]
+                    if "VXL48" in d.upper() or any("VXL48" in a.upper() for a in aliases) or "VXL Z 48" in d.upper() or any("VXL Z 48" in a.upper() for a in aliases):
+                        print("   designation=", d)
+                        print("   aliases=", aliases)
+                        print("   selectors=", {k: r.get(k) for k in ("moment_class", "shear_class", "cover", "height_mm", "concrete_min")})
+
+    print("\n=== DIRECT SUGGESTIONS FOR VXL Z ===")
+    for q in (
+        "VXL Z 48-K-C30-h160",
+        "EGCOBOX VXL Z 48-K-C30-h160-REI120-SW",
+        "VXL48-K-C30-h160",
+        "EGCOBOX VXL48-K-C30-h160-REI120-SW",
+    ):
+        values = bulk.dedupe_suggestions(db.suggest_designations(q, preferred_concrete="C25/30", limit=100))
+        print(q, "=>", len(values), [v.result.designation for v in values[:12]])
 
     print("\n=== CURRENT v0.6.6 ANALYSIS ===")
     text = "\n".join(f"{name}\t{qty}" for name, qty in ROWS)
