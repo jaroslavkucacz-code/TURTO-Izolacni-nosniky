@@ -1,0 +1,5 @@
+TURTO v0.6.10
+- Hromadné vložení: každý nevyřešený řádek lze ručně označit „Neřešit – zadám ručně“.
+- Tento stav program nikdy nenastavuje automaticky a řádek se hromadně nevloží.
+- Ručně přeskočený řádek je šedý, nepočítá se mezi chyby a lze jej tlačítkem „Vrátit k řešení“ obnovit bez nové analýzy výkazu.
+- Při dokončení se ve stavovém řádku zobrazí počet položek ponechaných pro ruční zadání.
