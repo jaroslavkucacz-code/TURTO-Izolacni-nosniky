@@ -21,6 +21,18 @@ FILES = {
     "autocomplete.py": "49212e2fe6f9e61e1f19d6d972d08c7e1d4d5cc0632b649af62f29b7d1fa274b",
     "updater.py": "a1ac4e1b5c4a4604f7af22854b0cc96d3d7d503fe11f8379468b9542b1c59344",
 }
+PAYLOAD_PARTS = {
+    "app.pyw": [
+        "app.pyw.part01.txt",
+        "app.pyw.part02.txt",
+        "app.pyw.part03.txt",
+        "app.pyw.part04.txt",
+    ],
+    "catalog_engine.py": [
+        "catalog_engine.py.part01.txt",
+        "catalog_engine.py.part02.txt",
+    ],
+}
 VERSION_BYTES = b"0.5.1\n"
 
 
@@ -56,11 +68,24 @@ def choose_folder() -> Path | None:
     return Path(selected) if selected else None
 
 
-def decode_payload(name: str) -> bytes:
+def payload_text(name: str) -> str:
+    if name in PAYLOAD_PARTS:
+        pieces: list[str] = []
+        for rel in PAYLOAD_PARTS[name]:
+            src = PAYLOAD_DIR / rel
+            if not src.is_file():
+                raise RuntimeError(f"V instalačním ZIPu chybí {src.relative_to(HERE)}")
+            pieces.append(src.read_text(encoding="ascii").strip())
+        return "".join(pieces)
+
     src = PAYLOAD_DIR / f"{name}.zlib.b64"
     if not src.is_file():
         raise RuntimeError(f"V instalačním ZIPu chybí {src.relative_to(HERE)}")
-    compressed = base64.b64decode(src.read_text(encoding="ascii").strip(), validate=True)
+    return src.read_text(encoding="ascii").strip()
+
+
+def decode_payload(name: str) -> bytes:
+    compressed = base64.b64decode(payload_text(name), validate=True)
     data = zlib.decompress(compressed)
     digest = hashlib.sha256(data).hexdigest()
     if digest != FILES[name]:
@@ -90,6 +115,7 @@ def main() -> int:
         input("Stiskněte Enter pro ukončení...")
         return 1
 
+    print("Ověřuji instalační data...")
     try:
         decoded = {name: decode_payload(name) for name in FILES}
         decoded["version.txt"] = VERSION_BYTES
