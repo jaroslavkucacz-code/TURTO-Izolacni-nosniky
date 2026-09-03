@@ -1,0 +1,19 @@
+name: Diagnose real Schock bulk v0.6.7
+
+on:
+  push:
+    paths:
+      - ".github/workflows/diagnose_schock_bulk_v067.yml"
+      - "tools/diagnose_schock_bulk_v067.py"
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run Schock BOQ diagnostic
+        run: python tools/diagnose_schock_bulk_v067.py
