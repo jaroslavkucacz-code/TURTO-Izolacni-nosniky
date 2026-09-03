@@ -50,6 +50,14 @@ class Candidate:
 def _decode_payload(path: Path) -> dict[str, Any]:
     try:
         encoded = path.read_bytes()
+        # Pro online aktualizace může být velký datový soubor rozdělen do menších částí.
+        # Index je obyčejný JSON uložený pod cílovým názvem datového souboru.
+        if encoded.lstrip().startswith(b"{"):
+            index = json.loads(encoded.decode("utf-8"))
+            parts = list(index.get("parts") or [])
+            if not parts:
+                raise ValueError("Index databáze neobsahuje žádné části.")
+            encoded = b"".join((path.parent / str(name)).read_bytes().strip() for name in parts)
         raw = lzma.decompress(base64.b64decode(encoded, validate=True))
         payload = json.loads(raw.decode("utf-8"))
     except Exception as exc:
@@ -121,7 +129,6 @@ def _radial_utilization(record: dict[str, Any], m_abs: float, v_abs: float) -> f
     if v > TOL and m / v < RATIO_MIN_M - 1e-12:
         return None
     m1, v1, m2, _v2, _ = _effective_points(record)
-    # Simple safe upper bound for scaling the current load ray.
     bounds = []
     if m > TOL:
         bounds.append(m2 / m if m2 > 0 else 0.0)
@@ -130,10 +137,7 @@ def _radial_utilization(record: dict[str, Any], m_abs: float, v_abs: float) -> f
     hi = max(0.0, min(bounds) if bounds else 1.0)
     if hi <= TOL:
         return math.inf
-    # hi is on or outside the conservative envelope; binary search the radial boundary.
     lo = 0.0
-    # Numeric rounding can make the upper bound slightly inside. Expand a little, while respecting
-    # that the envelope cannot exceed the M2/V1 rectangle.
     hi *= 1.0000005
     for _ in range(70):
         mid = (lo + hi) / 2.0
@@ -168,7 +172,6 @@ def _variant_for_length(variants: Iterable[dict[str, Any]], preferred_length_mm:
         exact = [v for v in variants if int(v["length_mm"]) == int(preferred_length_mm)]
         if exact:
             return exact[0]
-    # Default: prefer 1000 mm, otherwise the longest available variant.
     return sorted(variants, key=lambda v: (int(v["length_mm"]) != 1000, -int(v["length_mm"]), v["code"]))[0]
 
 
@@ -228,7 +231,6 @@ def propose(
                 source_page=int(r["source_page"]),
                 check=check,
             ))
-    # Most structurally utilized passing solution first. Equivalent shorter variants are already grouped.
     def key(c: Candidate):
         u = c.check.utilization
         if c.check.passes:
