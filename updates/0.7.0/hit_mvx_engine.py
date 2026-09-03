@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import base64
-import gzip
+import lzma
 import json
 import math
 from dataclasses import dataclass
@@ -9,7 +9,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable
 
-DATA_FILE = "leviat_hit_mvx_07_23.json.gz.b64"
+DATA_FILE = "leviat_hit_mvx_07_23.json.xz.b64"
 RATIO_MIN_M = 0.15
 TOL = 1e-9
 
@@ -50,7 +50,7 @@ class Candidate:
 def _decode_payload(path: Path) -> dict[str, Any]:
     try:
         encoded = path.read_bytes()
-        raw = gzip.decompress(base64.b64decode(encoded, validate=True))
+        raw = lzma.decompress(base64.b64decode(encoded, validate=True))
         payload = json.loads(raw.decode("utf-8"))
     except Exception as exc:
         raise HitDataError(f"Nelze načíst databázi HIT: {exc}") from exc
