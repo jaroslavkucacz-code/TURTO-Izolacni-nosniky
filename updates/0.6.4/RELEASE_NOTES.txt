@@ -1,0 +1,5 @@
+TURTO v0.6.4
+- Našeptávač respektuje všechny parametry, které jsou už v názvu zadané.
+- Pokud zadané parametry určují konkrétní prvek, nezobrazuje jiné typy.
+- Pokud některý parametr chybí, nabízejí se pouze skutečné varianty tohoto chybějícího parametru.
+- Beton projektu zůstává striktním filtrem.
