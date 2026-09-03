@@ -46,21 +46,19 @@ def choose_folder() -> Path | None:
         if is_valid_folder(p):
             return p
 
-    guesses = [
-        HERE / "TURTO_Izolacni_nosniky_v0.4.0",
-        HERE.parent / "TURTO_Izolacni_nosniky_v0.4.0",
-        Path.home() / "Documents" / "TURTO_Izolacni_nosniky_v0.4.0",
-        Path.home() / "Downloads" / "TURTO_Izolacni_nosniky_v0.4.0",
-    ]
-    for guess in guesses:
-        if is_valid_folder(guess):
-            return guess
+    names = ["TURTO_Izolacni_nosniky_v0.5.0", "TURTO_Izolacni_nosniky_v0.4.0"]
+    roots = [HERE, HERE.parent, Path.home() / "Documents", Path.home() / "Downloads"]
+    for root in roots:
+        for name in names:
+            guess = root / name
+            if is_valid_folder(guess):
+                return guess
 
     root = tk.Tk()
     root.withdraw()
     root.attributes("-topmost", True)
     selected = filedialog.askdirectory(
-        title="Vyberte složku TURTO_Izolacni_nosniky_v0.4.0",
+        title="Vyberte vaši funkční složku TURTO v0.4.0 nebo v0.5.0",
         initialdir=str(Path.home()),
         mustexist=True,
     )
@@ -94,9 +92,9 @@ def decode_payload(name: str) -> bytes:
 
 
 def main() -> int:
-    print("TURTO - převod v0.4.0 na GitHub verzi v0.5.1")
+    print("TURTO - převod v0.4.0 / v0.5.0 na GitHub verzi v0.5.1")
     print("Tento krok nestahuje instalační data z internetu.")
-    print("Použije vaše existující katalogy Schöck + ISOPRO z v0.4.0.\n")
+    print("Použije vaše existující katalogy Schöck + ISOPRO a doplní updater.\n")
 
     target = choose_folder()
     if target is None:
@@ -104,7 +102,7 @@ def main() -> int:
         return 1
     target = target.resolve()
     if not is_valid_folder(target):
-        print("CHYBA: Vybraná složka nevypadá jako TURTO v0.4.0:")
+        print("CHYBA: Vybraná složka nevypadá jako funkční TURTO v0.4.0 nebo v0.5.0:")
         print(target)
         input("Stiskněte Enter pro ukončení...")
         return 1
