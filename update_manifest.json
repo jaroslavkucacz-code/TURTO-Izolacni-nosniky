@@ -1,11 +1,46 @@
 {
-  "version": "0.5.2",
-  "notes": "Technická aktualizace aktualizačního mechanismu. Připravuje TURTO na větší katalogové aktualizace (MAX FRANK) a komprimovaný přenos dat. Funkční katalogy Schöck a ISOPRO se touto aktualizací nemění.",
+  "version": "0.6.0",
+  "notes": "MAX FRANK Egcobox M/XL; tloušťka izolantu 80/120 mm; tlakový přenos; nové údaje v projektu, detailu a našeptávači.",
   "files": [
     {
+      "path": "app.pyw",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/app.pyw",
+      "sha256": "22afc144c2641268ee90d495488b4af9ee39c15c9ec9c5180a47292b394ae440"
+    },
+    {
+      "path": "catalog_engine.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/catalog_engine.py",
+      "sha256": "cb53697bb089ed8b8c6d88f8e8b00fb7c6c5a5f86353d11dc5b20515ca904a63"
+    },
+    {
+      "path": "project_model.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/project_model.py",
+      "sha256": "b1e287e29364c265df8fed08c7c5631fba61d4170d9aa676e6c8b1a8fedfaf27"
+    },
+    {
+      "path": "project_ui.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/project_ui.py",
+      "sha256": "f5d5839078d4e6a230c5c9b36d1bf9cad40ac85078c15f05b0c7d0f286e1903f"
+    },
+    {
+      "path": "autocomplete.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/autocomplete.py",
+      "sha256": "80ba8b6518bc540a81ff7ae048e3672c00028b4cf0855449137028a609e7e197"
+    },
+    {
       "path": "updater.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.5.2/updater.py?v=20260903-fix1",
-      "sha256": "1c23d393af0013d1376622e4790a190195d1f911f0bdf8b79a56215772b845c1"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/updater.py",
+      "sha256": "67ae0ac3a4d908992adc05532584166bf4a42f792317508d502317c3f2b8fd05"
+    },
+    {
+      "path": "catalogs/maxfrank_egcobox_m_2022.json.gz.b64",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/catalogs/maxfrank_egcobox_m_2022.json.gz.b64",
+      "sha256": "ef2a12a092eaf7ab124ad415065617dd782743a0d64e5082e229d406237da7f6"
+    },
+    {
+      "path": "catalogs/maxfrank_egcobox_xl_2022.json.gz.b64",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/catalogs/maxfrank_egcobox_xl_2022.json.gz.b64",
+      "sha256": "96db8b4770952fe1c9e1f3723c9415db32af056b17a06c1726bef11c469e924a"
     }
   ]
 }
