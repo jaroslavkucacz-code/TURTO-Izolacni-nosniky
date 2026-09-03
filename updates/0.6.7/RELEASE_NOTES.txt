@@ -1,0 +1,6 @@
+TURTO v0.6.7
+- Ověřeno na reálném 17řádkovém výkazu Egcobox dodaném uživatelem.
+- Délky '- 0,93m' a '- 1m' se uloží do poznámky a neovlivní vyhledávání.
+- MXL25-WU280 je bezpečně rodina MXL-WU; geometrie 280 mm se zachová v poznámce.
+- Prefix EGCOBOX a specifikace REI120-SW se oddělí od statického klíče; specifikace zůstane v poznámce.
+- VXL Z 48-K se již neplete s maticovými MXL typy.
