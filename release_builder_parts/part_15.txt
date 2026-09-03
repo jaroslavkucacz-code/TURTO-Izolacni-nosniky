@@ -1,0 +1,44 @@
+A-BR-INTGB.pdf','M',80,'MM','VM','AM','FM','OM','maxfrank_egcobox_m_2022.json.gz.b64'),
+        (WORK/'egcobox-en-MXL-thermal-break-balcony-connector-ETA-BR-INTGB.pdf','XL',120,'MXL','VXL','AXL','FXL','OXL','maxfrank_egcobox_xl_2022.json.gz.b64'),
+    ]
+    entries=[]
+    matrix_map={'M':MATRIX_TYPES_M,'XL':MATRIX_TYPES_X}
+    for path,series,ins,p,v,a,f,o,name in specs:
+        print("Parsing", series)
+        pkg=package(path,series,ins,p,v,a,f,o)
+        v2=WORK/(name+'.v2')
+        save_package(pkg,v2)
+        compact=compact_package(load(v2), matrix_map[series])
+        raw=json.dumps(compact,ensure_ascii=False,separators=(',',':')).encode('utf-8')
+        raw_sha=hashlib.sha256(raw).hexdigest()
+        if raw_sha != EXPECTED_RAW[name]:
+            raise RuntimeError(f"catalog semantic checksum mismatch {name}: {raw_sha}")
+        # Deterministic gzip release bytes.
+        text=base64.b64encode(gzip.compress(raw, compresslevel=9, mtime=0)).decode('ascii')
+        dst=OUT/'catalogs'/name
+        dst.parent.mkdir(parents=True,exist_ok=True)
+        dst.write_text(text,encoding='ascii')
+        digest=hashlib.sha256(text.encode('ascii')).hexdigest()
+        entries.append({"path":f"catalogs/{name}","url":f"https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.6.0/catalogs/{name}","sha256":digest})
+        print(name, "families", len(compact['families']), "raw_sha", raw_sha, "release_sha", digest)
+    return entries
+
+
+def main() -> int:
+    try:
+        if OUT.exists():
+            shutil.rmtree(OUT)
+        files=write_code_files()+build_catalogs()
+        manifest={
+            "version":"0.6.0",
+            "notes":"MAX FRANK Egcobox M/XL; tloušťka izolantu 80/120 mm; tlakový přenos; nové údaje v projektu, detailu a našeptávači.",
+            "files":files,
+        }
+        (REPO_ROOT/'update_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding='utf-8')
+        print("Generated", len(files), "update files")
+        return 0
+    finally:
+        shutil.rmtree(WORK,ignore_errors=True)
+
+if __name__ == '__main__':
+    raise SystemExit(main())
