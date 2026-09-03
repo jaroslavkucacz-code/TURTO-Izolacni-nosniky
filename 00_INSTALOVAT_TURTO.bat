@@ -1,9 +1,10 @@
 @echo off
 chcp 65001 >nul
-title TURTO - prevod v0.4.0 na GitHub verzi
+title TURTO - prevod existujici verze na GitHub aktualizace
 cd /d "%~dp0"
-echo TURTO - prevod v0.4.0 na GitHub verzi v0.5.1
-echo Tento prevod uz nestahuje zadne casti programu z internetu.
+echo TURTO - prevod existujici verze v0.4.0 / v0.5.0 na GitHub verzi v0.5.1
+echo Tento prevod nestahuje zadne casti programu z internetu.
+echo Zachova vase katalogova data a vytvori zalohu menenych souboru.
 echo.
 where py >nul 2>nul
 if %errorlevel%==0 (
