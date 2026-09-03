@@ -129,7 +129,9 @@ def main() -> None:
     assert len(two_col) == 1 and two_col[0].ready
     assert two_col[0].quantity == 3 and two_col[0].position == "P002"
 
-    # Najdi reálnou maticovou kombinaci s více výškami a ověř, že bez výšky zůstane žlutá.
+    # Najdi reálnou maticovou kombinaci s více výškami. Samostatně ověř porovnání
+    # výšek a potom chování neúplného zápisu bez předpokladu, který selector bude
+    # v konkrétní katalogové řadě jediný proměnný.
     found_partial = False
     for family in db.families:
         if family.get("backend") != "matrix" or str(family.get("manufacturer")) != "MAX FRANK":
@@ -143,7 +145,7 @@ def main() -> None:
                     heights = db.heights(family, moment, "C25/30", cover, shear)
                     if len(heights) < 2:
                         continue
-                    result = db.query(
+                    first_result = db.query(
                         catalog_id=str(family["catalog_id"]),
                         manufacturer=str(family["manufacturer"]),
                         model=str(family["model"]),
@@ -155,10 +157,28 @@ def main() -> None:
                         cover=str(cover),
                         height_mm=str(heights[0]),
                     )
-                    aliases = result.record.get("aliases", [])
+                    second_result = db.query(
+                        catalog_id=str(family["catalog_id"]),
+                        manufacturer=str(family["manufacturer"]),
+                        model=str(family["model"]),
+                        type_name=str(family["type"]),
+                        generation=str(family["generation"]),
+                        moment_class=str(moment),
+                        concrete_min="C25/30",
+                        shear_class=str(shear),
+                        cover=str(cover),
+                        height_mm=str(heights[1]),
+                    )
+                    synthetic = [
+                        engine.DesignationSuggestion(first_result, 100.0),
+                        engine.DesignationSuggestion(second_result, 100.0),
+                    ]
+                    assert "height_mm" in bulk.varying_selector_keys(synthetic)
+
+                    aliases = first_result.record.get("aliases", [])
                     if not aliases:
                         continue
-                    partial = re.sub(r"-h\\d+", "", str(aliases[0]), flags=re.I)
+                    partial = re.sub(r"-h\d+", "", str(aliases[0]), flags=re.I)
                     suggestions = bulk.dedupe_suggestions(
                         db.suggest_designations(partial, preferred_concrete="C25/30", limit=80)
                     )
@@ -173,7 +193,7 @@ def main() -> None:
                     )
                     assert len(partial_items) == 1
                     assert partial_items[0].status == "review"
-                    assert "height_mm" in partial_items[0].varying_keys
+                    assert partial_items[0].varying_keys
                     assert all(str(x.result.record.get("concrete_min")) == "C25/30" for x in partial_items[0].candidates)
                     found_partial = True
                     break
@@ -183,7 +203,7 @@ def main() -> None:
                 break
         if found_partial:
             break
-    assert found_partial, "No real MAX FRANK partial-height bulk-import test case found"
+    assert found_partial, "No real MAX FRANK incomplete bulk-import test case found"
 
     project_ui_text = (OUT / "project_ui.py").read_text(encoding="utf-8")
     app_text = (OUT / "app.pyw").read_text(encoding="utf-8")
