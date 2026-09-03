@@ -1,0 +1,158 @@
+from __future__ import annotations
+
+import base64, gzip, hashlib, json, os, shutil, sys, tempfile, urllib.request, zlib
+from pathlib import Path
+
+REPO_ROOT = Path(os.environ.get("GITHUB_WORKSPACE", Path.cwd())).resolve()
+WORK = Path(tempfile.mkdtemp(prefix="turto_v060_build_"))
+OUT = REPO_ROOT / "updates" / "0.6.0"
+PDF_URLS = {
+    "egcobox-en-MM-thermal-break-balcony-connector-ETA-BR-INTGB.pdf": "https://www.maxfrank.com/wAssets/docs/products/brochures/egcobox-en-MM-thermal-break-balcony-connector-ETA-BR-INTGB.pdf",
+    "egcobox-en-MXL-thermal-break-balcony-connector-ETA-BR-INTGB.pdf": "https://www.maxfrank.com/wAssets/docs/products/brochures/egcobox-en-MXL-thermal-break-balcony-connector-ETA-BR-INTGB.pdf",
+}
+EXPECTED_RAW = {
+    "maxfrank_egcobox_m_2022.json.gz.b64": "61acc714ff2d8ba5b8e239135c656da8f8688a9d92193710f3b2c48d0b47cf4c",
+    "maxfrank_egcobox_xl_2022.json.gz.b64": "fc6f8f7185b4593bb866a0f2886c1cd062a2ab34b02db120b1b95232b741459b",
+}
+
+def download(url: str, target: Path) -> None:
+    req=urllib.request.Request(url, headers={"User-Agent":"TURTO-release-builder/0.6.0"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        target.write_bytes(r.read())
+
+import base64,gzip,json,re,hashlib
+from pathlib import Path
+import pdfplumber
+
+ROOT=WORK
+
+
+def clean(x):
+    if x is None: return ''
+    return re.sub(r'\s+',' ',str(x)).strip()
+
+def fnum(x):
+    s=clean(x).replace('−','-').replace('–','-').replace(' ','').replace(',','.')
+    s=s.replace('±','')
+    if s in {'','-','—'}: return None
+    try:return float(s)
+    except:return None
+
+def result_obj(key,label,kind,cell,unit,note=None):
+    s=clean(cell).replace('−','-').replace('–','-').replace(' ','')
+    if not s or s in {'-','—'}: return None
+    d={'key':key,'label':label,'kind':kind,'unit':unit}
+    if note: d['note']=note
+    if s.startswith('±'):
+        v=fnum(s)
+        if v is None:return None
+        d['positive']=abs(v); d['negative']=-abs(v); return d
+    # +x/-y or x/-y
+    m=re.match(r'^\+?([0-9.,]+)\s*/\s*-([0-9.,]+)$', s)
+    if m:
+        d['positive']=float(m.group(1).replace(',','.')); d['negative']=-float(m.group(2).replace(',','.')); return d
+    v=fnum(s)
+    if v is None:return None
+    d['value']=v; return d
+
+def parse_range(s):
+    s=clean(s).replace('–','-').replace('—','-').replace(' ','')
+    m=re.fullmatch(r'(\d+)-(\d+)',s)
+    if m:return int(m.group(1)),int(m.group(2))
+    m=re.fullmatch(r'≥(\d+)',s)
+    if m:return int(m.group(1)),9999
+    if s.isdigit():
+        v=int(s); return v,v
+    return None
+
+def in_range(h,s):
+    r=parse_range(s)
+    return bool(r and r[0] <= int(h) <= r[1])
+
+def iter_range(s, step=5):
+    r=parse_range(s)
+    if not r:return []
+    a,b=r
+    if b>=9999: return [str(a)]
+    # catalog heights use 5 mm increments
+    start=((a+step-1)//step)*step
+    vals=list(range(start,b+1,step))
+    if a not in vals and a%step: vals.insert(0,a)
+    return [str(x) for x in vals]
+
+def family_common(series,typ,insulation,category,basis,source_pages,compression='dle typu – viz katalog',notes=None):
+    return {
+        'manufacturer':'MAX FRANK','brand':'Egcobox®','model':series,'type':typ,'generation':'ETA-19/0046',
+        'category':category,'basis':basis,'source_pages':sorted(set(source_pages)),
+        'insulation_thickness_mm':insulation,'compression_transfer':compression,
+        'records':[],
+        'selector_labels':{
+            'moment':'Typ / nosnostní třída','shear':'Smyková třída / varianta','concrete':'Beton',
+            'cover':'Krytí / geometrie','height':'Výška / rozměr [mm]'
+        },
+        **({'notes':notes} if notes else {})
+    }
+
+def product_names_main(table,prefix):
+    joined=' '.join(clean(x) for x in table[0][4:] if clean(x))
+    # MM / MXL with optional K and ±
+    pat=rf'\b{re.escape(prefix)}\d+(?:-K)?(?:±)?\b'
+    names=re.findall(pat,joined)
+    # remove duplicates preserving order
+    out=[]
+    for n in names:
+        if n not in out:out.append(n)
+    # Some MAX FRANK tables contain an additional trailing geometry/header column
+    # (for example slab/balcony notes). The product designations are therefore
+    # the reliable source for the number of capacity columns; downstream parsers
+    # deliberately read only the first len(out) product-value cells.
+    if not out:
+        raise RuntimeError(f'no product names found: header={joined}')
+    return out
+
+def parse_main_page(pdf,pno,prefix,concrete,variants,insulation,series,compression_map=None,uplift=None,category='Balkónové prvky'):
+    p=pdf.pages[pno-1]; tables=p.extract_tables(); mt=tables[0]; st=tables[1]
+    products=product_names_main(mt,prefix)
+    # shear rows indexed by class
+    shear_rows=[]; current=''
+    for row in st[2:]:
+        if len(row)<5:continue
+        if clean(row[1]): current=clean(row[1])
+        if not current:continue
+        ranges=[clean(row[2]),clean(row[3]),clean(row[4])]
+        vals=[clean(x) for x in row[5:5+len(products)]]
+        shear_rows.append((current,ranges,vals))
+    shear_classes=[]
+    for c,_,_ in shear_rows:
+        if c not in shear_classes:shear_classes.append(c)
+    covers=['C30','C35','C50']
+    families=[]
+    for variant in variants:
+        typ=f'{prefix}-{variant}' if variant else prefix
+        compression='dle typu – viz katalog'
+        if compression_map and all(v==next(iter(compression_map.values())) for v in compression_map.values()):
+            compression=next(iter(compression_map.values()))
+        fam=family_common(series,typ,insulation,category,'tabulkové návrhové hodnoty únosnosti', [pno], compression,
+                          notes=(['U variant HVS/WOS musí objednací označení obsahovat konkrétní výškové odsazení; statická tabulka je společná pro daný typ.'] if variant in {'HVS','WOS'} else None))
+        for row in mt[4:]:
+            heights=[clean(row[1]),clean(row[2]),clean(row[3])]
+            for ci,(cover,h) in enumerate(zip(covers,heights)):
+                if not h or not h.isdigit():continue
+                for pj,product in enumerate(products):
+                    mcell=clean(row[4+pj])
+                    mres=result_obj('m_rd_y','MRd','moment',mcell,'kNm/element')
+                    if not mres:continue
+                    for sc in shear_classes:
+                        sr=None
+                        for c,ranges,vals in shear_rows:
+                            if c==sc and in_range(h,ranges[ci]):
+                                sr=(ranges,vals);break
+                        if not sr:continue
+                        scall=sr[1][pj] if pj<len(sr[1]) else ''
+                        sres=result_obj('v_rd_z','VRd','shear',scall,'kN/element')
+                        if not sres:continue
+                        suffix=f'-{variant}' if variant else ''
+                        source_des=f'{product}{suffix}-{sc}-{cover}-h{h}'
+                        internal=f'Egcobox® {source_des} [{concrete}]'
+                        comp=(compression_map or {}).get(product,compression)
+                        re
