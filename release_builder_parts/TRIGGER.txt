@@ -1,0 +1,1 @@
+Trigger v0.6.0 build after workflow registration.
