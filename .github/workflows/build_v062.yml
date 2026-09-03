@@ -1,0 +1,81 @@
+name: Build TURTO v0.6.2 update
+
+on:
+  push:
+    paths:
+      - ".github/workflows/build_v062.yml"
+      - "tools/build_v062.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install parser dependency
+        run: python -m pip install --disable-pip-version-check pdfplumber==0.11.7
+      - name: Reassemble corrected MAX FRANK builder
+        run: |
+          cat release_builder_parts/part_*.txt > /tmp/build_v060_release.py
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('/tmp/build_v060_release.py')
+          s = p.read_text(encoding='utf-8')
+
+          # Existing split-boundary fixes from the validated v0.6.0 workflow.
+          s, n1 = re.subn(
+              r"(if not sres:continue)\n +src=f'\{name\}-\{cover\}-h\{h\}'",
+              r"\1\n                    src=f'{name}-{cover}-h{h}'",
+              s,
+              count=1,
+          )
+          s, n2 = re.subn(
+              r"for rel, text in CODE_PAYLOADS\.items\(\):\n        data=zlib\.decompress\(base64\.b64decode\(text\)\)",
+              "for rel in CODE_SHA256:\n        text=(REPO_ROOT/'release_code_payloads'/f'{rel}.zlib.b64').read_text(encoding='ascii')\n        data=zlib.decompress(base64.b64decode(text))",
+              s,
+              count=1,
+          )
+          if n1 != 1:
+              raise SystemExit(f'Expected split-boundary indentation pattern once, found {n1}')
+          if n2 != 1:
+              raise SystemExit(f'Expected embedded payload loop once, found {n2}')
+
+          # pdfplumber leaves every second C30 height cell empty in these MAX FRANK tables.
+          # C35 is always 5 mm above C30, so reconstruct only the missing C30 geometry cell.
+          pattern = re.compile(r"(?m)^(\s*)heights=\[clean\(row\[1\]\),clean\(row\[2\]\),clean\(row\[3\]\)\]\s*$")
+          def repl(m):
+              ind = m.group(1)
+              return (
+                  f"{ind}heights=[clean(row[1]),clean(row[2]),clean(row[3])]\n"
+                  f"{ind}if not heights[0] and heights[1].isdigit():\n"
+                  f"{ind}    heights[0]=str(int(heights[1])-5)"
+              )
+          s, n3 = pattern.subn(repl, s)
+          if n3 != 3:
+              raise SystemExit(f'Expected three height-parser sites, found {n3}')
+
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Rebuild corrected MAX FRANK catalogs
+        run: python /tmp/build_v060_release.py
+      - name: Build and verify v0.6.2
+        run: python tools/build_v062.py
+      - name: Commit generated update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add updates/0.6.0 updates/0.6.2 update_manifest.json
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+            exit 0
+          fi
+          git commit -m "Release TURTO v0.6.2 with corrected MAX FRANK C30 heights"
+          git push
