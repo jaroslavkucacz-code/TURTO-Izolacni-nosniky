@@ -18,6 +18,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Normalize typed plus-minus notation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('updates/0.6.2/catalog_engine.py')
+          s = p.read_text(encoding='utf-8')
+          old = '    text = str(text).replace("+/-", "±").replace("+-", "±").replace("-+", "±")\n'
+          new = '''    text = str(text)\n    text = re.sub(r"\\+/\\-(?=[A-Za-z0-9])", "±-", text)\n    text = re.sub(r"\\+\\-(?=[A-Za-z0-9])", "±-", text)\n    text = re.sub(r"\\-\\+(?=[A-Za-z0-9])", "±-", text)\n    text = text.replace("+/-", "±").replace("+-", "±").replace("-+", "±")\n'''
+          if s.count(old) != 1:
+              raise SystemExit('Expected plus-minus normalization line not found exactly once')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
       - name: Build and verify v0.6.3
         run: python tools/build_v063.py
       - name: Commit generated update
