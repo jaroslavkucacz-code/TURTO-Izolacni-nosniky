@@ -1,0 +1,118 @@
+              src=f'{name}-{cover}-h{h}'
+                    fam['records'].append({
+                        'moment_class':name,'shear_class':'VRd','concrete_min':concrete,'cover':cover,'height_mm':h,
+                        'designation':f'Egcobox® {src} [{concrete}]','aliases':[src,f'MAX FRANK {src}',name],
+                        'results':[sres],'source_pages':[pno], 'insulation_thickness_mm':insulation,'compression_transfer':compression,
+                    })
+    return fam
+
+def parse_eccentric(pdf,pno,typ,insulation,series,concrete):
+    tables=pdf.pages[pno-1].extract_tables()
+    fam=family_common(series,typ,insulation,'Smykové prvky – excentrické připojení','přídavný moment od excentrického připojení',[pno],'dle základního smykového prvku')
+    covers=['C30','C35','C50']
+    for t in tables[:2]:
+        names=[]
+        for x in t[0][3:]:
+            if not clean(x):continue
+            # keep first designation, rows apply to ± too
+            s=clean(x).split(' ')[0].split('\n')[0]
+            # pdfplumber clean turned newline to space; take before second same prefix by regex
+            m=re.search(r'((?:VM|VXL)\s*Z?\s*\d+(?:-K)?|(?:VM|VXL)\d+(?:-K)?)',clean(x).replace(' ',''))
+            if m:s=m.group(1).replace(' ','')
+            names.append(s)
+        for row in t[5:]:
+            ranges=[clean(row[0]),clean(row[1]),clean(row[2])]
+            for ci,(cover,rg) in enumerate(zip(covers,ranges)):
+                # store range string rather than every 5 mm: this is an auxiliary table
+                for j,name in enumerate(names):
+                    cell=clean(row[3+j]) if 3+j<len(row) else ''
+                    res=result_obj('delta_m_ed','ΔMEd','other',cell,'kNm/element')
+                    if not res:continue
+                    src=f'{name}-excentricita-{cover}-h{rg}'
+                    fam['records'].append({
+                        'moment_class':name,'shear_class':'ΔMEd','concrete_min':concrete,'cover':cover,'height_mm':rg,
+                        'designation':f'Egcobox® {src} [{concrete}]','aliases':[src,name],
+                        'results':[res],'source_pages':[pno],'insulation_thickness_mm':insulation,'compression_transfer':'dle základního smykového prvku'
+                    })
+    return fam
+
+def parse_interaction_family(pdf,pno,typ,insulation,series,which):
+    tables=pdf.pages[pno-1].extract_tables(); geom=tables[0]
+    names=[clean(x) for x in geom[0][1:] if clean(x)]
+    # page has C20 table1 and C25 table2
+    fam=family_common(series,typ,insulation,'Parapety / atiky','interakční tabulkové hodnoty N-Rd / M-Rd a smyk',[pno],'tlačené ocelové pruty')
+    for concrete,ti in [('C20/25',1),('C25/30',2)]:
+        t=tables[ti]
+        # rows 2 until row before V header; each product has N,M pair
+        vrow=next(i for i,r in enumerate(t) if any('V [kN/element]' in clean(x) for x in r))
+        shear=t[vrow+1]
+        for j,name in enumerate(names):
+            # geometry as variant in cover/height
+            h=clean(geom[2][1+j]) or clean(geom[2][1])
+            w=clean(geom[3][1+j]) or clean(geom[3][1])
+            vr=result_obj('v_rd_z','VRd','shear',shear[1+2*j] if 1+2*j<len(shear) else '','kN/element')
+            for ri,row in enumerate(t[2:vrow]):
+                ncell=clean(row[1+2*j]) if 1+2*j<len(row) else ''
+                mcell=clean(row[2+2*j]) if 2+2*j<len(row) else ''
+                nr=result_obj('n_rd','NRd','normal',ncell,'kN/element')
+                mr=result_obj('m_rd','MRd','moment',mcell,'kNm/element')
+                if not (nr or mr):continue
+                variant=f'w {w}' if w else '—'
+                src=f'{name}-N{ncell}-h{h}'.replace(' ','')
+                fam['records'].append({
+                    'moment_class':name,'shear_class':f'Interakce {ri+1}','concrete_min':concrete,'cover':variant,'height_mm':h,
+                    'designation':f'Egcobox® {name} | N={ncell}, M={mcell} [{concrete}]','aliases':[name,src],
+                    'results':[x for x in [nr,mr,vr] if x], 'source_pages':[pno],
+                    'insulation_thickness_mm':insulation,'compression_transfer':'tlačené ocelové pruty'
+                })
+    return fam
+
+def parse_om(pdf,pno,typ,insulation,series):
+    tables=pdf.pages[pno-1].extract_tables(); geom=tables[0]
+    names=[clean(x) for x in geom[0][1:] if clean(x)]
+    fam=family_common(series,typ,insulation,'Konzoly','tabulkové hodnoty normálové a smykové únosnosti',[pno],'betonová tlaková ložiska')
+    for concrete,ti in [('C20/25',1),('C25/30',2)]:
+        t=tables[ti]
+        nrow=t[1]
+        nvals=[clean(x) for x in nrow[2:]]
+        # rows after concrete header
+        for j,name in enumerate(names):
+            nres=result_obj('n_rd','NRd','normal',nvals[j] if j<len(nvals) else '','kN/element')
+            h=clean(geom[2][1+j]) or clean(geom[2][1]); w=clean(geom[3][1+j]) or clean(geom[3][1])
+            for row in t[3:]:
+                x=clean(row[1]); vcell=clean(row[2+j]) if 2+j<len(row) else ''
+                vr=result_obj('v_rd','VRd','shear',vcell,'kN/element')
+                if not vr:continue
+                fam['records'].append({
+                    'moment_class':name,'shear_class':f'x={x} mm','concrete_min':concrete,'cover':f'w {w}','height_mm':h,
+                    'designation':f'Egcobox® {name} x{x} [{concrete}]','aliases':[name,f'{name} x{x}'],
+                    'results':[x for x in [nres,vr] if x],'source_pages':[pno],
+                    'insulation_thickness_mm':insulation,'compression_transfer':'betonová tlaková ložiska'
+                })
+    return fam
+
+def parse_module(pdf,pno,prefix,insulation,series,concrete):
+    tables=pdf.pages[pno-1].extract_tables(); mt=tables[0]; vt=tables[1]; nt=tables[2]
+    names=[]
+    for x in mt[0][4:]:
+        c=clean(x)
+        if c:names.append(c)
+    covers=['C30','C35','C50']
+    fam=family_common(series,f'{prefix}-Module',insulation,'Modulární izolační prvky','tabulkové hodnoty M-Rd, V-Rd,y a N-Rd,x',[pno],'dle modulu – viz výztuž')
+    # constant V/N for all ranges per cover
+    vvals=[clean(x) for x in vt[2][4:4+len(names)]]
+    nvals=[clean(x) for x in nt[2][4:4+len(names)]]
+    for row in mt[4:]:
+        heights=[clean(row[1]),clean(row[2]),clean(row[3])]
+        for ci,(cover,h) in enumerate(zip(covers,heights)):
+            if not h.isdigit():continue
+            for j,name in enumerate(names):
+                mr=result_obj('m_rd_y','MRd','moment',row[4+j],'kNm/element')
+                vr=result_obj('v_rd_y','VRd,y','horizontal',vvals[j] if j<len(vvals) else '','kN/element')
+                nr=result_obj('n_rd_x','NRd,x','normal',nvals[j] if j<len(nvals) else '','kN/element')
+                vals=[x for x in [mr,vr,nr] if x]
+                if not vals:continue
+                src=f'{name}-{cover}-h{h}'
+                fam['records'].append({
+                    'moment_class':name,'shear_class':'Modul','concrete_min':concrete,'cover':cover,'height_mm':h,
+                    'designation':f'Egcobox
