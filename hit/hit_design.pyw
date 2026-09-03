@@ -1,9 +1,9 @@
 from __future__ import annotations
-import base64, gzip, hashlib, json, math, os, shutil, subprocess, sys, tempfile, urllib.request
+import base64, gzip, hashlib, json, math, os, re, shutil, subprocess, sys, tempfile, urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 import tkinter as tk
-from tkinter import messagebox, ttk
+from tkinter import filedialog, messagebox, ttk
 
 APP_NAME = "TURTO – Návrh nosníků HIT"
 APP_VERSION = "0.1.0"
@@ -48,12 +48,102 @@ class Candidate:
         tail = f"-{self.suffix}" if self.suffix else ""
         return f"HIT-{self.series} MVX-{self.code}-{self.height}-{self.length_mm:03d}-{self.cover}{tail}"
 
+def _group_lines(words, tol: float=1.5):
+    groups=[]
+    for w in sorted(words,key=lambda z:(z["top"],z["x0"])):
+        hit=None
+        for g in groups[-3:]:
+            if abs(g["top"]-w["top"]) <= tol:
+                hit=g; break
+        if hit is None:
+            hit={"top":w["top"],"words":[]}; groups.append(hit)
+        hit["words"].append(w)
+    for g in groups:
+        g["text"]=" ".join(x["text"] for x in sorted(g["words"],key=lambda z:z["x0"]))
+    return groups
+
+def _parse_side(page, x0: float, x1: float):
+    words=[w for w in page.extract_words(x_tolerance=1,y_tolerance=2) if x0 <= w["x0"] < x1]
+    lines=_group_lines(words)
+    concrete_lines=[i for i,g in enumerate(lines) if g["text"].startswith("C20/25")]
+    sections=[]
+    for ci in concrete_lines:
+        ctop=lines[ci]["top"]
+        heads=[]
+        for j in range(ci-1,-1,-1):
+            if ctop-lines[j]["top"]>35: break
+            if "HIT-" in lines[j]["text"]:
+                heads.extend(re.findall(r"HIT-(?:HP|SP) MVX-[^\s]+",lines[j]["text"]))
+        heads=heads[::-1]
+        if not heads:
+            continue
+        end=page.height-40
+        for g in lines[ci+1:]:
+            if "HIT-" in g["text"] and g["top"]>ctop+20:
+                end=g["top"]-2; break
+        rows=[]
+        for g in lines[ci+1:]:
+            if g["top"]>=end: break
+            toks=g["text"].split()
+            if not toks or not toks[0].isdigit(): continue
+            try:
+                h=int(toks[0])
+                vals=[float(t.replace(",",".")) for t in toks[1:13]]
+            except Exception:
+                continue
+            if 100 <= h <= 500 and len(vals)==12:
+                rows.append([h,*vals])
+        if rows:
+            sections.append([heads,rows])
+    return sections
+
+def build_database_from_pdf(pdf_path: Path, out_path: Path):
+    try:
+        import pdfplumber
+    except ImportError as exc:
+        raise RuntimeError("Chybí knihovna pdfplumber. Nainstalujte ji příkazem: py -m pip install pdfplumber") from exc
+    sections=[]
+    with pdfplumber.open(str(pdf_path)) as pdf:
+        if len(pdf.pages) < 54:
+            raise RuntimeError("Vybraný dokument nemá očekávaný rozsah DoP HIT-HP/SP-07-23.")
+        for pi in range(3,54):
+            page=pdf.pages[pi]
+            for x0,x1 in ((35,page.width/2),(page.width/2,page.width-25)):
+                for heads,rows in _parse_side(page,x0,x1):
+                    sections.append([heads,rows,pi+1])
+    if len(sections) < 190:
+        raise RuntimeError(f"Z DoP se podařilo načíst jen {len(sections)} tabulek; očekáváno přibližně 200.")
+    payload={
+        "schema_version":1,
+        "catalog_id":"leviat_hit_hp_sp_07_23",
+        "source_document":"CONF-DOP_HIT-HP/SP-07-23",
+        "source_sha256":hashlib.sha256(pdf_path.read_bytes()).hexdigest(),
+        "covers_mm":[30,35,50],
+        "concretes":["C20/25","C25/30","C30/37"],
+        "ratio_min_m":0.15,
+        "sections":sections,
+    }
+    raw=json.dumps(payload,ensure_ascii=False,separators=(",",":")).encode("utf-8")
+    out_path.write_text(base64.b64encode(gzip.compress(raw,9)).decode("ascii"),encoding="ascii")
+    return payload
+
 class HitDatabase:
     def __init__(self, path: Path):
         text=path.read_text(encoding="ascii").strip()
         raw=gzip.decompress(base64.b64decode(text))
         self.data=json.loads(raw.decode("utf-8"))
-        self.records=self.data["records"]
+        self.records=[]
+        concretes=self.data.get("concretes",list(CONCRETES))
+        for heads,rows,page in self.data["sections"]:
+            for head in heads:
+                m=re.match(r"HIT-(HP|SP) MVX-(\d{4})-hh-(100|050|025)-cc(?:-(OD|OU|WD|WU))?$",head)
+                if not m: continue
+                series,code,length,suffix=m.groups()
+                for row in rows:
+                    h=int(row[0]); vals=row[1:]
+                    for ci,conc in enumerate(concretes):
+                        m1,v1,m2,v2=vals[ci*4:(ci+1)*4]
+                        self.records.append([series,code,int(length),suffix or "",h,conc,m1,v1,m2,v2,page])
 
     def candidates(self, series: str, height: int, cover: int, concrete: str, med: float, ved: float,
                    lengths: set[int], include_offsets: bool=False):
@@ -78,7 +168,6 @@ class HitDatabase:
         return out, ""
 
 def utilization(M: float, V: float, M1: float, V1: float, M2: float, V2: float):
-    """Utilization = 1 / maximal radial load factor to simplified polygonal envelope."""
     if M < 1e-12 and V < 1e-12:
         return 0.0, "nulové zatížení"
     lambdas=[]
@@ -115,7 +204,20 @@ class App(tk.Tk):
         self.title(f"{APP_NAME} {APP_VERSION}")
         self.geometry("1250x780"); self.minsize(1050,650)
         self.option_add("*Font", ("Calibri",10))
-        self.db=HitDatabase(root_dir()/DATA_FILENAME)
+        self.data_path=root_dir()/DATA_FILENAME
+        if not self.data_path.exists():
+            self.withdraw()
+            pdf=filedialog.askopenfilename(title="Vyberte CONF-DOP HIT-HP/SP-07-23",filetypes=[("PDF","*.pdf")])
+            if not pdf:
+                messagebox.showerror("TURTO HIT","Pro první spuštění je nutné vybrat zdrojové DoP.")
+                self.destroy(); return
+            try:
+                build_database_from_pdf(Path(pdf),self.data_path)
+            except Exception as exc:
+                messagebox.showerror("TURTO HIT",f"Databázi se nepodařilo vytvořit:\n{exc}")
+                self.destroy(); return
+            self.deiconify()
+        self.db=HitDatabase(self.data_path)
         self.series=tk.StringVar(value="HP")
         self.height=tk.StringVar(value="200")
         self.cover=tk.StringVar(value="35")
@@ -136,6 +238,7 @@ class App(tk.Tk):
         hdr=ttk.Frame(outer); hdr.pack(fill="x")
         ttk.Label(hdr,text="TURTO | Návrh nosníků Leviat HIT",style="Title.TLabel").pack(side="left")
         ttk.Button(hdr,text="Aktualizace",command=self.check_updates).pack(side="right")
+        ttk.Button(hdr,text="Obnovit data z DoP",command=self.rebuild_data).pack(side="right",padx=(0,8))
         ttk.Label(outer,text="Automatický výběr HIT-HP/SP MVX podle MEd a VEd • " + CREATOR,style="Sub.TLabel").pack(anchor="w",pady=(2,14))
         top=ttk.LabelFrame(outer,text="Vstupní údaje",padding=14); top.pack(fill="x")
         fields=[("Řada",self.series,("HP","SP")),("Výška desky h [mm]",self.height,None),("Krytí cnom [mm]",self.cover,tuple(map(str,COVERS))),
@@ -196,6 +299,17 @@ class App(tk.Tk):
         if not sel:return
         vals=self.tree.item(sel[0],"values")
         self.clipboard_clear(); self.clipboard_append("\t".join(map(str,vals)))
+
+    def rebuild_data(self):
+        pdf=filedialog.askopenfilename(title="Vyberte CONF-DOP HIT-HP/SP-07-23",filetypes=[("PDF","*.pdf")])
+        if not pdf: return
+        try:
+            build_database_from_pdf(Path(pdf),self.data_path)
+            self.db=HitDatabase(self.data_path)
+            self.status.set("Databáze HIT byla znovu vytvořena ze zvoleného DoP.")
+            messagebox.showinfo("TURTO HIT","Databáze byla úspěšně obnovena.")
+        except Exception as exc:
+            messagebox.showerror("TURTO HIT",f"Databázi se nepodařilo vytvořit:\n{exc}")
 
     def check_updates(self):
         try:
