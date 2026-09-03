@@ -25,7 +25,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import base64, zlib
+          import base64, zlib, hashlib
           for p in sorted(Path('release_code_payloads').glob('*.zlib.b64')):
               text = ''.join(p.read_text(encoding='ascii').split())
               print(f'{p.name}: chars={len(text)}, mod4={len(text)%4}')
@@ -34,25 +34,33 @@ jobs:
                   data = zlib.decompress(raw)
               except Exception as exc:
                   raise SystemExit(f'PAYLOAD FAIL {p.name}: {exc}')
-              print(f'  OK decoded={len(data)} bytes')
+              print(f'  OK decoded={len(data)} bytes sha256={hashlib.sha256(data).hexdigest()}')
           PY
       - name: Reassemble release builder
         run: cat release_builder_parts/part_*.txt > /tmp/build_v060_release.py
-      - name: Normalize split-boundary indentation
+      - name: Normalize split boundaries and payload source
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
           p = Path('/tmp/build_v060_release.py')
           s = p.read_text(encoding='utf-8')
-          s, n = re.subn(
+          s, n1 = re.subn(
               r"(if not sres:continue)\n +src=f'\{name\}-\{cover\}-h\{h\}'",
               r"\1\n                    src=f'{name}-{cover}-h{h}'",
               s,
               count=1,
           )
-          if n != 1:
-              raise SystemExit('Expected split-boundary pattern was not found exactly once')
+          s, n2 = re.subn(
+              r"for rel, text in CODE_PAYLOADS\.items\(\):\n        data=zlib\.decompress\(base64\.b64decode\(text\)\)",
+              "for rel in CODE_SHA256:\n        text=(REPO_ROOT/'release_code_payloads'/f'{rel}.zlib.b64').read_text(encoding='ascii')\n        data=zlib.decompress(base64.b64decode(text))",
+              s,
+              count=1,
+          )
+          if n1 != 1:
+              raise SystemExit('Expected split-boundary indentation pattern was not found exactly once')
+          if n2 != 1:
+              raise SystemExit('Expected embedded payload loop was not found exactly once')
           p.write_text(s, encoding='utf-8')
           PY
       - name: Build and verify v0.6.0
