@@ -32,4 +32,5 @@ jobs:
             exit 0
           fi
           git commit -m "Release TURTO v0.6.6 reviewed bulk import"
-          git push
+          git pull --rebase origin main
+          git push origin main
