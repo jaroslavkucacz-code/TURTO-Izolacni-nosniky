@@ -1,0 +1,6 @@
+TURTO v0.6.11
+- Projektová tabulka: tlačítko Sloupce… a pravý klik na záhlaví umožňují zobrazit/skrýt a přesouvat sloupce.
+- Řazení vzestupně/sestupně je dostupné z hlavičky i kontextové nabídky a pamatuje se po restartu.
+- Ukládá se pořadí sloupců, skryté sloupce, šířky a řazení do uživatelského settings.json.
+- Stejné trvalé rozložení a řazení je dostupné v kontrolní tabulce hromadného importu.
+- Nastavení je uživatelské, nikoli součást projektu .tinp.
