@@ -51,6 +51,7 @@ def _decode_payload(data: bytes, item: dict) -> bytes:
     return data
 
 
+
 def _installed_version(fallback: str) -> str:
     try:
         text = (ROOT / "version.txt").read_text(encoding="utf-8").strip()
