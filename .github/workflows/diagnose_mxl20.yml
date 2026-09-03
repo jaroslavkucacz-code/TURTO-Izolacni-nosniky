@@ -29,20 +29,20 @@ jobs:
           fams=[f for f in db.families if f.get('manufacturer')=='MAX FRANK' and f.get('model')=='XL' and f.get('type')=='MXL']
           print('families', len(fams))
           for fam in fams:
-              print('catalog', fam.get('catalog_id'), 'backend', fam.get('backend'))
-              print('MXL20 concretes', db.concrete_classes(fam,'MXL20'))
+              print('catalog', fam.get('catalog_id'), 'backend', fam.get('backend'), 'matrix_ref',fam.get('matrix_ref'))
               for concrete in db.concrete_classes(fam,'MXL20'):
+                  print('\nCONCRETE',concrete)
+                  mrows=[r for r in fam.get('moment_rows',[]) if r.get('moment_class')=='MXL20' and r.get('concrete_min')==concrete and r.get('cover')=='C30' and str(r.get('height_mm')) in {'180','185','190','195','200','205','210','215','220'}]
+                  print('moment C30 rows',[(r.get('height_mm'),r.get('results')) for r in mrows])
+                  srows=[r for r in fam.get('shear_rows',[]) if r.get('moment_class')=='MXL20' and r.get('concrete_min')==concrete and r.get('cover')=='C30' and r.get('shear_class')=='V6±']
+                  print('V6± C30 shear rows',[(r.get('height_min'),r.get('height_max'),r.get('results')) for r in srows])
                   shears=db.shear_classes(fam,'MXL20',concrete)
-                  print('concrete',concrete,'shears',shears)
                   for sc in shears:
-                      if sc in {'V6±','V6','V6+-','V6+/-'}:
-                          print(' shear',sc,'covers',db.covers(fam,'MXL20',concrete,sc))
+                      if sc=='V6±':
+                          print('V6± covers',db.covers(fam,'MXL20',concrete,sc))
                           for cv in db.covers(fam,'MXL20',concrete,sc):
                               hs=db.heights(fam,'MXL20',concrete,cv,sc)
-                              print('  ',cv,'h around 200',[h for h in hs if str(h) in {'185','190','195','200','205','210','215','220'}])
-                              if cv=='C30' and '200' in [str(h) for h in hs]:
-                                  q=db.query(catalog_id=str(fam['catalog_id']),manufacturer='MAX FRANK',model='XL',type_name='MXL',generation=str(fam['generation']),moment_class='MXL20',concrete_min=concrete,shear_class=sc,cover='C30',height_mm='200')
-                                  print('FOUND',q.designation,q.all_results_text)
+                              print(cv,'around 200',[h for h in hs if str(h) in {'180','185','190','195','200','205','210','215','220'}])
           for text in ['MXL20-V6±-C30-h200','MXL20-V6+-C30-h200','EGCOBOX MXL20-V6±-C30-h200-REI120-SW']:
               try:
                   q=db.resolve_designation(text, preferred_concrete='C25/30')
