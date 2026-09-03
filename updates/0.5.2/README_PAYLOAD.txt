@@ -1,0 +1,1 @@
+Payload updateru 0.5.2 je nyní publikován a manifest bude opraven tak, aby odpovídal skutečným bajtům souboru updater.py.
