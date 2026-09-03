@@ -1,0 +1,7 @@
+TURTO v0.6.9
+- Schöck: chybějící generace se už nesmí nahrazovat jinou generací; hromadný import umí zobrazit ověřený oficiální archivní zdroj.
+- Přidán registr zdrojů Schöck pro T-ZL 5.3, CXT AP 1.0 a Sconnex W 1.0.
+- Sconnex W 1.0 (CZ/2023.1) je doplněn jako plnohodnotný katalog pro B150/B180/B200/B250/B300, beton C25/30.
+- T-ZL 5.3 je evidován jako nenosný mezikus bez přenosu sil.
+- CXT AP 1.0 zůstává bezpečně blokovaný pro automatické vložení, protože vyžaduje interakční dimenzování KF-Ft/Fc.
+- Tlačítko Otevřít archivní katalog vede přímo na oficiální PDF Schöck.
