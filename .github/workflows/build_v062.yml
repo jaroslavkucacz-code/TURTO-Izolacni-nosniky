@@ -63,11 +63,11 @@ jobs:
               raise SystemExit(f'Expected three height-parser sites, found {n3}')
 
           # The semantic hash must change because this release intentionally restores omitted rows.
-          old = '''        if raw_sha != EXPECTED_RAW[name]:
-            raise RuntimeError(f"catalog semantic checksum mismatch {name}: {raw_sha}")
-'''
-          new = '''        print("corrected catalog semantic checksum", name, raw_sha)
-'''
+          old = (
+              "        if raw_sha != EXPECTED_RAW[name]:\n"
+              "            raise RuntimeError(f\"catalog semantic checksum mismatch {name}: {raw_sha}\")\n"
+          )
+          new = "        print(\"corrected catalog semantic checksum\", name, raw_sha)\n"
           if s.count(old) != 1:
               raise SystemExit(f'Expected semantic checksum guard once, found {s.count(old)}')
           s = s.replace(old, new, 1)
