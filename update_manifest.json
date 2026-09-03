@@ -4,7 +4,7 @@
   "files": [
     {
       "path": "updater.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.5.2/updater.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/0.5.2/updater.py?v=20260903-fix1",
       "sha256": "1c23d393af0013d1376622e4790a190195d1f911f0bdf8b79a56215772b845c1"
     }
   ]
