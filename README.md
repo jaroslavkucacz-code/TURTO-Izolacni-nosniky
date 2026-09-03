@@ -1,23 +1,47 @@
 # TURTO – Databáze izolačních nosníků
 
-**Stabilní GitHub verze: 0.5.1**  
+**Stabilní GitHub základ: 0.5.1**  
 Vytvořil Ing. Jaroslav Kučera
 
 Lokální Windows aplikace pro vyhledávání, porovnávání a projektové soupisy izolačních nosníků podle katalogových dimenzačních tabulek.
 
-## První instalace
+## Jednorázový přechod z v0.4.0 na GitHub verzi
 
-1. Klikněte nahoře na zelené tlačítko **Code** a zvolte **Download ZIP**.
-2. Stažený ZIP celý rozbalte.
-3. V rozbalené složce spusťte **`INSTALOVAT_TURTO.bat`**.
-4. Instalátor stáhne ověřený balíček 0.5.1 z tohoto repozitáře, zkontroluje SHA-256 a rozbalí program do `Dokumenty\TURTO-Izolacni-nosniky`.
-5. Program se pokusí spustit automaticky. Později jej spouštějte přes **`Spustit_program.vbs`** v cílové složce.
+Aktuální přechod využívá vaši existující složku **TURTO_Izolacni_nosniky_v0.4.0**. Díky tomu není nutné znovu přenášet velké katalogové soubory a během převodu se **nestahují žádné instalační části z internetu**.
 
-Je potřeba běžný 64bitový Python pro Windows s Tkinterem. Instalátor používá pouze standardní knihovny Pythonu.
+1. Klikněte nahoře na zelené tlačítko **Code → Download ZIP**.
+2. Stažený ZIP celý rozbalte do nové složky.
+3. V rozbalené složce spusťte **`00_INSTALOVAT_TURTO.bat`**.
+4. Pokud se otevře výběr složky, vyberte svoji stávající složku **`TURTO_Izolacni_nosniky_v0.4.0`**.
+5. Převod nejprve ověří všechny nové programové soubory pomocí SHA-256, vytvoří zálohu změněných souborů v `.backup_pred_github_v0.5.1` a teprve potom je nahradí.
+6. Katalogová data Schöck + ISOPRO i ostatní původní soubory zůstanou zachované.
+7. Po dokončení se TURTO pokusí automaticky spustit přes stávající **`Spustit_program.vbs`**.
+
+Je potřeba běžný 64bitový Python pro Windows s Tkinterem. Převod používá pouze standardní knihovny Pythonu.
+
+### Jak poznám správný průběh
+
+V konzoli se zobrazí přibližně:
+
+```text
+TURTO - převod v0.4.0 na GitHub verzi v0.5.1
+Tento krok nestahuje instalační data z internetu.
+...
+  OK  app.pyw
+  OK  catalog_engine.py
+  OK  project_ui.py
+  OK  autocomplete.py
+  OK  updater.py
+  OK  version.txt
+
+HOTOVO. TURTO je ve verzi 0.5.1.
+```
+
+Pokud místo toho vidíte `Stahuji ... část 1/16`, spouštíte starou kopii repozitáře. Smažte ji a stáhněte ZIP znovu.
 
 ## Automatické aktualizace
 
-Od této základny má program tlačítko **Aktualizace**. Další verze už není nutné celé stahovat znovu. Program načte `update_manifest.json`, stáhne pouze změněné soubory, ověří jejich SHA-256 a následně je bezpečně nahradí externím aktualizačním pomocníkem.
+Od verze 0.5.1 má program tlačítko **Aktualizace**. Další verze už nebude nutné celé stahovat znovu. Program načte `update_manifest.json` a stáhne pouze změněné soubory podle manifestu.
 
 ## Obsah stabilní verze 0.5.1
 
@@ -28,12 +52,6 @@ Od této základny má program tlačítko **Aktualizace**. Další verze už nen
 - automatický aktualizační mechanismus.
 
 **MAX FRANK Egcobox® M / XL zatím není součástí této stabilní základny.** Bude přidán jako první katalogová automatická aktualizace spolu s explicitním údajem o tloušťce izolantu a rozlišením smykových prvků s tlakovými ložisky / bez tlakových komponent.
-
-## Kontrola instalačního balíčku
-
-SHA-256 instalačního ZIPu 0.5.1:
-
-`38640f4cff62be037c8711641c3dbbf68c6198e7744278c3ca61b0812d36a9bc`
 
 ## Důležité upozornění
 
