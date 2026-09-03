@@ -33,10 +33,10 @@ APP_VERSION = installed_version()
 
 
 def data_file() -> Path:
-    external = app_root() / "catalogs" / "leviat_hit_mvx_07_23.json.gz.b64"
+    external = app_root() / "catalogs" / "leviat_hit_mvx_07_23.json.xz.b64"
     if external.exists():
         return external
-    return app_root() / "leviat_hit_mvx_07_23.json.gz.b64"
+    return app_root() / "leviat_hit_mvx_07_23.json.xz.b64"
 
 
 def parse_number(text: str, label: str) -> float:
