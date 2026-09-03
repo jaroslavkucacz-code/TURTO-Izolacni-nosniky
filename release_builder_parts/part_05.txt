@@ -1,0 +1,118 @@
+WOS','MM-BH','MM-WU','MM-BHS','MM-WUS','MM±'}
+MATRIX_TYPES_X={'MXL','MXL-CO','MXL-HVS','MXL-WOS','MXL-BH','MXL-WU','MXL-BHS','MXL-WUS','MXL±'}
+
+def load(p):
+    return json.loads(gzip.decompress(base64.b64decode(Path(p).read_text())).decode('utf-8'))
+
+def sig_results(results, kind):
+    return tuple(json.dumps(r,sort_keys=True,ensure_ascii=False,separators=(',',':')) for r in results if r.get('kind')==kind)
+
+def result_list(sig):
+    return [json.loads(x) for x in sig]
+
+def collapse_shear(rows):
+    # input unique exact rows. Collapse successive numeric heights with same selector/result to ranges.
+    groups={}
+    for r in rows:
+        h=str(r['height_mm'])
+        key=(r['moment_class'],r['shear_class'],r['concrete_min'],r['cover'],
+             json.dumps(r['results'],sort_keys=True,ensure_ascii=False,separators=(',',':')),
+             r.get('compression_transfer',''), tuple(r.get('notes') or []), tuple(r.get('source_pages') or []))
+        groups.setdefault(key,[]).append(h)
+    out=[]
+    for key, hs in groups.items():
+        numeric=sorted({int(h) for h in hs if h.isdigit()})
+        nonnum=sorted({h for h in hs if not h.isdigit()})
+        ranges=[]
+        if numeric:
+            start=prev=numeric[0]
+            # heights are typically 5 mm; respect any consecutive 5mm series; isolated boundary points stay isolated.
+            for h in numeric[1:]:
+                if h-prev==5:
+                    prev=h
+                else:
+                    ranges.append((start,prev)); start=prev=h
+            ranges.append((start,prev))
+        for a,b in ranges:
+            rr={
+                'moment_class':key[0],'shear_class':key[1],'concrete_min':key[2],'cover':key[3],
+                'height_min':str(a),'height_max':str(b),
+                'results':json.loads(key[4]),'compression_transfer':key[5],
+                'source_pages':list(key[7]),
+            }
+            if key[6]: rr['notes']=list(key[6])
+            out.append(rr)
+        for h in nonnum:
+            rr={
+                'moment_class':key[0],'shear_class':key[1],'concrete_min':key[2],'cover':key[3],
+                'height_min':h,'height_max':h,'results':json.loads(key[4]),'compression_transfer':key[5],
+                'source_pages':list(key[7]),
+            }
+            if key[6]: rr['notes']=list(key[6])
+            out.append(rr)
+    return out
+
+def compact_package(pkg, matrix_types):
+    new={'schema_version':3,'catalog':pkg['catalog'],'families':[],'shared_matrices':{}}
+    matrix_signatures={}
+    for fam in pkg['families']:
+        f={k:v for k,v in fam.items() if k!='records'}
+        recs=fam.get('records',[])
+        if fam['type'] not in matrix_types:
+            f['records']=recs
+            f['backend']='records'
+            new['families'].append(f); continue
+        f['backend']='matrix'
+        moments={}
+        shear_exact={}
+        # Every source record is a valid join of a moment row and a shear row.
+        for r in recs:
+            mres=[x for x in r.get('results',[]) if x.get('kind')=='moment']
+            sres=[x for x in r.get('results',[]) if x.get('kind')=='shear']
+            other=[x for x in r.get('results',[]) if x.get('kind') not in {'moment','shear'}]
+            if mres or other:
+                key=(r['moment_class'],r['concrete_min'],r['cover'],str(r['height_mm']),
+                     json.dumps(mres+other,sort_keys=True,ensure_ascii=False,separators=(',',':')),
+                     r.get('compression_transfer',''))
+                if key not in moments:
+                    moments[key]={
+                        'moment_class':r['moment_class'],'concrete_min':r['concrete_min'],'cover':r['cover'],
+                        'height_mm':str(r['height_mm']),'results':mres+other,
+                        'compression_transfer':r.get('compression_transfer',fam.get('compression_transfer','')),
+                        'source_pages':r.get('source_pages',fam.get('source_pages',[])),
+                    }
+            if sres:
+                key=(r['moment_class'],r['shear_class'],r['concrete_min'],r['cover'],str(r['height_mm']),
+                     json.dumps(sres,sort_keys=True,ensure_ascii=False,separators=(',',':')),
+                     r.get('compression_transfer',''), tuple(r.get('notes') or []))
+                if key not in shear_exact:
+                    shear_exact[key]={
+                        'moment_class':r['moment_class'],'shear_class':r['shear_class'],'concrete_min':r['concrete_min'],
+                        'cover':r['cover'],'height_mm':str(r['height_mm']),'results':sres,
+                        'compression_transfer':r.get('compression_transfer',fam.get('compression_transfer','')),
+                        **({'notes':r.get('notes')} if r.get('notes') else {})
+                    }
+        moment_rows=list(moments.values())
+        shear_rows=collapse_shear(list(shear_exact.values()))
+        # HVS/WOS and BH/WU/BHS/WUS use the same numerical design tables.
+        # Store identical matrices only once and let several family metadata records reference them.
+        signature=hashlib.sha256(json.dumps([moment_rows,shear_rows],ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+        if signature not in matrix_signatures:
+            ref=f'matrix_{len(matrix_signatures)+1:02d}'
+            matrix_signatures[signature]=ref
+            new['shared_matrices'][ref]={'moment_rows':moment_rows,'shear_rows':shear_rows}
+        else:
+            ref=matrix_signatures[signature]
+        f['matrix_ref']=ref
+        f['designation_style']='maxfrank_matrix'
+        new['families'].append(f)
+    return new
+
+def save(pkg,out):
+    raw=json.dumps(pkg,ensure_ascii=False,separators=(',',':')).encode()
+    text=base64.b64encode(gzip.compress(raw,9)).decode()
+    Path(out).write_text(text)
+    return len(raw),len(text),hashlib.sha256(text.encode()).hexdigest()
+
+
+CODE_PAYLOADS = {'app.pyw': 'eNrNfV1z20iS4Lt+BQ4dEwa22WyKkiWbXnacLMnd3vbX2hr3bqsVDJCERJggwMEHbUqriLm3u4d+unu4ib64CF3EXYQfOubtHi6i50XWH5lfcpn1AdQXQFC2O9a7PSKAqqyqzKysrKzMrNMknlmDwWme5Yk/GFjBbB4nmeVFUZx5WRBH6cYGezfKlnM/5U9v0jjiv8P47CyIzvhjXBRK8+E8iUd+Wr5ZFj/f+sNhEr9N/WTjFHvBoLQnXjQO/STlfXlJehKdPQpC/zv6jVaYe9kkDIa83At4pB+go1Cev9+Lli1r3wtDbxj6Letx5if4qxhXNg0ieGd5KfxkANgrVmIGA/DO/GH8rmVlUIYWGnmZB30e+BF02+dlnQ0L/u3TbwfwZ+ilfkt8eZgkcULf/HPuJ8uXfpqHGX3xyg/9EaJdKDSKo1HiZ/4ABuCH9N1pnMy8bDCLZ36USa/Sie+xipEHRPXCwdRftjZchrMkfgMtDPKgQBt980OcTNO5N/KfBu+CiBb28iwexbN5CK3z4gd+GpxFhDX2hM8y9Fk89kNeI+VjGmCZQUKGu7Gx9+LF4Nne00Orb9lHf3x59Nz6+5//q0Uwdn11Du2dx6H34efo+tfRxIriFH5Mb/5qk3qvD1++evz8GVbttHfaHXtj/+Xh3tHzl/jm9TJbxDd/CULrMXCT9U9eEqeht7C+zz/8DKS3NzY2xv6p5UfIBYNJcDYZjOeB41pffWM9iyO/R5Bn2/aP3hzomsTn+Sy6fm/dXE2vr8J4cX0FXQHkWj8E0Rj49wH+jlNgUtpXYPHs+v3Mx24HIyvyZx9+gS9tgEggB6dYpD0PvQxpZv0H6PPbINrq2rRl/Af0zpOIPGbJsnxP52Abio/DsJ1ORnHit1/52Qs6yw7mwd5bL/Ej+O1suqSa/27kzzPrkPwBKpTAJMg69Bxm5lZXhP7iMYHuuEWtauD4b+7BxKfY9ubzQRLHGUUzTtUCzd8DsfwISoTBFPjPmgPtrOGHXya5BWxwPgaeuvmrFVjn1ovl4wjwHIIEsIBQ4yCxhl54/euHn6e5iN4
