@@ -1,11 +1,11 @@
 {
-  "version": "0.1.0",
-  "notes": "První funkční verze návrhu Leviat HIT-HP/SP MVX. Výběr podle MEd/VEd, h, cnom a betonu; data se při prvním spuštění vytvoří přímo z DoP CONF-DOP_HIT-HP/SP-07-23. Další verze se aktualizují online po jednotlivých změněných souborech.",
+  "version": "0.2.0",
+  "notes": "Hromadný návrh více nosníků najednou. Každému nosníku se automaticky přiřadí nejbližší vyhovující varianta podle využití. Dvojklikem na řádek nebo tlačítkem ZMĚNIT TYP lze otevřít všechny další vyhovující varianty a ručně zvolit jiný typ. Přidáno načtení, přepsání, odstranění a přepočet jednotlivých řádků.",
   "files": [
     {
       "path": "hit_design.pyw",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/hit/hit_design.pyw",
-      "sha256": "faa7217882e506167aff446d97bc9354847e00af5330d853bd157dc97e42233a"
+      "sha256": "a1f793d528a8b7b090d9230e944c1e5b2e80c93a55d5435745443a3626c17b03"
     }
   ]
 }
