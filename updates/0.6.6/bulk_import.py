@@ -1,0 +1,520 @@
+from __future__ import annotations
+
+from typing import Any, Iterable
+
+import tkinter as tk
+from tkinter import messagebox, ttk
+
+from bulk_import_engine import (
+    BulkImportItem,
+    SELECTOR_LABELS,
+    analyze_bulk_text,
+    selector_value,
+    summarize_items,
+)
+from catalog_engine import CatalogDatabase, DesignationSuggestion, QueryResult, concrete_label
+
+
+class BulkImportDialog(tk.Toplevel):
+    """Kontrolované hromadné vložení řádků z Excelu / schránky.
+
+    Žádná nejednoznačná katalogová varianta se nevloží bez potvrzení uživatele.
+    Jednoznačně doplnitelné řádky jsou naopak připravené automaticky.
+    """
+
+    def __init__(
+        self,
+        parent: tk.Misc,
+        *,
+        database: CatalogDatabase,
+        colors: dict[str, str],
+        preferred_concrete: str | None,
+        existing_positions: Iterable[str],
+        start_position: str,
+    ) -> None:
+        super().__init__(parent)
+        self.database = database
+        self.colors = colors
+        self.preferred_concrete = str(preferred_concrete or "").strip() or None
+        self.existing_positions = [str(value) for value in existing_positions]
+        self.start_position = str(start_position or "P001")
+        self.result: list[dict[str, Any]] | None = None
+        self.items: list[BulkImportItem] = []
+        self.skipped_headers = 0
+        self._item_by_iid: dict[str, BulkImportItem] = {}
+        self._candidate_by_iid: dict[str, DesignationSuggestion] = {}
+
+        self.title("Hromadné vložení z výkazu")
+        self.geometry("1380x860")
+        self.minsize(1000, 680)
+        self.transient(parent)
+        self.grab_set()
+        self.configure(background=colors["bg"])
+        self.protocol("WM_DELETE_WINDOW", self._cancel)
+
+        self.summary_var = tk.StringVar(value="Vložte řádky z Excelu a spusťte kontrolu.")
+        self.candidate_title_var = tk.StringVar(value="Varianty vybraného řádku")
+        self.candidate_hint_var = tk.StringVar(value="Po analýze vyberte žlutý řádek, který vyžaduje upřesnění.")
+        self.insert_button_var = tk.StringVar(value="Vložit připravené")
+
+        outer = ttk.Frame(self, style="App.TFrame", padding=18)
+        outer.pack(fill="both", expand=True)
+        outer.columnconfigure(0, weight=1)
+        outer.rowconfigure(4, weight=1)
+
+        ttk.Label(outer, text="Hromadné vložení z výkazu", style="DialogTitle.TLabel").grid(
+            row=0, column=0, sticky="w"
+        )
+        ttk.Label(
+            outer,
+            text=(
+                "Zkopírujte řádky z Excelu a vložte je sem. Program nejprve zkontroluje každý typ proti katalogu. "
+                "Jednoznačné řádky připraví automaticky; u neúplných označení nabídne pouze skutečně možné varianty. "
+                "Nevyřešený řádek se nikdy nevloží automaticky."
+            ),
+            style="Muted.TLabel",
+            wraplength=1300,
+            justify="left",
+        ).grid(row=1, column=0, sticky="ew", pady=(4, 10))
+
+        input_card = ttk.Frame(outer, style="Card.TFrame", padding=12)
+        input_card.grid(row=2, column=0, sticky="ew")
+        input_card.columnconfigure(0, weight=1)
+        input_card.rowconfigure(1, weight=1)
+
+        input_bar = ttk.Frame(input_card, style="Card.TFrame")
+        input_bar.grid(row=0, column=0, sticky="ew", pady=(0, 8))
+        input_bar.columnconfigure(0, weight=1)
+        ttk.Label(
+            input_bar,
+            text=(
+                "Formáty:  typ  |  typ [TAB] ks  |  pozice [TAB] typ  |  "
+                "pozice [TAB] ks [TAB] typ [TAB] poznámka"
+            ),
+            style="MutedCard.TLabel",
+        ).grid(row=0, column=0, sticky="w")
+        ttk.Button(input_bar, text="Vložit ze schránky", command=self._paste_clipboard).grid(row=0, column=1, padx=(8, 0))
+        ttk.Button(input_bar, text="Analyzovat", style="Accent.TButton", command=self._analyze).grid(
+            row=0, column=2, padx=(8, 0)
+        )
+
+        text_frame = ttk.Frame(input_card, style="Card.TFrame")
+        text_frame.grid(row=1, column=0, sticky="ew")
+        text_frame.columnconfigure(0, weight=1)
+        self.text = tk.Text(
+            text_frame,
+            height=8,
+            wrap="none",
+            undo=True,
+            font=("Calibri", 10),
+            background=colors["panel"],
+            foreground=colors["text"],
+            insertbackground=colors["text"],
+            selectbackground=colors["accent"],
+            selectforeground="#FFFFFF",
+            relief="flat",
+            padx=8,
+            pady=8,
+        )
+        xscroll = ttk.Scrollbar(text_frame, orient="horizontal", command=self.text.xview)
+        yscroll = ttk.Scrollbar(text_frame, orient="vertical", command=self.text.yview)
+        self.text.configure(xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+        self.text.grid(row=0, column=0, sticky="ew")
+        yscroll.grid(row=0, column=1, sticky="ns")
+        xscroll.grid(row=1, column=0, sticky="ew")
+        self.text.bind("<Control-a>", self._select_all)
+
+        summary_frame = ttk.Frame(outer, style="App.TFrame")
+        summary_frame.grid(row=3, column=0, sticky="ew", pady=(10, 8))
+        summary_frame.columnconfigure(0, weight=1)
+        ttk.Label(summary_frame, textvariable=self.summary_var, style="Section.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(
+            summary_frame,
+            text=f"Beton projektu: {self.preferred_concrete or 'není určen'}",
+            style="Muted.TLabel",
+        ).grid(row=0, column=1, sticky="e")
+
+        panes = ttk.Panedwindow(outer, orient="horizontal")
+        panes.grid(row=4, column=0, sticky="nsew")
+
+        review_card = ttk.Frame(panes, style="Card.TFrame", padding=10)
+        review_card.columnconfigure(0, weight=1)
+        review_card.rowconfigure(1, weight=1)
+        panes.add(review_card, weight=3)
+
+        ttk.Label(review_card, text="Kontrola řádků", style="Section.TLabel").grid(row=0, column=0, sticky="w", pady=(0, 7))
+        review_frame = ttk.Frame(review_card, style="Card.TFrame")
+        review_frame.grid(row=1, column=0, sticky="nsew")
+        review_frame.columnconfigure(0, weight=1)
+        review_frame.rowconfigure(0, weight=1)
+        self.review_tree = ttk.Treeview(
+            review_frame,
+            columns=("line", "status", "position", "qty", "input", "resolved", "issue"),
+            show="headings",
+            selectmode="extended",
+            style="Project.Treeview",
+        )
+        headings = {
+            "line": ("Ř.", 44, "center"),
+            "status": ("Stav", 92, "center"),
+            "position": ("Pozice", 76, "center"),
+            "qty": ("Ks", 48, "center"),
+            "input": ("Původní označení", 250, "w"),
+            "resolved": ("Rozpoznaný typ", 310, "w"),
+            "issue": ("Kontrola / co doplnit", 280, "w"),
+        }
+        for column, (label, width, anchor) in headings.items():
+            self.review_tree.heading(column, text=label)
+            self.review_tree.column(column, width=width, minwidth=40, anchor=anchor, stretch=column in {"input", "resolved", "issue"})
+        review_y = ttk.Scrollbar(review_frame, orient="vertical", command=self.review_tree.yview)
+        review_x = ttk.Scrollbar(review_frame, orient="horizontal", command=self.review_tree.xview)
+        self.review_tree.configure(yscrollcommand=review_y.set, xscrollcommand=review_x.set)
+        self.review_tree.grid(row=0, column=0, sticky="nsew")
+        review_y.grid(row=0, column=1, sticky="ns")
+        review_x.grid(row=1, column=0, sticky="ew")
+        self.review_tree.tag_configure("ready", foreground=colors["success"])
+        self.review_tree.tag_configure("review", foreground=colors["warning_text"])
+        self.review_tree.tag_configure("error", foreground=colors["danger"])
+        self.review_tree.bind("<<TreeviewSelect>>", self._on_review_selected)
+
+        candidate_card = ttk.Frame(panes, style="Card.TFrame", padding=10)
+        candidate_card.columnconfigure(0, weight=1)
+        candidate_card.rowconfigure(3, weight=1)
+        panes.add(candidate_card, weight=2)
+
+        ttk.Label(candidate_card, textvariable=self.candidate_title_var, style="Section.TLabel").grid(
+            row=0, column=0, sticky="w"
+        )
+        ttk.Label(
+            candidate_card,
+            textvariable=self.candidate_hint_var,
+            style="MutedCard.TLabel",
+            wraplength=500,
+            justify="left",
+        ).grid(row=1, column=0, sticky="ew", pady=(4, 8))
+
+        candidate_actions = ttk.Frame(candidate_card, style="Card.TFrame")
+        candidate_actions.grid(row=2, column=0, sticky="ew", pady=(0, 8))
+        ttk.Button(candidate_actions, text="Použít na řádek", command=lambda: self._apply_candidate(False)).pack(side="left")
+        ttk.Button(
+            candidate_actions,
+            text="Použít na označené kompatibilní řádky",
+            command=lambda: self._apply_candidate(True),
+        ).pack(side="left", padx=(7, 0))
+
+        candidate_frame = ttk.Frame(candidate_card, style="Card.TFrame")
+        candidate_frame.grid(row=3, column=0, sticky="nsew")
+        candidate_frame.columnconfigure(0, weight=1)
+        candidate_frame.rowconfigure(0, weight=1)
+        self.candidate_tree = ttk.Treeview(
+            candidate_frame,
+            columns=("designation", "parameters", "values"),
+            show="headings",
+            selectmode="browse",
+            style="Data.Treeview",
+        )
+        self.candidate_tree.heading("designation", text="Možná varianta")
+        self.candidate_tree.heading("parameters", text="Parametry")
+        self.candidate_tree.heading("values", text="Statické hodnoty")
+        self.candidate_tree.column("designation", width=270, anchor="w", stretch=True)
+        self.candidate_tree.column("parameters", width=270, anchor="w", stretch=True)
+        self.candidate_tree.column("values", width=240, anchor="w", stretch=True)
+        cand_y = ttk.Scrollbar(candidate_frame, orient="vertical", command=self.candidate_tree.yview)
+        cand_x = ttk.Scrollbar(candidate_frame, orient="horizontal", command=self.candidate_tree.xview)
+        self.candidate_tree.configure(yscrollcommand=cand_y.set, xscrollcommand=cand_x.set)
+        self.candidate_tree.grid(row=0, column=0, sticky="nsew")
+        cand_y.grid(row=0, column=1, sticky="ns")
+        cand_x.grid(row=1, column=0, sticky="ew")
+        self.candidate_tree.bind("<Double-1>", lambda _event: self._apply_candidate(False))
+        self.candidate_tree.bind("<Return>", lambda _event: self._apply_candidate(False))
+
+        bottom = ttk.Frame(outer, style="App.TFrame")
+        bottom.grid(row=5, column=0, sticky="ew", pady=(12, 0))
+        bottom.columnconfigure(0, weight=1)
+        ttk.Label(
+            bottom,
+            text=(
+                "Zelené řádky jsou bezpečně připravené. Žluté vyžadují výběr varianty. "
+                "Červené nejsou podle vloženého textu rozpoznatelné."
+            ),
+            style="Muted.TLabel",
+        ).grid(row=0, column=0, sticky="w")
+        ttk.Button(bottom, text="Zrušit", command=self._cancel).grid(row=0, column=1, padx=(8, 0))
+        self.insert_button = ttk.Button(
+            bottom,
+            textvariable=self.insert_button_var,
+            style="Accent.TButton",
+            command=self._insert_ready,
+            state="disabled",
+        )
+        self.insert_button.grid(row=0, column=2, padx=(8, 0))
+
+        self.bind("<Escape>", lambda _event: self._cancel())
+        self.bind("<Control-Return>", lambda _event: self._analyze())
+        self.text.focus_set()
+
+    def _select_all(self, _event: tk.Event[Any]) -> str:
+        self.text.tag_add("sel", "1.0", "end-1c")
+        return "break"
+
+    def _paste_clipboard(self) -> None:
+        try:
+            value = self.clipboard_get()
+        except Exception:
+            messagebox.showwarning("Schránka je prázdná", "Ve schránce není text vhodný k vložení.", parent=self)
+            return
+        if not str(value).strip():
+            return
+        current = self.text.get("1.0", "end-1c")
+        if current.strip():
+            self.text.insert("end", "\n" + str(value))
+        else:
+            self.text.insert("1.0", str(value))
+        self.text.see("end")
+
+    def _analyze(self) -> None:
+        value = self.text.get("1.0", "end-1c")
+        if not value.strip():
+            messagebox.showwarning("Prázdné vložení", "Vložte alespoň jeden řádek z výkazu.", parent=self)
+            return
+        self.items, self.skipped_headers = analyze_bulk_text(
+            self.database,
+            value,
+            preferred_concrete=self.preferred_concrete,
+            existing_positions=self.existing_positions,
+            start_position=self.start_position,
+        )
+        self._refresh_review_tree()
+        review_iid = next((iid for iid, item in self._item_by_iid.items() if item.status == "review"), None)
+        first_iid = review_iid or next(iter(self._item_by_iid), None)
+        if first_iid:
+            self.review_tree.selection_set(first_iid)
+            self.review_tree.focus(first_iid)
+            self.review_tree.see(first_iid)
+            self._show_candidates_for(first_iid)
+
+    def _refresh_review_tree(self, preserve_selection: bool = False) -> None:
+        selected = list(self.review_tree.selection()) if preserve_selection else []
+        focus = self.review_tree.focus() if preserve_selection else ""
+        for iid in self.review_tree.get_children(""):
+            self.review_tree.delete(iid)
+        self._item_by_iid.clear()
+
+        for index, item in enumerate(self.items):
+            iid = f"i{index}"
+            self._item_by_iid[iid] = item
+            resolved = item.result.designation if item.result else ""
+            if item.status == "review":
+                resolved = f"{len(item.candidates)} možností"
+            tag = "ready" if item.ready else ("review" if item.status == "review" else "error")
+            self.review_tree.insert(
+                "",
+                "end",
+                iid=iid,
+                values=(
+                    item.line_number,
+                    item.status_text,
+                    item.position,
+                    item.quantity,
+                    item.designation,
+                    resolved,
+                    item.message,
+                ),
+                tags=(tag,),
+            )
+
+        valid = [iid for iid in selected if self.review_tree.exists(iid)]
+        if valid:
+            self.review_tree.selection_set(valid)
+        if focus and self.review_tree.exists(focus):
+            self.review_tree.focus(focus)
+
+        summary = summarize_items(self.items, self.skipped_headers)
+        parts = [
+            f"{len(self.items)} řádků",
+            f"{summary.ready} připraveno",
+            f"{summary.review} k doplnění",
+            f"{summary.error} nerozpoznáno",
+        ]
+        if summary.skipped_headers:
+            parts.append(f"{summary.skipped_headers} záhlaví přeskočeno")
+        self.summary_var.set(" • ".join(parts))
+
+        if summary.ready:
+            unresolved = summary.review + summary.error
+            self.insert_button_var.set(
+                f"Vložit vše ({summary.ready})" if unresolved == 0 else f"Vložit připravené ({summary.ready})"
+            )
+            self.insert_button.configure(state="normal")
+        else:
+            self.insert_button_var.set("Vložit připravené")
+            self.insert_button.configure(state="disabled")
+
+    def _active_review_iid(self) -> str | None:
+        focus = self.review_tree.focus()
+        if focus and focus in self._item_by_iid:
+            return focus
+        selected = self.review_tree.selection()
+        return selected[0] if selected else None
+
+    def _on_review_selected(self, _event: tk.Event[Any] | None = None) -> None:
+        iid = self._active_review_iid()
+        if iid:
+            self._show_candidates_for(iid)
+
+    def _show_candidates_for(self, iid: str) -> None:
+        item = self._item_by_iid.get(iid)
+        if item is None:
+            return
+        for row in self.candidate_tree.get_children(""):
+            self.candidate_tree.delete(row)
+        self._candidate_by_iid.clear()
+
+        self.candidate_title_var.set(f"Řádek {item.line_number} • {item.position or 'bez pozice'}")
+        if item.status == "review":
+            self.candidate_hint_var.set(
+                item.message + " Vyberte správnou možnost. Dvojklik ji potvrdí pouze pro tento řádek."
+            )
+        elif item.ready:
+            self.candidate_hint_var.set(item.message)
+        else:
+            self.candidate_hint_var.set(item.message or "Řádek nebylo možné rozpoznat.")
+
+        values = item.candidates
+        if not values and item.result is not None:
+            values = [DesignationSuggestion(item.result, 1000.0)]
+
+        for index, suggestion in enumerate(values):
+            result = suggestion.result
+            candidate_iid = f"c{index}"
+            self._candidate_by_iid[candidate_iid] = suggestion
+            parameters = " • ".join(
+                part
+                for part in (
+                    f"{selector_value(result, 'manufacturer')} {selector_value(result, 'model')} {selector_value(result, 'type')}",
+                    selector_value(result, "moment_class"),
+                    selector_value(result, "shear_class"),
+                    concrete_label(selector_value(result, "concrete_min")),
+                    selector_value(result, "cover"),
+                    f"H{selector_value(result, 'height_mm')}",
+                    selector_value(result, "insulation"),
+                )
+                if part and part not in {"—", "H"}
+            )
+            statics = " | ".join(
+                part
+                for part in (result.moment_text, result.shear_text, selector_value(result, "compression"))
+                if part and part != "—"
+            )
+            self.candidate_tree.insert(
+                "",
+                "end",
+                iid=candidate_iid,
+                values=(result.designation, parameters, statics),
+            )
+
+        children = self.candidate_tree.get_children("")
+        if children:
+            self.candidate_tree.selection_set(children[0])
+            self.candidate_tree.focus(children[0])
+            self.candidate_tree.see(children[0])
+
+    def _chosen_candidate(self) -> DesignationSuggestion | None:
+        selected = self.candidate_tree.selection()
+        if not selected:
+            return None
+        return self._candidate_by_iid.get(selected[0])
+
+    @staticmethod
+    def _matches_selector_values(result: QueryResult, wanted: dict[str, str]) -> bool:
+        return all(selector_value(result, key) == value for key, value in wanted.items())
+
+    def _confirm_item(self, item: BulkImportItem, result: QueryResult, *, bulk: bool = False) -> None:
+        item.result = result
+        item.status = "confirmed"
+        if bulk and item.varying_keys:
+            labels = ", ".join(SELECTOR_LABELS[key] for key in item.varying_keys)
+            item.message = f"Potvrzeno hromadně podle voleb: {labels}."
+        else:
+            item.message = "Varianta byla potvrzena uživatelem."
+
+    def _apply_candidate(self, to_marked: bool) -> None:
+        active_iid = self._active_review_iid()
+        chosen = self._chosen_candidate()
+        if not active_iid or chosen is None:
+            return
+        active = self._item_by_iid.get(active_iid)
+        if active is None or not active.candidates:
+            return
+
+        if not to_marked:
+            self._confirm_item(active, chosen.result)
+            self._refresh_review_tree(preserve_selection=True)
+            self._show_candidates_for(active_iid)
+            return
+
+        selected_iids = list(self.review_tree.selection()) or [active_iid]
+        fields = active.varying_keys
+        if fields:
+            wanted = {key: selector_value(chosen.result, key) for key in fields}
+        else:
+            wanted = {}
+
+        applied = 0
+        skipped = 0
+        for iid in selected_iids:
+            item = self._item_by_iid.get(iid)
+            if item is None or item.status != "review":
+                continue
+            if iid == active_iid:
+                match = chosen
+            elif wanted:
+                matches = [candidate for candidate in item.candidates if self._matches_selector_values(candidate.result, wanted)]
+                match = matches[0] if len(matches) == 1 else None
+            else:
+                matches = [candidate for candidate in item.candidates if candidate.result.designation == chosen.result.designation]
+                match = matches[0] if len(matches) == 1 else None
+            if match is None:
+                skipped += 1
+                continue
+            self._confirm_item(item, match.result, bulk=True)
+            applied += 1
+
+        self._refresh_review_tree(preserve_selection=True)
+        if active_iid in self._item_by_iid:
+            self._show_candidates_for(active_iid)
+        if skipped:
+            messagebox.showinfo(
+                "Hromadná volba",
+                f"Volba byla použita na {applied} řádků. U {skipped} označených řádků neexistovala právě jedna kompatibilní varianta.",
+                parent=self,
+            )
+
+    def _insert_ready(self) -> None:
+        ready = [item for item in self.items if item.ready and item.result is not None]
+        unresolved = [item for item in self.items if not item.ready]
+        if not ready:
+            return
+        if unresolved:
+            if not messagebox.askyesno(
+                "Nevyřešené řádky",
+                f"Zbývá {len(unresolved)} nevyřešených řádků. Vložit nyní pouze {len(ready)} připravených řádků?",
+                parent=self,
+            ):
+                return
+        self.result = [
+            {
+                "position": item.position,
+                "quantity": item.quantity,
+                "note": item.note,
+                "result": item.result,
+                "source_line": item.line_number,
+                "source_text": item.raw,
+            }
+            for item in ready
+        ]
+        self.destroy()
+
+    def _cancel(self) -> None:
+        self.result = None
+        self.destroy()

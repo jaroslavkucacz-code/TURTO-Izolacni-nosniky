@@ -1,0 +1,7 @@
+TURTO v0.6.6
+- Hromadné vložení z Excelu nově používá kontrolní mezikrok před zápisem do projektu.
+- Úplné nebo jednoznačně doplnitelné typy jsou označeny jako připravené.
+- Neúplné názvy zobrazí jen skutečně možné katalogové varianty a údaj, který je nutné upřesnit.
+- Nejednoznačná varianta se nikdy nevloží bez ručního potvrzení.
+- Vybranou volbu lze hromadně aplikovat na označené kompatibilní řádky.
+- Podporováno je vložení jednoho sloupce typů i tabulek typ+ks / pozice+typ / pozice+ks+typ+poznámka.
