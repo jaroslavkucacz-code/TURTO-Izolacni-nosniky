@@ -1,0 +1,5 @@
+TURTO v0.6.5
+- MAX FRANK Egcobox nyní podporuje tlačítko Nahlédnout do katalogu stejně jako ostatní výrobci.
+- Pokud technický PDF katalog M / XL není lokálně ve složce sources, otevře se oficiální MAX FRANK PDF online.
+- Otevírá se přímo source_pages konkrétního zvoleného katalogového záznamu.
+- Lokální katalog má nadále přednost před online zdrojem.
