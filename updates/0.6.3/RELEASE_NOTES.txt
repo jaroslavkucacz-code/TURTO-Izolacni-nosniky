@@ -1,0 +1,5 @@
+TURTO v0.6.1
+- C25/30 je výchozí beton, pokud je pro zvolený typ dostupný.
+- Projekt má vlastní volbu Beton projektu.
+- Tlačítko Použít na řádky bezpečně přepočítá jen dostupné kombinace.
+- Zápis ± lze psát jako +-, -+ nebo +/-.
