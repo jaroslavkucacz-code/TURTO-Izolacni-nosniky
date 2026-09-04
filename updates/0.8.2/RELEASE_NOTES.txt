@@ -1,0 +1,6 @@
+TURTO v0.8.2
+- Vstupní pole MEd+/MEd−/VEd+/VEd− se dynamicky zamykají podle zvoleného typu HIT.
+- MVX: aktivní MEd−, VEd+, VEd−; ZVX: pouze VEd+; ZDX: VEd+ a VEd−.
+- DD a DDL: aktivní všechny čtyři směry; DVL: MEd+, MEd− a VEd+.
+- Uzamčené hodnoty zůstávají v řádku pro případ přepnutí zpět, ale výpočet, kopírování a budoucí provazby je ignorují.
+- Neznámý budoucí typ má bezpečně všechny směrové vstupy uzamčené, dokud mu není definován statický model.
