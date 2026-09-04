@@ -1,0 +1,6 @@
+TURTO v0.9.3
+- Pokud je zvolen MVXL a současně vyhovuje i MVX, řádek je nyní výrazně, ale nekřiklavě označen jako možná úspornější alternativa.
+- Stav / kontrola dostane jantarové zvýraznění a text 'VYHOVUJE I MVX'.
+- Tlačítko se změní na '⚠ Varianty… +MVX' a v okně Varianty jsou MVX alternativy podbarvené.
+- Bez cenové databáze program netvrdí, že MVX je levnější; pouze upozorní na technicky jednodušší alternativu.
+- Architektura doporučení zůstává připravena na budoucí cenové pořadí: nejdřív statická použitelnost, potom cena mezi vyhovujícími kandidáty.
