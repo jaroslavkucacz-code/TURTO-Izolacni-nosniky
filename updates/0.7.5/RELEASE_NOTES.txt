@@ -1,0 +1,7 @@
+TURTO v0.7.5
+- HIT: interakce M/V je přepsána do explicitní rovnice obálky z DoP str. 3.
+- Správně se současně uplatní rozdílné MRd,1/VRd,1 a MRd,2/VRd,2; kontrolují se vodorovná, svislá i šikmá hrana.
+- Zachována podmínka |MEd|/|VEd| >= 0,150 m.
+- Známý zdrojový rounding na str. 41 (58,9/104,2 vs. 58,8/104,2) je ošetřen konzervativně hodnotou 58,8.
+- Výrazně nebo jinak obrácené bilanční body se nyní odmítnou jako neplatná data místo tichého výpočtu.
+- Regrese kontroluje bilanční body, šikmou hranu, body uvnitř/vně a numerickou shodu s dosavadní metodou pro standardní data.
