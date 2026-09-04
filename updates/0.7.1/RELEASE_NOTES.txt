@@ -1,0 +1,7 @@
+TURTO v0.7.1
+- Samostatný návrhář HIT v0.3.0 je integrován do hlavního TURTO jako nová karta „Návrh HIT“.
+- Výpočet používá stejné jádro jako samostatný HIT: HP/SP MVX, tabulkovou výšku h−cnom, C20/25 až C30/37, podmínku |MEd|/|VEd| ≥ 0,15 m a lineární M–V obálku M1/V1–M2/V2.
+- Zachováno je přímé řádkové zadávání, automatický přepočet a ruční volba jiné vyhovující varianty.
+- Lze povolit délky 1000/500/250 mm a varianty OD/OU/WD/WU.
+- Integrovaný modul nejprve zkusí použít existující lokální databázi ze samostatného TURTO HIT; není-li dostupná, lze vybrat původní DoP a vytvořit data lokálně.
+- Projektové provazby jsou v této první integrované verzi záměrně vypnuté; připraven je interní strukturovaný výstup pro budoucí propojení s projektovými řádky a náhradami výrobců.
