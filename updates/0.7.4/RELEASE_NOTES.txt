@@ -1,0 +1,6 @@
+TURTO v0.7.4
+- Hlavní okno se při každém spuštění otevře maximalizované na monitoru, kde byl při startu kurzor myši.
+- Fungují i monitory vlevo nebo nad primárním monitorem se zápornými souřadnicemi.
+- Přidána průhledná ikona TURTO podle dodaného firemního loga.
+- Ikona se používá v titulkové liště, na hlavním panelu Windows i v hlavičce aplikace.
+- Vlastní dialogy zůstávají otevírané nad rodičovským oknem na stejném monitoru.
