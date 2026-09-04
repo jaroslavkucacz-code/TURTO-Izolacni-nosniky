@@ -12,6 +12,16 @@ def _replace_once(text: str, old: str, new: str, label: str) -> str:
         if old not in text:
             raise RuntimeError(f"{label}: marker not found")
         return text.replace(old, new, 1)
+
+    # The explanatory paragraph changed slightly between patch releases.
+    # Keep the functional build independent of its exact long wording and
+    # update only the stable type summary.
+    if label == "help text":
+        marker = "MVX = M−, V±; ZVX = pouze V+"
+        if marker in text:
+            text = text.replace(marker, "MVX/MVXL = M−, V±; ZVX = pouze V+", 1)
+        return text
+
     return _original_replace_once(text, old, new, label)
 
 
