@@ -19,12 +19,15 @@ def _replace_once(text: str, old: str, new: str, label: str) -> str:
         return text[:pos] + new + text[pos + len(old):]
 
     # The explanatory paragraph changed slightly between patch releases.
-    # Keep the functional build independent of its exact long wording and
-    # update only the stable type summary.
+    # Update only its stable type summary and add the automatic bond rule.
     if label == "help text":
         marker = "MVX = M−, V±; ZVX = pouze V+"
         if marker in text:
-            text = text.replace(marker, "MVX/MVXL = M−, V±; ZVX = pouze V+", 1)
+            text = text.replace(
+                marker,
+                "MVX/MVXL = M−, V±; good/poor bond se volí automaticky podle h−cnom; ZVX = pouze V+",
+                1,
+            )
         return text
 
     return _original_replace_once(text, old, new, label)
