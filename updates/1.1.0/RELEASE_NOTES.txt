@@ -1,0 +1,9 @@
+TURTO ISO v1.1.0
+- Přidána samostatná karta Záměny za HIT, která přebírá typy jiných výrobců z Projektových řádků.
+- Z katalogových výsledků původního prvku se automaticky sestaví směrové požadavky M+, M−, N+, N−, V+ a V− v jednotkách na metr.
+- Původní katalogové únosnosti se v první verzi používají konzervativně jako současně působící požadavek; nejde o přenos skutečných zatěžovacích kombinací.
+- Návrh používá stávající statické jádro HIT a hledá technicky přípustné typy podle směru účinků, výšky, betonu, krytí a povolených délek.
+- Tabulka záměn obsahuje původní typ, účinky, navržený HIT, využití, počet variant, rozhodující kontrolu a drobný statický výpočet.
+- Výsledek se ukládá přímo do projektového souboru .tinp a zobrazuje se také ve sloupci Převod v Projektových řádcích.
+- Přidáno kopírování tabulky a nativní Excel export.
+- Záměna je výslovně označena jako předběžná: neověřuje tuhost, deformace, požár, izolant, tlakový přenos, geometrii, kotvení, spáry ani montáž.
