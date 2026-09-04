@@ -30,6 +30,10 @@ def _replace_once(text: str, old: str, new: str, label: str) -> str:
         if count != 1:
             raise RuntimeError("HIT module version marker not found")
         return updated
+    if label == "header anchors":
+        if old not in text:
+            raise RuntimeError("header anchor marker not found")
+        return text.replace(old, new, 1)
     return _original_replace_once(text, old, new, label)
 
 
