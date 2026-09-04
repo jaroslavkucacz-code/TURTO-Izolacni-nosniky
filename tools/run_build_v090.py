@@ -6,12 +6,17 @@ _original_replace_once = build.replace_once
 
 
 def _replace_once(text: str, old: str, new: str, label: str) -> str:
-    # The ZVX/ZDX branch appears in several methods. In HitDatabase the first
-    # occurrence is the directional branch where MVXL must be inserted.
+    # The ZVX/ZDX branch also appears in Candidate.designation and in the
+    # legacy candidates API. Insert MVXL specifically inside directional_candidates.
     if label == "directional MVXL":
-        if old not in text:
-            raise RuntimeError(f"{label}: marker not found")
-        return text.replace(old, new, 1)
+        method_marker = "    def directional_candidates("
+        method_pos = text.find(method_marker)
+        if method_pos < 0:
+            raise RuntimeError(f"{label}: directional_candidates not found")
+        pos = text.find(old, method_pos)
+        if pos < 0:
+            raise RuntimeError(f"{label}: branch marker not found in directional_candidates")
+        return text[:pos] + new + text[pos + len(old):]
 
     # The explanatory paragraph changed slightly between patch releases.
     # Keep the functional build independent of its exact long wording and
