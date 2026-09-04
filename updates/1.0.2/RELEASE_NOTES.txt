@@ -1,0 +1,8 @@
+TURTO ISO v1.0.2
+- Aplikace se nově jmenuje TURTO ISO; autor zůstává Vytvořil Ing. Jaroslav Kučera.
+- Průhledná TURTO ikona dostala zlatý nápis ISO.
+- Zrušen globální přepínač MVX OD/OU/WD/WU. Provedení MVX se volí v každém řádku jako Bez / OU / OD.
+- Pro OU/OD je povinné bx [mm]. Číslo se stává součástí označení, např. OU175 / OD200.
+- bx je kontrolováno v katalogovém standardním rozsahu 175–330 mm pro HP a 175–290 mm pro SP; mimo rozsah program neextrapoluje.
+- Detail návrhu zobrazuje také délku části tahového prutu na straně hlavní desky bx−20 mm.
+- Standardní MVX (Bez) zachovává vazbu MVX ↔ MVXL; explicitní OU/OD se neposílá do MVXL fallbacku, protože by se ztratila geometrie výškového odsazení.
