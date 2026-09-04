@@ -1,0 +1,8 @@
+TURTO v1.0.0
+- Návrh HIT nyní obsahuje všechny aktuální typy z CONF-DOP HIT-HP/SP-07-23: MVX, MVXL, ZVX, ZDX, DD, DVL, DDL, AT, FT a OTX.
+- Dokončen Annex 2 MVX-OD/OU/WD/WU; OD se načítá z tabulek Annexu 2; WD používá podle DoP stejné tabulkové hodnoty jako OD. OU/WU používají statické hodnoty standardního MVX.
+- Přidány směrové vstupy NEd+ / NEd−. AT používá M±, N−, V±; FT používá M±, N±, V±; OTX používá N±, V+ a vstup x [mm].
+- AT/FT/OTX jsou 250mm prvky a program pro ně přímo navrhuje maximální přípustnou osovou rozteč a_max.
+- AT/FT jsou automaticky omezeny na katalogově tabulované výšky 160–250 mm; OTX na 180–250 mm. Hodnoty nad tento rozsah jsou v katalogu pouze na vyžádání a program je neodhaduje.
+- OTX volí pro mezilehlé x konzervativně nejbližší vyšší tabulkovou vzdálenost; NRd = ±0,1 VRd podle katalogu.
+- Historické HIT typy nejsou součástí automatického návrhu.
