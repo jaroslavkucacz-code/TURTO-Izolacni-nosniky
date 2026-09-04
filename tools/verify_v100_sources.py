@@ -32,24 +32,23 @@ def main() -> None:
         assert int(payload["schema_version"]) == 4
         assert len(payload.get("mvxl_records", [])) >= 90
 
-        # Annex 2 must actually contribute offset table templates, not merely
-        # expand the scanned page range.
+        # Annex 2 must actually contribute the OD table family. The DoP labels
+        # the same values as applicable to WD in parentheses; WD is therefore
+        # generated as the structural mirror of the verified OD records.
         annex2_heads = []
         for heads, rows, page in payload.get("sections", []):
             if int(page) >= 55:
                 annex2_heads.extend(heads)
         assert annex2_heads, "Annex 2 did not produce any MVX sections"
         assert any(head.endswith("-OD") for head in annex2_heads), "No MVX-OD from Annex 2"
-        assert any(head.endswith("-WD") for head in annex2_heads), "No MVX-WD from Annex 2"
 
         db = hc.HitDatabase(db_path)
         assert set(("MVX", "MVXL", "ZVX", "ZDX", "DD", "DVL", "DDL", "AT", "FT", "OTX")).issubset(set(db.available_connection_types))
         suffixes = Counter(str(row[3]) for row in db.records)
         for suffix in ("OD", "WD", "OU", "WU"):
             assert suffixes[suffix] > 0, f"Missing structural offset variant {suffix}"
+        assert suffixes["WD"] == suffixes["OD"], "WD must mirror the complete verified OD record set"
 
-        # Check that the generated file can be decoded independently and that
-        # schema migration really writes the v4 data filename.
         raw = gzip.decompress(base64.b64decode(db_path.read_text(encoding="ascii").strip()))
         decoded = json.loads(raw.decode("utf-8"))
         assert decoded["catalog_id"].endswith("_v4")
