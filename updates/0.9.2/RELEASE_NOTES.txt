@@ -1,0 +1,6 @@
+TURTO v0.9.2
+- MVX a MVXL jsou propojeny jako příbuzná návrhová rodina.
+- Zvolený MVX se nejprve hledá samostatně; teprve když žádný MVX nevyhoví, program automaticky nabídne vyhovující MVXL.
+- U zvoleného MVXL se současně ověří MVX. Pokud MVX vyhovuje, MVXL zůstává preferovaným hlavním návrhem a MVX je zobrazen jako alternativa v okně Varianty.
+- Okno Varianty má nový sloupec Typ a rozlišuje preferovaný typ, alternativu a náhradní typ.
+- Kopírování výsledků i budoucí provazby používají skutečný typ vybraného produktu, nikoli jen původní typ ve filtru.
