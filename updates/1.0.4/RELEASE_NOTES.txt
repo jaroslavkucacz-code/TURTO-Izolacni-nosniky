@@ -1,0 +1,5 @@
+TURTO ISO v1.0.4
+- Zlatý text ISO v ikoně zůstává stejně velký jako ve v1.0.3, ale je posunut o 8 px výše pro lepší rozlišení aplikace na hlavním panelu.
+- Text Vytvořil Ing. Jaroslav Kučera je přesunut z horního podtitulu do trvale viditelné spodní stavové lišty.
+- Autor je ve spodní liště zvýrazněn decentní zlatou barvou a tučným Calibri, vedle stavu programu, aktualizace a verze/databázových statistik.
+- Název aplikace zůstává TURTO ISO.
