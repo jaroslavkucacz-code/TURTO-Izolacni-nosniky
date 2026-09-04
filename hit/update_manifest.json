@@ -1,9 +1,19 @@
 {
-  "version": "0.2.0",
-  "notes": "Hromadný návrh více nosníků najednou. Každému nosníku se automaticky přiřadí nejbližší vyhovující varianta podle využití. Dvojklikem na řádek nebo tlačítkem ZMĚNIT TYP lze otevřít všechny další vyhovující varianty a ručně zvolit jiný typ. Přidáno načtení, přepsání, odstranění a přepočet jednotlivých řádků.",
+  "version": "0.3.0",
+  "notes": "Přímé zadávání nosníků do řádků. V každém řádku lze upravit označení, řadu, výšku, krytí, beton, MEd a VEd; návrh se přepočítává automaticky. Sloupec Navržený výrobek je přímo rozbalovací seznam: první je nejbližší vyhovující shoda a lze okamžitě zvolit jinou vyhovující variantu. Nový řádek přebírá řadu, výšku, krytí a beton z předchozího řádku.",
   "files": [
     {
       "path": "hit_design.pyw",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/hit/launcher_v030.pyw",
+      "sha256": "81c7a2fbd461d3061ea43d9d063f57dbd78371fa2a4dde266c6f0aade1eb8e2c"
+    },
+    {
+      "path": "hit_inline_v030.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/hit/hit_inline_v030.py",
+      "sha256": "0ceb560e5b73ae9c4620fa464bb640b7f49d8cbf61d77b8b244b048ee5448bf9"
+    },
+    {
+      "path": "hit_design_legacy.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/hit/hit_design.pyw",
       "sha256": "a1f793d528a8b7b090d9230e944c1e5b2e80c93a55d5435745443a3626c17b03"
     }
