@@ -1,0 +1,4 @@
+TURTO v0.9.1
+- Oprava reálného načítání Annexu 5: hlavičky tabulek MVXL jsou nyní čteny ze správné oblasti PDF.
+- Ověřeno přímo na CONF-DOP HIT-HP/SP-07-23: parser načte 96 tabulek MVXL (48 HP + 48 SP).
+- Statický model MVXL z v0.9.0 zůstává beze změny: -MRd/+VRd z Annexu 5, automatická good/poor bond větev a V− přes odpovídající MVX.
