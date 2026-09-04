@@ -1,0 +1,7 @@
+TURTO ISO v1.0.3
+- MVX-OU/OD: bx je nyní hard-limitované přímo ve vstupním poli; nelze zadat hodnotu nad katalogové maximum.
+- Standardní rozsah bx: HIT-HP 175–330 mm, HIT-SP 175–290 mm; po změně HP/SP se existující bx automaticky stáhne do platného rozsahu.
+- Při nové volbě OU/OD se prázdné bx předvyplní hodnotou 175 mm. Hodnoty pod minimem se po dokončení vstupu upraví na 175 mm.
+- Statická kontrola bx zůstává i ve výpočtovém resolveru jako druhá bezpečnostní pojistka; nestandardní větší geometrie se automaticky nenavrhuje.
+- Ikona TURTO ISO má výrazně větší zlatý nápis ISO přes střed původního loga pro lepší rozlišení více TURTO aplikací na hlavním panelu.
+- Název aplikace zůstává TURTO ISO; Vytvořil Ing. Jaroslav Kučera.
