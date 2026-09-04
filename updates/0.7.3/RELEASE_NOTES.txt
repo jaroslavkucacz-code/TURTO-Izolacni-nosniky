@@ -1,0 +1,6 @@
+TURTO v0.7.3
+- HIT: při načtení/obnovení DoP se originální PDF kopíruje do spravované složky TURTO sources/HIT.
+- Stávající externí cesta k DoP se při prvním načtení po aktualizaci automaticky migruje do spravované kopie, pokud SHA-256 odpovídá databázi.
+- Databáze HIT zůstává v uživatelských datech; zdrojové PDF a databáze tak přežijí přesun nebo smazání původního souboru.
+- Vlastní dialogy TURTO se otevírají nad rodičovským oknem, tedy na stejném monitoru jako hlavní program.
+- Zahrnuto: detail katalogových variant, metadata řádku, starší hromadný dialog, Excel export, kontrolovaný hromadný import a Varianty HIT.
