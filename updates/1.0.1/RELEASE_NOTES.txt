@@ -1,0 +1,5 @@
+TURTO v1.0.1
+- Opravena automatická migrace HIT databáze po přechodu z v0.9.x / schema 3.
+- Při startu se stará HIT databáze již nepoužije jako aktuální; ze spravované kopie CONF-DOP se automaticky vytvoří schema 4.
+- Zachován kompletní aktuální návrh HIT: MVX, MVXL, ZVX, ZDX, DD, DVL, DDL, AT, FT a OTX včetně Annexu 2 OD/OU/WD/WU.
+- Historické HIT typy zůstávají mimo automatický návrh.
