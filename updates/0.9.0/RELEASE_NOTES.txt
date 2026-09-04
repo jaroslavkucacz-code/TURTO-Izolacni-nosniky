@@ -1,0 +1,7 @@
+TURTO v0.9.0
+- HIT: přidán plnohodnotný typ MVXL pro HP i SP z Annexu 5 CONF-DOP HIT-HP/SP-07-23.
+- MVXL používá délky 1000 a 500 mm a zachovává úplný koncový kód (např. 0810/1012).
+- Aktivní směry MVXL jsou MEd−, VEd+ a VEd−; MEd+ je uzamčený.
+- -MRd a +VRd se berou přímo z tabulek Annexu 5. Good/poor bond se vybere automaticky podle h−cnom (do 300 / od 305 mm).
+- Zvedající VEd− se podle Annexu 5 váže na odpovídající MVX se stejným počtem tahových prutů a CSB: pro nízký poměr M/V se používá přímá V2 větev, jinak přesná interakce M1/V1–M2/V2.
+- Databáze HIT je povýšena na schéma 3 a při prvním spuštění se automaticky znovu vytvoří ze spravované kopie DoP.
