@@ -1,0 +1,5 @@
+TURTO v0.8.3
+- Uzamčené vstupní buňky HIT jsou nyní barevně odlišeny od editovatelných polí ve světlém i tmavém režimu.
+- ZVX a ZDX mají podle Annexu 3 pevné krytí cnom = 30 mm; výběr krytí se po zvolení těchto typů automaticky nastaví na 30 a uzamkne.
+- Po přepnutí ze ZVX/ZDX zpět na jiný typ se obnoví poslední dříve zvolené volitelné krytí.
+- Hodnoty v uzamčených směrových polích se nadále zachovávají pro přepnutí typu, ale do výpočtu nevstupují.
