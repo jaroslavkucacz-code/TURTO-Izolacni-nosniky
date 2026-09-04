@@ -1,0 +1,9 @@
+TURTO v0.8.0
+- HIT označení výšky opraveno globálně: výška se zapisuje v cm (200 mm -> 20), např. HIT-HP MVX-0707-20-100-35.
+- Návrh HIT rozšířen z MVX také na ZVX, ZDX, DD, DVL a DDL.
+- ZVX/ZDX používají přímé smykové únosnosti Annexu 3; ZDX má stejnou číselnou únosnost jako odpovídající ZVX v obou směrech.
+- DD kombinuje momentové hodnoty z Annexu 4 s oficiálními smykovými tabulkami HALFEN HIT 20.2-EN 2023.
+- DVL/DDL kombinuje momentové hodnoty Annexu 6 s oficiálními smykovými tabulkami HIT 20.2-EN; DVL je jednosměrný smyk, DDL ± smyk.
+- Přidána délka 333 mm pro ZVX/ZDX; DD a DVL/DDL jsou zatím automaticky ověřovány v úplné 1000mm variantě.
+- Starší lokální HIT databáze se při startu automaticky přegeneruje ze spravované kopie DoP na nové schéma.
+- MVXL, AT, FT a OTX zatím nejsou automaticky navrhovány, protože vyžadují další samostatné návrhové podmínky.
