@@ -1,0 +1,7 @@
+TURTO v0.6.12
+- Projektová tabulka má nový Export Excel… do nativního .xlsx bez závislosti na Microsoft Excelu.
+- Před exportem lze zaškrtávači zvolit přesné údaje/sloupce, které se mají přenést.
+- Rozsah řádků: vybrané řádky, právě zobrazené řádky po filtru, nebo celý projekt.
+- Tlačítko Podle zobrazených sloupců převezme aktuální viditelnost; pořadí exportu respektuje aktuální pořadí tabulky.
+- Poslední výběr sloupců a rozsahu se ukládá do settings.json a obnoví se při příštím exportu.
+- XLSX má záhlaví, automatický filtr, zamrzlý první řádek, Calibri a automaticky upravené šířky sloupců.
