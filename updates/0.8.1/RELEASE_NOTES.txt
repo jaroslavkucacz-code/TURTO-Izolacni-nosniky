@@ -1,0 +1,8 @@
+TURTO v0.8.1
+- Návrh HIT má samostatné vstupy MEd+, MEd−, VEd+ a VEd−; oba směry lze zadat současně.
+- Směr určuje sloupec, takže lze zadávat velikosti bez znaménka; případné napsané znaménko se bezpečně převede na velikost.
+- MVX kontroluje záporný moment proti V+ i V− přes interakční obálku; kladný moment u MVX se výslovně odmítne.
+- ZVX a DVL jsou jednosměrné ve smyku: při současném V+ a V− program upozorní na ZDX/DDL.
+- ZDX, DD a DDL kontrolují obě smyková znaménka; DD/DDL současně kontrolují oba směry momentu.
+- Směrové API je připravené pro budoucí výrobce s rozdílnými únosnostmi v kladném a záporném směru.
+- Kopírování výsledků a budoucí provazby předávají všechny čtyři směrové vstupy samostatně.
