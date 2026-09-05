@@ -1,0 +1,8 @@
+TURTO ISO v1.1.8
+- Přidán katalog ISOPRO 120 Thermal insulation elements, anglické vydání 09/2024.
+- Databáze obsahuje 22 aktuálních skupin a 8 193 konkrétních katalogových kombinací: M, M P, WU/WO/HV/UV, C/CE, Q/QZ/QS/QSZ, QQ/QQS, D, H, A, F, O, S, W a Z ISO.
+- Uloženy jsou katalogové momentové, smykové, normálové a vodorovné únosnosti, délky prvků, výšky, krytí, tloušťka izolantu 120 mm a způsob tlakového přenosu.
+- Automatická záměna za HIT je povolena pro bezpečně srovnatelné deskové typy M, M P, M WU, Q/QZ/QS/QSZ, QQ/QQS a D.
+- U WU se rozpozná zápis WU WD 220 a převede se na HIT MVX-OU220; další geometrické varianty zůstávají k ručnímu posouzení.
+- Typy C/CE, H, A, F, O, S, W a Z ISO se zobrazují se všemi katalogovými údaji, ale automatická záměna je bezpečně zablokována s konkrétním důvodem.
+- Opravena persistence diagnostiky dostupnosti průměrů 06/08/10/12 po uložení a znovuotevření projektu.
