@@ -1,0 +1,9 @@
+TURTO ISO v1.1.10
+- Doplněn kontextový Ctrl+A: vybere vše v aktivním textovém poli, vstupu, seznamu nebo tabulce; v tabulkách s vícenásobným výběrem označí všechny zobrazené řádky.
+- Ctrl+C umí kopírovat označené řádky aktivní tabulky jako tabulátorový výstup pro Excel.
+- Ctrl+F přejde přímo na filtr projektové tabulky; F1 zobrazí přehled dostupných klávesových zkratek.
+- Zachovány a sjednoceny Ctrl+N, Ctrl+O, Ctrl+S a Ctrl+Shift+S.
+- Úvodní PDF souhrn byl graficky přepracován a neobsahuje tlakový přenos. Zobrazuje pouze pozici, počet kusů, původní a navržený typ, délku, I/h/cnom, průměr, rozhodující kontrolu a stav.
+- První strana PDF obsahuje pět souhrnných ukazatelů: počet pozic, celkové množství, počet vyhovujících, počet k posouzení a maximální využití.
+- Detailní výpočtové listy jsou nově po dvou prvcích na stránku, mají výraznější hierarchii, rozhodující kontrolu, graf využití se značkou 100 %, až šest směrových kontrol a samostatný blok technické shody.
+- Tlakový přenos zůstává uveden v detailu, kde je důležitý pro technické ověření, ale nezatěžuje úvodní přehled.
