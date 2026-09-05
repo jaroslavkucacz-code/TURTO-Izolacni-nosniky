@@ -51,4 +51,31 @@ for alias_old, alias_new in alias_patches:
         raise RuntimeError(f"Neočekávaný počet alias patchů: {code.count(alias_old)}")
     code = code.replace(alias_old, alias_new, 1)
 
+# Více textových aliasů stejného záznamu se po normalizaci může slít do
+# stejného klíče. Před vyhodnocením přesné shody je proto deduplikujeme podle
+# skutečného katalogového záznamu; nejde o slučování odlišných výrobků.
+main_old = '''    substitution = OUT / "substitution_workspace.py"
+    substitution.write_text(patch_substitution(substitution.read_text(encoding="utf-8")), encoding="utf-8")
+
+    package = build_package()
+'''
+main_new = '''    substitution = OUT / "substitution_workspace.py"
+    substitution.write_text(patch_substitution(substitution.read_text(encoding="utf-8")), encoding="utf-8")
+
+    catalog_engine = OUT / "catalog_engine.py"
+    catalog_source = catalog_engine.read_text(encoding="utf-8")
+    catalog_source = replace_once(
+        catalog_source,
+        "        exact = list(self._designation_index.get(key, []))\\n",
+        "        exact = list({(id(f), id(r)): (f, r) for f, r in self._designation_index.get(key, [])}.values())\\n",
+        "deduplicate exact designation aliases",
+    )
+    catalog_engine.write_text(catalog_source, encoding="utf-8")
+
+    package = build_package()
+'''
+if code.count(main_old) != 1:
+    raise RuntimeError(f"Neočekávaný počet main patchů: {code.count(main_old)}")
+code = code.replace(main_old, main_new, 1)
+
 exec(compile(code, __file__ + "<payload>", "exec"), {"__name__": __name__, "__file__": __file__})
