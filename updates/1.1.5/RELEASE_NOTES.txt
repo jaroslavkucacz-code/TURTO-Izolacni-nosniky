@@ -1,0 +1,7 @@
+TURTO ISO v1.1.5
+- Opravena záměna krátkých smykových prvků Egcobox, zejména VXL Z 48-K a VXL48-K délky 300 mm.
+- Automatická tabulka záměn nyní vždy prověřuje všechny standardní délky HIT 1000, 500, 333 a 250 mm.
+- Zaškrtávače Povolené délky v kartě Návrh HIT zůstávají filtrem pouze pro ruční návrh a již automatickou záměnu neblokují.
+- VXL Z 48-K bez tlakových ložisek se při h160, C25/30 a cnom 30 může převést na HIT-SP ZVX-0500-16-033-30-08, pokud vyhoví požadované únosnosti.
+- VXL48-K s tlakovými ložisky se za stejných podmínek může převést na HIT-SP ZVX-0302-16-033-30-08.
+- U obou případů zůstává plná kontrola únosnosti jednoho prvku, délková výjimka 300→333 mm a přesná vazba s tlakovými ložisky / bez nich.
