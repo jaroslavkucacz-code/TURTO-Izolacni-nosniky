@@ -12,7 +12,7 @@ from bulk_import_engine import preprocess_bulk_designation
 from catalog_engine import CatalogDatabase
 from hit_core import HitDatabase, build_database_from_pdf
 from project_model import create_project_row
-from substitution_workspace import design_targets, source_actions, source_metadata
+from substitution_workspace import action_values, design_targets, source_actions, source_metadata
 
 DOP_URL = "https://downloads.halfen.com/catalogues/de/media/declarationofperformance/reinforcementsystems/CONF-DOP_HIT-HP_SP_07-23-E.pdf"
 
@@ -47,6 +47,7 @@ def main() -> None:
 
     hit = HitDatabase(database_path)
     catalog = CatalogDatabase(VERSION / "catalogs")
+    mismatches: list[str] = []
     for index, (raw, expected) in enumerate(EXAMPLES, start=1):
         lookup, note = preprocess_bulk_designation(raw)
         suggestions = catalog.suggest_designations(lookup, preferred_concrete="C25/30", limit=10)
@@ -64,12 +65,23 @@ def main() -> None:
         if not targets:
             raise AssertionError(f"{raw}: no target, errors={errors}")
         actual = str(targets[0]["designation"])
-        print(f"{raw} -> {actual} | expected {expected} | eta={targets[0]['utilization'] * 100:.3f}%")
+        print(
+            f"{raw} -> {actual} | expected {expected} | eta={targets[0]['utilization'] * 100:.3f}% "
+            f"| actions={action_values(actions)} | estimate={metadata.get('geometry_display','')}"
+        )
         if actual != expected:
-            raise AssertionError(f"{raw}: expected {expected}, got {actual}")
+            print("  TOP ALTERNATIVES:")
+            for target in targets[:10]:
+                print(
+                    f"    {target['designation']} | eta={target['utilization'] * 100:.3f}% "
+                    f"| M={target.get('m_capacity')} V={target.get('v_capacity')}"
+                )
+            mismatches.append(f"{raw}: expected {expected}, got {actual}")
         assert targets[0]["cover_mm"] == metadata["source_cover_mm"]
         assert targets[0]["height_mm"] == metadata["source_height_mm"]
         assert targets[0]["series"] == metadata["target_series"]
+    if mismatches:
+        raise AssertionError("\n".join(mismatches))
     print(f"Verified {len(EXAMPLES)} Egcobox -> HIT substitutions")
 
 
