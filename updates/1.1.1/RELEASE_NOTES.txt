@@ -1,0 +1,9 @@
+TURTO ISO v1.1.1
+- Opravena nefunkční záměna Egcobox: hodnoty kNm/element a kN/element se u známého jedno-metrového prvku MAX FRANK správně převádějí na srovnávací hodnoty na metr.
+- Řada HIT se určuje automaticky podle izolantu: 80 mm = HIT-HP, 120 mm = HIT-SP. Krytí, výška a beton se přebírají z původního prvku.
+- Kandidát musí samostatně splnit momentovou, smykovou a normálovou únosnost. U MVX/MVXL se navíc informativně zobrazuje interakční využití M-V.
+- Výběr MVX je řazen podle minimální potřebné výzbroje, nikoli podle náhodně nejvyššího využití; při shodném součtu se upřednostní menší smykový kód.
+- Bez geometrického požadavku se nenabízejí OD/OU/WD/WU. Geometrie Egcobox WU280 se převádí na HIT MVX-OU280 a kontroluje rozsah bx.
+- Původní text označení se nově uchovává v projektu; lze jej upravit přímo v kartě Záměny za HIT.
+- Tabulka záměn nově zobrazuje izolant, řadu HIT, zdrojové/cílové krytí a výšku, geometrii, cílové kapacity a drobný výpočet poměrů.
+- Požární odolnost REI se v této fázi vědomě neposuzuje a návrh neblokuje.
