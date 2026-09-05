@@ -31,6 +31,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Verification imports generated modules, so remove Python bytecode before publishing.
+          find updates/1.1.1 -type d -name __pycache__ -prune -exec rm -rf {} +
+          find updates/1.1.1 -type f -name '*.pyc' -delete
+          # The runner patches these tracked build helpers only inside CI; do not leave
+          # their temporary working-copy changes around before git pull --rebase.
+          git restore tools/build_v111.py tools/v111_substitution_workspace.py
           git add updates/1.1.1 update_manifest.json
           if git diff --cached --quiet; then
             echo "No generated changes."
