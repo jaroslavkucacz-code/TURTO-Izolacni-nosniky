@@ -27,7 +27,9 @@ EXAMPLES = [
     ("EGCOBOX MXL25-VS-C30-h200-REI120-SW", "HIT-SP MVX-0504-20-100-30"),
     ("EGCOBOX MXL25-VS-C50-h200-REI120-SW", "HIT-SP MVX-0504-20-100-50"),
     ("EGCOBOX MXL25-VS-C50-h200-REI120-SW - 1m", "HIT-SP MVX-0504-20-100-50"),
-    ("EGCOBOX MXL25-WU280-VS-C30-h200-REI120-SW", "HIT-SP MVX-0504-20-100-30-OU280"),
+    # Zdrojový katalog pro WU280 uvádí MRd = -32,1 kNm/element; 0504 má při
+    # h=200/cnom=30 nedostatečný samostatný momentový limit, proto je 0604 bezpečná oprava tabulky.
+    ("EGCOBOX MXL25-WU280-VS-C30-h200-REI120-SW", "HIT-SP MVX-0604-20-100-30-OU280"),
     ("EGCOBOX MXL35-VS-C30-h200-REI120-SW", "HIT-SP MVX-0704-20-100-30"),
     ("EGCOBOX MXL50-V1-C30-h200-REI120-SW", "HIT-SP MVX-0806-20-100-30"),
     ("EGCOBOX MXL50-V2-C50-h200-REI120-SW", "HIT-SP MVX-0807-20-100-50"),
@@ -67,7 +69,7 @@ def main() -> None:
         actual = str(targets[0]["designation"])
         print(
             f"{raw} -> {actual} | expected {expected} | eta={targets[0]['utilization'] * 100:.3f}% "
-            f"| actions={action_values(actions)} | estimate={metadata.get('geometry_display','')}"
+            f"| actions={action_values(actions)} | geometry={metadata.get('geometry_display','')}"
         )
         if actual != expected:
             print("  TOP ALTERNATIVES:")
