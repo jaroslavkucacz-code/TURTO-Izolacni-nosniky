@@ -35,4 +35,20 @@ if code.count(old) != 1:
     raise RuntimeError(f"Neočekávaný počet WU patchů: {code.count(old)}")
 code = code.replace(old, new, 1)
 
+# Oficiální označení A a Z ISO se ve výkazech běžně uvádí i s R90 / FP1.
+alias_patches = (
+    (
+        'extra_aliases=[f"IP120 A{level} b{b} h{h}",f"IP120 A {level} b{b}"],notes=',
+        'extra_aliases=[f"IP120 A{level} b{b} h{h}",f"IP120 A{level} b{b} h{h} R90",f"IP120 A {level} b{b}"],notes=',
+    ),
+    (
+        'extra_aliases=[f"IP120 Z ISO h{h}",des+" FP1"]))',
+        'extra_aliases=[f"IP120 Z ISO h{h}",f"IP120 Z ISO h{h} FP1",des+" FP1"]))',
+    ),
+)
+for alias_old, alias_new in alias_patches:
+    if code.count(alias_old) != 1:
+        raise RuntimeError(f"Neočekávaný počet alias patchů: {code.count(alias_old)}")
+    code = code.replace(alias_old, alias_new, 1)
+
 exec(compile(code, __file__ + "<payload>", "exec"), {"__name__": __name__, "__file__": __file__})
