@@ -1,0 +1,8 @@
+TURTO ISO v1.1.9
+- Hromadná analýza výkazu nyní běží na pozadí a hlavní dialog během zpracování nezamrzá.
+- Zobrazuje se průběh po řádcích, aktuálně hledané označení, počet dokončených řádků a počet využití cache.
+- Tlačítkem „Storno analýzy“ lze analýzu bezpečně zastavit po dokončení právě běžícího katalogového dotazu.
+- Částečný výsledek po stornu zůstane viditelný, ale nelze jej omylem vložit jako kompletní výkaz; pro vložení je nutné analýzu spustit znovu.
+- Opakovaná stejná označení v jednom výkazu se vyhodnocují pouze jednou a další řádky použijí výsledek z cache.
+- Unikátní hodnoty výrobce, řady, typu, třídy a krytí se předpočítají při načtení databáze; odpadá opakovaný průchod tisíců záznamů u každého řádku.
+- Přesná označení používají přímý index; strukturované zápisy předem vyřazují nesouvisející výrobce a rodiny; fuzzy vyhledání zůstává až poslední záchranou.
