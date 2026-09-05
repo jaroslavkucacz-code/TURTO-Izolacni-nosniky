@@ -5,6 +5,7 @@ on:
     paths:
       - ".github/workflows/build_v112.yml"
       - "tools/build_v112.py"
+      - "tools/build_v112_runner.py"
   workflow_dispatch:
 
 permissions:
@@ -19,7 +20,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Build and verify v1.1.2
-        run: python tools/build_v112.py
+        run: python tools/build_v112_runner.py
       - name: Commit generated update
         run: |
           git config user.name "github-actions[bot]"
