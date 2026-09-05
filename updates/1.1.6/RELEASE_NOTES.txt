@@ -1,0 +1,7 @@
+TURTO ISO v1.1.6
+- V tabulce záměn je nové dialogové okno Vybrat variantu, které standardně zobrazí nejlepší vyhovující HIT pro každý dostupný průměr drátu 06 / 08 / 10 / 12.
+- Volbou Zobrazit všechny vyhovující varianty lze vybrat i další délku, výztužnou třídu nebo konstrukční typ; vybraná alternativa se uloží k projektovému řádku.
+- Tabulka nově zobrazuje průměr drátu a přehled dostupných průměrů přímo ve sloupci Varianty.
+- Stručná statická kontrola je přepracována do profesionálnějšího tvaru s požadavkem, únosností HIT, využitím eta, výsledkem, délkou, tlakovým přenosem, izolantem, krytím a výškou.
+- Přidán profesionální vícestránkový export PDF: souhrnná tabulka a stručný výpočtový blok pro každý prvek, včetně M/N/V, interakce M-V, geometrických kontrol a upozornění na rozsah posouzení.
+- PDF se generuje přes již používanou knihovnu Pillow, bez nové runtime závislosti; build ověřuje vytvoření i vykreslení výsledného PDF.
