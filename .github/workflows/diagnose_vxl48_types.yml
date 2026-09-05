@@ -18,5 +18,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install parser dependency
+        run: python -m pip install --disable-pip-version-check pdfplumber
+      - name: Download current HIT DoP
+        run: curl -L --fail --retry 3 "https://downloads.halfen.com/catalogues/de/media/declarationofperformance/reinforcementsystems/CONF-DOP_HIT-HP_SP_07-23-E.pdf" -o _diag_hit_dop.pdf
       - name: Diagnose exact source types
         run: python tools/diagnose_vxl48_types.py
