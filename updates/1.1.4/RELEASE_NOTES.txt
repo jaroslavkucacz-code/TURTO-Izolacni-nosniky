@@ -1,0 +1,7 @@
+TURTO ISO v1.1.4
+- U zdrojového prvku skutečné délky 300 mm je nově přípustná také standardní délka HIT 333 mm.
+- Výjimka platí pouze pro dvojici 300→333 mm; ostatní prvky se nadále nahrazují shodnou nebo kratší délkou.
+- Pro 300mm zdroj se nejprve zkouší 333mm HIT a potom 250mm HIT; vždy musí vyhovět celková únosnost jednoho prvku.
+- Přepočet hodnot /m i /prvek používá skutečnou cílovou délku 333 mm, takže se nemění bezpečnost statické kontroly.
+- Tabulka záměn a drobný výpočet označí tento případ textem „povolená výjimka 300→333 mm“.
+- Vazba tlakových ložisek zůstává beze změny a musí být shodná i u této délkové výjimky.
