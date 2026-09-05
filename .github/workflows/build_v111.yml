@@ -5,6 +5,7 @@ on:
     paths:
       - ".github/workflows/build_v111.yml"
       - "tools/build_v111.py"
+      - "tools/build_v111_runner.py"
       - "tools/v111_substitution_workspace.py"
       - "tools/verify_v111_substitutions.py"
   workflow_dispatch:
@@ -23,7 +24,7 @@ jobs:
       - name: Install verification dependency
         run: python -m pip install --quiet pdfplumber
       - name: Build and verify v1.1.1
-        run: python tools/build_v111.py
+        run: python tools/build_v111_runner.py
       - name: Verify real Egcobox to HIT examples
         run: python tools/verify_v111_substitutions.py
       - name: Commit generated update
