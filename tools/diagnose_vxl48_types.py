@@ -8,10 +8,19 @@ sys.path.insert(0, str(UPDATE))
 from bulk_import_engine import preprocess_bulk_designation
 from catalog_engine import CatalogDatabase
 from project_model import create_project_row
+from hit_core import HitDatabase, build_database_from_pdf
 import substitution_workspace as sw
 
 
 def main() -> None:
+    source_pdf = ROOT / "_diag_hit_dop.pdf"
+    hit_data = ROOT / "_diag_hit_all_2023_v4.json.gz.b64"
+    if not source_pdf.exists():
+        raise RuntimeError(f"Missing downloaded DoP: {source_pdf}")
+    build_database_from_pdf(source_pdf, hit_data)
+    hit_db = HitDatabase(hit_data)
+    print("HIT", hit_db.schema_version, "ZVX records", len(hit_db.zvx_records))
+
     db = CatalogDatabase(UPDATE / "catalogs")
     raws = [
         "EGCOBOX VXL Z 48-K-C30-h160-REI120-SW",
@@ -43,6 +52,27 @@ def main() -> None:
         print("ACTION_WARNINGS", warnings)
         print("LENGTH_OPTIONS", sw._target_length_options(int(meta.get("source_length_mm") or 0), {100, 50, 33, 25}))
         print("TYPE_ORDER", sw.hit_type_order(actions, int(meta.get("target_cover_mm") or 0), str(meta.get("geometry_target", ""))))
+
+        targets, errors = sw.design_targets(
+            hit_db,
+            row=row,
+            metadata=meta,
+            allowed_length_codes={100, 50, 33, 25},
+        )
+        print("TARGET_COUNT", len(targets))
+        for target in targets[:20]:
+            print("TARGET", target["designation"], "L", target["length_mm"], "COMP", target["compression_text"], "ETA", target["utilization"], "Velem", target["v_capacity_element"])
+        print("ERRORS", errors)
+
+        for code, length in sw._target_length_options(int(meta.get("source_length_mm") or 0), {100, 50, 33, 25}):
+            ta, _ = sw.source_actions(row, target_length_mm=length)
+            candidates, error, _info = hit_db.proposal_candidates(
+                "ZVX", meta["target_series"], meta["target_height_mm"], 30,
+                meta["target_concrete"], ta, {code}, False, load_distance_x=0.0,
+            )
+            print("RAW_ZVX", length, "req", sw.action_values(ta), "count", len(candidates), "error", error)
+            for candidate in candidates[:20]:
+                print("  ", candidate.designation, candidate.code, candidate.v1, candidate.physical_length_mm, sw._candidate_compression_text(candidate), "okcomp", sw._compression_compatible(meta["source_compression_category"], candidate))
 
 
 if __name__ == "__main__":
