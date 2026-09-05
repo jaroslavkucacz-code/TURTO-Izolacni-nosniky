@@ -1,0 +1,7 @@
+TURTO ISO v1.1.7
+- Dialog Vybrat variantu nyní vždy ukáže stav všech průměrů Ø06, Ø08, Ø10 a Ø12.
+- Vyhovující průměry zůstávají volitelné; nedostupné průměry se zobrazí šedě s konkrétním technickým důvodem.
+- Rozlišuje se chybějící katalogová délka, odlišný tlakový přenos, výška mimo katalogový rozsah a nedostatečná celková únosnost jednoho prvku.
+- U VXL Z 48-K a VXL48-K při h160 je jediným platným průměrem Ø08; program nyní vysvětlí, proč Ø06, Ø10 a Ø12 nelze nabídnout.
+- Hlavní tabulka záměn zobrazuje přehled Ø06× / Ø08✓ / Ø10× / Ø12× a stejné vysvětlení se přenese do poznámky PDF výpočtu.
+- Žádná nevyhovující varianta se nestane volitelnou; statická, délková a tlaková kontrola zůstává beze změny.

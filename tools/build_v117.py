@@ -464,7 +464,7 @@ def run_real_dop_regression(out: Path) -> None:
                 "EGCOBOX VXL48-K-C30-h160-REI120-SW",
                 "bearing",
                 "HIT-SP ZVX-0302-16-033-30-08",
-                {6: "max.", 8: "available", 10: "h = 170", 12: "h = 170"},
+                {6: "max.", 8: "available", 10: "h = 170", 12: "jiným tlakovým přenosem"},
             ),
         )
         for index, (raw, pressure, expected, expected_reasons) in enumerate(cases, start=1):
