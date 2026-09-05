@@ -1,0 +1,9 @@
+TURTO ISO v1.1.2
+- Záměny za HIT nově pracují se skutečnou délkou původního prvku. Hodnoty /m se převádějí na celý zdrojový prvek a hodnoty /prvek zůstávají celkové.
+- Cílový HIT nikdy nesmí být delší než původní prvek. Z povolených standardních délek se jako první navrhne nejbližší shodná nebo kratší délka, která jako jeden prvek přenese požadovanou únosnost.
+- Pro kratší HIT se požadavek správně přepočítá na jeho vlastní délku; kontrola a tabulka zobrazují kapacity v kNm/prvek a kN/prvek.
+- Délka se čte ze strukturovaných katalogových dat, z označení L..., z dovětku 0,93 m / 1 m nebo z ručního upřesnění. Nejednoznačný předpoklad je označen ke kontrole.
+- Zachovává se vazba tlakových ložisek: zdroj s tlakovými ložisky smí nahradit jen HIT s CSB; zdroj bez tlakových ložisek jen HIT bez CSB / s tlačenými pruty.
+- U ZVX/ZDX se přítomnost tlakových ložisek určuje z počtu CSB v kódu prvku; MVX/MVXL jsou vedeny s CSB, DD/DVL/DDL/AT/FT/OTX bez tlakových ložisek.
+- Tabulka záměn a Excel export nově obsahují délku zdroje i HIT a tlakový přenos na obou stranách.
+- Dialog Upravit zdroj / délku / tlak umožňuje ručně potvrdit skutečnou délku a vazbu tlakových ložisek.
