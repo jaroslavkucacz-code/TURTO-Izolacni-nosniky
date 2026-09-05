@@ -1,0 +1,8 @@
+TURTO ISO v1.1.3
+- Záměna jeden prvek za jeden nadále vybírá nejbližší shodný nebo kratší HIT, který přenese celkovou únosnost původního prvku.
+- Délky aktuálních řad MAX FRANK Egcobox MM/MXL, jejich výškových variant a smykových řad VM/VXL se nyní určují přímo z katalogové třídy.
+- Zohledněny jsou rozdílné délky krátkých K-prvků i rozdíly mezi jednosměrnými a obousměrnými VM-K/VXL-K±, např. VM86-K 300 mm versus VM86-K± 310 mm.
+- Explicitní délka v označení nebo poznámce, např. 0,93 m, má před katalogovou standardní délkou přednost.
+- Neznámá délka se již nikdy nenahrazuje obecným odhadem 1000 mm; automatický návrh se zastaví a vyžádá ruční potvrzení délky.
+- Složené rohové prvky CO s rozdílnými dílčími délkami a smíšeným tlakovým přenosem se automaticky nepřevádějí jako jeden prvek.
+- Zachována je přísná vazba tlakových ložisek: s ložisky pouze za HIT s CSB, bez ložisek pouze za HIT bez CSB nebo s tlačenými pruty.
