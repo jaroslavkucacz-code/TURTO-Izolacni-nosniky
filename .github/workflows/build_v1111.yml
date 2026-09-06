@@ -1,0 +1,47 @@
+name: Build TURTO ISO v1.1.11 vector PDF update
+
+on:
+  push:
+    paths:
+      - ".github/workflows/build_v1111.yml"
+      - "tools/build_v1111.py"
+      - "tools/build_v1111_payload.part*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install vector PDF verification dependencies
+        run: python -m pip install --disable-pip-version-check reportlab pypdf pypdfium2
+      - name: Build and verify v1.1.11
+        run: python tools/build_v1111.py
+      - name: Upload vector PDF diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: turto-iso-v1.1.11-vector-pdf-diagnostics
+          path: |
+            _diag_v1111_vector.pdf
+            _diag_v1111_page1.png
+            _diag_v1111_page2.png
+            _diag_v1111_verification.json
+          if-no-files-found: error
+      - name: Commit generated update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add updates/1.1.11 update_manifest.json
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+            exit 0
+          fi
+          git commit -m "Release TURTO ISO v1.1.11 true vector PDF export"
+          git pull --rebase origin main
+          git push origin main
