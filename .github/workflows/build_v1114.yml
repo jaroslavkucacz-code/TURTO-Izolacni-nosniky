@@ -1,0 +1,50 @@
+name: Build TURTO ISO v1.1.14 readable portrait PDF
+
+on:
+  push:
+    paths:
+      - ".github/workflows/build_v1114.yml"
+      - "tools/build_v1114.py"
+      - "tools/v1114_substitution_pdf.py"
+      - "tools/v1114_logo.json.gz.b64"
+      - "tools/verify_v1114_pdf.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: turto-iso-v1114-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install PDF test dependencies
+        run: python -m pip install --disable-pip-version-check 'reportlab>=4.2,<5' pypdf pymupdf
+      - name: Build and verify actual PDF and unchanged calculation data
+        run: python tools/build_v1114.py
+      - name: Upload readable PDF diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: turto-iso-v1.1.14-readable-portrait-pdf-diagnostics
+          path: _diag_v1114/
+          if-no-files-found: error
+      - name: Publish verified update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add updates/1.1.14 update_manifest.json
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+            exit 0
+          fi
+          git commit -m "Release TURTO ISO v1.1.14 readable 11pt portrait PDF"
+          git pull --rebase origin main
+          git push origin main
