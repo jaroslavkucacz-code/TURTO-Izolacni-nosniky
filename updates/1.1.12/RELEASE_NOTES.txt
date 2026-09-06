@@ -1,0 +1,8 @@
+TURTO ISO v1.1.12
+- Automaticky rozpoznaná geometrie OU/OD je nově viditelně označena jako nepotvrzená a výsledek zůstane ve stavu KONTROLA.
+- Nové tlačítko „✓ Potvrdit geometrii“ potvrdí předvyplněnou hodnotu (např. OU280) pro jeden nebo více označených řádků a návrh ihned přepočítá.
+- Dialog „Upřesnit zdroj / geometrii…“ sdružuje označení, délku, tlakový přenos a geometrii. OU/OD i bx lze ručně změnit, potvrdit provedení bez OU/OD nebo vrátit automatické rozpoznání.
+- Při potvrzení se kontroluje katalogový rozsah bx: HIT-HP 175–330 mm a HIT-SP 175–290 mm.
+- Potvrzení se ukládá do projektu .tinp a zachová se po opětovném spuštění.
+- Tabulka, Excel a vektorové PDF rozlišují „čeká na potvrzení“, „potvrzeno uživatelem“ a „ručně upřesněno“.
+- V detailu vektorového PDF se potvrzená geometrie zobrazuje v panelu Technická shoda; bez dalších upozornění může řádek skončit jako VYHOVUJE.

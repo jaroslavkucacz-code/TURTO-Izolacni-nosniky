@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "manufacturer": "Schöck",
+  "archive_url": "https://www.schoeck.com/cs/downloads-archiv",
+  "policy": "Pokud zadaná generace není v aktivní databázi, použij pouze oficiální zdroj Schöck; nikdy ji nenahrazuj jinou generací.",
+  "sources": [
+    {
+      "id": "schoeck-t-zl-5.3",
+      "required_compact": [
+        "TZL",
+        "53"
+      ],
+      "model": "T",
+      "type": "ZL",
+      "generation": "5.3",
+      "edition": "Technische Information Schöck Isokorb T / CH-de / 2026.1",
+      "source_url": "https://www.schoeck.com/viewfile/10776/Teildokument_Technische_Information_Schoeck_Isokorb_T_Typ_ZL__10776__.pdf",
+      "source_pages": [
+        1,
+        3
+      ],
+      "status": "source_only",
+      "note": "T typ ZL je nenosný tepelně izolační mezikus; nepřenáší síly. Výška 160–300 mm, délka 1000 mm, generace 5.3."
+    },
+    {
+      "id": "schoeck-cxt-ap-1.0",
+      "required_compact": [
+        "CXTAP",
+        "10"
+      ],
+      "model": "CXT",
+      "type": "AP",
+      "generation": "1.0",
+      "edition": "Technické informace Schöck Isokorb pro atiky a parapety / CZ / 2024.1",
+      "source_url": "https://www.schoeck.com/viewfile/8304/Technicke_informace_Schoeck_Isokorb_CXT_typ_AP__8304__.pdf",
+      "source_pages": [
+        3,
+        6,
+        7
+      ],
+      "status": "special_design",
+      "note": "Dimenzování CXT AP 1.0 používá interakční postup KF a grafy Ft/Fc; nesmí se redukovat na jeden moment a smyk."
+    },
+    {
+      "id": "schoeck-sconnex-w-1.0",
+      "required_compact": [
+        "SCONNEXW",
+        "10"
+      ],
+      "model": "Sconnex",
+      "type": "W",
+      "generation": "1.0",
+      "edition": "Technické informace Schöck Sconnex / CZ / 2023.1",
+      "source_url": "https://www.schoeck.com/viewfile/6195/Technicke_informace_Schoeck_Sconnex_typ_W__6195__.pdf",
+      "source_pages": [
+        6,
+        14,
+        31
+      ],
+      "status": "loaded",
+      "catalog_id": "schoeck-sconnex-w-cz-2023-1",
+      "note": "Archivní generace 1.0 je součástí doplňkového katalogu TURTO."
+    }
+  ]
+}
