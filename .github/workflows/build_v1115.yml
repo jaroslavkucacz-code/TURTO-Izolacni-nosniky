@@ -1,0 +1,28 @@
+name: Prepare TURTO ISO v1.1.15 source snapshot
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build_v1115.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Snapshot current release for local regression tests
+        uses: actions/upload-artifact@v4
+        with:
+          name: turto-iso-v1115-base-snapshot
+          path: |
+            updates/1.1.14/
+            tools/verify_v1114_pdf.py
+            tools/build_v1114.py
+            update_manifest.json
+          retention-days: 3
+          if-no-files-found: error
