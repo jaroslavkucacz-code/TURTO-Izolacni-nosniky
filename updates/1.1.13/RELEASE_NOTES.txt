@@ -1,0 +1,8 @@
+TURTO ISO v1.1.13
+- Vektorový PDF výstup je nově standardně na A4 na výšku.
+- Do záhlaví každé stránky je vložena kompaktní vektorová podoba firemního loga TURTO; PDF zůstává bez rastrových obrazových objektů.
+- Celkový přehled je výrazně kompaktnější: užší sloupce, nižší řádky a stručnější typografie umožní zobrazit přibližně 20–25 běžných pozic už na první stránce.
+- Souhrn dál obsahuje jen rozhodující údaje; tlakový přenos zůstává v detailní technické kontrole.
+- Detailní záměny se skládají adaptivně: běžné pozice po 4 na stránku, obsahově náročnější pozice po 3.
+- Všechny texty, čáry, tabulky, grafy využití i logo jsou vektorové, vyhledávatelné a kopírovatelné.
+- Zachována je kontrola M/N/V, délek, izolantu, krytí, výšky, tlakového přenosu a potvrzené geometrie OU/OD.
