@@ -1,0 +1,11 @@
+TURTO ISO v1.1.14
+- Nová sazba vektorového PDF na A4 na výšku. Únosnosti, množství, rozměry a využití se vysazují písmem 11 pt bez zmenšování celé stránky. Běžný text má 11 pt, pomocné popisky 10,5 pt.
+- Kompaktní souhrn obsahuje pozici, počet kusů, úplný původní prvek, úplný navržený HIT a rozhodující kontrolu se stavem. Duplicitní rozměrové údaje a tlakový přenos zůstávají v podrobné části.
+- Počet řádků se počítá podle skutečné výšky textu; kontrolní vzorek 22 pozic se vejde na jednu stránku souhrnu.
+- Detailní pozice se skládají podle skutečného obsahu, nejvýše čtyři na stránku. Kontrolní vzorek obsahuje stránky se třemi i čtyřmi pozicemi. Mimořádně dlouhé záznamy dostanou více místa, nikdy menší písmo.
+- Originální firemní logo dodané uživatelem je v záhlaví překresleno vektorovými obrysy, včetně původního tvaru písmen TURTO.
+- Všechny směrové kontroly M+/M−/N+/N−/V+/V− zůstávají ve výstupu. Potvrzená geometrie OU/OD zůstává viditelná u příslušné pozice.
+- Delší poznámky a omezení jsou úplné v očíslované příloze s vazbou na pozice. Žádné označení ani poznámka se nekrátí výpustkou.
+- Rozhodující údaj ve výstupu zohledňuje i uložené celkové využití a interakci M/V, ne pouze menší dílčí poměr.
+- Stávající výpočtové jádro, katalogová data a pravidla návrhu/záměn zůstávají beze změny. Tato verze upravuje pouze výstup a označení verze aplikace.
+- PDF se nejprve dokončí v dočasném souboru. Při selhání exportu zůstane dřívější soubor nedotčený.
