@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "checks": 64,
+  "pdf": {
+    "result": "PASS",
+    "version": "1.1.15",
+    "format": "A4 portrait",
+    "raster_images": 0,
+    "numeric_font_pt": 11,
+    "body_font_pt": 11,
+    "all_directions_preserved": true,
+    "ou_confirmation_preserved": true,
+    "untruncated_notes": true,
+    "summary_pages": 1,
+    "summary_positions": 22,
+    "detail_positions_per_page": [
+      4,
+      4,
+      3,
+      4,
+      4,
+      3
+    ],
+    "page_count": 8,
+    "pdf_bytes": 94840
+  },
+  "case": "P009 source: screenshot; status/UI regression, not a new structural assessment",
+  "acceptance_persistence": true,
+  "acceptance_invalidation": true,
+  "explicit_dialog": true,
+  "matching_ui_excel_pdf_status": true,
+  "other_warnings_and_failures_not_overridden": true,
+  "version": "1.1.15",
+  "unchanged_support_files": 18,
+  "structural_core_unchanged": true
+}

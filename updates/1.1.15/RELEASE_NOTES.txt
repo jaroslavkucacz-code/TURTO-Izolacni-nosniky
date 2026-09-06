@@ -1,0 +1,9 @@
+TURTO ISO v1.1.15
+- V kartě Záměny za HIT je nové tlačítko „✓ Potvrdit záměnu…“. Je oddělené od potvrzení geometrie OU/OD.
+- Před potvrzením se označená pozice přepočítá aktuálním návrhářem. Dialog zobrazí původní odhad a konkrétní vyhovující HIT, který uživatel přijímá.
+- Potvrzení ruší pouze upozornění na nahrazení nevyhovujícího prvotního odhadu vyhovující variantou. Neodstraní chybu, nevyhovující výpočet ani nevyřešenou geometrii či jiné technické upozornění.
+- Stav v tabulce, Excelu a PDF se po platném potvrzení změní na VYHOVUJE. Původní upozornění zůstává v projektu a v příloze PDF jako potvrzená informace, nikoli nevyřešená kontrola.
+- Potvrzení se ukládá do projektu .tinp s časem a vazbou na přesné vstupy, zvolený HIT a výsledek výpočtu. Změna vstupů nebo varianty je zneplatní; identický přepočet je zachová. Potvrzení lze také výslovně zrušit.
+- Ručně vybraný HIT se při přepočtu zachová, pokud je nadále mezi vyhovujícími kandidáty.
+- Text v patičce PDF nově zní „Nutno schválit statikem stavby.“ Uživatelské potvrzení není schválením statikem.
+- Zůstává A4 na výšku, vektorové firemní logo, vektorový text, 11pt hodnoty a kompaktní rozložení. Výpočtové jádro a katalogová data se nemění.

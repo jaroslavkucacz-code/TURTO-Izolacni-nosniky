@@ -1,130 +1,140 @@
 {
-  "version": "1.1.14",
-  "notes": "TURTO ISO: čitelný vektorový PDF výstup A4 na výšku, hodnoty 11 pt, původní logo TURTO, kompaktní souhrn a 3–4 detailní pozice podle obsahu; úplné poznámky v příloze.",
+  "version": "1.1.15",
+  "notes": "TURTO ISO: potvrzení konkrétní vyhovující záměny místo prvotního odhadu, uložené potvrzení v projektu, tabulce i PDF; patička Nutno schválit statikem stavby.",
   "files": [
     {
       "path": "PDF_VERIFICATION.json",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/PDF_VERIFICATION.json",
-      "sha256": "0bb537d70e9f9aef98a6edd8adf390d416db4f573065708a4c9e3e25d3039c1d"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/PDF_VERIFICATION.json",
+      "sha256": "f5f58837f84636e07f29a9aff1de123104ad285a95e1a5779520838f913a0941"
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/RELEASE_NOTES.txt",
-      "sha256": "83084b712c0be34fa27362d4f8397b6635a4cd980dd71ef8c89c4ce60a68d29d"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/RELEASE_NOTES.txt",
+      "sha256": "be77253c604f7c68068472ed3787a0cce885b7fe37ce0591f7ae5dc0ed0335a1"
+    },
+    {
+      "path": "REVIEW_VERIFICATION.json",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/REVIEW_VERIFICATION.json",
+      "sha256": "bf1f53f16e5be4813328d31b388025af8d9d8466bb7cd623a3208ab0e420e13e"
     },
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/app.pyw",
-      "sha256": "087b498c2ee377fe89da9c34f3f491af5a0a4e26f9569f2e8dd0aa3a38ec0990"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/app.pyw",
+      "sha256": "8705fd8830817b8cd3b2e310a195dc51736b684b97cda84f07e5288b6ab6eb1a"
     },
     {
       "path": "assets/app_icon.png.b64",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/assets/app_icon.png.b64",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/assets/app_icon.png.b64",
       "sha256": "9f8f2609d23394d9095f67337efacabbe8ed99872d1cf97e19989047b98c7719"
     },
     {
       "path": "assets/turto_logo_vector.json",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/assets/turto_logo_vector.json",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/assets/turto_logo_vector.json",
       "sha256": "76d04bd62a127330fbc6d821caa2e5ffffb5aaeb592d404facbb2fedd302972f"
     },
     {
       "path": "autocomplete.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/autocomplete.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/autocomplete.py",
       "sha256": "3e50f958a0040490e8002053c53695c6154acbe2e765111ece3525a30511b873"
     },
     {
       "path": "bulk_import.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/bulk_import.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/bulk_import.py",
       "sha256": "db5977f431867ca2871abf59e538d68b8059000f880d11cae1b6af9bb6e7ad16"
     },
     {
       "path": "bulk_import_engine.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/bulk_import_engine.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/bulk_import_engine.py",
       "sha256": "6b30a9ee4d1e3533799c079d94313cccdf9a067b40bd069e222da170140150f7"
     },
     {
       "path": "catalog_engine.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/catalog_engine.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/catalog_engine.py",
       "sha256": "6ef19641918d507791e3e50ce6abf7394769c8ce0c97be3c63239ca9ed5f5b1c"
     },
     {
       "path": "catalogs/isopro_120_2024.json.gz.b64",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/catalogs/isopro_120_2024.json.gz.b64",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/catalogs/isopro_120_2024.json.gz.b64",
       "sha256": "b149c7cf2d636151abe75b2174d7f8ce91fd9a1b4b7ce34d0872f973eb556dd3"
     },
     {
       "path": "catalogs/maxfrank_egcobox_m_2022.json.gz.b64",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/catalogs/maxfrank_egcobox_m_2022.json.gz.b64",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/catalogs/maxfrank_egcobox_m_2022.json.gz.b64",
       "sha256": "cadcec7f8d33c5f75bb1023bd68a4c3ab536917acd52d4cf38d28282d64aad3c"
     },
     {
       "path": "catalogs/maxfrank_egcobox_xl_2022.json.gz.b64",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/catalogs/maxfrank_egcobox_xl_2022.json.gz.b64",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/catalogs/maxfrank_egcobox_xl_2022.json.gz.b64",
       "sha256": "3cb679b1a93ec69d91ce3cfcff38f2c34cd02956eabcef3a0b60932fb7cab9a1"
     },
     {
       "path": "catalogs/schoeck_sconnex_w_2023.json",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/catalogs/schoeck_sconnex_w_2023.json",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/catalogs/schoeck_sconnex_w_2023.json",
       "sha256": "bb82345cb1c93e5d81389d78055264cd80c5556a2a80a1d06d13aea1cb0b82db"
     },
     {
       "path": "hit_core.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/hit_core.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/hit_core.py",
       "sha256": "d20e984c0801c7e45a7ba32568bc19a34ac0011844d0ffab13db0621a4495669"
     },
     {
       "path": "hit_special.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/hit_special.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/hit_special.py",
       "sha256": "c99b30820c4aca25a8268f908034e44a10d93d5671c57776a0c6a20b955339f1"
     },
     {
       "path": "hit_workspace.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/hit_workspace.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/hit_workspace.py",
       "sha256": "727313cc344e9438c56f3804409b5d80bc12c0db097fde7f379975dcbeb9119c"
     },
     {
       "path": "project_model.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/project_model.py",
-      "sha256": "80d5869263f4466eeb7d502f5819bc8916ecc291eac96e122e41282504c11853"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/project_model.py",
+      "sha256": "dcbf91bb5c8863e90b2f09e5cd93be248a48249e88c3a36bf6ddb292a281786e"
     },
     {
       "path": "project_ui.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/project_ui.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/project_ui.py",
       "sha256": "1e183a2927d08f67e54b0460cc73a8000ae701e1e87ed7a76f00fd8e175a130c"
     },
     {
       "path": "schoeck_archive_sources.json",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/schoeck_archive_sources.json",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/schoeck_archive_sources.json",
       "sha256": "6360685415fff225fd4b812c7c07b89403b1f685f77efc77c6b5a468658a4438"
     },
     {
       "path": "substitution_pdf.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/substitution_pdf.py",
-      "sha256": "2f186b0cfdd3e71ce0ccd0d4d060294185dde0d1cca77110c74ba3314142a615"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/substitution_pdf.py",
+      "sha256": "74a4cb629ecd39084374b77467413f6402cd638ae10b8f56c256682898c13883"
+    },
+    {
+      "path": "substitution_review.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/substitution_review.py",
+      "sha256": "c7f08ccbce32cff534098b6fc12bbb81ace67402f378f4911e563307fc7c18b0"
     },
     {
       "path": "substitution_workspace.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/substitution_workspace.py",
-      "sha256": "af81cdd65d206448ed2201ba91be2c0464ba1c1fa869d28ddeec9878e34db3bd"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/substitution_workspace.py",
+      "sha256": "dcfe3fa70fb4748c29216c35bce610681fe787331908a219a2f7ba9666082301"
     },
     {
       "path": "ui_utils.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/ui_utils.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/ui_utils.py",
       "sha256": "bdbf1f26a59868f177c6250b5f3255b1852680891732f1688c6395eefd40042c"
     },
     {
       "path": "updater.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/updater.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/updater.py",
       "sha256": "67ae0ac3a4d908992adc05532584166bf4a42f792317508d502317c3f2b8fd05"
     },
     {
       "path": "version.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/version.txt",
-      "sha256": "0586123600ce6a745f0312d81d20d7d694fe8778dfff129f20e6aa374ae0d200"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/version.txt",
+      "sha256": "17cc15d1cae95587e959b03abb6dd755c48fefcbff0f3a5f7a06c70aab87cc2e"
     },
     {
       "path": "xlsx_export.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.14/xlsx_export.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.15/xlsx_export.py",
       "sha256": "01ec4f28dc8f9d5d42693659d141ffb493b8854087723f503b7c5b2dbfefc7bf"
     }
   ]
