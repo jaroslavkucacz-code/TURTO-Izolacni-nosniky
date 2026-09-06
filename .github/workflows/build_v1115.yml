@@ -1,28 +1,53 @@
-name: Prepare TURTO ISO v1.1.15 source snapshot
+name: Build TURTO ISO v1.1.15 substitution confirmation
 
 on:
   push:
     paths:
       - '.github/workflows/build_v1115.yml'
+      - 'tools/build_v1115.py'
+      - 'tools/v1115_substitution_review.py'
+      - 'tools/verify_v1115.py'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: turto-iso-v1115-release
+  cancel-in-progress: false
 
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-      - name: Snapshot current release for local regression tests
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install GUI and vector PDF test dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb xauth python3-tk
+          python -m pip install --disable-pip-version-check 'reportlab>=4.2,<5' pypdf pymupdf
+      - name: Build and verify confirmation, persistence, Tk controls and PDF
+        run: xvfb-run -a python tools/build_v1115.py
+      - name: Upload confirmed P009 and portrait PDF regression diagnostics
         uses: actions/upload-artifact@v4
         with:
-          name: turto-iso-v1115-base-snapshot
-          path: |
-            updates/1.1.14/
-            tools/verify_v1114_pdf.py
-            tools/build_v1114.py
-            update_manifest.json
-          retention-days: 3
+          name: turto-iso-v1.1.15-substitution-confirmation-diagnostics
+          path: _diag_v1115/
           if-no-files-found: error
+          retention-days: 14
+      - name: Publish verified update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add updates/1.1.15 update_manifest.json
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+            exit 0
+          fi
+          git commit -m 'Release TURTO ISO v1.1.15 substitution confirmation and PDF approval footer'
+          git pull --rebase origin main
+          git push origin main
