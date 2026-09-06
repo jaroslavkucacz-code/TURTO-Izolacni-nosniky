@@ -1,0 +1,8 @@
+TURTO ISO v1.1.11
+- PDF tabulky záměn je nyní skutečný vektorový dokument generovaný přes ReportLab, nikoli soubor složený z rastrových obrázků stránek.
+- Text lze označit, kopírovat a vyhledávat; tabulky, čáry, rámečky, stavové štítky a grafy využití zůstávají ostré při libovolném přiblížení i při tisku.
+- Do PDF se vkládá dostupný systémový TrueType font (na Windows přednostně Calibri, dále Arial/Aptos), aby byla správně zachována čeština. Na jiných systémech se používá bezpečný Unicode font.
+- Grafické rozvržení verze 1.1.10 bylo zachováno a zpřesněno pro formát A4 na šířku. Úvodní souhrn nadále neobsahuje tlakový přenos; ten zůstává pouze v detailní technické kontrole.
+- Dokument obsahuje PDF záložky pro souhrn a detailní stránky, správná metadata a vektorový graf rozhodujícího využití se značkou 100 %.
+- ReportLab se při prvním exportu automaticky doplní do stejného Pythonu, ze kterého běží TURTO ISO. Pokud instalaci zablokuje síť nebo oprávnění, program zobrazí přesný ruční příkaz.
+- Export již nepoužívá Pillow k vykreslení celých stránek a neprovádí tichý návrat k rastrovému PDF.
