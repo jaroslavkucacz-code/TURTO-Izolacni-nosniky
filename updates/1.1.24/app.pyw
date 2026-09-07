@@ -111,6 +111,10 @@ def _install_runtime() -> None:
             counter.configure(text=f"{index} / {total}")
             window.update()
             data = _download(_url(remote))
+            if local == "app_central.pyw":
+                text = data.decode("utf-8")
+                text = text.replace('APP_VERSION = "1.1.23"', 'APP_VERSION = "1.1.24"')
+                data = text.encode("utf-8")
             temp_path = temp_root / local
             temp_path.parent.mkdir(parents=True, exist_ok=True)
             temp_path.write_bytes(data)
