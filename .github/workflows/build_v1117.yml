@@ -1,0 +1,59 @@
+name: Build TURTO ISO v1.1.17 HIT-HT
+
+on:
+  push:
+    branches:
+      - main
+      - release/v1.1.17-hit-ht
+    paths:
+      - '.github/workflows/build_v1117.yml'
+      - 'tools/build_v1117.py'
+      - 'tools/v1117_hit_ht.py'
+      - 'tools/verify_v1117.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: turto-iso-v1117-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install GUI and existing PDF regression dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb xauth python3-tk
+          python -m pip install --disable-pip-version-check 'reportlab>=4.2,<5' pypdf pymupdf pillow
+      - name: Build and verify HIT-HT, parser, real Tk UI and prior release regression
+        run: xvfb-run -a -s '-screen 0 1600x1100x24' python tools/build_v1117.py
+      - name: Upload verification diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: turto-iso-v1.1.17-hit-ht-diagnostics-${{ github.run_id }}
+          path: _diag_v1117/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish verified updater payload to current branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add updates/1.1.17 update_manifest.json
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+            exit 0
+          fi
+          git commit -m 'Release TURTO ISO v1.1.17 HIT-HT horizontal force design'
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
