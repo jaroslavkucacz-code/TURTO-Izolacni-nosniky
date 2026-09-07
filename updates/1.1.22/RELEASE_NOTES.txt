@@ -1,0 +1,14 @@
+TURTO ISO 1.1.22
+
+Návrh HIT – import množství a obousměrného VEd
+
+- Hromadný import „Vložit výkaz…“ nově rozpozná druhý sloupec jako počet kusů.
+- Podporovaný je Markdown formát „| statické zadání | Ks |“ i běžné kopírování dvou sloupců z Excelu přes tabulátor.
+- Jedna statická kombinace zůstává jedním návrhovým řádkem; množství se uloží do sloupce Ks. Například 11 kombinací s celkovým množstvím 137 ks vytvoří 11 řádků, ne 137 řádků.
+- Zápis VEd = ±80 kN/m se načte jako VEd+ = 80 kN/m a VEd− = 80 kN/m.
+- U čistě smykového prvku s VEd± se při výchozím ZVX automaticky použije obousměrný typ ZDX.
+- Náhled importu zobrazuje ± i množství Ks a souhrn celkového počtu kusů.
+- Krátký svisle smykový prvek délky 100 mm se nadále automaticky nemění na HIT-HT; HT je vyhrazen pro HEd v kN/prvek.
+- Opravena distribuce aktualizace po chybě kontrolního součtu hit_row_extension.py: soubor je znovu publikován pod 1.1.22 s novým ověřeným SHA-256.
+
+Výpočtové jádro HIT, M–V interakce a katalogová data se touto verzí nemění.
