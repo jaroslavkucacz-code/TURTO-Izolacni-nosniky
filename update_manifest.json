@@ -54,8 +54,8 @@
     },
     {
       "path": "hit_workspace.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/hit_workspace.py",
-      "sha256": "562cba563cd536ab0f98726cbe31041ed293ff055883f2078299dc1931049997"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.22/hit_workspace.py",
+      "sha256": "a1d93fd0125e7a025fd8ec3e604945a8d47d5cb8ccff30c98420cc510fab9947"
     },
     {
       "path": "hit_workspace_base.py",
