@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent
 MARKER = ROOT / ".turto_runtime_2_0_0.ok"
 
 FILES = {
+    # 2.0 platform layer
     "app_runtime.pyw": "updates/2.0.0/app_runtime.pyw",
     "platform_registry.py": "updates/2.0.0/platform_registry.py",
     "platform_state.py": "updates/2.0.0/platform_state.py",
@@ -29,6 +30,8 @@ FILES = {
     "hit_workspace.py": "updates/2.0.0/hit_workspace.py",
     "action_payload.py": "updates/2.0.0/action_payload.py",
     "action_browser.py": "updates/2.0.0/action_browser.py",
+
+    # Immutable 1.1.27 compatibility layer kept as verified calculation base
     "app_runtime_127.pyw": "updates/1.1.27/app_runtime.pyw",
     "app_runtime_prev.pyw": "updates/1.1.25/app_runtime.pyw",
     "app_central_prev.pyw": "updates/1.1.23/app.pyw",
@@ -89,7 +92,7 @@ FILES = {
     "bulk_import.py": "updates/1.1.17/bulk_import.py",
     "bulk_import_engine.py": "updates/1.1.17/bulk_import_engine.py",
     "ui_utils.py": "updates/1.1.17/ui_utils.py",
-    "xlsx_export.py": "updates/1.1.17/xlsx_export.py"
+    "xlsx_export.py": "updates/1.1.17/xlsx_export.py",
 }
 
 
@@ -102,7 +105,14 @@ def _download(url: str) -> bytes:
     for attempt in range(4):
         try:
             suffix = "?turto=" + str(int(time.time() * 1000)) + "_" + str(attempt)
-            request = urllib.request.Request(url + suffix, headers={"User-Agent": "TURTO-2.0.0", "Cache-Control": "no-cache, no-store", "Pragma": "no-cache"})
+            request = urllib.request.Request(
+                url + suffix,
+                headers={
+                    "User-Agent": "TURTO-2.0.0",
+                    "Cache-Control": "no-cache, no-store",
+                    "Pragma": "no-cache",
+                },
+            )
             with urllib.request.urlopen(request, timeout=45) as response:
                 data = response.read()
             if not data:
@@ -137,12 +147,27 @@ def _install_runtime() -> None:
         window.eval("tk::PlaceWindow . center")
     except Exception:
         pass
-    tk.Label(window, text="Připravuji TURTO 2.0", font=("Calibri", 15, "bold"), bg="#F3F6F9", fg="#17324D").pack(anchor="w", padx=22, pady=(22, 8))
-    status = tk.Label(window, text="Instaluji platformu produktových oblastí a výrobců…", font=("Calibri", 10), bg="#F3F6F9", fg="#172230", justify="left", wraplength=640)
+    tk.Label(
+        window,
+        text="Připravuji TURTO 2.0",
+        font=("Calibri", 15, "bold"),
+        bg="#F3F6F9",
+        fg="#17324D",
+    ).pack(anchor="w", padx=22, pady=(22, 8))
+    status = tk.Label(
+        window,
+        text="Instaluji platformu produktových oblastí a výrobců…",
+        font=("Calibri", 10),
+        bg="#F3F6F9",
+        fg="#172230",
+        justify="left",
+        wraplength=640,
+    )
     status.pack(anchor="w", padx=22)
     counter = tk.Label(window, text="", font=("Calibri", 9), bg="#F3F6F9", fg="#5C6878")
     counter.pack(anchor="w", padx=22, pady=(8, 0))
     window.update()
+
     downloaded = []
     try:
         total = len(FILES)
@@ -155,6 +180,7 @@ def _install_runtime() -> None:
             temp_path.parent.mkdir(parents=True, exist_ok=True)
             temp_path.write_bytes(data)
             downloaded.append((temp_path, ROOT / local))
+
         status.configure(text="Instaluji ověřenou sadu souborů…")
         window.update()
         for source, target in downloaded:
@@ -171,8 +197,15 @@ def _install_runtime() -> None:
 
 def _show_failure(exc: Exception) -> None:
     try:
-        root = tk.Tk(); root.withdraw()
-        messagebox.showerror("Aktualizace TURTO 2.0", "Dokončení aktualizace 2.0.0 se nezdařilo. Centrální databáze AKCÍ ani katalogy nebyly měněny.\n\n" + str(exc) + "\n\nZkuste program znovu spustit; stažení se zopakuje z neměnného Git commitu.", parent=root)
+        root = tk.Tk()
+        root.withdraw()
+        messagebox.showerror(
+            "Aktualizace TURTO 2.0",
+            "Dokončení aktualizace 2.0.0 se nezdařilo. Centrální databáze AKCÍ ani katalogy nebyly měněny.\n\n"
+            + str(exc)
+            + "\n\nZkuste program znovu spustit; stažení se zopakuje z neměnného Git commitu.",
+            parent=root,
+        )
         root.destroy()
     except Exception:
         pass
