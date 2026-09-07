@@ -34,6 +34,22 @@ def _row_init(self, *args, **kwargs) -> None:
             self.connection_type.set("MVX")
             self._apply_type_constraints()
             self.recalculate()
+
+        # Standard slab/balcony types never use NEd, HEd or OTX x. Remove those
+        # controls from the actual grid, not merely disable them.
+        base_widgets = list(getattr(self, "_hit_base_widgets", []))
+        hidden_base_indices = {11, 12, 15, 16, 17}
+        if len(base_widgets) >= 25:
+            for index in hidden_base_indices:
+                try:
+                    base_widgets[index].grid_remove()
+                except Exception:
+                    pass
+            self._hit_base_widgets = [
+                widget for index, widget in enumerate(base_widgets)
+                if index not in hidden_base_indices
+            ]
+            self.regrid(self.row_no)
     except Exception:
         pass
 
@@ -60,6 +76,39 @@ def _find_button(root: Any, text: str):
         except Exception:
             pass
     return None
+
+
+def _compact_standard_headers(owner: Any) -> None:
+    frame = getattr(owner, "hit_rows_frame", None)
+    if frame is None:
+        return
+    hidden_columns = {12, 13, 16, 17, 18}
+    for child in frame.winfo_children():
+        if not isinstance(child, ttk.Label):
+            continue
+        try:
+            info = child.grid_info()
+            if int(info.get("row", -1)) != 0:
+                continue
+            column = int(info.get("column", -1))
+        except Exception:
+            continue
+        if column in hidden_columns:
+            try:
+                child.grid_remove()
+            except Exception:
+                pass
+            continue
+        shift = sum(1 for hidden in hidden_columns if hidden < column)
+        try:
+            child.grid_configure(column=column - shift)
+        except Exception:
+            pass
+    for column in range(21):
+        try:
+            frame.columnconfigure(column, weight=1 if column in {0, 14, 19} else 0)
+        except Exception:
+            pass
 
 
 def _standard_ribbon(self, parent: ttk.Frame) -> None:
@@ -135,6 +184,7 @@ def _build(self, parent: ttk.Frame) -> None:
     content.columnconfigure(0, weight=1)
     content.rowconfigure(0, weight=1)
     _ORIGINAL_BUILD(self, content)
+    _compact_standard_headers(self)
 
     notebook = getattr(self, "hit_design_notebook", None)
     if notebook is None:
