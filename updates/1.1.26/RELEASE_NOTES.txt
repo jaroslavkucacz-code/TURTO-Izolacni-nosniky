@@ -1,0 +1,13 @@
+TURTO ISO 1.1.26
+
+Oprava hromadného vložení do Návrhu HIT
+
+- Tlačítko „Přidat do návrhu HIT“ již nemá tiché návraty bez vysvětlení.
+- Pokud chybí potvrzení přiřazení MEd/VEd/HEd, dialog přesně řekne, co je nutné potvrdit.
+- Pokud některý zahrnutý řádek nemá platný payload, dialog označí první problematickou pozici a vypíše řádky výkazu, které je nutné opravit nebo vynechat.
+- Po úspěšném importu se virtuální tabulka Návrhu HIT explicitně přepočítá a překreslí.
+- Pohled se posune na první nově importovaný řádek, takže je výsledek okamžitě vidět i při připojení k dlouhému návrhu.
+- Centrální AKCE se po importu vždy označí jako změněná, i když režim „Nahradit dosavadní řádky“ zachová stejný počet řádků.
+- Stavový řádek po úspěchu uvádí počet importovaných řádků a celkový počet kusů.
+- Parser, množství z druhého sloupce a význam VEd = ±… zůstávají beze změny.
+- Statické jádro HIT, M–V interakce, WT a katalogová data se nemění.
