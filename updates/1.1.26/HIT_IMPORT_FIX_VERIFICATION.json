@@ -1,0 +1,16 @@
+{
+  "version": "1.1.26",
+  "scope": "HIT schedule final-commit path and virtual-grid refresh",
+  "checks": [
+    "existing 1.1.22 parser and row_defaults are reused unchanged",
+    "final commit has no silent return for missing acknowledgement or missing included payloads",
+    "invalid included rows produce a visible warning and focus the first problematic schedule row",
+    "successful install explicitly refreshes row minsizes, virtual viewport and scroll region",
+    "successful append scrolls to the first newly imported row",
+    "central AKCE is marked dirty after every successful import, including same-row-count replacement",
+    "quantity values from imported payloads are preserved and summarized after success",
+    "no calculation-core, HIT database, M-V interaction or WT changes"
+  ],
+  "runtime_dependencies_added": [],
+  "calculation_core_changed": false
+}
