@@ -1,11 +1,11 @@
 {
-  "version": "1.1.26",
-  "notes": "Oprava hromadného vložení do Návrhu HIT: tlačítko už nemá tiché selhání, po úspěchu se tabulka obnoví a AKCE se označí jako změněná.",
+  "version": "1.1.27",
+  "notes": "Návrh HIT: Doplňkové prvky HT/AT/FT/OTX jsou v samostatné podzáložce jako WT; jeden globální PDF export zahrnuje desky/balkony, doplňkové prvky i WT.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f892136ab9ec0bcb6d4e897bff9af4b42a30c2eb/updates/1.1.26/app.pyw",
-      "sha256": "fb28f60e8e552da974a8305711ee3c3b5126afdd1539eb79b61a2bd63577df65"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e9c909b7bc1c2454a07f09abf2d30fd07e47d3b3/updates/1.1.27/app.pyw",
+      "sha256": "5609ffdf82847488245fc8eb5aa49b338fcc287aa2a07096c66fd0b27b22bd9e"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f892136ab9ec0bcb6d4e897bff9af4b42a30c2eb/updates/1.1.26/RELEASE_NOTES.txt",
-      "sha256": "e5eba5a196e07e11afa46b7f661011c7701038bf0225a921299746da42981cb4"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e9c909b7bc1c2454a07f09abf2d30fd07e47d3b3/updates/1.1.27/RELEASE_NOTES.txt",
+      "sha256": "8e48355dbbadac17f1e560fa6b4ea9d7ecdcbb7354ba425112d2b008e791af69"
     }
   ]
 }
