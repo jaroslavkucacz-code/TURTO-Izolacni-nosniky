@@ -1,0 +1,10 @@
+TURTO ISO v1.1.16 – hromadné zadání HIT z výkazu
+- Návrh HIT → Vložit výkaz…: vložení textu nebo sloupce z Excelu, načtení MEd/VEd, ohybových a smykových pozic a délek v m/cm/mm.
+- Kontrolní náhled, společná výška/krytí/beton/řada, výslovné přiřazení typů a směru nepodepsaného MEd. Parametry lze změnit také jen označeným pozicím.
+- Chybný nebo nejednoznačný řádek se nikdy tiše nezahodí. Import vybraných pozic vyžaduje kontrolu typů a směrů. Lze vynechat označené řádky, připojit je nebo po potvrzení nahradit dosavadní zadání.
+- Hodnoty kN/m a kNm/m se nepřepočítávají délkou. Jiné nebo chybějící jednotky se musí před importem vyřešit. Explicitní znaménka se zachovávají a nepodporované směry jsou blokovány.
+- Nové pole L požad. [mm] v každém řádku: prázdné používá společné povolené délky, uvedená délka vyžaduje přesnou shodu. 0,1 m se nikdy nezamění za kód 100 = 1000 mm. Nepodporovaná délka se zobrazí jako nelze navrhnout, ne jako vyhovující náhrada.
+- ZVX/ZDX si zachovávají katalogově pevné krytí 30 mm. Další úpravy po importu probíhají přímo ve stávajících řádcích Návrhu HIT.
+- Původní text a požadovaná délka se přidávají na konec kopírovaných výsledků. Pořadí a opakované pozice zůstávají zachované.
+- Ukázkový výkaz obsahuje 33 pozic (28 ohybových, 5 smykových).
+- Výpočtové jádro, katalogová data a modul záměn/potvrzení/PDF zůstávají beze změny. Nová funkce nepřidává žádné runtime závislosti.
