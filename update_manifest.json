@@ -40,7 +40,7 @@
     {
       "path": "hit_schedule.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.22/hit_schedule.py",
-      "sha256": "3ed82eb6771c1b88b8ac222de774a3fc3f4a71ee6a8aff0b0e64d32d5056f16c"
+      "sha256": "d8ca4b88d11df04ba84c90159f3cbda551f917179abe6e5c1468afe6058bf9c6"
     },
     {
       "path": "hit_schedule_base.py",
