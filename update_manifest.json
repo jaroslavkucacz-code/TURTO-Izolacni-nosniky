@@ -1,6 +1,6 @@
 {
-  "version": "1.1.18",
-  "notes": "PDF: datum zpracování pouze bez času; platně ručně potvrzený prvek se v PDF zobrazuje jako VYHOVUJE místo KONTROLA. Výpočtové jádro se nemění.",
+  "version": "1.1.19",
+  "notes": "PDF: staticky vyhovující prvek se zobrazí jako VYHOVUJE; případná kontrola automaticky rozpoznané geometrie Bx zůstane uvedena samostatně. Datum zůstává bez času.",
   "files": [
     {
       "path": "HIT_HT_VERIFICATION.json",
@@ -19,8 +19,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.18/RELEASE_NOTES.txt",
-      "sha256": "5742b417fe3def2a422b2ce691f2e3b5e5296abc669a50577f096535e2b1862d"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.19/RELEASE_NOTES.txt",
+      "sha256": "26784fa54a8116f7e8e4bbf20f93a075f56ad816c9d00c85ca3e06f8c85d7dd2"
     },
     {
       "path": "REVIEW_VERIFICATION.json",
@@ -124,8 +124,8 @@
     },
     {
       "path": "substitution_pdf.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.18/substitution_pdf.py",
-      "sha256": "154f9ac32095b5d66786b005404d40c66398e786506cb183d2007ebff449e8cd"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.19/substitution_pdf.py",
+      "sha256": "d183c4a8eaf096b6ed5d27fa029b6d4c5f13eb93457eff09961be3dd63e8c4cc"
     },
     {
       "path": "substitution_pdf_base.py",

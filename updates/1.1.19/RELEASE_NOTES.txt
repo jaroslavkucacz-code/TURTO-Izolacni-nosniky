@@ -1,0 +1,10 @@
+TURTO ISO 1.1.19
+
+PDF výstup – oddělení statiky a geometrie
+- Pokud jsou všechny statické kontroly úplné a vyhovující, zobrazuje se v PDF výsledek VYHOVUJE i tehdy, když u automaticky rozpoznané a uživatelem potvrzené geometrie zbývá ověřit Bx.
+- Geometrická podmínka se neztrácí: v souhrnu se zobrazí „Bx … mm ověřit“ a v detailu „Geometrie Bx = … mm: nutno ověřit podle skutečné geometrie konstrukce.“
+- Interní stav projektu a audit potvrzení se nemění.
+- NELZE, NEVYHOVUJE, neúplné kontroly ani využití nad 100 % se na VYHOVUJE nepřepisují.
+- Datum zpracování zůstává pouze ve formátu DD.MM.RRRR bez času.
+
+Výpočtové jádro a katalogová data se touto verzí nemění.
