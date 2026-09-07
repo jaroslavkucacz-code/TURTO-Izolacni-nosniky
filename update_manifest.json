@@ -1,11 +1,11 @@
 {
-  "version": "1.1.25",
-  "notes": "Přehlednější sloupce a ovládání tabulek, skupiny v Návrhu HIT a nový samostatný návrh/dekodér HIT-WT pro stěny. WT se ukládá do společné AKCE.",
+  "version": "1.1.26",
+  "notes": "Oprava hromadného vložení do Návrhu HIT: tlačítko už nemá tiché selhání, po úspěchu se tabulka obnoví a AKCE se označí jako změněná.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/554fbc69352a712f4a317db2b289dd526cc8bfd2/updates/1.1.25/app.pyw",
-      "sha256": "d902609fe0d6eb0ee239317224768e67505beccc42b86075061e09996d219c25"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f892136ab9ec0bcb6d4e897bff9af4b42a30c2eb/updates/1.1.26/app.pyw",
+      "sha256": "fb28f60e8e552da974a8305711ee3c3b5126afdd1539eb79b61a2bd63577df65"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/554fbc69352a712f4a317db2b289dd526cc8bfd2/updates/1.1.25/RELEASE_NOTES.txt",
-      "sha256": "3e260140d39ae6a6dd36f1c93d76dae85ae2b835c8222145f59fecb3e8010e75"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f892136ab9ec0bcb6d4e897bff9af4b42a30c2eb/updates/1.1.26/RELEASE_NOTES.txt",
+      "sha256": "e5eba5a196e07e11afa46b7f661011c7701038bf0225a921299746da42981cb4"
     }
   ]
 }
