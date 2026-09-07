@@ -12,6 +12,7 @@ import app_central_prev as _prev
 import hit_workspace
 import substitution_workspace
 from table_polish import install_substitution
+import wt_safety_guard  # noqa: F401 - installs conservative WT combined-action warning
 
 APP_VERSION = "1.1.25"
 _prev.APP_VERSION = APP_VERSION
