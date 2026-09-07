@@ -104,11 +104,15 @@ def export_hit_pdf(owner: Any) -> None:
     except Exception as exc:
         messagebox.showerror("Export PDF", f"Přepočet návrhu HIT se nezdařil.\n\n{exc}", parent=owner)
         return
+
     action = current_action_name(owner)
     safe_name = re.sub(r'[\\/:*?"<>|]+', "_", action).strip() or "projekt"
     path = filedialog.asksaveasfilename(
-        parent=owner, title="Uložit PDF návrhu HIT", defaultextension=".pdf",
-        initialfile=f"Navrh_HIT_{safe_name}.pdf", filetypes=[("PDF", "*.pdf")],
+        parent=owner,
+        title="Uložit PDF návrhu HIT",
+        defaultextension=".pdf",
+        initialfile=f"Navrh_HIT_{safe_name}.pdf",
+        filetypes=[("PDF", "*.pdf")],
     )
     if not path:
         return
@@ -117,7 +121,9 @@ def export_hit_pdf(owner: Any) -> None:
         owner.update_idletasks()
         ensure_hit_pdf_backend()
         target = write_hit_proposal_pdf(
-            Path(path), project_name=action, rows=rows,
+            Path(path),
+            project_name=action,
+            rows=rows,
             creator="Vytvořil Ing. Jaroslav Kučera",
         )
     except Exception as exc:
@@ -137,6 +143,7 @@ def export_hit_excel(owner: Any) -> None:
     except Exception as exc:
         messagebox.showerror("Export Excel", f"Přepočet návrhu HIT se nezdařil.\n\n{exc}", parent=owner)
         return
+
     valid = [row for row in rows if isinstance(row.get("candidate"), dict) and row.get("candidate")]
     skipped = len(rows) - len(valid)
     if not valid:
@@ -148,6 +155,7 @@ def export_hit_excel(owner: Any) -> None:
         parent=owner,
     ):
         return
+
     include_statics = messagebox.askyesnocancel(
         "Excel návrhu HIT",
         "Přidat i list „Statická data“?\n\n"
@@ -157,18 +165,25 @@ def export_hit_excel(owner: Any) -> None:
     )
     if include_statics is None:
         return
+
     action = current_action_name(owner)
     safe_name = re.sub(r'[\\/:*?"<>|]+', "_", action).strip() or "akce"
     path = filedialog.asksaveasfilename(
-        parent=owner, title="Uložit Excel pro poptávku HIT", defaultextension=".xlsx",
-        initialfile=f"Poptavka_HIT_{safe_name}.xlsx", filetypes=[("Excel", "*.xlsx")],
+        parent=owner,
+        title="Uložit Excel pro poptávku HIT",
+        defaultextension=".xlsx",
+        initialfile=f"Poptavka_HIT_{safe_name}.xlsx",
+        filetypes=[("Excel", "*.xlsx")],
     )
     if not path:
         return
     try:
         target = write_hit_request_xlsx(
-            Path(path), action_name=action, rows=valid,
-            include_statics=bool(include_statics), creator="TURTO",
+            Path(path),
+            action_name=action,
+            rows=valid,
+            include_statics=bool(include_statics),
+            creator="TURTO",
         )
     except Exception as exc:
         messagebox.showerror("Export Excel se nezdařil", str(exc), parent=owner)
@@ -183,10 +198,13 @@ def export_hit_excel(owner: Any) -> None:
 def install(base: Any) -> None:
     def collect(self) -> list[dict[str, Any]]:
         return collect_hit_rows(self)
+
     def pdf(self) -> None:
         export_hit_pdf(self)
+
     def excel(self) -> None:
         export_hit_excel(self)
+
     base.HitWorkspaceMixin._collect_hit_pdf_rows = collect
     base.HitWorkspaceMixin.export_hit_pdf = pdf
     base.HitWorkspaceMixin.export_hit_excel = excel
