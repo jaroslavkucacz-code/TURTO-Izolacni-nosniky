@@ -1,0 +1,18 @@
+TURTO ISO 1.1.25
+
+Přehlednější tabulky a HIT-WT
+
+- Záhlaví hlavních pracovních tabulek respektují stejné zarovnání jako hodnoty v řádcích. Textové údaje jsou vlevo, číselné / kódové údaje jsou centrované.
+- Dekodér ISO má zpřesněné názvy sloupců: např. Momentová třída, Smyková třída, Krytí / varianta, Výška / rozměr, MRd / moment, VRd / síla, Další únosnosti, Zdroj / katalog a Záměna HIT.
+- Správa sloupců v Dekodéru ISO je přepracovaná do samostatného dialogu. Lze přehledně měnit pořadí, zobrazovat/skrývat sloupce, nastavit automatickou šířku, zobrazit vše nebo obnovit výchozí rozložení. Pravý klik na záhlaví zůstal jako rychlá cesta pro řazení, přesun, šířku a skrytí.
+- Návrh HIT je uvnitř své karty rozdělen na skupiny. Stávající deskové/balkonové typy MVX, MVXL, ZVX, ZDX, DD, DVL a DDL jsou jasně vedené jako jedna skupina. HT a AT/FT/OTX jsou vizuálně oddělené jako doplňkové / speciální typy a mají rychlá tlačítka pro založení správného typu. Jejich stávající výpočtové jádro ani kompatibilita uložených návrhů se nemění.
+- Nová samostatná podkarta Stěny WT obsahuje specializovaný návrh HIT-HP WT / HIT-SP WT pro konzolové stěny.
+- WT vstupy jsou na jeden prvek: výška stěny h, šířka B, beton, MEd−, svislý VEd,v+ a vodorovný VEd,h±. Návrh používá tabulované MRd, VRd,v a VRd,h z HALFEN HIT 20.2-EN 2023.
+- Standardní geometrie WT: B = 150–250 mm; WT1–WT4 h = 1250–3500 mm, WT5–WT7 h = 1000–3500 mm. Automaticky se používají pouze tabulované výšky po 250 mm; netabulované výšky se bez ověřeného pravidla neinterpolují.
+- Pokud působí více složek zatížení WT současně, program prověří všechny zveřejněné dílčí únosnosti, ale výsledek označí KONTROLA KOMBINACE. Dokud není ověřeno katalogové interakční pravidlo, program si žádnou interakci nevymýšlí.
+- WT návrhy se ukládají do stejné centrální AKCE jako Dekodér ISO, běžný Návrh HIT a Záměny za HIT. Jsou součástí počtu řádků Návrhu HIT v databázi AKCÍ.
+- WT má kopírování tabulky a Excel export.
+- Dekodér ISO nově rozpoznává úplná označení HIT-WT, např. HIT-HP WT-1-150-15, a zobrazí jejich MRd, VRd,v, VRd,h a s_joint max.
+- V Záměnách za HIT jsou zpřesněny některé názvy sloupců a záhlaví respektují zarovnání dat.
+
+Statické jádro a M–V interakce stávajících MVX/MVXL/ZVX/ZDX/DD/DVL/DDL/HT/AT/FT/OTX se touto verzí nemění. WT je nový samostatný katalogový návrhový modul.
