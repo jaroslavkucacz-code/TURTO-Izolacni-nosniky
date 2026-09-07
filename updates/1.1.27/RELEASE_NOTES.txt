@@ -1,0 +1,21 @@
+TURTO ISO 1.1.27
+
+Doplňkové prvky samostatně + společný PDF výstup
+
+- Návrh HIT je uvnitř rozdělen na tři skutečně samostatné pracovní části:
+  1. Desky / balkony – MVX, MVXL, ZVX, ZDX, DD, DVL, DDL.
+  2. Doplňkové prvky – HT, AT, FT, OTX.
+  3. Stěny WT.
+- Doplňkové prvky již nejsou řádky v hlavní deskové tabulce. Mají vlastní tabulku s relevantními vstupy.
+- HT používá HEd∥ / HEd⊥ [kN/prvek] a B podle řady HP/SP.
+- AT/FT/OTX používají specializované M/N/V vstupy; OTX navíc x [mm]. Jejich stávající katalogové výpočtové jádro se nemění.
+- Starší uložené AKCE s HT/AT/FT/OTX mezi běžnými řádky se při načtení automaticky migrují do Doplňkových prvků. Nedochází k jejich převodu na MVX ani ke zdvojení.
+- Hromadný import výkazu rozděluje výsledky automaticky: běžné typy do Desky / balkony, HT do Doplňkových prvků.
+- Nad podzáložkami je jedno jednoznačné tlačítko „Export PDF – všechny prvky“.
+- PDF se před vydáním přepočítá přes Desky / balkony, Doplňkové prvky i Stěny WT a vytvoří jeden společný dokument celé AKCE.
+- Detailní PDF označuje skupinu prvku; HT zachovává kN/prvek, WT používá kNm/prvek a kN/prvek, AT/FT/OTX používají své katalogové M/N/V hodnoty.
+- U WT zůstává konzervativní stav KONTROLA při současném působení více složek, dokud není ověřeno společné interakční pravidlo.
+- Centrální AKCE nově ukládá Doplňkové prvky jako samostatnou datovou část. Počet Návrhu HIT v databázi zahrnuje desky, doplňky i WT.
+- Původní Excel v deskové části je označen „Export Excel – desky“. WT si ponechává vlastní Excel; globální sjednocení Excelu není v této verzi měněno.
+
+Statické jádro a M–V interakce stávajících MVX/MVXL/ZVX/ZDX/DD/DVL/DDL ani výpočty HT/AT/FT/OTX/WT se touto reorganizací nemění.
