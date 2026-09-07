@@ -64,7 +64,10 @@ def serialize_hit_design(owner: Any) -> dict[str, Any]:
 
 def _ask_design_metadata(owner: Any, *, action_default: str, name_default: str) -> tuple[str, str] | None:
     action = simpledialog.askstring(
-        "Uložit návrh HIT", "AKCE:", initialvalue=action_default, parent=owner,
+        "Uložit návrh HIT",
+        "AKCE:",
+        initialvalue=action_default,
+        parent=owner,
     )
     if action is None:
         return None
@@ -73,7 +76,10 @@ def _ask_design_metadata(owner: Any, *, action_default: str, name_default: str) 
         messagebox.showerror("Uložit návrh HIT", "AKCE nesmí být prázdná.", parent=owner)
         return None
     name = simpledialog.askstring(
-        "Uložit návrh HIT", "Název návrhu:", initialvalue=name_default or "Návrh HIT", parent=owner,
+        "Uložit návrh HIT",
+        "Název návrhu:",
+        initialvalue=name_default or "Návrh HIT",
+        parent=owner,
     )
     if name is None:
         return None
@@ -90,6 +96,7 @@ def save_hit_design(owner: Any, *, as_new: bool = False) -> str | None:
     except ValueError as exc:
         messagebox.showerror("Uložit návrh HIT", str(exc), parent=owner)
         return None
+
     design_id = None if as_new else getattr(owner, "hit_design_id", None)
     action = str(getattr(owner, "hit_design_action", "") or "").strip()
     name = str(getattr(owner, "hit_design_name", "") or "").strip()
@@ -102,13 +109,18 @@ def save_hit_design(owner: Any, *, as_new: bool = False) -> str | None:
         if metadata is None:
             return None
         action, name = metadata
+
     try:
         key = design_store(owner).save(
-            action_name=action, design_name=name, payload=payload, design_id=design_id,
+            action_name=action,
+            design_name=name,
+            payload=payload,
+            design_id=design_id,
         )
     except Exception as exc:
         messagebox.showerror("Uložit návrh HIT", str(exc), parent=owner)
         return None
+
     owner.hit_design_id = key
     owner.hit_design_action = action
     owner.hit_design_name = name
@@ -145,6 +157,7 @@ def _load_design_record(owner: Any, base: Any, record: dict[str, Any]) -> None:
         defaults.setdefault("quantity", 1)
         row = base.HitInputRow(owner, index, defaults)
         owner.hit_rows.append(row)
+
     if not owner.hit_rows:
         owner.add_hit_row()
 
@@ -166,12 +179,13 @@ def _load_design_record(owner: Any, base: Any, record: dict[str, Any]) -> None:
 
 
 def load_hit_design(owner: Any, base: Any, design_id: str) -> None:
-    if owner.hit_rows and not messagebox.askyesno(
-        "Načíst uložený návrh",
-        "Načtením se nahradí aktuální řádky Návrhu HIT. Pokračovat?",
-        parent=owner,
-    ):
-        return
+    if owner.hit_rows:
+        if not messagebox.askyesno(
+            "Načíst uložený návrh",
+            "Načtením se nahradí aktuální řádky Návrhu HIT. Pokračovat?",
+            parent=owner,
+        ):
+            return
     try:
         record = design_store(owner).load(design_id)
         _load_design_record(owner, base, record)
@@ -204,6 +218,7 @@ class HitDesignBrowser(tk.Toplevel):
         outer.columnconfigure(0, weight=1)
         outer.rowconfigure(2, weight=1)
         ttk.Label(outer, text="Uložené návrhy HIT", style="DialogTitle.TLabel").grid(row=0, column=0, sticky="w")
+
         searchbar = ttk.Frame(outer, style="App.TFrame")
         searchbar.grid(row=1, column=0, sticky="ew", pady=(8, 8))
         ttk.Label(searchbar, text="Hledat AKCI / název:").pack(side="left")
@@ -260,7 +275,12 @@ class HitDesignBrowser(tk.Toplevel):
             key = str(record["id"])
             self.tree.insert(
                 "", "end", iid=key,
-                values=(record["action_name"], record["design_name"], _format_modified(record["updated_at"]), record["row_count"]),
+                values=(
+                    record["action_name"],
+                    record["design_name"],
+                    _format_modified(record["updated_at"]),
+                    record["row_count"],
+                ),
             )
         if selected and self.tree.exists(selected[0]):
             self.tree.selection_set(selected[0])
