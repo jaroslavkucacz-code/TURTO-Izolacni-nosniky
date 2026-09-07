@@ -188,7 +188,7 @@ def verify(directory: Path, output: Path):
         row.ved_pos.set("50")
         row._apply_type_constraints()
         row.recalculate()
-        check(row.selected_candidate is None and "HT" in row.detail.get(), "real Tk never reinterprets VEd 100mm as HT")
+        check(row.selected_candidate is None and row.connection_type.get() == "ZVX" and not row.hed_parallel.get(), "real Tk never reinterprets VEd 100mm as HT")
     finally:
         app.destroy()
 
