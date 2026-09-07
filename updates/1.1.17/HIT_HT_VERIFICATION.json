@@ -38,7 +38,7 @@
         3
       ],
       "page_count": 8,
-      "pdf_bytes": 94839
+      "pdf_bytes": 94837
     },
     "case": "P009 source: screenshot; status/UI regression, not a new structural assessment",
     "acceptance_persistence": true,
