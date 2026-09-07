@@ -1,0 +1,48 @@
+{
+  "checks": 125,
+  "source_positions": 33,
+  "bending_positions": 28,
+  "shear_positions": 5,
+  "tested_real_tk_widgets": true,
+  "length_100_mm_blocked": true,
+  "length_500_mm_filtered": true,
+  "load_units_unchanged": true,
+  "design_fixture": "Synthetic candidates validate integration only; no new verification of manufacturer capacities.",
+  "prior_release_regression": {
+    "result": "PASS",
+    "checks": 64,
+    "pdf": {
+      "result": "PASS",
+      "version": "1.1.15",
+      "format": "A4 portrait",
+      "raster_images": 0,
+      "numeric_font_pt": 11,
+      "body_font_pt": 11,
+      "all_directions_preserved": true,
+      "ou_confirmation_preserved": true,
+      "untruncated_notes": true,
+      "summary_pages": 1,
+      "summary_positions": 22,
+      "detail_positions_per_page": [
+        4,
+        4,
+        3,
+        4,
+        4,
+        3
+      ],
+      "page_count": 8,
+      "pdf_bytes": 94844
+    },
+    "case": "P009 source: screenshot; status/UI regression, not a new structural assessment",
+    "acceptance_persistence": true,
+    "acceptance_invalidation": true,
+    "explicit_dialog": true,
+    "matching_ui_excel_pdf_status": true,
+    "other_warnings_and_failures_not_overridden": true
+  },
+  "version": "1.1.16",
+  "structural_core_unchanged": true,
+  "unchanged_support_files": 23,
+  "new_runtime_dependencies": []
+}

@@ -1,0 +1,9 @@
+TURTO ISO v1.1.17 – HIT-HT a bezpečné oddělení vodorovných sil
+- Návrh HIT rozlišuje běžné MEd/VEd [na metr] od vodorovných HEd∥/HEd⊥ [kN/prvek]. Lineární zatížení se na sílu HT nikdy nepřevádí automaticky.
+- Hromadný výkaz umí načíst HEd∥ a HEd⊥ v kN/prvek (také kN/element nebo kN/ks), zobrazit je v kontrolním náhledu a vložit jako typ HT.
+- HIT-HP HT má katalogovou šířku B = 100 mm, HIT-SP HT B = 150 mm. Výkaz i ruční řádek musí této šířce přesně odpovídat.
+- Automaticky se navrhují HIT-HT1, HT2 a HT3 podle katalogových HRd a výšky h = 160–350 mm. HT1 = H∥, HT2 = H⊥, HT3 = oba směry.
+- HT4/HT5 se z bezpečnostních důvodů automaticky nevybírají: katalog je pro odpor proti zvedacímu momentu váže na kombinaci s HIT-MVX. Pokud HT1–HT3 nestačí, program na toto omezení výslovně upozorní.
+- Původní řádek „Smykový isonosník délky 0,1 m · VEd = … kN/m“ se nepřevádí na HT jen podle délky. Zůstává svislým smykovým zadáním a požaduje vyřešení typu/zatížení.
+- Stávající délky 1000/500/333/250 mm a návrhy MVX/MVXL/ZVX/ZDX/DD/DVL/DDL/AT/FT/OTX zůstávají beze změny; předchozí regresní sada se spouští znovu.
+- Zdroj HT: HALFEN HIT Insulated Connection ©2023, HIT 20.2-EN, katalogové tabulky HT1–HT3 na stranách 121–123.

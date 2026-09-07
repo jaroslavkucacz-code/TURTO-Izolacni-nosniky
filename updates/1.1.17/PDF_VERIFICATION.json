@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "version": "1.1.15",
+  "format": "A4 portrait",
+  "raster_images": 0,
+  "numeric_font_pt": 11,
+  "body_font_pt": 11,
+  "all_directions_preserved": true,
+  "ou_confirmation_preserved": true,
+  "untruncated_notes": true,
+  "summary_pages": 1,
+  "summary_positions": 22,
+  "detail_positions_per_page": [
+    4,
+    4,
+    3,
+    4,
+    4,
+    3
+  ],
+  "page_count": 8,
+  "pdf_bytes": 94840
+}

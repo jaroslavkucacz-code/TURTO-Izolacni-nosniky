@@ -1,0 +1,54 @@
+{
+  "checks": 59,
+  "existing_schedule_positions": 33,
+  "ht_examples": 3,
+  "ht_auto_types": [
+    "HT1",
+    "HT2",
+    "HT3"
+  ],
+  "ht4_ht5_auto_selected": false,
+  "hp_width_mm": 100,
+  "sp_width_mm": 150,
+  "horizontal_units": "kN/element only",
+  "vertical_line_load_auto_conversion": false,
+  "real_tk_integration": true,
+  "source": "HALFEN HIT Insulated Connection ©2023, HIT 20.2-EN pages 121-123",
+  "prior_release_regression": {
+    "result": "PASS",
+    "checks": 64,
+    "pdf": {
+      "result": "PASS",
+      "version": "1.1.15",
+      "format": "A4 portrait",
+      "raster_images": 0,
+      "numeric_font_pt": 11,
+      "body_font_pt": 11,
+      "all_directions_preserved": true,
+      "ou_confirmation_preserved": true,
+      "untruncated_notes": true,
+      "summary_pages": 1,
+      "summary_positions": 22,
+      "detail_positions_per_page": [
+        4,
+        4,
+        3,
+        4,
+        4,
+        3
+      ],
+      "page_count": 8,
+      "pdf_bytes": 94839
+    },
+    "case": "P009 source: screenshot; status/UI regression, not a new structural assessment",
+    "acceptance_persistence": true,
+    "acceptance_invalidation": true,
+    "explicit_dialog": true,
+    "matching_ui_excel_pdf_status": true,
+    "other_warnings_and_failures_not_overridden": true
+  },
+  "version": "1.1.17",
+  "ht_catalog_source": "HIT 20.2-EN 2023 pages 121-123",
+  "unchanged_support_files": 23,
+  "new_runtime_dependencies": []
+}
