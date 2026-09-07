@@ -1,6 +1,6 @@
 {
-  "version": "1.1.19",
-  "notes": "PDF: staticky vyhovující prvek se zobrazí jako VYHOVUJE; případná kontrola automaticky rozpoznané geometrie Bx zůstane uvedena samostatně. Datum zůstává bez času.",
+  "version": "1.1.20",
+  "notes": "Návrh HIT: nový vektorový PDF výstup se souhrnem, vstupními účinky, navrženým HIT, využitím a katalogovými hodnotami; před exportem se návrh automaticky přepočítá.",
   "files": [
     {
       "path": "HIT_HT_VERIFICATION.json",
@@ -19,8 +19,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.19/RELEASE_NOTES.txt",
-      "sha256": "26784fa54a8116f7e8e4bbf20f93a075f56ad816c9d00c85ca3e06f8c85d7dd2"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.20/RELEASE_NOTES.txt",
+      "sha256": "79a76fe1066409ae70f1b45a9a0ecd4d35675908b451078a2a80e3b8f2d7a73e"
     },
     {
       "path": "REVIEW_VERIFICATION.json",
@@ -93,6 +93,11 @@
       "sha256": "6dfcddff6a1491c02e828efc255d9b703533462a71dbfbcb8686205f216cffab"
     },
     {
+      "path": "hit_pdf.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.20/hit_pdf.py",
+      "sha256": "b3e7072297cb934acb762bcc99425f2669ad6e0b9e50ff87c50280f9230eaece"
+    },
+    {
       "path": "hit_schedule.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.17/hit_schedule.py",
       "sha256": "18c80ad8507f38d8ad8481ea82155e7ce1d5b045134ddc0e92f6930348dbe163"
@@ -104,6 +109,11 @@
     },
     {
       "path": "hit_workspace.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.20/hit_workspace.py",
+      "sha256": "14e8e4461e950856f61770025a725d526e92dfb7875f4daffef1849f8dd39cb0"
+    },
+    {
+      "path": "hit_workspace_base.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.17/hit_workspace.py",
       "sha256": "2ae067eed75a7a3c57f6f3d784fb83889a73a43820b5da7b2e6604090749ef21"
     },
