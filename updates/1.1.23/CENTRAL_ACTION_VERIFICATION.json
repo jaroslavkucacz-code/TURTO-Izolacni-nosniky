@@ -1,0 +1,18 @@
+{
+  "version": "1.1.23",
+  "scope": "central AKCE persistence + Decoder ISO workspace",
+  "checks": [
+    "py_compile: action_store.py, action_payload.py, action_browser.py, action_workspace.py, decoder_detail.py, project_ui.py, hit_decoder_records.py, hit_decoder_suggest.py, hit_decoder_catalog.py, app.pyw",
+    "SQLite central AKCE CRUD smoke: create/save/update/list/load/delete",
+    "one AKCE payload contains project.to_dict() (including substitution mappings) and complete serialized HIT design",
+    "new application composition contains exactly Decoder ISO, Návrh HIT and Záměny za HIT; lookup/detail tab is not created",
+    "legacy project commands and Ctrl+S are redirected to central AKCE save",
+    "old .tinp projects have explicit one-time import path into actions.sqlite3",
+    "Decoder ISO detail is opened by double-click; old lookup editor action is removed from normal UI",
+    "managed HIT decoder uses the same HitDatabase data source as Návrh HIT for MVX/MVXL/ZVX/ZDX/DD/DVL/DDL and verified HT1-HT3 capacities",
+    "HT4/HT5 and AT/FT/OTX are decoded conservatively without inventing a standalone resistance where the catalogue requires coupling/interaction/input actions",
+    "calculation core, M-V interaction and existing catalogue data are unchanged"
+  ],
+  "runtime_dependencies_added": [],
+  "calculation_core_changed": false
+}
