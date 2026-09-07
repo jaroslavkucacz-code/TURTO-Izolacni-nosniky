@@ -2,6 +2,7 @@ from __future__ import annotations
 
 """TURTO ISO 1.1.26 immutable runtime bootstrap."""
 
+import json
 import os
 import runpy
 import shutil
@@ -13,64 +14,11 @@ import tkinter as tk
 from tkinter import messagebox
 
 VERSION = "1.1.26"
-PINNED_COMMIT = "dceff5ac2b82d7f07febcdf6adc3a12b00c27941"
+PINNED_COMMIT = "33397e798da1f2b9db81ae49abb52ab75eef8844"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
 ROOT = Path(__file__).resolve().parent
 MARKER = ROOT / ".turto_runtime_1_1_26.ok"
-
-FILES = {
-    "app_runtime.pyw": "updates/1.1.26/app_runtime.pyw",
-    "app_runtime_prev.pyw": "updates/1.1.25/app_runtime.pyw",
-    "app_central_prev.pyw": "updates/1.1.23/app.pyw",
-    "app_base.py": "updates/1.1.17/app.pyw",
-    "project_ui.py": "updates/1.1.25/project_ui.py",
-    "project_ui_prev.py": "updates/1.1.23/project_ui.py",
-    "project_ui_base.py": "updates/1.1.17/project_ui.py",
-    "action_store.py": "updates/1.1.25/action_store.py",
-    "action_store_prev.py": "updates/1.1.23/action_store.py",
-    "action_payload.py": "updates/1.1.25/action_payload.py",
-    "action_payload_prev.py": "updates/1.1.23/action_payload.py",
-    "action_browser.py": "updates/1.1.23/action_browser.py",
-    "action_workspace.py": "updates/1.1.23/action_workspace.py",
-    "decoder_detail.py": "updates/1.1.23/decoder_detail.py",
-    "hit_decoder_records.py": "updates/1.1.25/hit_decoder_records.py",
-    "hit_decoder_records_prev.py": "updates/1.1.23/hit_decoder_records.py",
-    "hit_decoder_suggest.py": "updates/1.1.25/hit_decoder_suggest.py",
-    "hit_decoder_suggest_prev.py": "updates/1.1.23/hit_decoder_suggest.py",
-    "hit_decoder_catalog.py": "updates/1.1.25/hit_decoder_catalog.py",
-    "hit_decoder_catalog_prev.py": "updates/1.1.23/hit_decoder_catalog.py",
-    "hit_wt.py": "updates/1.1.25/hit_wt.py",
-    "hit_wt_ui.py": "updates/1.1.25/hit_wt_ui.py",
-    "wt_safety_guard.py": "updates/1.1.25/wt_safety_guard.py",
-    "table_polish.py": "updates/1.1.25/table_polish.py",
-    "hit_workspace.py": "updates/1.1.25/hit_workspace.py",
-    "hit_workspace_prev.py": "updates/1.1.22/hit_workspace.py",
-    "hit_workspace_base.py": "updates/1.1.17/hit_workspace.py",
-    "hit_design_store.py": "updates/1.1.21/hit_design_store.py",
-    "hit_design_ui.py": "updates/1.1.21/hit_design_ui.py",
-    "hit_excel.py": "updates/1.1.21/hit_excel.py",
-    "hit_export_ui.py": "updates/1.1.21/hit_export_ui.py",
-    "hit_pdf.py": "updates/1.1.20/hit_pdf.py",
-    "hit_row_extension.py": "updates/1.1.22/hit_row_extension.py",
-    "hit_schedule.py": "updates/1.1.26/hit_schedule.py",
-    "hit_schedule_prev.py": "updates/1.1.22/hit_schedule.py",
-    "hit_schedule_base.py": "updates/1.1.17/hit_schedule.py",
-    "hit_virtual_scroll.py": "updates/1.1.21/hit_virtual_scroll.py",
-    "hit_core.py": "updates/1.1.17/hit_core.py",
-    "hit_ht.py": "updates/1.1.17/hit_ht.py",
-    "hit_special.py": "updates/1.1.17/hit_special.py",
-    "project_model.py": "updates/1.1.17/project_model.py",
-    "substitution_workspace.py": "updates/1.1.17/substitution_workspace.py",
-    "substitution_review.py": "updates/1.1.17/substitution_review.py",
-    "substitution_pdf.py": "updates/1.1.19/substitution_pdf.py",
-    "substitution_pdf_base.py": "updates/1.1.17/substitution_pdf.py",
-    "catalog_engine.py": "updates/1.1.17/catalog_engine.py",
-    "autocomplete.py": "updates/1.1.17/autocomplete.py",
-    "bulk_import.py": "updates/1.1.17/bulk_import.py",
-    "bulk_import_engine.py": "updates/1.1.17/bulk_import_engine.py",
-    "ui_utils.py": "updates/1.1.17/ui_utils.py",
-    "xlsx_export.py": "updates/1.1.17/xlsx_export.py",
-}
+RUNTIME_MANIFEST = "updates/1.1.26/runtime_manifest.json"
 
 
 def _url(repo_path: str) -> str:
@@ -102,7 +50,23 @@ def _download(url: str) -> bytes:
     raise RuntimeError(f"Nelze stáhnout {url}\n{last}")
 
 
-def _runtime_ready() -> bool:
+def _runtime_files() -> dict[str, str]:
+    data = json.loads(_download(_url(RUNTIME_MANIFEST)).decode("utf-8"))
+    if not isinstance(data, dict) or not data:
+        raise RuntimeError("Runtime manifest 1.1.26 je prázdný nebo neplatný.")
+    files: dict[str, str] = {}
+    for local, remote in data.items():
+        local_path = Path(str(local))
+        if local_path.is_absolute() or ".." in local_path.parts:
+            raise RuntimeError(f"Neplatná lokální cesta runtime: {local}")
+        remote_text = str(remote)
+        if not remote_text.startswith("updates/"):
+            raise RuntimeError(f"Neplatná vzdálená cesta runtime: {remote_text}")
+        files[str(local_path)] = remote_text
+    return files
+
+
+def _runtime_ready(files: dict[str, str]) -> bool:
     if not MARKER.exists():
         return False
     try:
@@ -110,10 +74,10 @@ def _runtime_ready() -> bool:
             return False
     except Exception:
         return False
-    return all((ROOT / local).is_file() for local in FILES)
+    return all((ROOT / local).is_file() for local in files)
 
 
-def _install_runtime() -> None:
+def _install_runtime(files: dict[str, str]) -> None:
     temp_root = Path(tempfile.mkdtemp(prefix="turto_1126_", dir=str(ROOT)))
     window = tk.Tk()
     window.title("TURTO ISO – dokončení aktualizace")
@@ -124,6 +88,7 @@ def _install_runtime() -> None:
         window.eval("tk::PlaceWindow . center")
     except Exception:
         pass
+
     tk.Label(
         window,
         text="Dokončuji aktualizaci TURTO ISO 1.1.26",
@@ -147,8 +112,8 @@ def _install_runtime() -> None:
 
     downloaded = []
     try:
-        total = len(FILES)
-        for index, (local, remote) in enumerate(FILES.items(), 1):
+        total = len(files)
+        for index, (local, remote) in enumerate(files.items(), 1):
             status.configure(text=f"Stahuji: {local}")
             counter.configure(text=f"{index} / {total}")
             window.update()
@@ -190,11 +155,13 @@ def _show_failure(exc: Exception) -> None:
 
 def main() -> int:
     try:
-        if not _runtime_ready():
-            _install_runtime()
+        files = _runtime_files()
+        if not _runtime_ready(files):
+            _install_runtime(files)
     except Exception as exc:
         _show_failure(exc)
         return 2
+
     target = ROOT / "app_runtime.pyw"
     if not target.exists():
         _show_failure(RuntimeError("Chybí app_runtime.pyw po dokončení aktualizace."))
