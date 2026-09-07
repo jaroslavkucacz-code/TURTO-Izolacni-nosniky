@@ -1,6 +1,6 @@
 {
-  "version": "1.1.20",
-  "notes": "Návrh HIT: nový vektorový PDF výstup se souhrnem, vstupními účinky, navrženým HIT, využitím a katalogovými hodnotami; před exportem se návrh automaticky přepočítá.",
+  "version": "1.1.21",
+  "notes": "Návrh HIT: plynulejší rolování velkých výkazů, sloupec Ks, lokální databáze návrhů podle AKCE a Export Excel pro poptávku výrobci s volitelnými statickými daty.",
   "files": [
     {
       "path": "HIT_HT_VERIFICATION.json",
@@ -13,14 +13,19 @@
       "sha256": "e0ea0ebc950647fe9b55f4f4c520f58d2b9553aaaab29ee9f776d5fa7d869c07"
     },
     {
+      "path": "HIT_WORKSPACE_VERIFICATION.json",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/HIT_WORKSPACE_VERIFICATION.json",
+      "sha256": "fc128b96bcdd1d8de9b57c89e51739921df04c843c0e386fb301a8e14a6baeb5"
+    },
+    {
       "path": "PDF_VERIFICATION.json",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.17/PDF_VERIFICATION.json",
       "sha256": "f5f58837f84636e07f29a9aff1de123104ad285a95e1a5779520838f913a0941"
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.20/RELEASE_NOTES.txt",
-      "sha256": "79a76fe1066409ae70f1b45a9a0ecd4d35675908b451078a2a80e3b8f2d7a73e"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/RELEASE_NOTES.txt",
+      "sha256": "a76ab871e89507c3bd1a1e539701727234caba6d9e5bc88e4733e2edf1334320"
     },
     {
       "path": "REVIEW_VERIFICATION.json",
@@ -88,6 +93,26 @@
       "sha256": "8d7666fed0e87a7cd06109669090eba060a614f6b34f282e3e61a8c5be334ab1"
     },
     {
+      "path": "hit_design_store.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/hit_design_store.py",
+      "sha256": "dacee6ebc1f9015f0a8a362a9a79446976796d113584f11a45c70a17f0b96b92"
+    },
+    {
+      "path": "hit_design_ui.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/hit_design_ui.py",
+      "sha256": "bd5e4f18bef44a5dc61cfe8c587bfdadc835565fdf3e76ad8b3bd2aa631ecfa3"
+    },
+    {
+      "path": "hit_excel.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/hit_excel.py",
+      "sha256": "c04d5fd70041ef2cb60612036fd2431c20de6ab2610858f32da6cc0a9d8e412f"
+    },
+    {
+      "path": "hit_export_ui.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/hit_export_ui.py",
+      "sha256": "d44c90757f960a3f9b8f844f3392d720fea15b0b437aa959b48cb77e98515192"
+    },
+    {
       "path": "hit_ht.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.17/hit_ht.py",
       "sha256": "6dfcddff6a1491c02e828efc255d9b703533462a71dbfbcb8686205f216cffab"
@@ -96,6 +121,11 @@
       "path": "hit_pdf.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.20/hit_pdf.py",
       "sha256": "b3e7072297cb934acb762bcc99425f2669ad6e0b9e50ff87c50280f9230eaece"
+    },
+    {
+      "path": "hit_row_extension.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/hit_row_extension.py",
+      "sha256": "d1cd345b93c79fafd9d723f4484a389aa4f5ef51ccbbbf38732617cfd07c66d6"
     },
     {
       "path": "hit_schedule.py",
@@ -108,9 +138,14 @@
       "sha256": "c99b30820c4aca25a8268f908034e44a10d93d5671c57776a0c6a20b955339f1"
     },
     {
+      "path": "hit_virtual_scroll.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/hit_virtual_scroll.py",
+      "sha256": "f8d9b90313e250d80300c2f7892dcf4db68ffd9753b7ab86fa25634b2280ade2"
+    },
+    {
       "path": "hit_workspace.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.20/hit_workspace.py",
-      "sha256": "14e8e4461e950856f61770025a725d526e92dfb7875f4daffef1849f8dd39cb0"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.21/hit_workspace.py",
+      "sha256": "562cba563cd536ab0f98726cbe31041ed293ff055883f2078299dc1931049997"
     },
     {
       "path": "hit_workspace_base.py",
