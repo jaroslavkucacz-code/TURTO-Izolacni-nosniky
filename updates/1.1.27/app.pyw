@@ -13,7 +13,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 VERSION = "1.1.27"
-PINNED_COMMIT = "911b404c4d3ddc7cd30950073b843fc9c57149d7"
+PINNED_COMMIT = "206e22d1c2c645e163f0bbdf167e7574c2af060e"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
 ROOT = Path(__file__).resolve().parent
 MARKER = ROOT / ".turto_runtime_1_1_27.ok"
