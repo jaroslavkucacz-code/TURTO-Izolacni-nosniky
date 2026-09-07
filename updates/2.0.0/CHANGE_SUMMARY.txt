@@ -1,0 +1,7 @@
+TURTO 2.0.0
+- platforma více produktových oblastí
+- výrobce se volí u Návrhu a Záměn
+- jednotný import výkazu pro všechny skupiny návrhu izolačních nosníků
+- jednotná tlačítka Přidat řádek
+- PDF celé AKCE nad produktovými oblastmi
+- připravený rámec Smykové trny / Akustika schodiště
