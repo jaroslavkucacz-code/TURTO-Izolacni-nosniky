@@ -19,6 +19,7 @@ def install(project_mixin: Any, hit_row_class: Any, hit_mixin: Any) -> None:
     p_refresh = project_mixin.refresh_project_tree
     h_init = hit_row_class.__init__
     h_product = hit_row_class._product_changed
+    h_variants = hit_row_class.open_variants
     h_add = hit_mixin.add_hit_row; h_remove = hit_mixin.remove_hit_row
     h_clear = hit_mixin.clear_hit_rows; h_schedule = hit_mixin.open_hit_schedule
     h_options = hit_mixin._hit_options_changed
@@ -85,6 +86,13 @@ def install(project_mixin: Any, hit_row_class: Any, hit_mixin: Any) -> None:
         if event is not None and not getattr(self.owner, "_action_loading", False): self.owner.mark_project_dirty()
         return result
 
+    def open_variants(self):
+        before = str(self.product.get())
+        result = h_variants(self)
+        if str(self.product.get()) != before and not getattr(self.owner, "_action_loading", False):
+            self.owner.mark_project_dirty()
+        return result
+
     def wrap_count(original):
         def wrapped(self, *args, **kwargs):
             before = len(self.hit_rows); result = original(self, *args, **kwargs)
@@ -102,7 +110,7 @@ def install(project_mixin: Any, hit_row_class: Any, hit_mixin: Any) -> None:
         if not getattr(self, "_action_loading", False): self.mark_project_dirty()
         return result
 
-    hit_row_class.__init__ = hit_init; hit_row_class._product_changed = product_changed
+    hit_row_class.__init__ = hit_init; hit_row_class._product_changed = product_changed; hit_row_class.open_variants = open_variants
     hit_mixin.add_hit_row = wrap_count(h_add); hit_mixin.remove_hit_row = wrap_count(h_remove)
     hit_mixin.open_hit_schedule = wrap_count(h_schedule); hit_mixin.clear_hit_rows = clear
     hit_mixin._hit_options_changed = options
