@@ -1,0 +1,20 @@
+TURTO ISO 1.1.23
+
+Centrální AKCE a Dekodér ISO
+
+- Záložka „Projektové řádky“ se přejmenovala na „Dekodér ISO“.
+- Záložka „Databáze / detail nosníku“ byla odstraněna. Dvojklik na řádek v Dekodéru ISO nyní otevře detail výrobku, statické/katalogové hodnoty, zdroj a případnou vazbu na záměnu HIT.
+- Nad všemi záložkami je jeden společný pruh AKCE: Nová akce, Otevřít akci, Uložit a Uložit jako.
+- Celá AKCE se ukládá do jedné lokální SQLite databáze actions.sqlite3. Jeden záznam obsahuje současně:
+  - řádky Dekodéru ISO včetně uložených katalogových snímků,
+  - stav a potvrzení Záměn za HIT,
+  - celý Návrh HIT včetně množství, vstupních účinků, povolených délek a ručně zvolených variant.
+- Samostatné ukládání Návrhu HIT (tlačítka „Uložit návrh“ / „Návrhy…“) je v běžném UI odstraněno; PDF a Excel export zůstávají.
+- Staré .tinp projekty lze jednorázově importovat z dialogu centrální databáze AKCÍ.
+- Dekodér ISO nově rozpoznává úplná označení Leviat HIT-HP/HIT-SP z téhož spravovaného HIT podkladu, který používá Návrh HIT: MVX, MVXL, ZVX, ZDX, DD, DVL, DDL, HT1–HT5, AT, FT a OTX.
+- U HT4/HT5 a speciálních AT/FT/OTX Decoder zobrazí katalogovou identifikaci a výslovně upozorní, že konkrétní únosnost závisí na vazbě/interakci nebo návrhových účincích; nevymýšlí jednu falešnou statickou hodnotu.
+- Již dekódovaný HIT je v Záměnách za HIT chápán jako cílový výrobek a nemá se znovu převádět.
+- Terminologie v hlavním UI byla sjednocena na AKCE / Dekodér ISO; „Složka databáze“ a „Kontrola databáze“ v záhlaví byly zpřesněny na katalogy.
+- Opravy 1.1.22 (množství z druhého sloupce, VEd = ±… a kontrolní součty) zůstávají součástí kumulativní aktualizace.
+
+Výpočtové jádro HIT, M–V interakce, statické podklady záměn ani existující katalogová data se touto změnou nemění.
