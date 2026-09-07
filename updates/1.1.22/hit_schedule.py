@@ -14,6 +14,8 @@ import hit_schedule_base as _base
 from hit_schedule_base import *  # noqa: F401,F403 - preserve public API
 
 _IMPORT_VERSION = "1.1.22"
+_ORIGINAL_PARSE_SCHEDULE = _base.parse_schedule
+_ORIGINAL_ROW_DEFAULTS = _base.row_defaults
 _QTY_RE = re.compile(r"^\s*(\d+)\s*(?:ks|kus(?:y|ů)?)?\s*$", re.I)
 _SEPARATOR_RE = re.compile(r"^[\s:=-]+$")
 _PM_FIELD_RE = re.compile(
@@ -78,7 +80,7 @@ def parse_schedule(text: str):
             continue
         source, quantity = parsed
         cleaned, plusminus = _strip_plusminus(source)
-        records = _base.parse_schedule(cleaned)
+        records = _ORIGINAL_PARSE_SCHEDULE(cleaned)
         for row in records:
             row.line = original_line
             row.source = source
@@ -108,7 +110,7 @@ def row_defaults(row, options: dict[str, str], name: str) -> dict[str, str]:
     if both_m:
         work.m_sign = ""
 
-    payload = _base.row_defaults(work, opts, name)
+    payload = _ORIGINAL_ROW_DEFAULTS(work, opts, name)
     quantity = int(getattr(row, "quantity", 1) or 1)
     if not 1 <= quantity <= 1_000_000:
         raise ValueError("Počet kusů musí být v rozsahu 1 až 1 000 000.")
