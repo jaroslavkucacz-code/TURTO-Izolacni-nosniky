@@ -7,6 +7,8 @@
     "unified PDF collector smoke: Desky / balkony + Doplňkové prvky + Stěny WT are collected into one report",
     "WT PDF actions retain per-element units (kNm/prvek, kN/prvek)",
     "standard main type selector is restricted to MVX/MVXL/ZVX/ZDX/DD/DVL/DDL",
+    "standard slab/balcony grid removes NEd+, NEd-, HEd parallel, HEd perpendicular and x controls because none of its remaining types uses them",
+    "standard headings are compacted after quantity insertion so header columns remain aligned with the actual row controls",
     "supplementary workspace contains HT/AT/FT/OTX with type-specific enabled inputs",
     "schedule import routes HT payloads to supplementary workspace and ordinary payloads to slab/balcony workspace",
     "central AKCE schema stores aux_design separately and action counts include standard + aux + WT",
