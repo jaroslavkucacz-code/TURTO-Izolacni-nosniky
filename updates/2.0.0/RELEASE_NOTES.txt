@@ -1,0 +1,32 @@
+TURTO 2.0.0
+
+Nová platformová struktura programu
+
+- AKCE zůstává jedním centrálně ukládaným celkem.
+- Pod AKCÍ jsou nově produktové oblasti. Aktivní je Izolační nosníky; připravený rámec je vytvořen také pro Smykové trny a Akustiku schodiště.
+- Každá produktová oblast má stejný pracovní model: Dekodér / Návrh / Záměny.
+- U Návrhu a Záměn se výrobce volí samostatně. Výrobce již není součást názvu funkce programu.
+- Pro izolační nosníky je v 2.0.0 aktivní výrobce Leviat s dosavadním ověřeným adaptérem HIT. Registry a ukládání AKCE jsou připravené na další výrobce a katalogové adaptéry.
+- Dekodér je výrobce-neutrální: pracuje se všemi dostupnými katalogy v dané produktové oblasti.
+
+Sjednocení Návrhu izolačních nosníků
+- Podzáložky zůstávají: Desky / balkony, Doplňkové prvky, Stěny WT.
+- Typové zkratky +MVX / +HT / +AT / ... byly odstraněny. Každá tabulka používá jednotné tlačítko „+ Přidat řádek“ a typ se volí v samotném řádku.
+- „Vložit výkaz…“ je pouze jednou nad celým Návrhem. Výkaz se automaticky rozřadí do Desky / balkony, Doplňkové prvky a Stěny WT.
+- Ověřený parser MEd/VEd/HEd zůstává zachovaný. Nový router navíc umí explicitní AT/FT/OTX a WT řádky s jejich vlastními vstupy.
+- Výrobce návrhu je v samostatném horním pruhu. Stejný prostor bude používat jiný výrobce, jakmile dostane návrhový adaptér.
+- Excel pro poptávku je přesunut nad všechny skupiny návrhu a seskupuje všechny navržené výrobky podle typu a kusů; volitelně přidá řádky s návrhovými účinky.
+
+Výstup AKCE
+- „Export PDF AKCE“ je přesunut nad produktové oblasti. Není už vlastností HIT ani jedné podzáložky.
+- V 2.0.0 je aktivním report providerem oblast Izolační nosníky; zahrnuje Desky / balkony, Doplňkové prvky i WT.
+- Smykové trny, akustika schodiště a další budoucí oblasti se do stejného výstupu přidají registrací vlastního report provideru bez přesunu tlačítka nebo změny struktury AKCE.
+
+Centrální databáze
+- Stávající data 1.1.x zůstávají kompatibilní.
+- Do AKCE přibyla platform_state s volbou produktové oblasti a výrobců návrhu/záměn.
+- Dosavadní hit_design / aux_design / wt_design a potvrzení záměn se nemění, takže nedochází k migraci výpočtových dat do nového neověřeného formátu.
+
+Výpočtová bezpečnost
+- Statické jádro Leviat HIT, M–V interakce, HT, AT/FT/OTX a WT se ve verzi 2.0.0 nemění.
+- Nová verze mění architekturu, navigaci, směrování vstupů a výstupy; neoslabuje stávající kontroly.

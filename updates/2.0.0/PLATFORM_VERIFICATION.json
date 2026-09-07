@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "scope": "multi-domain / multi-manufacturer platform shell",
+  "checks": [
+    "py_compile: platform_registry.py, platform_state.py, platform_workspace.py, action_payload.py, action_browser.py, unified_schedule.py, supplier_export.py, action_report.py, hit_workspace.py, app_runtime.pyw",
+    "existing 1.1.27 calculation modules remain external compatibility layers and are not modified",
+    "AKCE payload keeps hit_design/aux_design/wt_design plus new platform_state",
+    "product domain registry contains thermal_breaks active and future shear_dowels/stair_acoustics framework entries",
+    "thermal domain exposes Decoder / Design / Substitution under one product area",
+    "design and substitution manufacturer selections are persisted independently",
+    "Leviat is the only enabled thermal design/substitution adapter in 2.0.0",
+    "design UI has one unified schedule action and generic add-row actions instead of type shortcut buttons",
+    "unified schedule router dispatches ordinary rows to slab/balcony, HT/AT/FT/OTX to supplementary, WT to wall table",
+    "AKCE-level PDF dispatcher is outside product-domain tabs and uses registered report providers",
+    "supplier Excel aggregates selected design products across slab, supplementary and WT rows",
+    "calculation core changed: false"
+  ],
+  "runtime_dependencies_added": [],
+  "calculation_core_changed": false
+}

@@ -1,0 +1,4 @@
+TURTO 2.0.0 runtime pin
+4899ef28a2be4aec20e32514bb91e91f0f31bf7f
+
+Tento commit obsahuje runtime moduly 2.0.0 a zděděné ověřené výpočtové vrstvy. Bootstrap 2.0.0 stahuje runtime pouze z tohoto neměnného commitu.
