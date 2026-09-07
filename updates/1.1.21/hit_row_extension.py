@@ -48,7 +48,11 @@ def row_widgets_in_order(row: Any) -> list[Any]:
     return [base[0], qty, *base[1:]]
 
 
-def grid_row_widgets(row: Any, visible: bool) -> None:
+def grid_row_widgets(row: Any, visible: bool, *, force: bool = False) -> None:
+    previous_visible = getattr(row, "_hit_grid_visible", None)
+    previous_row = getattr(row, "_hit_grid_row", None)
+    if not force and previous_visible is visible and (not visible or previous_row == row.row_no):
+        return
     owner = row.owner
     try:
         owner.hit_rows_frame.grid_rowconfigure(row.row_no, minsize=ROW_HEIGHT)
@@ -67,6 +71,8 @@ def grid_row_widgets(row: Any, visible: bool) -> None:
                 widget.grid_remove()
             except Exception:
                 pass
+    row._hit_grid_visible = bool(visible)
+    row._hit_grid_row = row.row_no
 
 
 def install(base: Any) -> None:
@@ -112,11 +118,11 @@ def install(base: Any) -> None:
             return
         owner = self.owner
         if not getattr(owner, "_hit_virtual_enabled", False):
-            grid_row_widgets(self, True)
+            grid_row_widgets(self, True, force=True)
             return
         first = int(getattr(owner, "_hit_visible_first", 1) or 1)
         last = int(getattr(owner, "_hit_visible_last", 40) or 40)
-        grid_row_widgets(self, first <= row_no <= last)
+        grid_row_widgets(self, first <= row_no <= last, force=True)
 
     def row_defaults(self) -> dict[str, str]:
         result = dict(original_row_defaults(self))
@@ -150,8 +156,6 @@ def install(base: Any) -> None:
             if preserve and row.selected_candidate is not None and row.selected_candidate.designation == preserve and saved_manual:
                 row._manual_product = True
             if saved_restore:
-                # Saved selection gets one safe restore attempt only. If it is no longer
-                # among valid candidates, keep the freshly recalculated recommendation.
                 row._saved_designation = ""
                 row._saved_manual_product = False
         self.update_hit_status()
