@@ -1,0 +1,9 @@
+TURTO ISO 1.1.18
+
+PDF výstup
+- Datum zpracování se v záhlaví PDF zobrazuje pouze jako DD.MM.RRRR, bez času.
+- Platně ručně potvrzený prvek se v PDF zobrazuje jako VYHOVUJE místo KONTROLA.
+- Stav NELZE, NEVYHOVUJE ani neúplná statická kontrola se ručním potvrzením nepřepisují.
+- Interní auditní informace o ručním potvrzení zůstává zachována.
+
+Výpočtové jádro, katalogová data a způsob statického posouzení se touto verzí nemění.
