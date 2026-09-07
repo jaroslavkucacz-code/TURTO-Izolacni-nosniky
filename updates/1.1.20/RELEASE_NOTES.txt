@@ -1,0 +1,14 @@
+TURTO ISO 1.1.20
+
+Návrh HIT – PDF výstup
+- V kartě Návrh HIT přibylo tlačítko Export PDF.
+- PDF používá stejné grafické pojetí TURTO jako výstup Záměny za HIT.
+- Souhrn obsahuje pozici, zadání, navržený HIT, využití a výsledek.
+- Detail obsahuje návrhové účinky, parametry zadání, označení HIT, katalogové hodnoty, rozhodující kontrolu a zdroj katalogových dat.
+- Podporuje běžné typy HIT i HT1–HT3; u HT jsou HEd vedené v kN/prvek.
+- Před exportem se návrh automaticky přepočítá, aby PDF neobsahovalo starší výsledek.
+- Do PDF se zahrnou i nevyhovující / nedokončené řádky s jejich stavem a vysvětlením.
+- Datum zpracování je pouze DD.MM.RRRR bez času.
+- PDF se po vytvoření automaticky otevře.
+
+Výpočtové jádro a katalogová data se touto verzí nemění.
