@@ -1,0 +1,24 @@
+{
+  "version": "1.1.25",
+  "scope": "column UI polish + grouped HIT proposal + HIT-WT",
+  "source": "HALFEN HIT Insulated Connection ©2023, HIT 20.2-EN, WT pages 160-168",
+  "checks": [
+    "py_compile: hit_wt.py, hit_wt_ui.py, wt_safety_guard.py, table_polish.py, project_ui.py, hit_workspace.py, hit_decoder_records.py, hit_decoder_suggest.py, hit_decoder_catalog.py, action_store.py, action_payload.py, app_runtime.pyw",
+    "WT designation: HIT-{HP|SP} WT-{1..7}-{height cm}-{B cm}",
+    "WT geometry: B 150-250 mm; WT1-4 h 1250-3500 mm; WT5-7 h 1000-3500 mm",
+    "WT automatic height lookup uses only published 250 mm table rows; no undocumented interpolation",
+    "WT HP/SP C20/25 and >=C25/30 MRd/VRd,v/VRd,h tables transcribed from HIT 20.2-EN",
+    "WT expansion-joint spacing WT1..WT7 uses published HP/SP table",
+    "WT boundary smoke: h=1000 offers only WT5-WT7; h=1100 is rejected; h=1250 enables WT1-WT7",
+    "WT combined-action safety: multiple non-zero M/V components remain KONTROLA KOMBINACE because no verified WT interaction rule is encoded",
+    "WT rows serialize/load in the same central AKCE under wt_design and contribute to central HIT row count",
+    "Decoder ISO exact WT designation and WT catalog query path implemented",
+    "Decoder ISO headings use the same anchor as their cells and have clarified labels",
+    "Decoder ISO column manager supports reorder, visibility, auto-width, show-all and reset",
+    "HIT proposal row values/headings are aligned; WT uses a dedicated specialized table",
+    "Záměny za HIT headings are aligned with their row anchors and ambiguous labels are clarified",
+    "existing calculation core and M-V interaction for pre-existing HIT families are unchanged"
+  ],
+  "runtime_dependencies_added": [],
+  "existing_hit_core_changed": false
+}

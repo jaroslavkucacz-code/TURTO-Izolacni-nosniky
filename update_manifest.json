@@ -1,11 +1,11 @@
 {
-  "version": "1.1.24",
-  "notes": "Opravná aktualizace instalace: stabilní bootstrap z neměnného Git commitu, cache-busting a opakované stažení. Funkčně obsahuje centrální AKCI, Dekodér ISO, Návrh HIT a Záměny za HIT z 1.1.23.",
+  "version": "1.1.25",
+  "notes": "Přehlednější sloupce a ovládání tabulek, skupiny v Návrhu HIT a nový samostatný návrh/dekodér HIT-WT pro stěny. WT se ukládá do společné AKCE.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0b49755f5a004e0eb5a7ae300502ec98d2e60af9/updates/1.1.24/app.pyw",
-      "sha256": "5993f53a062a16bb10fa9d8fa87322cc3f1c9fd1edb9e0dbd1aa86731dbc599a"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/554fbc69352a712f4a317db2b289dd526cc8bfd2/updates/1.1.25/app.pyw",
+      "sha256": "d902609fe0d6eb0ee239317224768e67505beccc42b86075061e09996d219c25"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0b49755f5a004e0eb5a7ae300502ec98d2e60af9/updates/1.1.24/RELEASE_NOTES.txt",
-      "sha256": "af2a93c27c23a32e4c468307567c1223137b99786f736545005c508c1bc12447"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/554fbc69352a712f4a317db2b289dd526cc8bfd2/updates/1.1.25/RELEASE_NOTES.txt",
+      "sha256": "3e260140d39ae6a6dd36f1c93d76dae85ae2b835c8222145f59fecb3e8010e75"
     }
   ]
 }
