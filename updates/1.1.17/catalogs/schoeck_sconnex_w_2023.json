@@ -1,0 +1,329 @@
+{
+  "schema_version": 2,
+  "catalog": {
+    "id": "schoeck-sconnex-w-cz-2023-1",
+    "edition": "Sconnex CZ/2023.1",
+    "publication_label": "leden 2023 – archivní generace W 1.0",
+    "publication_date": "2023-01-01",
+    "source_filename": "Technicke_informace_Schoeck_Sconnex_typ_W__6195__.pdf",
+    "source_url": "https://www.schoeck.com/viewfile/6195/Technicke_informace_Schoeck_Sconnex_typ_W__6195__.pdf"
+  },
+  "families": [
+    {
+      "manufacturer": "Schöck",
+      "model": "Sconnex",
+      "type": "W",
+      "generation": "1.0",
+      "basis": "Technické informace Schöck Sconnex/CZ/2023.1/leden",
+      "insulation_thickness_mm": 80,
+      "compression_transfer": "tlakový přenos N1",
+      "selector_labels": {
+        "moment": "Hlavní třída",
+        "shear": "Vedlejší třída",
+        "concrete": "Beton",
+        "cover": "Šířka stěny",
+        "height": "Tloušťka prvku"
+      },
+      "notes": [
+        "Archivní dokument Schöck. Generace se nesmí zaměnit za novější W 1.1."
+      ],
+      "records": [
+        {
+          "moment_class": "N1",
+          "shear_class": "V1H1",
+          "concrete_min": "C25/30",
+          "cover": "B150",
+          "height_mm": "80",
+          "designation": "Schöck Sconnex® W-N1-V1H1-B150-1.0",
+          "aliases": [
+            "Schöck Sconnex W-N1-V1H1-B150-1.0",
+            "Sconnex W-N1-V1H1-B150-1.0",
+            "Schöck Sconnex typ W-N1-V1H1-B150-1.0",
+            "Sconnex W-N1-V1H1-B150-1.0"
+          ],
+          "results": [
+            {
+              "key": "n_rd_z_wall",
+              "label": "NRd,z,stěna",
+              "kind": "normal",
+              "value": 250.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_b",
+              "label": "VRd,x varianta B",
+              "kind": "shear",
+              "positive": 46.3,
+              "negative": -46.3,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_y",
+              "label": "VRd,y",
+              "kind": "horizontal",
+              "positive": 59.0,
+              "negative": -59.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_a",
+              "label": "VRd,x varianta A",
+              "kind": "horizontal",
+              "positive": 88.0,
+              "negative": -88.0,
+              "unit": "kN/prvek"
+            }
+          ],
+          "source_pages": [
+            6,
+            14,
+            31
+          ],
+          "insulation_thickness_mm": 80,
+          "compression_transfer": "tlakový přenos N1",
+          "notes": [
+            "VRd,x závisí na provedení napojovací stavební výztuže: varianta A ±88,0 kN/prvek; varianta B ±46,3 kN/prvek.",
+            "Pro V1H1 platí interakce VEd,y/VRd,y + VEd,x/VRd,x ≤ 1.",
+            "Hodnoty převzaty z českých Technických informací Schöck Sconnex CZ/2023.1."
+          ]
+        },
+        {
+          "moment_class": "N1",
+          "shear_class": "V1H1",
+          "concrete_min": "C25/30",
+          "cover": "B180",
+          "height_mm": "80",
+          "designation": "Schöck Sconnex® W-N1-V1H1-B180-1.0",
+          "aliases": [
+            "Schöck Sconnex W-N1-V1H1-B180-1.0",
+            "Sconnex W-N1-V1H1-B180-1.0",
+            "Schöck Sconnex typ W-N1-V1H1-B180-1.0",
+            "Sconnex W-N1-V1H1-B180-1.0"
+          ],
+          "results": [
+            {
+              "key": "n_rd_z_wall",
+              "label": "NRd,z,stěna",
+              "kind": "normal",
+              "value": 450.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_b",
+              "label": "VRd,x varianta B",
+              "kind": "shear",
+              "positive": 46.3,
+              "negative": -46.3,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_y",
+              "label": "VRd,y",
+              "kind": "horizontal",
+              "positive": 59.0,
+              "negative": -59.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_a",
+              "label": "VRd,x varianta A",
+              "kind": "horizontal",
+              "positive": 88.0,
+              "negative": -88.0,
+              "unit": "kN/prvek"
+            }
+          ],
+          "source_pages": [
+            6,
+            14,
+            31
+          ],
+          "insulation_thickness_mm": 80,
+          "compression_transfer": "tlakový přenos N1",
+          "notes": [
+            "VRd,x závisí na provedení napojovací stavební výztuže: varianta A ±88,0 kN/prvek; varianta B ±46,3 kN/prvek.",
+            "Pro V1H1 platí interakce VEd,y/VRd,y + VEd,x/VRd,x ≤ 1.",
+            "Hodnoty převzaty z českých Technických informací Schöck Sconnex CZ/2023.1."
+          ]
+        },
+        {
+          "moment_class": "N1",
+          "shear_class": "V1H1",
+          "concrete_min": "C25/30",
+          "cover": "B200",
+          "height_mm": "80",
+          "designation": "Schöck Sconnex® W-N1-V1H1-B200-1.0",
+          "aliases": [
+            "Schöck Sconnex W-N1-V1H1-B200-1.0",
+            "Sconnex W-N1-V1H1-B200-1.0",
+            "Schöck Sconnex typ W-N1-V1H1-B200-1.0",
+            "Sconnex W-N1-V1H1-B200-1.0"
+          ],
+          "results": [
+            {
+              "key": "n_rd_z_wall",
+              "label": "NRd,z,stěna",
+              "kind": "normal",
+              "value": 500.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_b",
+              "label": "VRd,x varianta B",
+              "kind": "shear",
+              "positive": 46.3,
+              "negative": -46.3,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_y",
+              "label": "VRd,y",
+              "kind": "horizontal",
+              "positive": 59.0,
+              "negative": -59.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_a",
+              "label": "VRd,x varianta A",
+              "kind": "horizontal",
+              "positive": 88.0,
+              "negative": -88.0,
+              "unit": "kN/prvek"
+            }
+          ],
+          "source_pages": [
+            6,
+            14,
+            31
+          ],
+          "insulation_thickness_mm": 80,
+          "compression_transfer": "tlakový přenos N1",
+          "notes": [
+            "VRd,x závisí na provedení napojovací stavební výztuže: varianta A ±88,0 kN/prvek; varianta B ±46,3 kN/prvek.",
+            "Pro V1H1 platí interakce VEd,y/VRd,y + VEd,x/VRd,x ≤ 1.",
+            "Hodnoty převzaty z českých Technických informací Schöck Sconnex CZ/2023.1."
+          ]
+        },
+        {
+          "moment_class": "N1",
+          "shear_class": "V1H1",
+          "concrete_min": "C25/30",
+          "cover": "B250",
+          "height_mm": "80",
+          "designation": "Schöck Sconnex® W-N1-V1H1-B250-1.0",
+          "aliases": [
+            "Schöck Sconnex W-N1-V1H1-B250-1.0",
+            "Sconnex W-N1-V1H1-B250-1.0",
+            "Schöck Sconnex typ W-N1-V1H1-B250-1.0",
+            "Sconnex W-N1-V1H1-B250-1.0"
+          ],
+          "results": [
+            {
+              "key": "n_rd_z_wall",
+              "label": "NRd,z,stěna",
+              "kind": "normal",
+              "value": 500.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_b",
+              "label": "VRd,x varianta B",
+              "kind": "shear",
+              "positive": 46.3,
+              "negative": -46.3,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_y",
+              "label": "VRd,y",
+              "kind": "horizontal",
+              "positive": 59.0,
+              "negative": -59.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_a",
+              "label": "VRd,x varianta A",
+              "kind": "horizontal",
+              "positive": 88.0,
+              "negative": -88.0,
+              "unit": "kN/prvek"
+            }
+          ],
+          "source_pages": [
+            6,
+            14,
+            31
+          ],
+          "insulation_thickness_mm": 80,
+          "compression_transfer": "tlakový přenos N1",
+          "notes": [
+            "VRd,x závisí na provedení napojovací stavební výztuže: varianta A ±88,0 kN/prvek; varianta B ±46,3 kN/prvek.",
+            "Pro V1H1 platí interakce VEd,y/VRd,y + VEd,x/VRd,x ≤ 1.",
+            "Hodnoty převzaty z českých Technických informací Schöck Sconnex CZ/2023.1."
+          ]
+        },
+        {
+          "moment_class": "N1",
+          "shear_class": "V1H1",
+          "concrete_min": "C25/30",
+          "cover": "B300",
+          "height_mm": "80",
+          "designation": "Schöck Sconnex® W-N1-V1H1-B300-1.0",
+          "aliases": [
+            "Schöck Sconnex W-N1-V1H1-B300-1.0",
+            "Sconnex W-N1-V1H1-B300-1.0",
+            "Schöck Sconnex typ W-N1-V1H1-B300-1.0",
+            "Sconnex W-N1-V1H1-B300-1.0"
+          ],
+          "results": [
+            {
+              "key": "n_rd_z_wall",
+              "label": "NRd,z,stěna",
+              "kind": "normal",
+              "value": 500.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_b",
+              "label": "VRd,x varianta B",
+              "kind": "shear",
+              "positive": 46.3,
+              "negative": -46.3,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_y",
+              "label": "VRd,y",
+              "kind": "horizontal",
+              "positive": 59.0,
+              "negative": -59.0,
+              "unit": "kN/prvek"
+            },
+            {
+              "key": "v_rd_x_a",
+              "label": "VRd,x varianta A",
+              "kind": "horizontal",
+              "positive": 88.0,
+              "negative": -88.0,
+              "unit": "kN/prvek"
+            }
+          ],
+          "source_pages": [
+            6,
+            14,
+            31
+          ],
+          "insulation_thickness_mm": 80,
+          "compression_transfer": "tlakový přenos N1",
+          "notes": [
+            "VRd,x závisí na provedení napojovací stavební výztuže: varianta A ±88,0 kN/prvek; varianta B ±46,3 kN/prvek.",
+            "Pro V1H1 platí interakce VEd,y/VRd,y + VEd,x/VRd,x ≤ 1.",
+            "Hodnoty převzaty z českých Technických informací Schöck Sconnex CZ/2023.1."
+          ]
+        }
+      ]
+    }
+  ]
+}
