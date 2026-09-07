@@ -1,0 +1,15 @@
+{
+  "version": "1.1.21",
+  "scope": "HIT proposal UI/storage/export layer",
+  "checks": [
+    "py_compile: hit_workspace.py + hit_row_extension.py + hit_virtual_scroll.py + hit_design_ui.py + hit_export_ui.py + hit_design_store.py + hit_excel.py",
+    "wrapper import smoke with compatibility stub",
+    "Tk/Xvfb virtualization smoke: 120 proposal rows keep only viewport-plus-margin widgets gridded and quantity header is present",
+    "SQLite create/save/update/list/load/delete smoke",
+    "XLSX supplier grouping: duplicate exact HIT designation quantities are summed",
+    "XLSX optional static-data sheet opens as valid workbook",
+    "no changes to hit_core.py, HIT interaction logic or catalogue data"
+  ],
+  "runtime_dependencies_added": [],
+  "calculation_core_changed": false
+}

@@ -1,0 +1,16 @@
+TURTO ISO 1.1.21
+
+Návrh HIT – práce s většími výkazy, databáze návrhů a Excel
+
+- Návrh HIT má nový sloupec Ks. Výchozí množství je 1 ks; při exportu a ukládání se množství validuje jako kladné celé číslo.
+- Rolování velkých návrhů je optimalizované: řádky mimo aktuální viewport se nevykreslují jako aktivní Tk widgety a scrollregion se přepočítává sloučeně. Kolečko myši posouvá po řádcích a funguje i nad vstupními poli.
+- Přibyla lokální SQLite databáze uložených návrhů HIT. Návrhy jsou evidované podle AKCE, názvu návrhu, data vytvoření, data poslední úpravy a počtu řádků.
+- Tlačítko Uložit návrh aktualizuje načtený návrh; v dialogu Návrhy… lze vyhledávat podle AKCE/názvu, načíst návrh, uložit aktuální jako nový nebo uložený návrh smazat.
+- Uložený návrh zachovává vstupy, povolené délky, množství i ručně zvolený HIT. Po načtení se statika znovu přepočítá; ručně zvolená varianta se zachová pouze tehdy, pokud stále vyhovuje.
+- Přibyl Export Excel pro poptávku výrobci.
+  - První list Poptávka obsahuje primárně Typ HIT, celkový počet Ks a seznam pozic. Stejné přesné typy HIT se automaticky seskupí a množství se sečte.
+  - Volitelně lze přidat druhý list Statická data s jednotlivými pozicemi, MEd/VEd/NEd nebo HEd, využitím, M1/V1/M2/V2 či HRd, rozhodující kontrolou a zdrojem.
+  - Řádky bez vyhovujícího navrženého HIT se do poptávky nezahrnou a program na jejich počet před exportem upozorní.
+- Stávající PDF export Návrhu HIT zůstává zachovaný a před exportem se nadále automaticky přepočítává.
+
+Výpočtové jádro HIT, M–V interakce a katalogová data se touto verzí nemění.
