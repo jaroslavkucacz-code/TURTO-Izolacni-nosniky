@@ -3,7 +3,7 @@ from __future__ import annotations
 """TURTO ISO 1.1.23 Decoder ISO layer over verified project_ui."""
 
 from typing import Any
-from tkinter import ttk
+from tkinter import messagebox, ttk
 
 import project_ui_base as _base
 from project_ui_base import *  # noqa: F401,F403
@@ -37,7 +37,6 @@ def _label(root: Any, text: str):
 def install() -> None:
     original_build = _base.ProjectWorkspaceMixin._build_project_tab
     original_context = _base.ProjectWorkspaceMixin._build_project_context_menu
-    original_concrete = _base.ProjectWorkspaceMixin.apply_project_concrete_to_rows
 
     def build(self, parent: ttk.Frame) -> None:
         original_build(self, parent)
@@ -103,27 +102,66 @@ def install() -> None:
         menu.add_command(label="Export Excel…", command=self.export_project_xlsx)
         menu.add_separator(); menu.add_command(label="Smazat", command=self.delete_selected_project_rows)
 
+    def concrete_changed(self, _event=None) -> None:
+        target = self.project_concrete_var.get().strip() or "C25/30"
+        self.project.concrete_class = target
+        self.project.touch(); self.mark_project_dirty()
+        try:
+            if hasattr(self, "refresh_project_concrete_filter"): self.refresh_project_concrete_filter()
+        except Exception:
+            pass
+        self.set_status(f"Beton AKCE nastaven na {target}. Dekodér i našeptávač zobrazují pouze tento beton.")
+
     def concrete(self) -> None:
-        hit_ids = {str(row.get("id")) for row in self.project.rows if str((row.get("selection") or {}).get("catalog_id", "")) == HIT_CATALOG_ID}
-        if not hit_ids: return original_concrete(self)
-        original = list(self.project.rows); order = [str(row.get("id")) for row in original]
-        normal = [row for row in original if str(row.get("id")) not in hit_ids]
-        if not normal:
-            self.project.concrete_class = self.project_concrete_var.get().strip() or "C25/30"
-            self.project.touch(); self.mark_project_dirty(); self.set_status("Beton AKCE změněn. Již dekódované výrobky HIT zůstaly beze změny."); return
-        self.project.rows = normal
-        try: original_concrete(self)
-        finally:
-            changed = {str(row.get("id")): row for row in self.project.rows}
-            changed.update({str(row.get("id")): row for row in original if str(row.get("id")) in hit_ids})
-            self.project.rows = [changed[row_id] for row_id in order if row_id in changed]
-            self.refresh_project_tree()
+        target = self.project_concrete_var.get().strip() or "C25/30"
+        self.project.concrete_class = target
+        if not self.project.rows:
+            self.mark_project_dirty(); self.set_status(f"Beton AKCE nastaven na {target}."); return
+        if not messagebox.askyesno(
+            "Použít beton na AKCI",
+            f"Přepočítat všechny dekódované řádky AKCE na beton {target}, pokud je pro daný typ v katalogu dostupný?",
+            parent=self,
+        ):
+            return
+        updated = 0; skipped: list[str] = []
+        for row in list(self.project.rows):
+            selection = dict(row.get("selection", {}))
+            if str(selection.get("concrete_min", "")) == target: continue
+            selection["concrete_min"] = target
+            try:
+                result = _base.query_from_selection(self.database, selection)
+            except Exception:
+                skipped.append(str(row.get("position", "")) or str(row.get("id", ""))[:8]); continue
+            replacement = _base.create_project_row(
+                result, row_id=str(row["id"]), position=str(row.get("position", "")),
+                quantity=int(row.get("quantity", 1)), note=str(row.get("note", "")),
+                source_text=str(row.get("source_text", "")),
+            )
+            self.project.replace(str(row["id"]), replacement); updated += 1
+        self.mark_project_dirty(); self.refresh_project_tree()
+        message = f"Beton AKCE: {target}. Přepočítáno {updated} řádků."
+        if skipped: message += f" Beze změny zůstalo {len(skipped)} řádků, kde tato třída není dostupná."
+        self.set_status(message)
+        if skipped:
+            messagebox.showwarning("Beton AKCE", message + "\n\nŘádky beze změny: " + ", ".join(skipped[:20]), parent=self)
+
+    def name_changed(self, *_args) -> None:
+        if self._project_var_guard: return
+        self.project.name = self.project_name_var.get().strip() or "Nová akce"
+        self.mark_project_dirty()
+
+    def selection_changed(self, _event=None) -> None:
+        selected = len(self.project_tree.selection()) if hasattr(self, "project_tree") else 0
+        if selected: self.set_status(f"Vybráno {selected} řádků Dekodéru ISO.")
 
     _base.ProjectWorkspaceMixin._build_project_tab = build
     _base.ProjectWorkspaceMixin._build_project_context_menu = context
     _base.ProjectWorkspaceMixin.load_selected_project_row = show_decoder_detail
     _base.ProjectWorkspaceMixin.show_decoder_detail = show_decoder_detail
+    _base.ProjectWorkspaceMixin._on_project_concrete_changed = concrete_changed
     _base.ProjectWorkspaceMixin.apply_project_concrete_to_rows = concrete
+    _base.ProjectWorkspaceMixin._on_project_name_changed = name_changed
+    _base.ProjectWorkspaceMixin._on_project_tree_selection = selection_changed
 
 
 install()
