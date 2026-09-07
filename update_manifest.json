@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e9c909b7bc1c2454a07f09abf2d30fd07e47d3b3/updates/1.1.27/app.pyw",
-      "sha256": "5609ffdf82847488245fc8eb5aa49b338fcc287aa2a07096c66fd0b27b22bd9e"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8f5554038321e4efa588be7b156166118e9864b4/updates/1.1.27/app.pyw",
+      "sha256": "23876a8e14a451a08cdd035e0e4ea2e2a5596fb4066339c02e6930182be73b7b"
     },
     {
       "path": "updater.py",
@@ -14,7 +14,7 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e9c909b7bc1c2454a07f09abf2d30fd07e47d3b3/updates/1.1.27/RELEASE_NOTES.txt",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8f5554038321e4efa588be7b156166118e9864b4/updates/1.1.27/RELEASE_NOTES.txt",
       "sha256": "8e48355dbbadac17f1e560fa6b4ea9d7ecdcbb7354ba425112d2b008e791af69"
     }
   ]
