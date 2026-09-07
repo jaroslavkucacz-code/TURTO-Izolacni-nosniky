@@ -1,0 +1,11 @@
+TURTO ISO 1.1.24
+
+Opravná aktualizace instalace
+
+- Aktualizace 1.1.23 byla stažena přes více proměnlivých raw URL na větvi main. Krátce po vydání mohl GitHub vrátit starší cachovanou verzi některého souboru, takže správná bezpečnostní kontrola SHA-256 aktualizaci zastavila.
+- 1.1.24 používá malý stabilní bootstrap. Vestavěný updater stáhne pouze bootstrap a nový updater; po restartu bootstrap stáhne kompletní běhovou sadu centrální AKCE z jednoho neměnného Git commit SHA.
+- Stažení se provádí do dočasného adresáře a teprve po úspěšném stažení celé sady se soubory atomicky nahradí.
+- Nový updater přidává cache-busting, opakované stažení při neshodě SHA-256 a v chybě ukáže očekávaný i skutečně stažený kontrolní součet.
+- Funkčně obsahuje 1.1.23: Dekodér ISO, centrální databázi AKCÍ, Návrh HIT a Záměny za HIT pod jednou AKCÍ.
+
+Výpočtové jádro a katalogová data nejsou touto opravnou verzí měněna.
