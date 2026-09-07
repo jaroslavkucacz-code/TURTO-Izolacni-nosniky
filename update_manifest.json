@@ -1,11 +1,11 @@
 {
-  "version": "1.1.27",
-  "notes": "Návrh HIT: Doplňkové prvky HT/AT/FT/OTX jsou v samostatné podzáložce jako WT; jeden globální PDF export zahrnuje desky/balkony, doplňkové prvky i WT.",
+  "version": "2.0.0",
+  "notes": "TURTO 2.0: jedna AKCE nad více produktovými oblastmi, jednotný Dekodér / Návrh / Záměny, volba výrobce návrhu a záměn, společný import výkazu a PDF celé AKCE. Výpočtové jádro Leviat HIT se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8f5554038321e4efa588be7b156166118e9864b4/updates/1.1.27/app.pyw",
-      "sha256": "23876a8e14a451a08cdd035e0e4ea2e2a5596fb4066339c02e6930182be73b7b"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4f172b4d13195ca609a618ff9ecfca6f3d63dbca/updates/2.0.0/app.pyw",
+      "sha256": "1a1c6cfc7843adc1453b035c59def4b8690ed9b3fdb833d7892b526b2c7af455"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8f5554038321e4efa588be7b156166118e9864b4/updates/1.1.27/RELEASE_NOTES.txt",
-      "sha256": "8e48355dbbadac17f1e560fa6b4ea9d7ecdcbb7354ba425112d2b008e791af69"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4f172b4d13195ca609a618ff9ecfca6f3d63dbca/updates/2.0.0/RELEASE_NOTES.txt",
+      "sha256": "27360ffd41434e56af401298375a543b24919dd13e6594b520a5910ce5b0fb1c"
     }
   ]
 }
