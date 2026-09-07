@@ -1,6 +1,6 @@
 {
-  "version": "1.1.17",
-  "notes": "Návrh HIT: bezpečné rozlišení VEd a HEd, nový HIT-HT1/HT2/HT3 návrh, HP B=100 mm / SP B=150 mm a přísné jednotky kN/prvek.",
+  "version": "1.1.18",
+  "notes": "PDF: datum zpracování pouze bez času; platně ručně potvrzený prvek se v PDF zobrazuje jako VYHOVUJE místo KONTROLA. Výpočtové jádro se nemění.",
   "files": [
     {
       "path": "HIT_HT_VERIFICATION.json",
@@ -19,8 +19,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.17/RELEASE_NOTES.txt",
-      "sha256": "52659dfa95bd4bfd5297c5d3db9b1a5b7923682036c6a4f7521ba1efbaffbe37"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.18/RELEASE_NOTES.txt",
+      "sha256": "5742b417fe3def2a422b2ce691f2e3b5e5296abc669a50577f096535e2b1862d"
     },
     {
       "path": "REVIEW_VERIFICATION.json",
@@ -124,6 +124,11 @@
     },
     {
       "path": "substitution_pdf.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.18/substitution_pdf.py",
+      "sha256": "154f9ac32095b5d66786b005404d40c66398e786506cb183d2007ebff449e8cd"
+    },
+    {
+      "path": "substitution_pdf_base.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/main/updates/1.1.17/substitution_pdf.py",
       "sha256": "74a4cb629ecd39084374b77467413f6402cd638ae10b8f56c256682898c13883"
     },
