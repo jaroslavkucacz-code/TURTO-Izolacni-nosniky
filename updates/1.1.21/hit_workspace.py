@@ -20,6 +20,8 @@ from hit_export_ui import install as _install_export
 HIT_MODULE_VERSION = "1.1.21"
 _base.HIT_MODULE_VERSION = HIT_MODULE_VERSION
 
+# Patches are deliberately layered: row lifecycle -> virtual viewport -> design
+# database -> exports.  The final toolbar wrapper is applied last.
 _install_rows(_base)
 _install_scroll(_base)
 _install_design(_base)
@@ -47,6 +49,7 @@ def _patched_build_hit_tab(self, parent: ttk.Frame) -> None:
     if anchor is None:
         return
     toolbar = anchor.master
+
     pdf_button = ttk.Button(toolbar, text="Export PDF", style="Accent.TButton", command=self.export_hit_pdf)
     pdf_button.grid(row=0, column=10, padx=(12, 0))
     excel_button = ttk.Button(toolbar, text="Export Excel", command=self.export_hit_excel)
@@ -55,6 +58,7 @@ def _patched_build_hit_tab(self, parent: ttk.Frame) -> None:
     save_button.grid(row=0, column=12, padx=(12, 0))
     database_button = ttk.Button(toolbar, text="Návrhy…", command=self.open_hit_design_browser)
     database_button.grid(row=0, column=13, padx=(7, 0))
+
     self.hit_pdf_button = pdf_button
     self.hit_excel_button = excel_button
     self.hit_design_save_button = save_button
@@ -63,5 +67,6 @@ def _patched_build_hit_tab(self, parent: ttk.Frame) -> None:
 
 _base.HitWorkspaceMixin._build_hit_tab = _patched_build_hit_tab
 
+# Keep the public names identical to the verified implementation objects.
 HitInputRow = _base.HitInputRow
 HitWorkspaceMixin = _base.HitWorkspaceMixin
