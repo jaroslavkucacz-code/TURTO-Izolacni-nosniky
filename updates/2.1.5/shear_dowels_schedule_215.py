@@ -13,6 +13,24 @@ class ShearScheduleDialog(_prev.ShearScheduleDialog):
         if self.mode != "decoder":
             return
 
+        # Archivní SLD rozlišuje také C20/25. Dekodér proto může pracovat
+        # s touto třídou, i když návrhový katalog Ancon začíná na C25/30.
+        concrete_var = str(self.vars["concrete"])
+        stack = [self]
+        while stack:
+            root = stack.pop()
+            try:
+                children = list(root.winfo_children())
+            except Exception:
+                continue
+            stack.extend(children)
+            for child in children:
+                try:
+                    if isinstance(child, ttk.Combobox) and str(child.cget("textvariable")) == concrete_var:
+                        child.configure(values=("C20/25", "C25/30", "C30/37", "C35/45", "C40/50"))
+                except Exception:
+                    pass
+
         # Krytí není vstupem Dekodéru. U archivních Dorn je referenční cnom
         # vlastností zdrojové tabulky (SLD 30 mm, LD 20 mm); u záměny se krytí
         # cílového Schöck zadává až v kartě Záměny.
