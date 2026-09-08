@@ -1,0 +1,25 @@
+TURTO 2.2.6
+
+Bezpečnostní audit záměn a oprava zakrytých ovládacích prvků.
+
+VIDITELNOST ROZHRANÍ
+- Ovládání Beton AKCE / Použít na řádky je přesunuto z druhého řádku titulní karty Dekodéru do stabilní pravé části hlavní lišty, takže se již nesmí schovat pod následující blok při jiném DPI nebo výšce řádku.
+- Přidána automatická kontrola viditelnosti mapovaných vstupů a tlačítek. Případný přesah mimo rodičovský kontejner se zapíše do ui_visibility.log.
+- V Nápověda > Data a zdroje je ruční akce Kontrola rozhraní.
+
+ZÁMĚNY IZOLAČNÍCH NOSNÍKŮ
+- Schöck Isokorb T/XT K-O / KL-O se nesmí zaměnit za standardní HIT-MVX bez geometrie; odpovídající směr je HIT-MVX-OU.
+- Schöck T/XT K-U / KL-U se vede jako HIT-MVX-OD.
+- Schöck K-WO / K-WU se směrově zachovává jako OU / OD.
+- Hodnota Schöck w ≥ … mm je pouze minimální požadavek. Nesmí se automaticky použít jako objednací bx HIT. Pro MVX-OU/OD musí být zadaná skutečná tloušťka stěny/průvlaku bx.
+- Geometrická záměna bez skutečného bx je blokována místo vytvoření neúplného kandidáta.
+- Známý, ale nepodporovaný geometrický kód zdroje už není pouze upozornění: automatická záměna se zastaví, aby nemohl vzniknout standardní HIT bez potřebné geometrie.
+- Rohové Schöck CL-L/CL-R/Z-C, dvoudílné prefabrikované varianty -F a dodatečně instalované K-ID se nebudou automaticky převádět 1:1 na standardní monolitický HIT.
+- Staré uložené záměny, které u geometricky speciálního zdroje míří na obyčejný nebo opačný MVX, se při načtení zneplatní pouze v odvozeném mapování; dekódovaný zdrojový řádek zůstává zachován a je připraven k bezpečnému přepočtu.
+- Pro Schöck T/XT K/KL/KP je doplněna bezpečná kompatibilní interpretace CV1 = 35 mm, CV2 = 50 mm a tlakových ložisek HTE-Compact tam, kde původní katalogový záznam údaj nevrací explicitně.
+
+STÁVAJÍCÍ KONTROLY ZÁMĚNY
+- Beze změny zůstává kontrola izolantu, krytí, výšky, betonu, fyzické délky, tlakového přenosu, momentu, smyku, normálové síly a interakce.
+- Egcobox CO a další typy označené jako ruční/bez automatické záměny zůstávají blokované podle stávajících pravidel.
+
+Výpočtové tabulky, katalogové únosnosti ani databáze actions.sqlite3 se touto verzí nemění.
