@@ -1,11 +1,11 @@
 {
-  "version": "2.1.1",
-  "notes": "Dekodér smykových trnů nově rozpoznává historické značení Schöck Dorn SLD/SLD-Q a starší materiálové varianty LD. Historické typy jsou pouze pro Dekodér, ne pro automatický Návrh ani Záměny.",
+  "version": "2.1.2",
+  "notes": "Oprava spuštění po 2.1.1: návrat na ověřený runtime 2.1.0, historické Schöck značení zůstává pouze jako izolovaný patch Dekodéru. Přidána diagnostika startu do startup_2_1_2.log.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/2b9cce849679cef15bc22bb3a75549415913455f/updates/2.1.1/app.pyw",
-      "sha256": "25eccd0c09edf216391d47a29f3a3e878d5d84bd7bdd3d85f3473cd0d15bf062"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/138ea277739402297fedf8bb55ef2fe3fcba0f9b/updates/2.1.2/app.pyw",
+      "sha256": "3c4d30c03b0f32a9959b1ae92a044aad5a183df07abd0e07dd20f22aac9843fe"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1215274105d23784a72574c2fa35fa82f652f7f9/updates/2.1.1/RELEASE_NOTES.txt",
-      "sha256": "230499f1c6f9f3723f8ebffadbad371d474cc858bcf03aa712bb095e85e16696"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8ca47004da41db41fb37cbe169ef578d51d61393/updates/2.1.2/RELEASE_NOTES.txt",
+      "sha256": "639964a416fe3d4319fcf18d5f3bc9d574d7a3630c9f451b5d8de48463e3ddc6"
     }
   ]
 }
