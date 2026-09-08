@@ -17,6 +17,7 @@ FILES = (
     "platform_workspace.py",
     "app_runtime.pyw",
     "runtime_installer.py",
+    "app.pyw",
     "RELEASE_NOTES.txt",
 )
 
@@ -84,6 +85,17 @@ def main() -> int:
         'TURTO-2.2.7-runtime',
     ):
         assert token in installer, token
+
+    bootstrap = (RELEASE / "app.pyw").read_text(encoding="utf-8")
+    for token in (
+        'VERSION = "2.2.7"',
+        'INSTALLER_COMMIT = "bf3851ecbb791c5cfd2955c1493d9dd0d0f6aa4c"',
+        'INSTALLER_SHA256 = "990362be0e27df55b3e20c233761cc1ea04a151af73c449cf5888d183866eace"',
+        '"shear_catalogs_227.py"',
+        '"shear_ui_227.py"',
+        '"ui_cleanup_227.py"',
+    ):
+        assert token in bootstrap, token
 
     notes = (RELEASE / "RELEASE_NOTES.txt").read_text(encoding="utf-8")
     for token in ("HED", "JDSD", "Egcodorn", "Egcodubel", "KONTROLA DESKY"):
