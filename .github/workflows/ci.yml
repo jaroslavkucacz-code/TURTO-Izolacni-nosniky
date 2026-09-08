@@ -33,6 +33,10 @@ jobs:
     name: Windows smoke
     runs-on: windows-latest
     steps:
+      - name: Preserve repository bytes
+        shell: pwsh
+        run: git config --global core.autocrlf false
+
       - name: Checkout
         uses: actions/checkout@v4
 
