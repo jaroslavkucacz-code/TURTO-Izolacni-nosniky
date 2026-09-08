@@ -1,11 +1,11 @@
 {
-  "version": "2.0.2",
-  "notes": "Oprava spuštění TURTO 2.0: Doplňkové prvky už nemíchají Tkinter pack/grid. Původní +HT se pouze přejmenuje na Přidat řádek. Statické jádro ani data AKCÍ se nemění.",
+  "version": "2.1.0",
+  "notes": "Smykové trny: aktivní Ancon Dekodér/Návrh/Záměny, možnost záměny do Schöck Stacon, společný PDF výstup AKCE a oprava překrytého Dekodéru ISO.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/da5679edc8677add29dd22be4be074f8259566f4/updates/2.0.2/app.pyw",
-      "sha256": "67ee6081eedcd9981ab204a7f50102071b1497a602bec3c980edff367ed8b85d"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8e7a7f69562d58d01a0cb640cc756442d687f16c/updates/2.1.0/app.pyw",
+      "sha256": "451f8b8633aad272c520c5f9cbb0797a70cd4d5699cee9ac4c608356fd048c9a"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/52d1586bec59e55870fc0bd6db6d49bacb690af8/updates/2.0.2/RELEASE_NOTES.txt",
-      "sha256": "b5719866449c03e7f99ab94e1120125fc5ec19c7e597453c0d526bb1116f6267"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4684c5546fc3a46b77e41c2548c47431fb66a98b/updates/2.1.0/RELEASE_NOTES.txt",
+      "sha256": "da3f7fa21fa31dbe3a71189529906b5eaff5c1aab36c406a7a2049a77474d933"
     }
   ]
 }
