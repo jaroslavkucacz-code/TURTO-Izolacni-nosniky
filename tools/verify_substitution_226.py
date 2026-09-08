@@ -13,6 +13,7 @@ FILES = (
     "ui_visibility.py",
     "platform_workspace.py",
     "app_runtime.pyw",
+    "runtime_installer.py",
     "RELEASE_NOTES.txt",
 )
 
@@ -69,6 +70,10 @@ def main() -> int:
         "winfo_ismapped",
     ):
         assert token in visibility, token
+
+    installer = (RELEASE / "runtime_installer.py").read_text(encoding="utf-8")
+    for token in ('"substitution_guard.py"', '"ui_visibility.py"', '"app_runtime.pyw"', '"platform_workspace.py"'):
+        assert token in installer, token
 
     # The existing calculation engine must still keep its independent safety
     # checks. 2.2.6 adds geometry guards; it does not replace these controls.
