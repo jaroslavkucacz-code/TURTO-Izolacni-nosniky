@@ -1,0 +1,32 @@
+TURTO 2.2.7
+
+Smykové trny – PohlCon + MAX FRANK a dokončení úklidu Dekodéru ISO.
+
+DEKODÉR ISO
+- Poslední částečně zakrytý řádek pod titulkem byl starý údaj cesty lokálního projektového souboru. V centrální AKCI už nemá pracovní význam, proto je skryt a titulní karta se smí zmenšit na přirozenou výšku jednoho řádku.
+- Beton AKCE a Použít na řádky zůstávají v samostatné stabilní liště z 2.2.6.
+
+SMYKOVÉ TRNY – VÝROBCI
+- Návrh i Záměny nově používají jednotnou volbu cílového výrobce: Ancon, Schöck, PohlCon nebo MAX FRANK.
+- Dekodér a našeptávač rozpoznávají nové aktuální řady PohlCon a MAX FRANK.
+- Volba výrobce návrhu se ukládá do AKCE; každý návrhový řádek si současně ukládá výrobce vlastního kandidáta.
+
+POHLCON
+- HED-S s objímkou GS/GK = jednosměrný posun, HED-S + GSQ = obousměrný posun.
+- HED 20/22/25/30 používá tabulované VRd = min(VRd,S; VRd,C) z aktuální Technical Information pro C20/25 a předepsanou místní výztuž.
+- JDSD = jednosměrný, JDSDQ = obousměrný; integrovány aktuální standardní velikosti a tabulované produktové VRd,S.
+- JDSD/JDSDQ zůstává ve stavu KONTROLA DESKY, dokud není samostatně ověřena únosnost připojeného betonu, výztuž, rozteče a okraje.
+
+MAX FRANK
+- Egcodorn WN/N = jednosměrný, WQ/Q = obousměrný; integrovány aktuální standardní velikosti 40–400 a tabulované produktové VRd,s pro standardní spáru do 60 mm.
+- Egcodubel EDM HF s HI = jednosměrný a s HQI = obousměrný; integrovány standardní velikosti 20/22/27/30/37 a produktové VRd,s.
+- Egcodorn SWN/SWQ se rozpoznává v Dekodéru. Automatický návrh pro stěnovou aplikaci je zatím blokován, protože současný formulář nemá samostatnou tloušťku stěny a její výztuž.
+- Egcodorn DND se rozpoznává pouze v Dekodéru; jde o prvek pro dynamické zatížení a nesmí se automaticky posuzovat statickým algoritmem.
+- Egcodorn a Egcodubel jsou při automatickém návrhu označeny KONTROLA DESKY: katalog výslovně odděluje produktovou únosnost od únosnosti betonového prvku.
+
+ZÁMĚNY
+- PohlCon a MAX FRANK lze použít jako zdroj i jako cíl záměny tam, kde je ze zadané geometrie dostupná katalogová únosnost a směr posunu je jednoznačný.
+- Při záměně zůstává zachován požadavek jednosměrného / obousměrného posunu.
+- Neúplné HED-S bez objímky GS/GK/GSQ, Egcodubel bez známé objímky HI/HQI, SWN/SWQ bez údajů stěny a dynamické DND se z bezpečnostních důvodů automaticky nezaměňují.
+
+Databáze actions.sqlite3 se nemění. Stávající katalogy Ancon a Schöck ani jejich tabulkové hodnoty nejsou přepsány; nové výrobce přidává samostatná vrstva 2.2.7.
