@@ -1,0 +1,12 @@
+TURTO 2.1.2
+
+Oprava spuštění po 2.1.1
+
+- Odstraněna dodatečná wrapperová runtime vrstva 2.1.1, která mohla shodit program ještě před otevřením hlavního okna.
+- 2.1.2 znovu používá ověřený runtime TURTO 2.1.0 jako přímý základ.
+- Historické značení Schöck Dorn zůstává zachováno, ale je nově implementováno jako malý izolovaný patch pouze Dekodéru smykových trnů.
+- Starší Schöck SLD/SLD-Q 40, 50, 60, 70, 80, 120, 150 a staré materiálové zápisy LD zůstávají decoder-only; automatický Návrh ani Záměny je nepoužívají.
+- Současné návrhové a záměnové tabulky Ancon / Schöck Stacon se nemění.
+- Výpočtové jádro HIT ani M–V interakce se nemění.
+- Bootstrap nově zachytí i chybu při samotném startu runtime, uloží úplný traceback do startup_2_1_2.log a zobrazí cestu k souboru. Start už tedy nemá selhat zcela bez informace.
+- Instalace 2.1.2 znovu rozbalí ověřenou runtime sadu 2.1.0 a odstraní nepotřebné kompatibilní aliasy 2.1.1. Databáze AKCÍ se nemění.
