@@ -1,0 +1,9 @@
+TURTO 2.2.1 – úklid spouštění a nouzové opravy
+
+- nouzová oprava už není navázaná na označení 2.1.2,
+- nový bootstrap používá obecné startup.log a marker .turto_runtime_current.ok,
+- instalační vrstva obnovuje současný runtime přes jednu aktuální cestu a teprve uvnitř používá ověřený kompatibilní základ,
+- updater a všechny release zdroje zůstávají připnuté na neměnné Git commity,
+- při recovery se zálohují pouze programové/spouštěcí soubory; actions.sqlite3 se nemění,
+- staré markery a logy nouzové opravy 2.1.2 se po záloze uklidí,
+- statická pravidla, katalogové hodnoty a data AKCÍ se nemění.
