@@ -1,1 +1,0 @@
-Release gate passed after source/table/UI/persistence/PDF review.
