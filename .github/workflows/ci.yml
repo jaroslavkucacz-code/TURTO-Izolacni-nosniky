@@ -7,6 +7,7 @@ on:
       - "cleanup/**"
       - "release/**"
       - "fix/**"
+      - "feature/**"
   pull_request:
     branches:
       - main
@@ -45,6 +46,9 @@ jobs:
       - name: Verify substitution geometry and UI visibility
         run: python tools/verify_substitution_226.py
 
+      - name: Verify PohlCon/MAX FRANK shear-dowel catalogs
+        run: python tools/verify_shear_catalogs_227.py
+
   windows-smoke:
     name: Windows smoke
     runs-on: windows-latest
@@ -78,6 +82,9 @@ jobs:
 
       - name: Verify substitution geometry and UI visibility on Windows
         run: python tools/verify_substitution_226.py
+
+      - name: Verify PohlCon/MAX FRANK shear-dowel catalogs on Windows
+        run: python tools/verify_shear_catalogs_227.py
 
       - name: Parse recovery PowerShell
         shell: pwsh
