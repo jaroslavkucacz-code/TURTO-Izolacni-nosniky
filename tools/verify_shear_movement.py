@@ -8,6 +8,7 @@ import json
 import runpy
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -31,15 +32,31 @@ def _assignment_literal(path: Path, name: str):
     raise RuntimeError(f"{path}: chybí literální přiřazení {name}")
 
 
+def _source_from_manifest_item(item: dict) -> Path:
+    parsed = urlparse(str(item.get("url", "")))
+    parts = [part for part in parsed.path.split("/") if part]
+    if len(parts) < 4:
+        raise RuntimeError(f"Neplatná release URL: {item.get('url', '')}")
+    return ROOT / "/".join(parts[3:])
+
+
 def main() -> int:
     version = (ROOT / "CURRENT_VERSION").read_text(encoding="utf-8").strip()
     release = ROOT / "updates" / version
-    movement_path = release / "shear_movement.py"
     installer_path = release / "runtime_installer.py"
-    if not movement_path.is_file():
-        raise RuntimeError(f"Chybí {movement_path.relative_to(ROOT)}")
     if not installer_path.is_file():
         raise RuntimeError(f"Chybí {installer_path.relative_to(ROOT)}")
+
+    manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
+    manifest_items = {str(item["path"]): item for item in manifest["files"]}
+    movement_item = manifest_items.get("shear_movement.py")
+    if not isinstance(movement_item, dict):
+        raise RuntimeError("Manifest neobsahuje shear_movement.py")
+    movement_path = _source_from_manifest_item(movement_item)
+    if not movement_path.is_file():
+        raise RuntimeError(f"Chybí zdroj movement modulu: {movement_path.relative_to(ROOT)}")
+    if _sha256(movement_path) != str(movement_item.get("sha256", "")):
+        raise RuntimeError("SHA-256 shear_movement.py neodpovídá manifestu.")
 
     module = runpy.run_path(str(movement_path), run_name="turto_shear_movement_test")
     module["selftest"]()
@@ -54,10 +71,7 @@ def main() -> int:
     assert module["validate_ancon_application"]("existing_wall", "transverse")
     assert not module["validate_ancon_application"]("existing_wall", "axial")
 
-    manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
-    manifest_items = {str(item["path"]): item for item in manifest["files"]}
     payloads = _assignment_literal(installer_path, "PAYLOADS")
-
     for local, (commit, source, expected) in payloads.items():
         source_path = ROOT / source
         if not source_path.is_file():

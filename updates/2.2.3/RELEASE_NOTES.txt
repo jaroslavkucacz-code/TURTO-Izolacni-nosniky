@@ -1,0 +1,20 @@
+TURTO 2.2.3
+
+UI a workflow:
+- Smykové trny mají plovoucí našeptávač označení obdobný Dekodéru izolačních nosníků.
+- Našeptávač je dostupný v Dekodéru i při ručním zadání zdrojového trnu v Záměnách.
+- Nabízí Ancon / Leviat, současný Schöck Stacon a podporovaná historická označení Schöck Dorn.
+- Provozní vysvětlivky a dlouhé pomocné popisky byly z hlavního pracovního prostoru přesunuty do společné Nápovědy vpravo nahoře.
+- Dynamická informace o zdroji HIT je dostupná v Nápovědě / Data a zdroje a přes příslušnou akci Otevřít zdroj.
+- Technické údaje důležité pro audit (katalog, strany, statické hodnoty) zůstávají v Detailu prvku.
+
+Oprava Schöck Isokorb:
+- U ověřené rodiny Schöck Isokorb T/XT KL-O se CV1 převádí na cnom 35 mm a CV2 na cnom 50 mm.
+- KL-O se pro záměnu správně vyhodnotí jako provedení s tlakovými ložisky HTE-Compact®.
+- Staré chybové mapování vytvořené kvůli neznámému CV1 / tlakovému přenosu se po otevření/obnovení Záměn bezpečně zahodí jako odvozená cache a může se znovu přepočítat.
+- Pravidlo je záměrně omezené na ověřenou rodinu; neznámé Schöck CV kódy se obecně neodhadují.
+
+Beze změny:
+- tabulkové únosnosti,
+- katalogová data,
+- databáze actions.sqlite3 a uložené AKCE.

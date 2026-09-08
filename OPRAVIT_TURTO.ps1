@@ -8,11 +8,11 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '2.2.2'
+$Version = '2.2.3'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = 'd034f11e62273f21b41d04b692c04f19b9804368'
+$AppCommit = 'ed7c5ac2f5e4f4163d56872e550a01888b84c96e'
 $UpdaterCommit = '5f395e56a8911e12783bdbd8378592963352cf69'
-$AppSha256 = 'c34f252ffe73108e3b02e0aeaca63b273d75b52f6098adc981077abc0aae4e1c'
+$AppSha256 = '7b38027236c703e15d88b8b6378e3c295710009b5e068a40b58e582e8dece004'
 $UpdaterSha256 = '4b680b86e3f4b7546f600ae56254dc34e65494824f3fe74bd9149c1a41e559c4'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'
@@ -86,7 +86,7 @@ function Download-VerifiedFile(
                 Write-RecoveryLog $LogPath ("Zdroj {0}: {1}" -f $Label, $Url)
             }
             Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Destination -Headers @{
-                'User-Agent' = 'TURTO-Recovery-2.2.2'
+                'User-Agent' = 'TURTO-Recovery-2.2.3'
                 'Cache-Control' = 'no-cache, no-store'
                 'Pragma' = 'no-cache'
             }
@@ -125,7 +125,6 @@ try {
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     }
     catch {
-        # Na novějších PowerShell/.NET není nastavení potřeba.
     }
 
     $target = Select-TargetFolder
@@ -169,7 +168,7 @@ try {
     $appTemp = Join-Path $tempDir 'app.pyw'
     $updaterTemp = Join-Path $tempDir 'updater.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.2/app.pyw"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.3/app.pyw"
     $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/2.2.1/updater.py"
 
     Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog
@@ -178,7 +177,6 @@ try {
     Copy-Item -LiteralPath $appTemp -Destination (Join-Path $target 'app.pyw') -Force
     Copy-Item -LiteralPath $updaterTemp -Destination (Join-Path $target 'updater.py') -Force
 
-    # Vynutí obnovu současné ověřené runtime sady při následujícím startu.
     Remove-Item -LiteralPath (Join-Path $target $RuntimeMarker) -Force -ErrorAction SilentlyContinue
     Remove-Item -LiteralPath (Join-Path $target '.turto_runtime_2_1_2.ok') -Force -ErrorAction SilentlyContinue
     Remove-Item -LiteralPath (Join-Path $target $StartupLog) -Force -ErrorAction SilentlyContinue

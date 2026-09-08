@@ -33,6 +33,9 @@ jobs:
       - name: Verify shear-dowel movement
         run: python tools/verify_shear_movement.py
 
+      - name: Verify UI, autocomplete and Schöck KL-O
+        run: python tools/verify_ui_223.py
+
   windows-smoke:
     name: Windows smoke
     runs-on: windows-latest
@@ -54,6 +57,9 @@ jobs:
 
       - name: Verify shear-dowel movement on Windows
         run: python tools/verify_shear_movement.py
+
+      - name: Verify UI, autocomplete and Schöck KL-O on Windows
+        run: python tools/verify_ui_223.py
 
       - name: Parse recovery PowerShell
         shell: pwsh
