@@ -2,12 +2,29 @@
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.2.3**
+**Aktuální vydání: TURTO 2.2.4**
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
 - **Izolační nosníky** – Dekodér / Návrh / Záměny
 - **Smykové trny** – Dekodér / Návrh / Záměny
+
+## TURTO 2.2.4
+
+2.2.4 sjednocuje tabulky a pracovní postupy obou aktivních produktových oblastí.
+
+- hlavní datové tabulky mají jednotné řazení kliknutím na záhlaví,
+- pravé tlačítko v záhlaví umožňuje řadit, přesouvat, skrývat a nastavovat šířku sloupce,
+- společný dialog **Sloupce…** umožňuje změnit pořadí, viditelnost a šířky a nastavení se ukládá,
+- stejné ovládání se připojuje také k datovým tabulkám v později otevřených dialogových oknech,
+- smykové trny dostaly viditelné **Sloupce…** a přímý **Export Excel…**,
+- sjednotil se text **Kopírovat pro Excel**,
+- z Dekodéru a Záměn smykových trnů zmizelo destruktivní **Vymazat vše**; běžné mazání vybraných řádků zůstává,
+- u izolačních nosníků byl z hlavního Dekodéru skryt nadbytečný CSV export a ze Záměn odstraněn ruční refresh stejné AKCE,
+- servisní akce HIT **Aktualizovat data HIT** a **Otevřít zdroj HIT** jsou přesunuty do **Nápověda > Data a zdroje**,
+- dlouhé provozní vysvětlivky zůstávají v hromadné Nápovědě místo hlavní pracovní plochy.
+
+Výpočtové jádro, katalogové únosnosti a databáze `actions.sqlite3` se touto verzí nemění.
 
 ## TURTO 2.2.3
 
@@ -21,8 +38,6 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - KL-O je pro záměnu správně vyhodnocen jako provedení s tlakovými ložisky HTE-Compact®,
 - staré odvozené chybové mapování způsobené neznámým CV1 / tlakovým přenosem se bezpečně resetuje a lze jej znovu přepočítat,
 - neznámé Schöck CV kódy se obecně neodhadují; pravidlo je omezené na ověřenou rodinu.
-
-Tabulkové únosnosti, katalogová data a databáze AKCÍ se touto verzí nemění.
 
 ## TURTO 2.2.2
 
@@ -104,6 +119,7 @@ Kontroly lze spustit i lokálně:
 python tools/verify_release.py
 python tools/verify_shear_movement.py
 python tools/verify_ui_223.py
+python tools/verify_ui_224.py
 ```
 
 Kontrola odmítne mimo jiné:
@@ -115,6 +131,7 @@ Kontrola odmítne mimo jiné:
 - rozpor mezi manifestem, bootstrapem, runtime installerem a recovery,
 - chybnou interpretaci Q variant a neověřenou E-HLDQ,
 - regresi převodu Schöck KL-O / CV1 / HTE-Compact,
+- regresi jednotného ovládání tabulek a workflow záložek,
 - syntakticky neplatný modul aktuálního release,
 - návrat historických build artefaktů do kořene repozitáře.
 
