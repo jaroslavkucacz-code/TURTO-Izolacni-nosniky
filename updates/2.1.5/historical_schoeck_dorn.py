@@ -65,6 +65,7 @@ def _concrete_key(family: str, concrete: str) -> str:
         return "C20/25"
     if raw == "C25/30":
         return "C25/30"
+    # Archivní SLD tabulka sdružuje C30/37 až C50/60.
     return "C30/37-C50/60"
 
 
@@ -78,9 +79,21 @@ def _gap_up(table: dict[int, Any], gap_mm: float) -> int | None:
     return min(values) if values else None
 
 
-def archive_capacity(info: Any, *, slab_mm: float, gap_mm: float, concrete: str = "C25/30") -> tuple[dict[str, Any] | None, str]:
+def archive_capacity(
+    info: Any,
+    *,
+    slab_mm: float,
+    gap_mm: float,
+    concrete: str = "C25/30",
+) -> tuple[dict[str, Any] | None, str]:
+    """Return conservative tabulated archive VRd for a complete historical Dorn.
+
+    Height is rounded down to the next available table row and joint width is
+    rounded up. No interpolation is used.
+    """
     if not is_archive_supported(info):
         return None, "Historické označení nemá v integrovaném archivu tabulkovou únosnost."
+
     family = _family(info)
     size = str(info.get("size", ""))
     concrete_key = _concrete_key(family, concrete)
@@ -88,22 +101,53 @@ def archive_capacity(info: Any, *, slab_mm: float, gap_mm: float, concrete: str 
     h_table = _height_down(table, slab_mm)
     if h_table is None:
         return None, "Tloušťka konstrukce je menší než nejnižší archivní tabulková výška."
+
     gap_table = _gap_up(table[h_table], gap_mm)
     if gap_table is None:
         return None, "Spára je širší než 60 mm; archivní tabulky tuto geometrii nepokrývají."
+
     sizes = SLD_SIZES if family.startswith("SLD") else LD_SIZES
     index = sizes.index(size)
     values = table[h_table][gap_table]
     if index >= len(values):
-        return None, f"Typ {family} {size} není pro h={h_table} mm v archivní tabulce přípustný (nedosažena minimální tloušťka konstrukce)."
+        return None, (
+            f"Typ {family} {size} není pro h={h_table} mm v archivní tabulce přípustný "
+            "(nedosažena minimální tloušťka konstrukce)."
+        )
+
     vrd = float(values[index])
     ref_cover = reference_cover_mm(info)
     source = SLD_SOURCE if family.startswith("SLD") else LD_SOURCE
-    note = f"Archivní tabulka: h={h_table} mm, spára={gap_table} mm, {concrete_key}, referenční cnom={ref_cover} mm. Bez interpolace; h zaokrouhleno dolů a spára nahoru."
-    return {"manufacturer": "Schöck – historické", "family": family, "size": size, "designation": str(info.get("text", "") or f"Schöck Dorn {family} {size}"), "vrd": vrd, "movement": str(info.get("movement", "transverse" if family.endswith("-Q") else "axial")), "slab_table_mm": h_table, "gap_table_mm": gap_table, "concrete_table": concrete_key, "reference_cover_mm": ref_cover, "source": source, "page": "archiv SLD24-SLD29" if family.startswith("SLD") else "archiv str. 50-51", "status": "ARCHIV", "note": note}, ""
+    note = (
+        f"Archivní tabulka: h={h_table} mm, spára={gap_table} mm, {concrete_key}, "
+        f"referenční cnom={ref_cover} mm. Bez interpolace; h zaokrouhleno dolů a spára nahoru."
+    )
+    return {
+        "manufacturer": "Schöck – historické",
+        "family": family,
+        "size": size,
+        "designation": str(info.get("text", "") or f"Schöck Dorn {family} {size}"),
+        "vrd": vrd,
+        "movement": str(info.get("movement", "transverse" if family.endswith("-Q") else "axial")),
+        "slab_table_mm": h_table,
+        "gap_table_mm": gap_table,
+        "concrete_table": concrete_key,
+        "reference_cover_mm": ref_cover,
+        "source": source,
+        "page": "archiv SLD24-SLD29" if family.startswith("SLD") else "archiv str. 50-51",
+        "status": "ARCHIV",
+        "note": note,
+    }, ""
 
 
-def archive_capacity_for_designation(decoder, designation: str, *, slab_mm: float, gap_mm: float, concrete: str = "C25/30") -> tuple[dict[str, Any] | None, str]:
+def archive_capacity_for_designation(
+    decoder,
+    designation: str,
+    *,
+    slab_mm: float,
+    gap_mm: float,
+    concrete: str = "C25/30",
+) -> tuple[dict[str, Any] | None, str]:
     info = decoder(designation)
     if not isinstance(info, dict):
         return None, "Historické označení Schöck Dorn nebylo rozpoznáno."
