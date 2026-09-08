@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.2.5
+
+Další sjednocení hierarchie záložek a kontextových akcí bez změny výpočtů.
+
+- Dekodér / Návrh / Záměny používají podobnou pracovní hierarchii,
+- dvojklik na řádek je sjednocen na **Detail prvku / Detail záměny**,
+- u smykových trnů je převod Dekodér → Záměny pouze explicitním tlačítkem,
+- akce nad řádky se aktivují podle aktuálního výběru,
+- Delete používá standardní mazání vybraných řádků tam, kde je tato akce dostupná,
+- Záměny izolačních nosníků mají explicitně přestavěnou lištu bez kolize tlačítka **Sloupce…**,
+- vnitřní PDF export Záměn izolačních nosníků je skryt ve prospěch společného **Export PDF AKCE**,
+- názvy výstupů jsou sjednocené na **Kopírovat pro Excel** a **Export Excel…**,
+- servisní **Složka katalogů** a **Kontrola katalogů** byly přesunuty z hlavní hlavičky do **Nápověda > Data a zdroje**,
+- přidána samostatná Linux/Windows regresní kontrola hierarchie a kontextových akcí.
+
+Výpočtové jádro, katalogové hodnoty a databáze `actions.sqlite3` se nemění.
+
 ## 2.2.4
 
 Sjednocení tabulek a pracovních záložek Izolační nosníky / Smykové trny.

@@ -2,12 +2,28 @@
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.2.4**
+**Aktuální vydání: TURTO 2.2.5**
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
 - **Izolační nosníky** – Dekodér / Návrh / Záměny
 - **Smykové trny** – Dekodér / Návrh / Záměny
+
+## TURTO 2.2.5
+
+2.2.5 pokračuje v úklidu rozhraní a sjednocuje význam akcí napříč oběma produktovými oblastmi.
+
+- Dekodér / Návrh / Záměny používají podobnou hierarchii: hlavní akce, rychlé zadání, řádkové akce + filtr a tabulka,
+- dvojklik na řádek má jednotný význam **Detail prvku / Detail záměny**,
+- u smykových trnů už dvojklik v Dekodéru neprovádí skrytou záměnu; **Převést do Záměn** je explicitní tlačítko,
+- akce vyžadující výběr jsou bez výběru deaktivované; akce pro jeden řádek se aktivují pouze při jednom vybraném řádku,
+- Delete používá standardní mazání vybraných řádků tam, kde je tato akce k dispozici,
+- lišta Záměn izolačních nosníků je nově rozložena explicitně, takže **Sloupce…** nekolidují s návrhovými akcemi,
+- vnitřní **Export PDF** ze Záměn izolačních nosníků je skryt; hlavním PDF výstupem je **Export PDF AKCE**,
+- pevný text „Výrobce návrhu: Ancon / Leviat“ u smykových trnů byl odstraněn z pracovní lišty, protože nejde o uživatelskou volbu,
+- servisní **Složka katalogů** a **Kontrola katalogů** jsou přesunuty z hlavičky do **Nápověda > Data a zdroje**.
+
+Výpočtové jádro, katalogové údaje a databáze `actions.sqlite3` se touto verzí nemění.
 
 ## TURTO 2.2.4
 
@@ -23,8 +39,6 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - u izolačních nosníků byl z hlavního Dekodéru skryt nadbytečný CSV export a ze Záměn odstraněn ruční refresh stejné AKCE,
 - servisní akce HIT **Aktualizovat data HIT** a **Otevřít zdroj HIT** jsou přesunuty do **Nápověda > Data a zdroje**,
 - dlouhé provozní vysvětlivky zůstávají v hromadné Nápovědě místo hlavní pracovní plochy.
-
-Výpočtové jádro, katalogové únosnosti a databáze `actions.sqlite3` se touto verzí nemění.
 
 ## TURTO 2.2.3
 
@@ -120,6 +134,7 @@ python tools/verify_release.py
 python tools/verify_shear_movement.py
 python tools/verify_ui_223.py
 python tools/verify_ui_224.py
+python tools/verify_ui_225.py
 ```
 
 Kontrola odmítne mimo jiné:
@@ -132,6 +147,7 @@ Kontrola odmítne mimo jiné:
 - chybnou interpretaci Q variant a neověřenou E-HLDQ,
 - regresi převodu Schöck KL-O / CV1 / HTE-Compact,
 - regresi jednotného ovládání tabulek a workflow záložek,
+- regresi hierarchie akcí, detailu řádků a kontextových stavů tlačítek,
 - syntakticky neplatný modul aktuálního release,
 - návrat historických build artefaktů do kořene repozitáře.
 
