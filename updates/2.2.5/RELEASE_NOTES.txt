@@ -1,0 +1,28 @@
+TURTO 2.2.5
+
+Další sjednocení pracovního rozhraní bez změny výpočtů a katalogových dat.
+
+HIERARCHIE ZÁLOŽEK
+- Dekodér / Návrh / Záměny u izolačních nosníků a smykových trnů používají stejné pořadí pracovních bloků: hlavní akce, rychlé zadání, řádkové akce/filtr a tabulka.
+- Výstupní akce Kopírovat pro Excel / Export Excel… jsou seskupené obdobně.
+- Destruktivní reset Vymazat vše zůstává pouze tam, kde dává smysl jako reset samostatného návrhového listu; v Návrhu smykových trnů je odsunutý na pravou stranu lišty.
+
+DETAIL A VÝBĚR
+- Dvojklik na tabulkový řádek má jednotný význam: otevře Detail prvku / Detail záměny.
+- U Smykových trnů už dvojklik v Dekodéru nepřevádí řádek do Záměn; převod je výslovná akce tlačítkem.
+- Smykové trny mají Detail prvku v Dekodéru, Návrhu i Záměnách.
+- Záměny izolačních nosníků mají samostatný Detail záměny; úprava zdroje/geometrie zůstává explicitním tlačítkem.
+- Akce vyžadující výběr jsou bez výběru deaktivované; akce pro jeden řádek jsou aktivní pouze při právě jednom vybraném řádku.
+- Klávesa Delete maže vybrané řádky tam, kde je k dispozici standardní řádková akce Smazat.
+
+ÚKLID TLAČÍTEK
+- Záměny izolačních nosníků mají explicitně přestavěnou lištu; Sloupce… už nemůže překrývat první návrhové tlačítko.
+- Vnitřní Export PDF ze Záměn izolačních nosníků je skryt; společný Export PDF AKCE zůstává hlavním PDF výstupem.
+- Kopírovat tabulku / Export Excel jsou sjednocené na Kopírovat pro Excel / Export Excel….
+- Pevný informační text Výrobce návrhu: Ancon / Leviat je odstraněn z pracovní lišty smykových trnů, protože nejde o volbu uživatele.
+
+HLAVIČKA A NÁPOVĚDA
+- Servisní tlačítka Složka katalogů a Kontrola katalogů jsou přesunuta z hlavní hlavičky do Nápověda > Data a zdroje.
+- V hlavičce zůstávají pouze běžné pracovní ovladače vzhledu a Nápověda.
+
+Výpočtové jádro, tabulkové únosnosti, katalogové soubory a databáze actions.sqlite3 se touto verzí nemění.
