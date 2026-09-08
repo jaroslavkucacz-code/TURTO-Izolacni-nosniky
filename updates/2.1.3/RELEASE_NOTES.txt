@@ -1,0 +1,12 @@
+TURTO 2.1.3
+
+Úpravy uživatelského workflow:
+- Návrh izolačních nosníků se po otevření nové AKCE zobrazí bez automaticky vloženého prázdného řádku.
+- Tlačítko „Vymazat vše“ ponechá tabulku návrhu HIT skutečně prázdnou; nový řádek se vkládá pouze uživatelem.
+- V Dekodéru smykových trnů je nově přímá volba cílového výrobce záměny: Ancon nebo Schöck.
+- Vybraný řádek Dekodéru lze tlačítkem „Převést do Záměn“ přenést do záložky Záměny včetně pozice, kusů, geometrie, betonu a krytí.
+- Dvojklik na řádek Dekodéru provede stejný převod a respektuje zvoleného cílového výrobce.
+- V záložce Záměny je cílový výrobce zřetelně uveden a akce je přejmenována na „Navrhnout záměnu“.
+
+Výpočtová pravidla a katalogové hodnoty Ancon / Leviat a Schöck se touto verzí nemění.
+Databáze AKCÍ se aktualizací nemění.
