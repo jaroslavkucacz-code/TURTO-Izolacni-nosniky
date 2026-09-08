@@ -6,9 +6,16 @@ import ast
 import hashlib
 import json
 import runpy
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 
 def _sha256(path: Path) -> str:
