@@ -1,57 +1,75 @@
-# TURTO – izolační nosníky a smykové trny
+# TURTO – technické prvky
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.1.5**  
-Produktové oblasti: **Izolační nosníky** + **Smykové trny**.
+**Aktuální vydání: TURTO 2.2.0**
 
-Lokální Windows aplikace pro práci s centrálními AKCEMI, dekódování výrobků, návrhy a katalogové záměny.
+TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
-## TURTO 2.1.5
+- **Izolační nosníky** – Dekodér / Návrh / Záměny
+- **Smykové trny** – Dekodér / Návrh / Záměny
 
-- historické **Schöck Dorn SLD / SLD-Q 40, 50, 60, 70, 80, 120 a 150** mají v Dekodéru archivní tabulkové `VRd` z oficiální technické informace Schöck 2019,
-- kompletní historické **Schöck Dorn LD / LD-Q 16, 20, 22, 25 a 30** mají archivní `VRd` z technické informace Schöck 2017,
-- archivní hodnoty se používají **bez interpolace**: výška se volí na nejbližší nižší tabulkovou hodnotu a spára na nejbližší vyšší,
-- z Dekodéru bylo odstraněno pole **cnom Schöck**; referenční krytí je vlastností archivní tabulky a zobrazuje se u zdroje (`SLD: 30 mm`, `LD: 20 mm`),
-- Dekodér archivních Schöck Dorn umožňuje také beton **C20/25**, který je v archivních tabulkách SLD samostatně uveden,
-- krytí současného cílového Schöck se zadává až v **Záměnách**, kde skutečně vstupuje do výběru cílového Stacon,
-- archivní `VRd` původního Dorn lze použít jako požadavek automatické záměny za **Ancon** nebo současný **Schöck Stacon**,
-- samostatná historická označení komponent `Part A4 / Zn / S / P` zůstávají pouze informativní v Dekodéru, protože neurčují celý komplet trnu,
-- výpočtové tabulky současných Ancon / Leviat a Schöck Stacon se nemění,
-- databáze AKCÍ se aktualizací nemění.
+## Co znamená verze 2.2.0
 
-## TURTO 2.1.4
+2.2.0 je stabilizační a úklidové vydání. **Nemění statická pravidla, katalogové hodnoty ani databázi AKCÍ.** Hlavním cílem je zjednodušit další vývoj:
 
-Smykové trny používají stejný základní pracovní model jako izolační nosníky:
+- aktuální runtime má stabilní vstupní moduly místo přímých vazeb na názvy jednotlivých hotfix verzí,
+- z aktuální větve byly odstraněny staré build workflowy a dočasné balíčkové fragmenty,
+- release proces má automatickou kontrolu syntaxe, SHA-256, commit-pinned URL a povinných souborů,
+- historické migrační nástroje jsou oddělené v `legacy/`,
+- technická architektura a pravidla vydávání jsou zdokumentovaná.
 
-- **Dekodér**: jednotlivé zadání i **Hromadné dekódování z výkazu**, kontrolní náhled před vložením, kopírování do Excelu, úprava pozice/ks, duplikace, posun, mazání a filtr,
-- **Návrh**: ruční návrh i **Vložit výkaz…**, kontrolní náhled, hromadný přepočet a stejné akce nad řádky,
-- **Záměny**: společná volba cílového výrobce **Ancon / Schöck**, tlačítko **Aktualizovat z Dekodéru**, přepočet celé tabulky a možnost ruční záměny,
-- jednotlivý řádek Dekodéru lze převést do Záměn dvojklikem nebo tlačítkem **Převést do Záměn**,
-- při importu návrhu smykových trnů se hodnota výslovně zadaná v `kN/m` nepřebírá jako `kN/trn`.
-
-## TURTO 2.1.3
-
-- nový návrh izolačních nosníků začíná s prázdnou tabulkou; řádek se vloží až tlačítkem **+ Přidat řádek**,
-- také **Vymazat vše** ponechá návrh HIT skutečně bez řádků,
-- v Dekodéru smykových trnů lze vybrat řádek a přímo zvolit, zda se má zaměnit za **Ancon** nebo **Schöck**,
-- tlačítko **Převést do Záměn** přenese do záměny pozici, počet kusů, označení, výšku, spáru a beton,
-- dvojklik na dekódovaný smykový trn používá stejnou volbu cílového výrobce.
+Podrobnosti: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) a [docs/RELEASE_PROCESS.md](docs/RELEASE_PROCESS.md).
 
 ## Online aktualizace
 
-Program používá `update_manifest.json`; aktuální updater načítá manifest přednostně přes GitHub API, aby nebyl závislý na zastaralé RAW cache. Z funkční verze TURTO 2.1.3 nebo novější stačí v programu spustit **Aktualizace**; nabídne se aktuální verze a stáhnou se pouze potřebné programové soubory. Aktualizátor před nahrazením souborů vytváří lokální zálohu v `.update_backup`.
+V běžně funkční aplikaci použijte tlačítko **Aktualizace**. Aktualizátor:
 
-## Když se TURTO vůbec nespustí
+1. načte `update_manifest.json` přednostně přes GitHub API,
+2. stahuje soubory z adres připnutých na konkrétní commit,
+3. ověří každý soubor pomocí SHA-256,
+4. vytvoří lokální zálohu měněných souborů v `.update_backup`,
+5. nahradí pouze soubory uvedené v manifestu a TURTO znovu spustí.
 
-Pokud je lokálně nainstalovaná verze, která spadne ještě před otevřením hlavního okna, nemůže se dostat k tlačítku **Aktualizace**. Pro tento stav je v kořeni repozitáře samostatná nouzová oprava:
+`actions.sqlite3` se tímto mechanismem nepřepisuje.
 
-1. Stáhněte aktuální ZIP repozitáře přes **Code → Download ZIP** a rozbalte jej.
-2. Spusťte **`OPRAVIT_TURTO.bat`**.
-3. Pokud se otevře výběr složky, vyberte svoji skutečnou instalační složku TURTO – tu, která obsahuje `app.pyw` nebo `Spustit_program.vbs`.
-4. Oprava vytvoří zálohu stávající spouštěcí vrstvy a obnoví ověřený startovací základ. Po úspěšném spuštění pak použijte běžnou online aktualizaci.
-5. **Databáze `actions.sqlite3` ani obsah uložených AKCÍ se nemění.**
+## Když se TURTO nespustí
+
+V kořeni repozitáře zůstává nouzová cesta:
+
+- `OPRAVIT_TURTO.bat`
+- `OPRAVIT_TURTO.ps1`
+
+Je určena pouze pro situaci, kdy aplikace spadne ještě před dosažením běžného tlačítka **Aktualizace**. Nouzová oprava nemění databázi AKCÍ.
+
+## Historický převod v0.4.0 / v0.5.0
+
+Kořenový `00_INSTALOVAT_TURTO.bat` zůstává jako kompatibilní spouštěč původního jednorázového převodu na verzi 0.5.1. Vlastní historická logika a payload jsou přesunuty do `legacy/migration_v051/`.
+
+Pro současné instalace 2.x tento převod nepoužívejte.
+
+## Vývoj a kontrola vydání
+
+Aktuální větev používá jediný CI workflow:
+
+```text
+.github/workflows/ci.yml
+```
+
+Kontrolu lze spustit i lokálně:
+
+```text
+python tools/verify_release.py
+```
+
+Kontrola odmítne mimo jiné:
+
+- release URL odkazující na `main` místo konkrétního commitu,
+- nesouhlas SHA-256,
+- duplicitní nebo nebezpečné cílové cesty,
+- syntakticky neplatný modul aktuálního release,
+- návrat historických build artefaktů do kořene repozitáře.
 
 ## Důležité upozornění
 
-Program je katalogová databázová a návrhová pomůcka. Nenahrazuje technické informace výrobce ani úplné statické posouzení. Před použitím ve výpočtu vždy ověřte celé označení, katalogové vydání, geometrické podmínky a zdrojové tabulky.
+TURTO je katalogová databázová a návrhová pomůcka. Nenahrazuje technické informace výrobce ani úplné statické posouzení. Před použitím ve výpočtu vždy ověřte celé označení, katalogové vydání, geometrické podmínky a zdrojové tabulky.

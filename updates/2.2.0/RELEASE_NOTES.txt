@@ -1,0 +1,10 @@
+TURTO 2.2.0 – technický úklid a stabilizace
+
+- Výpočtová pravidla, katalogové hodnoty a databáze AKCÍ se nemění.
+- Aktuální platforma už neimportuje přímo verzovaný modul smykových trnů; používá stabilní rozhraní shear_dowels_current.py.
+- Historický Schöck Dorn má stabilní modul schoeck_dorn_decoder.py; staré názvy modulů zůstávají jen jako kompatibilní interní vrstvy.
+- Branding pracovní plochy už není patchovaný seznamem jednotlivých verzí.
+- Repo dostává jeden aktuální CI workflow a automatickou kontrolu release manifestu.
+- Staré build workflowy, dočasné balíčkové fragmenty a samostatný historický HIT prototyp jsou odstraněny z aktuální větve; zůstávají dohledatelné v Git historii.
+- Historický převod v0.4.0 / v0.5.0 -> 0.5.1 zůstává dostupný v legacy/migration_v051 a kořenové 00_INSTALOVAT_TURTO.bat funguje jako kompatibilní spouštěč.
+- Online aktualizace zůstává kumulativní a používá SHA-256 + commit-pinned URL.

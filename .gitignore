@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Lokální runtime / diagnostika
+*.log
+.turto_runtime_*.ok
+.update_backup/
+.fix*_backup_*/
+.recovery_before_*/
+*.tmp
+*.new
+
+# Lokální aplikační data – nikdy necommitovat
+actions.sqlite3
+actions.sqlite3-*
+*.sqlite3-wal
+*.sqlite3-shm
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

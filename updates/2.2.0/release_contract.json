@@ -1,0 +1,22 @@
+{
+  "version": "2.2.0",
+  "purpose": "Technický úklid a stabilní veřejné hranice bez změny výpočtových pravidel.",
+  "required_targets": [
+    "app_runtime.pyw",
+    "platform_workspace.py",
+    "shear_dowels_current.py",
+    "schoeck_dorn_decoder.py",
+    "historical_schoeck_dorn.py",
+    "shear_dowels_ui_215.py",
+    "shear_dowels_schedule_215.py",
+    "shear_dowels_schedule.py",
+    "shear_dowels_schedule_guard.py",
+    "shear_dowels_ui_214.py",
+    "hit_workspace.py",
+    "hit_pdf.py",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "database_files_modified": false,
+  "calculation_tables_modified": false
+}
