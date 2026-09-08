@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.2.1
+
+Pokračování technického úklidu bez změny statických pravidel, katalogových hodnot nebo dat AKCÍ.
+
+- obecný aktuální bootstrap místo recovery navázané na verzi 2.1.2,
+- obecné diagnostické soubory `startup.log` a `recovery.log`,
+- aktuální runtime marker `.turto_runtime_current.ok`,
+- recovery používá stejný commit-pinned `app.pyw` a `updater.py` jako online manifest,
+- updater nejprve vytvoří úplnou zálohu měněných souborů a při chybě provede rollback,
+- `actions.sqlite3` je explicitně chráněný cíl,
+- CI kontroluje manifest, bootstrap, runtime installer, recovery, rollback, SHA-256 a syntaxi.
+
 ## 2.2.0
 
 Technický úklid a stabilizace bez změny statických pravidel nebo katalogových dat.
