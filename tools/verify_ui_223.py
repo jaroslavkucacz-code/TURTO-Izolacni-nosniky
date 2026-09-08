@@ -12,6 +12,7 @@ FILES = (
     "ui_help.py",
     "platform_workspace.py",
     "app_runtime.pyw",
+    "runtime_installer.py",
 )
 
 
