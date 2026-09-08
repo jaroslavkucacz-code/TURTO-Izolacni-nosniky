@@ -26,7 +26,7 @@ PAYLOADS = {
     "schoeck_dorn_decoder.py": ("2f138cacf2d434c7b195311e05f1144f815a5e24", "updates/2.2.0/schoeck_dorn_decoder.py", "310fff1beda0eaf8c7d0c489facf9ddd5c5205219d3c2da0c1008c45a0c648b0"),
     "hit_workspace.py": ("44994a40b3d018269841c915b4742adae26acafa", "updates/2.1.3/hit_workspace.py", "79e4f24e58d0fed61f8b4481222593b7ec6d58599913525aa21fa5640e4841cb"),
     "hit_pdf.py": ("44994a40b3d018269841c915b4742adae26acafa", "updates/2.1.2/hit_pdf.py", "62909e7ecbcc5f56d7dca077cf95421cb1ee10931599433557abece32d629ea8"),
-    "updater.py": ("2f138cacf2d434c7b195311e05f1144f815a5e24", "updates/2.1.3/updater.py", "57c66d4d3aacd3d8fcd007e32fb6a218023abd5f8e4044215b1056ca9538739d"),
+    "updater.py": ("5f395e56a8911e12783bdbd8378592963352cf69", "updates/2.2.1/updater.py", "9a421f4560dc7baa886b5781e3ad255eb71ab14941bb64990fa543b64c3fc706"),
     "shear_dowels_schedule.py": ("b198cbb7bf0720d694dfda5e9baf66c07d9bc23e", "updates/2.1.4/shear_dowels_schedule.py", "72ac97981f2d1952fc508ecb1b47fef21b7f45199259f72f40d5812eb2374cfa"),
     "shear_dowels_schedule_guard.py": ("b198cbb7bf0720d694dfda5e9baf66c07d9bc23e", "updates/2.1.4/shear_dowels_schedule_guard.py", "c9b09cdc563de7622a5fa900e15f056c6b5d25d281c5bbd47dfc27e387b7e786"),
     "shear_dowels_ui_214.py": ("b198cbb7bf0720d694dfda5e9baf66c07d9bc23e", "updates/2.1.4/shear_dowels_ui_214.py", "ece048d76888dbdb398ea9b6c67ef4bcb2765a0904987ae358cc59765a069813"),
