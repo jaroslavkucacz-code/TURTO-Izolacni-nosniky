@@ -9,7 +9,7 @@ $ProgressPreference = 'SilentlyContinue'
 Add-Type -AssemblyName System.Windows.Forms
 
 $UpdaterUrl = 'https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/91a935d7aa025d8cf4a4856139af9e41df8d0b72/updates/2.1.3/updater.py'
-$ExpectedSha256 = '974b66615c4a2cfcadb6e3c4060f5a05601625fba7ffbceb5ed5164171073cb5'
+$ExpectedGitBlobSha1 = 'a1e4b7941d34cd294ea7dd391ea5eabd0c620f34'
 
 function Show-Info([string]$Text) {
     [System.Windows.Forms.MessageBox]::Show(
@@ -45,6 +45,22 @@ function Select-TargetFolder {
         throw 'Nebyla vybrana slozka programu TURTO.'
     }
     return [System.IO.Path]::GetFullPath($dialog.SelectedPath)
+}
+
+function Get-GitBlobSha1([string]$Path) {
+    $bytes = [System.IO.File]::ReadAllBytes($Path)
+    $prefix = [System.Text.Encoding]::UTF8.GetBytes(('blob {0}' -f $bytes.Length) + [char]0)
+    $combined = New-Object byte[] ($prefix.Length + $bytes.Length)
+    [System.Array]::Copy($prefix, 0, $combined, 0, $prefix.Length)
+    [System.Array]::Copy($bytes, 0, $combined, $prefix.Length, $bytes.Length)
+    $sha1 = [System.Security.Cryptography.SHA1]::Create()
+    try {
+        $hash = $sha1.ComputeHash($combined)
+    }
+    finally {
+        $sha1.Dispose()
+    }
+    return (($hash | ForEach-Object { $_.ToString('x2') }) -join '')
 }
 
 $target = $null
@@ -89,9 +105,9 @@ try {
         throw 'Novy updater se nestahl.'
     }
 
-    $actual = (Get-FileHash -LiteralPath $tempFile -Algorithm SHA256).Hash.ToLowerInvariant()
-    if ($actual -ne $ExpectedSha256) {
-        throw ('Kontrolni soucet updateru nesouhlasi. Ocekavano {0}, ziskano {1}' -f $ExpectedSha256, $actual)
+    $actualGitBlobSha1 = Get-GitBlobSha1 $tempFile
+    if ($actualGitBlobSha1 -ne $ExpectedGitBlobSha1) {
+        throw ('Git blob kontrola updateru nesouhlasi. Ocekavano {0}, ziskano {1}' -f $ExpectedGitBlobSha1, $actualGitBlobSha1)
     }
 
     Move-Item -LiteralPath $tempFile -Destination $updater -Force
