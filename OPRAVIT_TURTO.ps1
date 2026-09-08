@@ -81,7 +81,7 @@ function Download-VerifiedFile(
             $cacheBust = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
             $downloadUrl = "$Url?turto_recovery=$cacheBust`_$attempt"
             Write-RecoveryLog $LogPath "Stahuji $Label, pokus $attempt/4"
-            Invoke-WebRequest -Uri $downloadUrl -OutFile $Destination -Headers @{
+            Invoke-WebRequest -UseBasicParsing -Uri $downloadUrl -OutFile $Destination -Headers @{
                 'User-Agent' = 'TURTO-2.1.2-Recovery'
                 'Cache-Control' = 'no-cache, no-store'
                 'Pragma' = 'no-cache'
