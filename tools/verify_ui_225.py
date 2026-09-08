@@ -12,6 +12,7 @@ FILES = (
     "platform_workspace.py",
     "app_runtime.pyw",
     "runtime_installer.py",
+    "app.pyw",
     "RELEASE_NOTES.txt",
 )
 
@@ -59,6 +60,8 @@ def main() -> int:
     assert "apply_ui_layout" in platform
     installer = (RELEASE / "runtime_installer.py").read_text(encoding="utf-8")
     assert '"ui_layout.py"' in installer
+    bootstrap = (RELEASE / "app.pyw").read_text(encoding="utf-8")
+    assert "updates/2.2.5/runtime_installer.py" in bootstrap and '"ui_layout.py"' in bootstrap
     notes = (RELEASE / "RELEASE_NOTES.txt").read_text(encoding="utf-8")
     assert "Dvojklik" in notes and "Nápověda > Data a zdroje" in notes
 
