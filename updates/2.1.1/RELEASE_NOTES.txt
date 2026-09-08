@@ -1,0 +1,15 @@
+TURTO 2.1.1
+
+Dekodér smykových trnů – historické značení Schöck
+
+- Dekodér nově rozpoznává starší řadu Schöck Dorn SLD/SLD-Q s historickými třídami 40, 50, 60, 70, 80, 120 a 150.
+- Podporovány jsou zápisy typu SLD-60, SLD-Q-60, SLDQ 60, Schöck Dorn SLD 80 apod.
+- U starší řady LD dekodér rozpoznává i materiálové značení používané v projektové dokumentaci, např. LD-20-S-A4, LD-20-P-A4, LD-20-P-Zn, LD-Q-20-S-A4 a LD-20-F-A4/Zn.
+- Rozpoznáno je také starší komponentové označení typu LD 20 Part A4 / Part Zn / Part S / Part P.
+- Historické řádky jsou v Dekodéru viditelně označeny jako „Schöck – historické“ a rodina jako „(starší)“.
+- Starší označení jsou výhradně dekódovací aliasy. Nejsou používána při automatickém Návrhu a nepřeklápějí se automaticky do Záměn.
+- Historická únosnostní třída se nikdy automaticky nepovažuje za ekvivalent dnešního Stacon SLD/SLD-Q.
+- Aktuální návrhové a záměnové tabulky Ancon a Schöck Stacon z verze 2.1.0 se nemění.
+- Výpočtové jádro izolačních nosníků HIT ani M–V interakce se nemění.
+
+Podklad pro historické aliasy: archivní technické informace Schöck Dorn (2014–2019), v nichž jsou doložena označení SLD-Q-60 a řada SLD 40/50/60/70/80/120/150; u LD je doložen formát např. LD-20-S-A4 a materiálové varianty P/F/A4/Zn.
