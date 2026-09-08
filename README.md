@@ -1,58 +1,45 @@
-# TURTO – Databáze izolačních nosníků
+# TURTO – izolační nosníky a smykové trny
 
-**Stabilní GitHub základ: 0.5.1**  
 Vytvořil Ing. Jaroslav Kučera
 
-Lokální Windows aplikace pro vyhledávání, porovnávání a projektové soupisy izolačních nosníků podle katalogových dimenzačních tabulek.
+**Aktuální vydání: TURTO 2.1.2**  
+Produktové oblasti: **Izolační nosníky** + **Smykové trny**.
 
-## Jednorázový přechod z v0.4.0 nebo v0.5.0 na GitHub verzi
+Lokální Windows aplikace pro práci s centrálními AKCEMI, dekódování výrobků, návrhy a katalogové záměny.
 
-Aktuální přechod využívá vaši existující funkční složku TURTO **v0.4.0 nebo v0.5.0**. Díky tomu není nutné znovu přenášet velké katalogové soubory a během převodu se **nestahují žádné instalační části z internetu**.
+## Když se TURTO vůbec nespustí
 
-1. Klikněte nahoře na zelené tlačítko **Code → Download ZIP**.
-2. Stažený ZIP celý rozbalte do nové složky.
-3. V rozbalené složce spusťte **`00_INSTALOVAT_TURTO.bat`**.
-4. Pokud se otevře výběr složky, vyberte svoji stávající funkční složku **`TURTO_Izolacni_nosniky_v0.5.0`** nebo **`TURTO_Izolacni_nosniky_v0.4.0`**.
-5. Převod nejprve ověří nové programové soubory pomocí SHA-256, vytvoří zálohu změněných souborů v `.backup_pred_github_v0.5.1` a teprve potom je nahradí.
-6. Katalogová data Schöck + ISOPRO i ostatní původní soubory zůstanou zachované.
-7. Po dokončení se TURTO pokusí automaticky spustit přes stávající **`Spustit_program.vbs`**.
+Pokud je lokálně nainstalovaná verze, která spadne ještě před otevřením hlavního okna, nemůže se dostat k tlačítku **Aktualizace**. Pro tento stav je v kořeni repozitáře samostatná nouzová oprava:
 
-Je potřeba běžný 64bitový Python pro Windows s Tkinterem. Převod používá pouze standardní knihovny Pythonu.
+1. Stáhněte aktuální ZIP repozitáře přes **Code → Download ZIP** a rozbalte jej.
+2. Spusťte **`OPRAVIT_TURTO.bat`**.
+3. Pokud se otevře výběr složky, vyberte svoji skutečnou instalační složku TURTO – tu, která obsahuje `app.pyw` nebo `Spustit_program.vbs`.
+4. Oprava vytvoří zálohu stávající spouštěcí vrstvy, nainstaluje ověřený bootstrap TURTO 2.1.2 a vynutí nové rozbalení runtime při prvním startu.
+5. **Databáze `actions.sqlite3` ani obsah uložených AKCÍ se nemění.**
 
-### Jak poznám správný průběh
+Opravný nástroj ověřuje stažené soubory pomocí SHA-256. Průběh zapisuje do `recovery_2_1_2.log`. Pokud už bootstrap 2.1.2 naběhne, ale selže následný start runtime, úplný traceback se uloží do `startup_2_1_2.log` přímo v instalační složce TURTO.
 
-V konzoli se zobrazí přibližně:
+## TURTO 2.1.2
 
-```text
-TURTO - převod v0.4.0 / v0.5.0 na GitHub verzi v0.5.1
-Tento krok nestahuje instalační data z internetu.
-...
-  OK  app.pyw
-  OK  catalog_engine.py
-  OK  project_ui.py
-  OK  autocomplete.py
-  OK  updater.py
-  OK  version.txt
-
-HOTOVO. TURTO je ve verzi 0.5.1.
-```
-
-Pokud místo toho vidíte `Stahuji ... část 1/16`, spouštíte starou kopii repozitáře. Smažte ji a stáhněte ZIP znovu.
+- návrat na ověřený startovací řetězec 2.1.0 po regresi 2.1.1,
+- izolační nosníky HIT zůstávají na stávajícím výpočtovém jádře včetně M–V interakce,
+- smykové trny mají vlastní **Dekodér / Návrh / Záměny**,
+- aktivní jsou současné návrhové a záměnové tabulky Ancon / Leviat a Schöck Stacon,
+- historické Schöck Dorn značení je pouze pomůcka Dekodéru a nevstupuje do automatického návrhu ani záměn,
+- centrální databáze AKCÍ se při runtime opravách nemění.
 
 ## Automatické aktualizace
 
-Od verze 0.5.1 má program tlačítko **Aktualizace**. Další verze už nebude nutné celé stahovat znovu. Program načte `update_manifest.json` a stáhne pouze změněné soubory podle manifestu.
+Program používá `update_manifest.json` a při běžně funkčním startu stahuje pouze změněné programové soubory. Nouzová oprava výše je určena právě pro situaci, kdy se aplikace kvůli chybě před aktualizátorem vůbec neotevře.
 
-## Obsah stabilní verze 0.5.1
+---
 
-- kompletní databáze Schöck Isokorb® T / XT z použitého vydání CZ/2024.1,
-- kompletní databáze ISOPRO® z dodaného katalogu 2018 EN,
-- projektové soupisy,
-- našeptávač neúplného označení a tolerance běžných překlepů,
-- automatický aktualizační mechanismus.
+## Původní přechod z v0.4.0 / v0.5.0 na GitHub základ
 
-**MAX FRANK Egcobox® M / XL zatím není součástí této stabilní základny.** Bude přidán jako první katalogová automatická aktualizace spolu s explicitním údajem o tloušťce izolantu a rozlišením smykových prvků s tlakovými ložisky / bez tlakových komponent.
+Historický GitHub základ byl verze 0.5.1. Jednorázový převod z velmi starých lokálních instalací zůstává v repozitáři jako **`00_INSTALOVAT_TURTO.bat`**.
+
+Tento převod využívá existující funkční složku TURTO v0.4.0 nebo v0.5.0, zachová katalogová data a vytvoří zálohu měněných souborů. Pro současnou instalaci 2.x jej nepoužívejte jako opravný nástroj; při problému se startem použijte **`OPRAVIT_TURTO.bat`**.
 
 ## Důležité upozornění
 
-Program je katalogová databázová pomůcka. Nenahrazuje technické informace výrobce ani úplné statické posouzení. Před použitím ve výpočtu vždy ověřte celé označení, katalogové vydání, geometrické podmínky a zdrojovou stránku.
+Program je katalogová databázová a návrhová pomůcka. Nenahrazuje technické informace výrobce ani úplné statické posouzení. Před použitím ve výpočtu vždy ověřte celé označení, katalogové vydání, geometrické podmínky a zdrojové tabulky.
