@@ -1,11 +1,11 @@
 {
-  "version": "2.0.1",
-  "notes": "Oprava spuštění TURTO 2.0.0: obecné tlačítko Přidat řádek v Doplňkových prvcích už nevolá neexistující metodu. Statické jádro ani data AKCÍ se nemění.",
+  "version": "2.0.2",
+  "notes": "Oprava spuštění TURTO 2.0: Doplňkové prvky už nemíchají Tkinter pack/grid. Původní +HT se pouze přejmenuje na Přidat řádek. Statické jádro ani data AKCÍ se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0ecba2476db7219c478a010f9532877d0928ffa5/updates/2.0.1/app.pyw",
-      "sha256": "b266dd11b89133524d0cfb7a47e2388a151cb5d0d6188891db54c55183310daf"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/da5679edc8677add29dd22be4be074f8259566f4/updates/2.0.2/app.pyw",
+      "sha256": "67ee6081eedcd9981ab204a7f50102071b1497a602bec3c980edff367ed8b85d"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0ecba2476db7219c478a010f9532877d0928ffa5/updates/2.0.1/RELEASE_NOTES.txt",
-      "sha256": "44e7b2fe4ad3e739f539198ad2d82167fe0c1221e9fee1caaeb7a69d08979c01"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/52d1586bec59e55870fc0bd6db6d49bacb690af8/updates/2.0.2/RELEASE_NOTES.txt",
+      "sha256": "b5719866449c03e7f99ab94e1120125fc5ec19c7e597453c0d526bb1116f6267"
     }
   ]
 }

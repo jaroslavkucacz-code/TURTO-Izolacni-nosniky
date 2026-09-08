@@ -1,0 +1,11 @@
+TURTO 2.0.2
+
+Oprava spuštění platformy 2.0
+
+- Opravena chyba Tkinteru „cannot use geometry manager pack … grid is already managing its content windows“ při stavbě záložky Doplňkové prvky.
+- Obecné tlačítko „+ Přidat řádek“ se už nevytváří jako nový widget přes pack(). Program místo toho použije původní tlačítko +HT, které je správně spravované přes grid(), přejmenuje jej a změní jeho příkaz.
+- Nový doplňkový řádek se založí jako HT a konkrétní typ HT / AT / FT / OTX lze následně vybrat přímo v řádku.
+- Zachována je i předchozí oprava neexistující metody add_aux_row.
+- Statické jádro, M–V interakce, katalogy, centrální databáze AKCÍ, PDF/Excel výstupy ani záměny se touto opravou nemění.
+
+Tato verze je určena i pro uživatele, kterým 2.0.0 nebo 2.0.1 spadne ještě před zpřístupněním tlačítka Aktualizace.
