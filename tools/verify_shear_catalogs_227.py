@@ -16,6 +16,7 @@ FILES = (
     "ui_cleanup_227.py",
     "platform_workspace.py",
     "app_runtime.pyw",
+    "runtime_installer.py",
     "RELEASE_NOTES.txt",
 )
 
@@ -72,6 +73,17 @@ def main() -> int:
     cleanup = (RELEASE / "ui_cleanup_227.py").read_text(encoding="utf-8")
     assert "project_path_var" in cleanup
     assert "grid_rowconfigure(0, minsize=0)" in cleanup
+
+    installer = (RELEASE / "runtime_installer.py").read_text(encoding="utf-8")
+    for token in (
+        '"shear_catalogs_227.py"',
+        '"shear_ui_227.py"',
+        '"ui_cleanup_227.py"',
+        '"platform_workspace.py"',
+        '"app_runtime.pyw"',
+        'TURTO-2.2.7-runtime',
+    ):
+        assert token in installer, token
 
     notes = (RELEASE / "RELEASE_NOTES.txt").read_text(encoding="utf-8")
     for token in ("HED", "JDSD", "Egcodorn", "Egcodubel", "KONTROLA DESKY"):
