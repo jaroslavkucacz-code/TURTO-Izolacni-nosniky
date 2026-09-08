@@ -13,6 +13,7 @@ FILES = (
     "platform_workspace.py",
     "app_runtime.pyw",
     "runtime_installer.py",
+    "app.pyw",
 )
 
 
