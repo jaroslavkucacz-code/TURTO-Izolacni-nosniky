@@ -1,0 +1,14 @@
+TURTO 2.2.2
+
+Kontrola posuvnosti smykových trnů:
+- pojmy v UI jsou sjednoceny na Jednosměrný – podélný posun a Obousměrný – podélný + příčný posun,
+- Schöck SLD a LD jsou jednosměrné; Schöck SLD-Q a LD-Q jsou obousměrné,
+- historické zápisy Q variant se rozpoznají i ve tvarech SLD-Q 40, SLD Q 40 a SLD 40 Q (obdobně LD),
+- Ancon / Leviat ESDQ, HLDQ, DSDQ a DSDSQ jsou obousměrné; varianty bez Q jsou jednosměrné,
+- E-HLD se v ověřeném katalogovém rozsahu používá jako jednosměrný; TURTO už nevytváří neověřenou variantu E-HLDQ,
+- import výkazu rozpoznává výrazy jednosměrný, obousměrný, dvousměrný, 1-směr, 2-směr, 2D, příčný a transverse,
+- Dekodér, Návrh, Záměny a PDF používají stejnou informaci o posuvnosti,
+- automatická záměna zachovává požadovanou posuvnost zdrojového trnu.
+
+Touto verzí se nemění tabulkové únosnosti ani statická pravidla katalogových řad.
+Databáze actions.sqlite3 a uložené AKCE se aktualizací nemění.

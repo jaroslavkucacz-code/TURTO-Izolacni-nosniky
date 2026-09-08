@@ -6,6 +6,7 @@ on:
       - main
       - "cleanup/**"
       - "release/**"
+      - "fix/**"
   pull_request:
     branches:
       - main
@@ -29,6 +30,9 @@ jobs:
       - name: Verify release and repository hygiene
         run: python tools/verify_release.py
 
+      - name: Verify shear-dowel movement
+        run: python tools/verify_shear_movement.py
+
   windows-smoke:
     name: Windows smoke
     runs-on: windows-latest
@@ -47,6 +51,9 @@ jobs:
 
       - name: Verify release on Windows
         run: python tools/verify_release.py
+
+      - name: Verify shear-dowel movement on Windows
+        run: python tools/verify_shear_movement.py
 
       - name: Parse recovery PowerShell
         shell: pwsh

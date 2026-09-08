@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.2.2
+
+Kontrola a sjednocení posuvnosti smykových trnů bez změny tabulkových únosností.
+
+- jednotné pojmy **Jednosměrný – podélný posun** a **Obousměrný – podélný + příčný posun**,
+- Schöck SLD/LD = jednosměrné, SLD-Q/LD-Q = obousměrné,
+- historické zápisy `SLD-Q 40`, `SLD Q 40` i `SLD 40 Q` se dekódují stejně,
+- Ancon / Leviat ESDQ/HLDQ/DSDQ/DSDSQ = obousměrné, varianty bez Q = jednosměrné,
+- TURTO už nevytváří neověřenou variantu `E-HLDQ`,
+- import výkazu rozpoznává jednosměrný/obousměrný/dvousměrný/1-směr/2-směr/2D,
+- posuvnost se sjednotila v Dekodéru, Návrhu, Záměnách a PDF,
+- přidán samostatný regresní test pohybu pro Linux i Windows CI.
+
 ## 2.2.1
 
 Pokračování technického úklidu bez změny statických pravidel, katalogových hodnot nebo dat AKCÍ.

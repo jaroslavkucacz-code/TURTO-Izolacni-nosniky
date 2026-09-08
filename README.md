@@ -2,12 +2,27 @@
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.2.1**
+**Aktuální vydání: TURTO 2.2.2**
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
 - **Izolační nosníky** – Dekodér / Návrh / Záměny
 - **Smykové trny** – Dekodér / Návrh / Záměny
+
+## TURTO 2.2.2
+
+2.2.2 sjednocuje práci s posuvností smykových trnů v Dekodéru, Návrhu, Záměnách, importu z výkazu i PDF.
+
+- **jednosměrný** = podélný posun ve směru osy trnu,
+- **obousměrný** = podélný + příčný posun,
+- Schöck `SLD` / `LD` jsou vedeny jako jednosměrné a `SLD-Q` / `LD-Q` jako obousměrné,
+- historické zápisy `SLD-Q 40`, `SLD Q 40` i `SLD 40 Q` se interpretují stejně,
+- Ancon / Leviat `ESDQ`, `HLDQ`, `DSDQ`, `DSDSQ` jsou obousměrné; varianty bez Q jednosměrné,
+- neověřená varianta `E-HLDQ` se už automaticky nevytváří,
+- záměna zachovává požadovanou posuvnost zdrojového trnu,
+- nový regresní test pohybu běží v Linux i Windows CI.
+
+Tabulkové únosnosti, statická pravidla a databáze AKCÍ se touto verzí nemění.
 
 ## TURTO 2.2.1
 
@@ -82,6 +97,7 @@ Kontrolu lze spustit i lokálně:
 
 ```text
 python tools/verify_release.py
+python tools/verify_shear_movement.py
 ```
 
 Kontrola odmítne mimo jiné:
@@ -91,6 +107,7 @@ Kontrola odmítne mimo jiné:
 - duplicitní nebo nebezpečné cílové cesty,
 - pokus zahrnout `actions.sqlite3` do online aktualizace,
 - rozpor mezi manifestem, bootstrapem, runtime installerem a recovery,
+- chybnou interpretaci Q variant a neověřenou E-HLDQ,
 - syntakticky neplatný modul aktuálního release,
 - návrat historických build artefaktů do kořene repozitáře.
 
