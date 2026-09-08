@@ -7,6 +7,7 @@ from tkinter import ttk
 
 import platform_workspace_200 as _prev
 import action_report as _action_report
+import shear_dowels_schedule_guard  # noqa: F401 - unit guard before schedule/UI imports
 from shear_dowels_ui_215 import build_shear_workspace, init_shear_workspace, install_methods
 
 
