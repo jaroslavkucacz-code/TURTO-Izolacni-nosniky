@@ -1,0 +1,8 @@
+TURTO 2.0.1
+
+Oprava spuštění platformy 2.0
+
+- Opravena chyba při startu 2.0.0: obecné tlačítko „+ Přidat řádek“ v části Doplňkové prvky odkazovalo na neexistující metodu add_aux_row.
+- 2.0.1 zavádí bezpečný obecný alias add_aux_row -> add_aux_row_for_type("HT"). Nový řádek se tedy založí jako HT a konkrétní typ HT / AT / FT / OTX lze následně změnit přímo v řádku.
+- Oprava je pouze v UI/kompatibilní vrstvě. Statické jádro HIT, M–V interakce, katalogová data, centrální databáze AKCÍ, záměny a exporty se nemění.
+- Přidána záchranná cesta pro instalace 2.0.0, které kvůli chybě nedojdou k běžnému tlačítku Aktualizace.

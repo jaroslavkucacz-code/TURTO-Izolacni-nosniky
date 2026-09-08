@@ -1,11 +1,11 @@
 {
-  "version": "2.0.0",
-  "notes": "TURTO 2.0: jedna AKCE nad více produktovými oblastmi, jednotný Dekodér / Návrh / Záměny, volba výrobce návrhu a záměn, společný import výkazu a PDF celé AKCE. Výpočtové jádro Leviat HIT se nemění.",
+  "version": "2.0.1",
+  "notes": "Oprava spuštění TURTO 2.0.0: obecné tlačítko Přidat řádek v Doplňkových prvcích už nevolá neexistující metodu. Statické jádro ani data AKCÍ se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4f172b4d13195ca609a618ff9ecfca6f3d63dbca/updates/2.0.0/app.pyw",
-      "sha256": "1a1c6cfc7843adc1453b035c59def4b8690ed9b3fdb833d7892b526b2c7af455"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0ecba2476db7219c478a010f9532877d0928ffa5/updates/2.0.1/app.pyw",
+      "sha256": "b266dd11b89133524d0cfb7a47e2388a151cb5d0d6188891db54c55183310daf"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4f172b4d13195ca609a618ff9ecfca6f3d63dbca/updates/2.0.0/RELEASE_NOTES.txt",
-      "sha256": "27360ffd41434e56af401298375a543b24919dd13e6594b520a5910ce5b0fb1c"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0ecba2476db7219c478a010f9532877d0928ffa5/updates/2.0.1/RELEASE_NOTES.txt",
+      "sha256": "44e7b2fe4ad3e739f539198ad2d82167fe0c1221e9fee1caaeb7a69d08979c01"
     }
   ]
 }
