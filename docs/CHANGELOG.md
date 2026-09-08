@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.2.4
+
+Sjednocení tabulek a pracovních záložek Izolační nosníky / Smykové trny.
+
+- datové tabulky používají jednotné řazení kliknutím na záhlaví,
+- pravé tlačítko v záhlaví nabízí řazení, posun, automatickou šířku, skrytí a správu sloupců,
+- dialog **Sloupce…** ukládá pořadí, viditelnost a šířky,
+- stejné ovládání se automaticky připojuje také k tabulkám v otevřených dialogových oknech,
+- Smykové trny dostaly **Sloupce…**, přímý **Export Excel…** a jednotné **Kopírovat pro Excel**,
+- z Dekodéru a Záměn smykových trnů odstraněno destruktivní **Vymazat vše**; v samostatném Návrhu zůstává,
+- z Dekodéru izolačních nosníků skryt nadbytečný CSV export,
+- ze Záměn izolačních nosníků odstraněn redundantní ruční refresh stejné společné AKCE,
+- servisní akce HIT přesunuty z hlavního Návrhu do **Nápověda > Data a zdroje**,
+- další dlouhé provozní vysvětlivky Záměn přesunuty do hromadné Nápovědy.
+
+Výpočtové jádro, katalogové únosnosti a databáze `actions.sqlite3` se nemění.
+
 ## 2.2.3
 
 Úklid hlavního rozhraní, našeptávač smykových trnů a oprava převodu Schöck Isokorb KL-O do záměn za HIT.

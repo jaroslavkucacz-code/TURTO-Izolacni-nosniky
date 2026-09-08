@@ -1,0 +1,25 @@
+TURTO 2.2.4
+
+Sjednocení tabulek a pracovních záložek Izolační nosníky / Smykové trny.
+
+TABULKY
+- Všechny hlavní datové tabulky používají stejný model ovládání jako Dekodér izolačních nosníků.
+- Kliknutí na záhlaví řadí vzestupně / sestupně a zobrazuje šipku směru řazení.
+- Pravé tlačítko v záhlaví nabízí řazení, posun sloupce, automatickou šířku, skrytí a správu všech sloupců.
+- Dialog Sloupce umožňuje měnit pořadí, viditelnost a šířky; nastavení se ukládá.
+- Stejné ovládání se automaticky připojuje i k datovým tabulkám v nově otevřených dialogových oknech.
+- Aktivní řazení a rozložení se znovu aplikuje po obnovení dat tabulky.
+
+SMYKOVÉ TRNY
+- Dekodér, Návrh a Záměny mají viditelné tlačítko Sloupce… u řádkových akcí.
+- Přidán přímý Export Excel… pro tabulky smykových trnů; při výběru exportuje vybrané řádky, jinak aktuálně zobrazené.
+- Sjednocen název Kopírovat pro Excel.
+- Z Dekodéru a Záměn odstraněno z hlavního UI destruktivní Vymazat vše; běžné mazání vybraných řádků zůstává. V samostatném Návrhu zůstává Vymazat vše k rychlému resetu návrhového listu.
+
+IZOLAČNÍ NOSNÍKY
+- V Záměnách odstraněno tlačítko Aktualizovat z Dekodéru / projektu, které pouze ručně obnovovalo stejná data společné AKCE; tabulka se obnovuje automaticky.
+- Z hlavního Dekodéru skryt Export CSV; zůstává rychlé Kopírovat pro Excel a nativní Export Excel.
+- Technická údržba HIT (Aktualizovat data HIT / Otevřít zdroj HIT) je přesunuta z hlavního návrhového panelu do Nápověda > Data a zdroje.
+- Další dlouhé provozní vysvětlivky Záměn jsou přesunuty do hromadné Nápovědy; technické výsledky a upozornění zůstávají v tabulkách a detailech.
+
+Výpočtové jádro, katalogové únosnosti a databáze actions.sqlite3 se touto verzí nemění.
