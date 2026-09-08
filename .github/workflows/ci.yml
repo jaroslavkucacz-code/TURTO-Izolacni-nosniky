@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   verify-release:
+    name: Verify release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,3 +28,34 @@ jobs:
 
       - name: Verify release and repository hygiene
         run: python tools/verify_release.py
+
+  windows-smoke:
+    name: Windows smoke
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify release on Windows
+        run: python tools/verify_release.py
+
+      - name: Parse recovery PowerShell
+        shell: pwsh
+        run: |
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile(
+            (Resolve-Path '.\OPRAVIT_TURTO.ps1'),
+            [ref]$tokens,
+            [ref]$errors
+          ) | Out-Null
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
+          Write-Host 'OPRAVIT_TURTO.ps1: PowerShell syntax OK'
