@@ -1,0 +1,1 @@
+Tkinter smoke test completed on rebuilt 2.1.0 branch. No pack/grid geometry-manager conflict in shear-dowel workspace.
