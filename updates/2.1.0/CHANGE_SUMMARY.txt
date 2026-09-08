@@ -1,0 +1,7 @@
+TURTO 2.1.0
+- oprava překrytého Dekodéru ISO
+- aktivní Smykové trny: Dekodér / Návrh / Záměny
+- návrh Ancon z tabulkových VRd
+- záměny Ancon ↔ Schöck Stacon podle katalogové VRd původního trnu
+- Schöck SLD/SLD-Q bezpečně ponechán na KONTROLA DESKY
+- Smykové trny ukládány do centrální AKCE a zahrnuty do PDF AKCE

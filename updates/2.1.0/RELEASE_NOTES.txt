@@ -1,0 +1,19 @@
+TURTO 2.1.0
+
+Smykové trny + oprava rozložení platformy
+
+- Opravena výška a vertikální rozložení Dekodéru ISO v nové platformě 2.x; horní část obsahu už nemá být překrytá následující lištou.
+- Produktová oblast Smykové trny je nově aktivní a má vlastní Dekodér / Návrh / Záměny.
+- Dekodér rozpoznává Ancon ED/ESD/ESDQ, HLD/HLDQ, DSD/DSDQ, DSDS/DSDSQ, E-HLD a Schöck Stacon LD/LD-Q/SLD/SLD-Q.
+- Návrh používá tabulované hodnoty Ancon z katalogu „Querkraftdorne für die Bauindustrie, Oktober 2018 (V1)“ podle VEd na jeden trn, tloušťky desky, šířky spáry, betonu, požadovaného pohybu a způsobu použití.
+- Pro nízkou řadu lze rozlišit ED (plastová objímka) / ESD (nerezová objímka); požadavek na příčný posun volí Q variantu.
+- E-HLD je veden jako samostatná aplikace pro napojení nové desky na stávající betonovou stěnu.
+- Záměny používají jako požadavek katalogovou VRd původního trnu při stejné geometrii, nikoli pouze aktuální VEd.
+- Cílový výrobce záměny může být Ancon nebo Schöck.
+- Schöck Stacon LD/LD-Q používá tabulované VRd z Technical Information 2023.1/August.
+- Schöck Stacon SLD/SLD-Q používá tabulované VRd,ce,s; pokud trnové spojení vyhoví, výsledek zůstává KONTROLA DESKY, protože před konečným VYHOVUJE musí být samostatně ověřena smyková únosnost desky a předepsaná výztuž.
+- Automatický návrh ani záměny neinterpolují mezi katalogovými tabulkami: tloušťka se bere konzervativně na nejbližší nižší tabulovanou hodnotu a spára na nejbližší vyšší tabulovanou hodnotu.
+- Data Smykových trnů se ukládají do stejné centrální AKCE jako izolační nosníky.
+- Export PDF AKCE nově zahrnuje také navržené smykové trny; VRd je uváděna v kN/prvek.
+
+Výpočtové jádro izolačních nosníků HIT, M–V interakce, katalogy HIT ani existující záměny izolačních nosníků se touto verzí nemění.
