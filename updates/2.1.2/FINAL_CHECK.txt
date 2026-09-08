@@ -1,0 +1,5 @@
+TURTO 2.1.2 startup hotfix review complete.
+- direct verified 2.1.0 runtime chain restored
+- historical Schöck logic isolated to decoder patch
+- design/substitution engines unchanged
+- runtime startup exceptions logged to startup_2_1_2.log
