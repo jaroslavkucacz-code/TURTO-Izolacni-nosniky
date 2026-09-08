@@ -42,6 +42,9 @@ jobs:
       - name: Verify layout hierarchy and contextual actions
         run: python tools/verify_ui_225.py
 
+      - name: Verify substitution geometry and UI visibility
+        run: python tools/verify_substitution_226.py
+
   windows-smoke:
     name: Windows smoke
     runs-on: windows-latest
@@ -72,6 +75,9 @@ jobs:
 
       - name: Verify layout hierarchy and contextual actions on Windows
         run: python tools/verify_ui_225.py
+
+      - name: Verify substitution geometry and UI visibility on Windows
+        run: python tools/verify_substitution_226.py
 
       - name: Parse recovery PowerShell
         shell: pwsh
