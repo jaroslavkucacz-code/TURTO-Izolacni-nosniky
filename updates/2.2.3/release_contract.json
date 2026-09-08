@@ -1,0 +1,14 @@
+{
+  "version": "2.2.3",
+  "required_targets": [
+    "isokorb_compat.py",
+    "shear_autocomplete.py",
+    "ui_help.py",
+    "shear_movement.py",
+    "shear_dowels_current.py",
+    "schoeck_dorn_decoder.py"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ]
+}
