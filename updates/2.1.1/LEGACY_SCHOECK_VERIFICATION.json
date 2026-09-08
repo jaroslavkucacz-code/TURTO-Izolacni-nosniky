@@ -1,0 +1,23 @@
+{
+  "version": "2.1.1",
+  "scope": "decoder-only historical Schöck Dorn aliases",
+  "accepted_examples": [
+    "SLD-60",
+    "SLD-Q-60",
+    "SLDQ 60",
+    "Schöck Dorn SLD 80",
+    "LD-20-S-A4",
+    "LD-20-P-A4",
+    "LD-20-P-Zn",
+    "LD-Q-20-S-A4",
+    "LD-20-F-A4",
+    "LD 20 Part A4"
+  ],
+  "legacy_sld_classes": [40, 50, 60, 70, 80, 120, 150],
+  "legacy_ld_diameters": [16, 20, 22, 25, 30],
+  "negative_check": "SLD-Q-220 remains current Stacon notation and is not classified as legacy",
+  "design_changed": false,
+  "substitution_changed": false,
+  "legacy_substitution_allowed": false,
+  "thermal_break_calculation_core_changed": false
+}
