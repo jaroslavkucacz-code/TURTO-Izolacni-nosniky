@@ -1,6 +1,6 @@
 {
   "version": "2.1.3",
-  "notes": "Návrh HIT začíná bez automatického prázdného řádku. Ve Smykových trnech lze z Dekodéru převést vybraný řádek do Záměn a zvolit cílového výrobce Ancon nebo Schöck. Aktualizátor nově načítá manifest přes GitHub API, aby se vyhnul zastaralé RAW cache.",
+  "notes": "Návrh HIT začíná bez automatického prázdného řádku. Ve Smykových trnech lze z Dekodéru převést vybraný řádek do Záměn a zvolit cílového výrobce Ancon nebo Schöck. Aktualizátor používá GitHub API, aby se vyhnul zastaralé RAW cache.",
   "files": [
     {
       "path": "app_runtime.pyw",
@@ -21,11 +21,6 @@
       "path": "hit_pdf.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/44994a40b3d018269841c915b4742adae26acafa/updates/2.1.2/hit_pdf.py",
       "sha256": "62909e7ecbcc5f56d7dca077cf95421cb1ee10931599433557abece32d629ea8"
-    },
-    {
-      "path": "updater.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/91a935d7aa025d8cf4a4856139af9e41df8d0b72/updates/2.1.3/updater.py",
-      "sha256": "974b66615c4a2cfcadb6e3c4060f5a05601625fba7ffbceb5ed5164171073cb5"
     },
     {
       "path": "RELEASE_NOTES.txt",
