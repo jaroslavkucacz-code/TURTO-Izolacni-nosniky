@@ -1,0 +1,18 @@
+{
+  "version": "2.1.2",
+  "scope": "startup hotfix after 2.1.1",
+  "strategy": "verified 2.1.0 runtime + isolated historical Schöck decoder patch",
+  "checks": [
+    "2.1.2 app_runtime imports app_runtime_202 directly, matching the proven 2.1.0 startup chain",
+    "no app_runtime_210 / shear_dowels_*_210 wrapper is required by 2.1.2",
+    "historical Schöck aliases patch only decoder globals and decoder presentation methods",
+    "SLD-60 / SLD-Q-60 / SLDQ 60 / Schöck Dorn SLD 80 recognized as historical decoder-only",
+    "LD-20-S-A4 / LD-20-P-Zn / LD-Q-20-S-A4 recognized as historical decoder-only",
+    "current SLD-Q-220 is not classified as historical",
+    "design and substitution engines remain those from verified 2.1.0",
+    "bootstrap catches runtime startup exceptions and writes startup_2_1_2.log",
+    "AKCE database is not modified by the installer"
+  ],
+  "thermal_calculation_core_changed": false,
+  "shear_design_tables_changed": false
+}
