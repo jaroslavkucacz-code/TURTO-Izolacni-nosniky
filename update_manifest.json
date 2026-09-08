@@ -1,21 +1,31 @@
 {
-  "version": "2.1.2",
-  "notes": "Oprava spuštění po 2.1.1: návrat na ověřený runtime 2.1.0, historické Schöck značení zůstává pouze jako izolovaný patch Dekodéru. Přidána diagnostika startu do startup_2_1_2.log.",
+  "version": "2.1.3",
+  "notes": "Návrh HIT začíná bez automatického prázdného řádku. Ve Smykových trnech lze z Dekodéru převést vybraný řádek do Záměn a zvolit cílového výrobce Ancon nebo Schöck.",
   "files": [
     {
-      "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/138ea277739402297fedf8bb55ef2fe3fcba0f9b/updates/2.1.2/app.pyw",
-      "sha256": "3c4d30c03b0f32a9959b1ae92a044aad5a183df07abd0e07dd20f22aac9843fe"
+      "path": "app_runtime.pyw",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/44994a40b3d018269841c915b4742adae26acafa/updates/2.1.3/app_runtime.pyw",
+      "sha256": "cc83742ec6b4657c3f39ff3d5cacc55d71afdc12227ab2651858183df455ef9a"
     },
     {
-      "path": "updater.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0b49755f5a004e0eb5a7ae300502ec98d2e60af9/updates/1.1.24/updater.py",
-      "sha256": "a1579c8ef468a866eeb817aec8ca0309f2e0bb56b7944ec5615fca19d9599338"
+      "path": "hit_workspace.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/44994a40b3d018269841c915b4742adae26acafa/updates/2.1.3/hit_workspace.py",
+      "sha256": "79e4f24e58d0fed61f8b4481222593b7ec6d58599913525aa21fa5640e4841cb"
+    },
+    {
+      "path": "platform_workspace.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/44994a40b3d018269841c915b4742adae26acafa/updates/2.1.3/platform_workspace.py",
+      "sha256": "68b93bfbce7ecfe0f3d63c5a5b7277a0c8238387f27d9740b662863b88f9124a"
+    },
+    {
+      "path": "hit_pdf.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/44994a40b3d018269841c915b4742adae26acafa/updates/2.1.2/hit_pdf.py",
+      "sha256": "62909e7ecbcc5f56d7dca077cf95421cb1ee10931599433557abece32d629ea8"
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8ca47004da41db41fb37cbe169ef578d51d61393/updates/2.1.2/RELEASE_NOTES.txt",
-      "sha256": "639964a416fe3d4319fcf18d5f3bc9d574d7a3630c9f451b5d8de48463e3ddc6"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/44994a40b3d018269841c915b4742adae26acafa/updates/2.1.3/RELEASE_NOTES.txt",
+      "sha256": "54604a6901c78396ab1c335c35ada30752cbbb5c69c7f68d980e3598cd6ab832"
     }
   ]
 }
