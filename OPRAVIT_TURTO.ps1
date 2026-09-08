@@ -10,10 +10,10 @@ Add-Type -AssemblyName System.Windows.Forms
 
 $Version = '2.2.1'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = '40d455246a699eadd8b2179038073f6676cbacd6'
+$AppCommit = '015d6ade93af9523ae14e312fa39239b17d3cc5e'
 $UpdaterCommit = '5f395e56a8911e12783bdbd8378592963352cf69'
-$AppSha256 = 'eb60e0f863e6a9d8236f7c8a81417d9d8ff632df20fbf5bf85e2e1e77e580af7'
-$UpdaterSha256 = '9a421f4560dc7baa886b5781e3ad255eb71ab14941bb64990fa543b64c3fc706'
+$AppSha256 = 'a298e2354a21d48e66bf712485801482a3e81ad9922c5b336a84f34ac6bb67df'
+$UpdaterSha256 = '4b680b86e3f4b7546f600ae56254dc34e65494824f3fe74bd9149c1a41e559c4'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'
 $RecoveryLogName = 'recovery.log'
