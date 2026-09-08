@@ -40,9 +40,8 @@ function Select-TargetFolder {
         return [System.IO.Path]::GetFullPath($TargetFolder)
     }
 
-    $scriptDir = Split-Path -Parent $MyInvocation.ScriptName
-    if (Test-Path (Join-Path $scriptDir 'app.pyw')) {
-        return [System.IO.Path]::GetFullPath($scriptDir)
+    if ($PSScriptRoot -and (Test-Path (Join-Path $PSScriptRoot 'app.pyw'))) {
+        return [System.IO.Path]::GetFullPath($PSScriptRoot)
     }
 
     $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
