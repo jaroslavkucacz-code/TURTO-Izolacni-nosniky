@@ -1,0 +1,15 @@
+TURTO 2.1.4
+
+Sjednocení ovládání smykových trnů s oblastí Izolační nosníky:
+- Smykové trny mají stejné pracovní členění Dekodér / Návrh / Záměny a jednotnější lišty nástrojů.
+- Dekodér nově podporuje Hromadné dekódování z výkazu s vložením ze schránky, kontrolním náhledem a převzetím pouze rozpoznaných řádků.
+- Návrh smykových trnů nově podporuje Vložit výkaz…; lze vložit např. VEd = 90 kN/trn, společně s výchozí výškou, spárou, betonem, pohybem, použitím a objímkou.
+- Ve všech třech částech jsou sjednocené akce nad řádky: upravit pozici / ks, duplikovat, posunout nahoru / dolů, smazat a filtrovat.
+- Dekodér i Návrh umí kopírovat aktuální tabulku do Excelu přes schránku.
+- Záměny mají společnou volbu cílového výrobce Ancon / Schöck a tlačítko Aktualizovat z Dekodéru.
+- Aktualizace z Dekodéru hromadně vytvoří / přepočítá záměny a zachová ručně vložené záměny.
+- Jednotlivý dekódovaný řádek lze stále převést do Záměn dvojklikem nebo tlačítkem Převést do Záměn.
+- Historické značení Schöck Dorn zůstává z bezpečnostních důvodů pouze v Dekodéru.
+
+Výpočtová pravidla a katalogové hodnoty Ancon / Leviat a Schöck se touto verzí nemění.
+Databáze AKCÍ se aktualizací nemění.
