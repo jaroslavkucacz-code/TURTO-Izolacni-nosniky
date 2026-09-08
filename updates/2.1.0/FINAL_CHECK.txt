@@ -1,0 +1,12 @@
+TURTO 2.1.0 – final pre-merge check
+
+- branch rebuilt from clean 2.0.2 after rejecting earlier corrupted draft
+- Ancon catalogue checks: HLD 22 / h200 / gap20 / C25/30 = 84 kN; DSD 100 / h400 / gap40 / C30/37 = 161 kN
+- design smoke: VEd 80 kN, h240, gap20, C25/30 -> Ancon HLD 22, VRd 98 kN
+- substitution uses original catalogue VRd as requirement, not only current VEd
+- Schöck LD/LD-Q available for verified table ranges
+- Schöck SLD/SLD-Q never reports automatic VYHOVUJE without slab shear verification; state remains KONTROLA DESKY
+- Tkinter shear-dowel workspace smoke: Decoder / Design / Substitution build without pack/grid conflict
+- central AKCE stores shear-dowel data and AKCE PDF collector includes shear-dowel proposals
+- legacy thermal-break calculation core and M-V interaction unchanged
+- decoder nested-layout spacing fix included
