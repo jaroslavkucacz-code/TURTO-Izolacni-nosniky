@@ -14,6 +14,7 @@ FILES = (
     "platform_workspace.py",
     "app_runtime.pyw",
     "runtime_installer.py",
+    "app.pyw",
     "RELEASE_NOTES.txt",
 )
 
@@ -44,12 +45,16 @@ def main() -> int:
     consistency = (RELEASE / "ui_consistency.py").read_text(encoding="utf-8")
     platform = (RELEASE / "platform_workspace.py").read_text(encoding="utf-8")
     installer = (RELEASE / "runtime_installer.py").read_text(encoding="utf-8")
+    bootstrap = (RELEASE / "app.pyw").read_text(encoding="utf-8")
     for token in ("Nastavit všechny sloupce", "Skrýt tento sloupec", "Seřadit", "displaycolumns"):
         assert token in tables
     for token in ("Export CSV", "Aktualizovat z Dekodéru", "Aktualizovat katalog", "Otevřít zdroj", "Vymazat vše", "Export Excel…", "Sloupce…"):
         assert token in consistency
     assert "install_table_controls" in platform and "apply_ui_consistency" in platform
     assert '"table_controls.py"' in installer and '"ui_consistency.py"' in installer
+    assert '"table_controls.py"' in bootstrap and '"ui_consistency.py"' in bootstrap
+    assert "ed693f2e500d27cb5a9c5ebf4f275bc860e9fea2" in bootstrap
+    assert "9415f17f66427b1b53ed3a5c3470bae4ea64ea0b6c6bee2012a96a386bc0c070" in bootstrap
 
     print("OK: TURTO 2.2.4 – jednotné tabulky, tlačítka a workflow záložek")
     return 0
