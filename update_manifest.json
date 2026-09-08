@@ -1,11 +1,11 @@
 {
-  "version": "2.1.0",
-  "notes": "Smykové trny: aktivní Ancon Dekodér/Návrh/Záměny, možnost záměny do Schöck Stacon, společný PDF výstup AKCE a oprava překrytého Dekodéru ISO.",
+  "version": "2.1.1",
+  "notes": "Dekodér smykových trnů nově rozpoznává historické značení Schöck Dorn SLD/SLD-Q a starší materiálové varianty LD. Historické typy jsou pouze pro Dekodér, ne pro automatický Návrh ani Záměny.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8e7a7f69562d58d01a0cb640cc756442d687f16c/updates/2.1.0/app.pyw",
-      "sha256": "451f8b8633aad272c520c5f9cbb0797a70cd4d5699cee9ac4c608356fd048c9a"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/2b9cce849679cef15bc22bb3a75549415913455f/updates/2.1.1/app.pyw",
+      "sha256": "25eccd0c09edf216391d47a29f3a3e878d5d84bd7bdd3d85f3473cd0d15bf062"
     },
     {
       "path": "updater.py",
@@ -14,8 +14,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4684c5546fc3a46b77e41c2548c47431fb66a98b/updates/2.1.0/RELEASE_NOTES.txt",
-      "sha256": "da3f7fa21fa31dbe3a71189529906b5eaff5c1aab36c406a7a2049a77474d933"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1215274105d23784a72574c2fa35fa82f652f7f9/updates/2.1.1/RELEASE_NOTES.txt",
+      "sha256": "230499f1c6f9f3723f8ebffadbad371d474cc858bcf03aa712bb095e85e16696"
     }
   ]
 }
