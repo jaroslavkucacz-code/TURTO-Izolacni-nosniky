@@ -79,12 +79,11 @@ function Download-VerifiedFile(
     for ($attempt = 1; $attempt -le 4; $attempt++) {
         try {
             # URL ukazuje na neměnný Git commit a stažený obsah se ověřuje SHA-256.
-            # Nepřidáváme query string: na Windows PowerShell 5.1 může zápis
-            # "$Url?param=..." bez oddělení názvu proměnné vytvořit neplatnou URI.
+            # Query string záměrně nepřidáváme kvůli kompatibilitě s Windows PowerShell 5.1.
             $downloadUrl = $Url
             Write-RecoveryLog $LogPath "Stahuji $Label, pokus $attempt/4"
             if ($attempt -eq 1) {
-                Write-RecoveryLog $LogPath "Zdroj $Label: $downloadUrl"
+                Write-RecoveryLog $LogPath ("Zdroj {0}: {1}" -f $Label, $downloadUrl)
             }
             Invoke-WebRequest -UseBasicParsing -Uri $downloadUrl -OutFile $Destination -Headers @{
                 'User-Agent' = 'TURTO-2.1.2-Recovery'
@@ -108,7 +107,6 @@ function Download-VerifiedFile(
         }
         catch {
             $lastError = $_.Exception.Message
-            Write-RecoveryLog $LogPath "Pokus $attempt selhal: $lastError"
             Remove-Item -LiteralPath $Destination -Force -ErrorAction SilentlyContinue
             if ($attempt -lt 4) {
                 Start-Sleep -Seconds $attempt
