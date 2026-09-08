@@ -1,0 +1,26 @@
+{
+  "version": "2.1.0",
+  "scope": "Ancon shear dowels + Schöck Stacon substitutions + platform layout fix",
+  "checks": [
+    "py_compile: clean shear_dowels_catalog.py, shear_dowels_ui.py and platform wrapper modules",
+    "Tkinter smoke under Xvfb: Smykové trny builds Dekodér / Návrh / Záměny without pack/grid conflicts",
+    "Tkinter smoke: Ancon design VEd=80 kN, h=240 mm, gap=20 mm, C25/30 -> HLD 22, VRd=98 kN",
+    "persistence smoke: shear design and substitution serialize, clear, load and reproduce rows",
+    "Ancon HLD 22 / h=200 / gap=20 / C25/30 -> VRd=84 kN",
+    "Ancon DSD 100 / h=400 / gap=40 / C30/37 -> VRd=161 kN",
+    "substitution uses source catalog VRd, not current VEd",
+    "Schöck LD/LD-Q uses tabulated full VRd from TI 2023.1/August",
+    "Schöck SLD/SLD-Q uses tabulated VRd,ce,s and remains KONTROLA DESKY pending slab shear verification",
+    "Schöck SLD-Q sizes restricted to verified 220 / 300 / 400",
+    "no interpolation: conservative lower slab-table / upper joint-width table selection",
+    "global AKCE PDF provider includes shear design rows with kN/prvek",
+    "thermal-break HIT calculation core and M-V interaction unchanged"
+  ],
+  "runtime_dependencies_added": [],
+  "thermal_calculation_core_changed": false,
+  "ancon_source": "user supplied Ancon Querkraftdorne fuer die Bauindustrie, Oktober 2018 V1",
+  "schoeck_sources": [
+    "TI Schoeck Stacon type LD / GB-en / 2023.1 / August",
+    "TI Schoeck Stacon type SLD / GB-en / 2023.1 / August"
+  ]
+}
