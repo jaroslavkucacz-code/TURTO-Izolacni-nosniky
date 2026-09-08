@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.2.3
+
+Úklid hlavního rozhraní, našeptávač smykových trnů a oprava převodu Schöck Isokorb KL-O do záměn za HIT.
+
+- dlouhé provozní popisky a vysvětlivky přesunuty do společné **Nápovědy** vpravo nahoře,
+- technické zdroje, strany a katalogové hodnoty zůstávají v Detailu prvku,
+- Smykové trny mají plovoucí našeptávač v Dekodéru i při ručním zadání zdrojového trnu v Záměnách,
+- našeptávač zahrnuje Ancon / Leviat, současný Schöck Stacon a podporovaný archiv Schöck Dorn,
+- pro ověřenou rodinu Schöck Isokorb T/XT KL-O se `CV1` překládá na 35 mm a `CV2` na 50 mm,
+- KL-O se pro záměnu vyhodnocuje jako provedení s tlakovými ložisky HTE-Compact®,
+- staré odvozené chyby záměny kvůli neznámému krytí/tlakovému přenosu se bezpečně resetují k novému přepočtu,
+- přidán samostatný regresní test UI, autocomplete a Schöck KL-O na Linux i Windows.
+
+Tabulkové únosnosti, katalogová data a databáze `actions.sqlite3` se nemění.
+
 ## 2.2.2
 
 Kontrola a sjednocení posuvnosti smykových trnů bez změny tabulkových únosností.
