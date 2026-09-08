@@ -2,10 +2,24 @@
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.1.2**  
+**Aktuální vydání: TURTO 2.1.3**  
 Produktové oblasti: **Izolační nosníky** + **Smykové trny**.
 
 Lokální Windows aplikace pro práci s centrálními AKCEMI, dekódování výrobků, návrhy a katalogové záměny.
+
+## TURTO 2.1.3
+
+- nový návrh izolačních nosníků začíná s prázdnou tabulkou; řádek se vloží až tlačítkem **+ Přidat řádek**,
+- také **Vymazat vše** ponechá návrh HIT skutečně bez řádků,
+- v Dekodéru smykových trnů lze vybrat řádek a přímo zvolit, zda se má zaměnit za **Ancon** nebo **Schöck**,
+- tlačítko **Převést do Záměn** přenese do záměny pozici, počet kusů, označení, výšku, spáru, beton a krytí,
+- dvojklik na dekódovaný smykový trn používá stejnou volbu cílového výrobce,
+- výpočtová pravidla a katalogové hodnoty Ancon / Leviat a Schöck se v 2.1.3 nemění,
+- databáze AKCÍ se aktualizací nemění.
+
+## Online aktualizace
+
+Program používá `update_manifest.json`. Z funkční verze TURTO 2.1.2 stačí v programu spustit **Aktualizace**; nabídne se verze **2.1.3** a stáhnou se jen změněné programové soubory. Aktualizátor před nahrazením souborů vytváří lokální zálohu v `.update_backup`.
 
 ## Když se TURTO vůbec nespustí
 
@@ -14,23 +28,18 @@ Pokud je lokálně nainstalovaná verze, která spadne ještě před otevřením
 1. Stáhněte aktuální ZIP repozitáře přes **Code → Download ZIP** a rozbalte jej.
 2. Spusťte **`OPRAVIT_TURTO.bat`**.
 3. Pokud se otevře výběr složky, vyberte svoji skutečnou instalační složku TURTO – tu, která obsahuje `app.pyw` nebo `Spustit_program.vbs`.
-4. Oprava vytvoří zálohu stávající spouštěcí vrstvy, nainstaluje ověřený bootstrap TURTO 2.1.2 a vynutí nové rozbalení runtime při prvním startu.
+4. Oprava vytvoří zálohu stávající spouštěcí vrstvy a obnoví ověřený startovací základ 2.1.2. Po úspěšném spuštění pak použijte běžnou online aktualizaci na 2.1.3.
 5. **Databáze `actions.sqlite3` ani obsah uložených AKCÍ se nemění.**
 
-Opravný nástroj ověřuje stažené soubory pomocí SHA-256. Průběh zapisuje do `recovery_2_1_2.log`. Pokud už bootstrap 2.1.2 naběhne, ale selže následný start runtime, úplný traceback se uloží do `startup_2_1_2.log` přímo v instalační složce TURTO.
+Opravný nástroj zapisuje průběh do `recovery_2_1_2.log`. Pokud bootstrap naběhne, ale selže následný start runtime, úplný traceback se uloží do `startup_2_1_2.log` přímo v instalační složce TURTO.
 
-## TURTO 2.1.2
+## TURTO 2.1.2 – základ před 2.1.3
 
 - návrat na ověřený startovací řetězec 2.1.0 po regresi 2.1.1,
 - izolační nosníky HIT zůstávají na stávajícím výpočtovém jádře včetně M–V interakce,
 - smykové trny mají vlastní **Dekodér / Návrh / Záměny**,
 - aktivní jsou současné návrhové a záměnové tabulky Ancon / Leviat a Schöck Stacon,
-- historické Schöck Dorn značení je pouze pomůcka Dekodéru a nevstupuje do automatického návrhu ani záměn,
-- centrální databáze AKCÍ se při runtime opravách nemění.
-
-## Automatické aktualizace
-
-Program používá `update_manifest.json` a při běžně funkčním startu stahuje pouze změněné programové soubory. Nouzová oprava výše je určena právě pro situaci, kdy se aplikace kvůli chybě před aktualizátorem vůbec neotevře.
+- historické Schöck Dorn značení je pouze pomůcka Dekodéru a nevstupuje do automatického návrhu ani záměn.
 
 ---
 
