@@ -14,6 +14,7 @@ FILES = (
     "app_runtime.pyw",
     "runtime_installer.py",
     "app.pyw",
+    "RELEASE_NOTES.txt",
 )
 
 
