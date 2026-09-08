@@ -109,6 +109,16 @@ def build_decoder(owner: Any, parent: ttk.Frame) -> None:
     _ORIGINAL_BUILD_DECODER(owner, parent)
     _hide_decoder_cover(parent)
 
+    # Archivní Schöck SLD má samostatnou tabulku C20/25. Rozšíření platí
+    # pouze pro Dekodér; návrh Ancon dál správně začíná na C25/30.
+    try:
+        concrete_var = str(owner.shear_decoder_vars["concrete"])
+        for widget in _prev._walk(parent):
+            if isinstance(widget, ttk.Combobox) and str(widget.cget("textvariable")) == concrete_var:
+                widget.configure(values=("C20/25", "C25/30", "C30/37", "C35/45", "C40/50"))
+    except Exception:
+        pass
+
     # Uprav vysvětlení: krytí není vstupem dekodéru, archivní tabulka nese
     # vlastní referenční cnom.
     for widget in _prev._walk(parent):
