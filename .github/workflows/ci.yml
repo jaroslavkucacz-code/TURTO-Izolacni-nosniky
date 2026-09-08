@@ -36,6 +36,9 @@ jobs:
       - name: Verify UI, autocomplete and Schöck KL-O
         run: python tools/verify_ui_223.py
 
+      - name: Verify unified tables and tab consistency
+        run: python tools/verify_ui_224.py
+
   windows-smoke:
     name: Windows smoke
     runs-on: windows-latest
@@ -60,6 +63,9 @@ jobs:
 
       - name: Verify UI, autocomplete and Schöck KL-O on Windows
         run: python tools/verify_ui_223.py
+
+      - name: Verify unified tables and tab consistency on Windows
+        run: python tools/verify_ui_224.py
 
       - name: Parse recovery PowerShell
         shell: pwsh
