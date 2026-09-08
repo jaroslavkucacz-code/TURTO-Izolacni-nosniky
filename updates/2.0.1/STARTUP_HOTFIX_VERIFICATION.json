@@ -1,0 +1,16 @@
+{
+  "version": "2.0.1",
+  "issue": "2.0.0 startup crash: self.add_aux_row missing while building generic supplementary Add row button",
+  "root_cause": "hit_aux_ui publishes add_aux_row_for_type, not add_aux_row",
+  "fix": "compatibility alias add_aux_row -> add_aux_row_for_type(HT) on the shared HitWorkspaceMixin",
+  "checks": [
+    "uploaded app.log traceback matched platform_workspace -> hit_workspace._postprocess -> self.add_aux_row",
+    "verified hit_aux_ui public methods: add_aux_row_for_type exists; add_aux_row does not",
+    "py_compile passed for 2.0.1 hit_workspace.py and app_runtime.pyw",
+    "generic alias smoke returned HT through add_aux_row_for_type",
+    "fix does not touch hit_core, M-V interaction, catalogs, action database or substitutions",
+    "2.0.1 bootstrap uses immutable runtime commit"
+  ],
+  "calculation_core_changed": false,
+  "database_schema_changed": false
+}
