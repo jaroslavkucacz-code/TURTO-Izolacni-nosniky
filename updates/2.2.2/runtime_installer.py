@@ -22,7 +22,7 @@ RUNTIME_LAYOUT = "2"
 PAYLOADS = {
     "app_runtime.pyw": ("408c932306b4fb3a3de76ddf9d4cbb3a854319a9", "updates/2.2.2/app_runtime.pyw", "cd2b47bb60bc81009d95f1cd5ee860fa3256ae9e8ab362672e67d9e51aa18131"),
     "platform_workspace.py": ("88f52bcd32a1813cd59d3306d0845c6775d29842", "updates/2.2.2/platform_workspace.py", "ca5cb24fba2aefb5f30e9481e980c1ca1fd5b9a275b63f0a67d62c5de7e2e926"),
-    "shear_movement.py": ("cbac3861a41040f8da59683898820767fd4f43a9", "updates/2.2.2/shear_movement.py", "0000000000000000000000000000000000000000000000000000000000000000"),
+    "shear_movement.py": ("cbac3861a41040f8da59683898820767fd4f43a9", "updates/2.2.2/shear_movement.py", "fbe257543cf6ce6ffb901c8378d2c9ebaaa71fedbeef717b2fcf20d0597caa6d"),
     "shear_dowels_current.py": ("2f138cacf2d434c7b195311e05f1144f815a5e24", "updates/2.2.0/shear_dowels_current.py", "a37e244096660b5b827241c5f0eb2c8cd80a9f0b44f6c587d1711b0c05a065ce"),
     "schoeck_dorn_decoder.py": ("2f138cacf2d434c7b195311e05f1144f815a5e24", "updates/2.2.0/schoeck_dorn_decoder.py", "310fff1beda0eaf8c7d0c489facf9ddd5c5205219d3c2da0c1008c45a0c648b0"),
     "hit_workspace.py": ("44994a40b3d018269841c915b4742adae26acafa", "updates/2.1.3/hit_workspace.py", "79e4f24e58d0fed61f8b4481222593b7ec6d58599913525aa21fa5640e4841cb"),
