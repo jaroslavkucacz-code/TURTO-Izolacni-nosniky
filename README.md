@@ -2,12 +2,27 @@
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.2.2**
+**Aktuální vydání: TURTO 2.2.3**
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
 - **Izolační nosníky** – Dekodér / Návrh / Záměny
 - **Smykové trny** – Dekodér / Návrh / Záměny
+
+## TURTO 2.2.3
+
+2.2.3 pokračuje v úklidu pracovního rozhraní a opravuje konkrétní převod Schöck Isokorb do záměny za HIT.
+
+- vpravo nahoře je společná **Nápověda**; dlouhé provozní vysvětlivky už nezabírají místo v hlavní pracovní ploše,
+- technické údaje důležité pro audit – katalog, strany, statické hodnoty a původní vstup – zůstávají v Detailu prvku,
+- Smykové trny mají plovoucí našeptávač označení v Dekodéru i při ručním zadání zdrojového trnu v Záměnách,
+- našeptávač zahrnuje Ancon / Leviat, současný Schöck Stacon a podporovaná historická označení Schöck Dorn,
+- pro ověřenou rodinu Schöck Isokorb T/XT KL-O se `CV1` převádí na `cnom = 35 mm` a `CV2` na `cnom = 50 mm`,
+- KL-O je pro záměnu správně vyhodnocen jako provedení s tlakovými ložisky HTE-Compact®,
+- staré odvozené chybové mapování způsobené neznámým CV1 / tlakovým přenosem se bezpečně resetuje a lze jej znovu přepočítat,
+- neznámé Schöck CV kódy se obecně neodhadují; pravidlo je omezené na ověřenou rodinu.
+
+Tabulkové únosnosti, katalogová data a databáze AKCÍ se touto verzí nemění.
 
 ## TURTO 2.2.2
 
@@ -20,18 +35,16 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - Ancon / Leviat `ESDQ`, `HLDQ`, `DSDQ`, `DSDSQ` jsou obousměrné; varianty bez Q jednosměrné,
 - neověřená varianta `E-HLDQ` se už automaticky nevytváří,
 - záměna zachovává požadovanou posuvnost zdrojového trnu,
-- nový regresní test pohybu běží v Linux i Windows CI.
-
-Tabulkové únosnosti, statická pravidla a databáze AKCÍ se touto verzí nemění.
+- regresní test pohybu běží v Linux i Windows CI.
 
 ## TURTO 2.2.1
 
-2.2.1 pokračuje v technickém úklidu 2.2.0 a soustředí se na **spouštění, recovery a bezpečnost aktualizací**. Statická pravidla, katalogové hodnoty ani data AKCÍ se nemění.
+2.2.1 pokračuje v technickém úklidu 2.2.0 a soustředí se na **spouštění, recovery a bezpečnost aktualizací**.
 
-- `app.pyw` je obecný aktuální bootstrap; nouzová cesta už není svázaná s označením 2.1.2,
-- aktuální runtime používá marker `.turto_runtime_current.ok` a obecný diagnostický log `startup.log`,
+- `app.pyw` je obecný aktuální bootstrap,
+- aktuální runtime používá marker `.turto_runtime_current.ok` a diagnostický log `startup.log`,
 - `OPRAVIT_TURTO` obnovuje stejný ověřený bootstrap a updater jako online release,
-- recovery zapisuje do `recovery.log` a před změnou spouštěcí vrstvy vytváří vlastní zálohu,
+- recovery zapisuje do `recovery.log` a před změnou spouštěcí vrstvy vytváří zálohu,
 - updater nejprve ověří a zazálohuje všechny měněné soubory a při chybě provede rollback,
 - `actions.sqlite3` je výslovně chráněný soubor a release manifest jej nesmí aktualizovat,
 - CI kontroluje vazbu manifest → bootstrap → runtime installer → recovery včetně SHA-256.
@@ -69,15 +82,7 @@ V kořeni repozitáře je nouzová cesta:
 - `OPRAVIT_TURTO.bat`
 - `OPRAVIT_TURTO.ps1`
 
-Používá se pouze tehdy, když aplikace spadne ještě před dosažením běžného tlačítka **Aktualizace**. Oprava:
-
-1. vybere nebo rozpozná instalační složku TURTO,
-2. zazálohuje stávající spouštěcí soubory,
-3. stáhne a SHA-256 ověří aktuální `app.pyw` a `updater.py`,
-4. vynutí kontrolovanou obnovu runtime při následujícím startu,
-5. pokusí se TURTO znovu spustit.
-
-Nouzová oprava nemění databázi AKCÍ. Diagnostika je v `recovery.log`; pokud selže následný start aplikace, podrobnosti jsou v `startup.log`.
+Používá se pouze tehdy, když aplikace spadne ještě před dosažením běžného tlačítka **Aktualizace**. Nouzová oprava nemění databázi AKCÍ. Diagnostika je v `recovery.log`; pokud selže následný start aplikace, podrobnosti jsou v `startup.log`.
 
 ## Historický převod v0.4.0 / v0.5.0
 
@@ -93,11 +98,12 @@ Aktuální větev používá jediný CI workflow:
 .github/workflows/ci.yml
 ```
 
-Kontrolu lze spustit i lokálně:
+Kontroly lze spustit i lokálně:
 
 ```text
 python tools/verify_release.py
 python tools/verify_shear_movement.py
+python tools/verify_ui_223.py
 ```
 
 Kontrola odmítne mimo jiné:
@@ -108,6 +114,7 @@ Kontrola odmítne mimo jiné:
 - pokus zahrnout `actions.sqlite3` do online aktualizace,
 - rozpor mezi manifestem, bootstrapem, runtime installerem a recovery,
 - chybnou interpretaci Q variant a neověřenou E-HLDQ,
+- regresi převodu Schöck KL-O / CV1 / HTE-Compact,
 - syntakticky neplatný modul aktuálního release,
 - návrat historických build artefaktů do kořene repozitáře.
 
