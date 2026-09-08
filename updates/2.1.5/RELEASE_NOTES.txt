@@ -1,0 +1,11 @@
+TURTO 2.1.5
+
+- Historické Schöck Dorn SLD / SLD-Q 40, 50, 60, 70, 80, 120 a 150 mají v Dekodéru archivní tabulkové VRd z oficiální technické informace Schöck 2019.
+- Kompletní historické Schöck Dorn LD / LD-Q 16, 20, 22, 25 a 30 mají archivní VRd z technické informace Schöck 2017.
+- Archivní hodnoty se vybírají bez interpolace: výška se zaokrouhluje dolů na tabulkovou hodnotu a spára nahoru.
+- Dekodér už neobsahuje pole cnom Schöck. Referenční krytí je vlastnost archivní tabulky: SLD 30 mm, LD 20 mm, a zobrazuje se u zdroje.
+- U současného cílového Schöck se krytí zadává až v Záměnách, kde skutečně ovlivňuje výběr cílového prvku.
+- Archivní SLD/LD lze použít jako zdroj pro automatickou záměnu za Ancon nebo současný Schöck Stacon. Požadavkem záměny je archivní VRd původního trnu.
+- Samostatná historická označení komponent LD (Part A4/Zn/S/P) zůstávají pouze v Dekodéru, protože neurčují celý komplet.
+- Výpočtové tabulky současných Ancon / Leviat a Schöck Stacon se nemění.
+- Databáze AKCÍ se aktualizací nemění.
