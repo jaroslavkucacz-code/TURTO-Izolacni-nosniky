@@ -1,0 +1,17 @@
+{
+  "version": "2.0.2",
+  "issue": "Tkinter TclError caused by pack() inside grid-managed supplementary toolbar",
+  "verified_from_user_log": true,
+  "checks": [
+    "2.0.2 postprocess does not create a new supplementary button",
+    "existing +HT grid-managed button is reused and renamed to + Přidat řádek",
+    "button command calls add_aux_row_for_type('HT')",
+    "2.0.1 add_aux_row compatibility alias remains available",
+    "no calculation-core files changed",
+    "no catalogue files changed",
+    "no AKCE database schema or stored calculation payload changed",
+    "small bootstrap supports direct update from 1.1.x/2.0.x via pinned runtime installer"
+  ],
+  "calculation_core_changed": false,
+  "runtime_dependencies_added": []
+}
