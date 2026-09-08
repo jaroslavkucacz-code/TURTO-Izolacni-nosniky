@@ -8,14 +8,15 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '2.1.2'
+$Version = '2.2.1'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = '138ea277739402297fedf8bb55ef2fe3fcba0f9b'
-$UpdaterCommit = '0b49755f5a004e0eb5a7ae300502ec98d2e60af9'
-$AppSha256 = '3c4d30c03b0f32a9959b1ae92a044aad5a183df07abd0e07dd20f22aac9843fe'
-$UpdaterSha256 = 'a1579c8ef468a866eeb817aec8ca0309f2e0bb56b7944ec5615fca19d9599338'
-$RuntimeMarker = '.turto_runtime_2_1_2.ok'
-$StartupLog = 'startup_2_1_2.log'
+$AppCommit = '40d455246a699eadd8b2179038073f6676cbacd6'
+$UpdaterCommit = '5f395e56a8911e12783bdbd8378592963352cf69'
+$AppSha256 = 'eb60e0f863e6a9d8236f7c8a81417d9d8ff632df20fbf5bf85e2e1e77e580af7'
+$UpdaterSha256 = '9a421f4560dc7baa886b5781e3ad255eb71ab14941bb64990fa543b64c3fc706'
+$RuntimeMarker = '.turto_runtime_current.ok'
+$StartupLog = 'startup.log'
+$RecoveryLogName = 'recovery.log'
 
 function Show-Info([string]$Text) {
     [System.Windows.Forms.MessageBox]::Show(
@@ -40,7 +41,10 @@ function Select-TargetFolder {
         return [System.IO.Path]::GetFullPath($TargetFolder)
     }
 
-    if ($PSScriptRoot -and (Test-Path (Join-Path $PSScriptRoot 'app.pyw'))) {
+    if ($PSScriptRoot -and (
+        (Test-Path (Join-Path $PSScriptRoot 'app.pyw')) -or
+        (Test-Path (Join-Path $PSScriptRoot 'Spustit_program.vbs'))
+    )) {
         return [System.IO.Path]::GetFullPath($PSScriptRoot)
     }
 
@@ -54,8 +58,7 @@ function Select-TargetFolder {
 }
 
 function Test-TurtoFolder([string]$Folder) {
-    $markers = @('app.pyw', 'updater.py', 'Spustit_program.vbs', 'actions.sqlite3')
-    foreach ($marker in $markers) {
+    foreach ($marker in @('app.pyw', 'updater.py', 'Spustit_program.vbs')) {
         if (Test-Path (Join-Path $Folder $marker)) {
             return $true
         }
@@ -78,15 +81,12 @@ function Download-VerifiedFile(
     $lastError = $null
     for ($attempt = 1; $attempt -le 4; $attempt++) {
         try {
-            # URL ukazuje na neměnný Git commit a stažený obsah se ověřuje SHA-256.
-            # Query string záměrně nepřidáváme kvůli kompatibilitě s Windows PowerShell 5.1.
-            $downloadUrl = $Url
             Write-RecoveryLog $LogPath "Stahuji $Label, pokus $attempt/4"
             if ($attempt -eq 1) {
-                Write-RecoveryLog $LogPath ("Zdroj {0}: {1}" -f $Label, $downloadUrl)
+                Write-RecoveryLog $LogPath ("Zdroj {0}: {1}" -f $Label, $Url)
             }
-            Invoke-WebRequest -UseBasicParsing -Uri $downloadUrl -OutFile $Destination -Headers @{
-                'User-Agent' = 'TURTO-2.1.2-Recovery'
+            Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Destination -Headers @{
+                'User-Agent' = 'TURTO-Recovery-2.2.1'
                 'Cache-Control' = 'no-cache, no-store'
                 'Pragma' = 'no-cache'
             }
@@ -136,20 +136,31 @@ try {
         throw "Vybraná složka nevypadá jako instalace TURTO.`r`n`r`n$target`r`n`r`nVyberte složku obsahující app.pyw nebo Spustit_program.vbs."
     }
 
-    $recoveryLog = Join-Path $target 'recovery_2_1_2.log'
-    Set-Content -LiteralPath $recoveryLog -Encoding UTF8 -Value "TURTO $Version - nouzová oprava spuštění"
-    Write-RecoveryLog $recoveryLog "Cílová složka: $target"
+    $recoveryLog = Join-Path $target $RecoveryLogName
 
     $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
-    $backup = Join-Path $target ".recovery_before_2_1_2_$stamp"
+    $backup = Join-Path $target ".recovery_backup_$stamp"
     New-Item -ItemType Directory -Path $backup -Force | Out-Null
 
-    foreach ($name in @('app.pyw', 'updater.py', $RuntimeMarker, $StartupLog)) {
+    $backupNames = @(
+        'app.pyw',
+        'updater.py',
+        $RuntimeMarker,
+        $StartupLog,
+        $RecoveryLogName,
+        '.turto_runtime_2_1_2.ok',
+        'startup_2_1_2.log',
+        'recovery_2_1_2.log'
+    )
+    foreach ($name in $backupNames) {
         $source = Join-Path $target $name
         if (Test-Path -LiteralPath $source) {
             Copy-Item -LiteralPath $source -Destination (Join-Path $backup $name) -Force
         }
     }
+
+    Set-Content -LiteralPath $recoveryLog -Encoding UTF8 -Value "TURTO $Version - nouzová oprava spuštění"
+    Write-RecoveryLog $recoveryLog "Cílová složka: $target"
     Write-RecoveryLog $recoveryLog "Záloha spouštěcí vrstvy: $backup"
 
     $tempDir = Join-Path $env:TEMP ("turto_recovery_" + [Guid]::NewGuid().ToString('N'))
@@ -158,25 +169,28 @@ try {
     $appTemp = Join-Path $tempDir 'app.pyw'
     $updaterTemp = Join-Path $tempDir 'updater.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.1.2/app.pyw"
-    $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/1.1.24/updater.py"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.1/app.pyw"
+    $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/2.2.1/updater.py"
 
-    Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw 2.1.2' $recoveryLog
+    Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog
     Download-VerifiedFile $updaterUrl $updaterTemp $UpdaterSha256 'updater.py' $recoveryLog
 
     Copy-Item -LiteralPath $appTemp -Destination (Join-Path $target 'app.pyw') -Force
     Copy-Item -LiteralPath $updaterTemp -Destination (Join-Path $target 'updater.py') -Force
 
-    # Vynutí úplnou obnovu ověřeného runtime 2.1.0 při následujícím startu.
+    # Vynutí obnovu současné ověřené runtime sady při následujícím startu.
     Remove-Item -LiteralPath (Join-Path $target $RuntimeMarker) -Force -ErrorAction SilentlyContinue
+    Remove-Item -LiteralPath (Join-Path $target '.turto_runtime_2_1_2.ok') -Force -ErrorAction SilentlyContinue
     Remove-Item -LiteralPath (Join-Path $target $StartupLog) -Force -ErrorAction SilentlyContinue
+    Remove-Item -LiteralPath (Join-Path $target 'startup_2_1_2.log') -Force -ErrorAction SilentlyContinue
+    Remove-Item -LiteralPath (Join-Path $target 'recovery_2_1_2.log') -Force -ErrorAction SilentlyContinue
 
-    Write-RecoveryLog $recoveryLog 'Spouštěcí vrstva 2.1.2 byla nainstalována. Databáze AKCÍ nebyla měněna.'
+    Write-RecoveryLog $recoveryLog 'Aktuální spouštěcí vrstva byla nainstalována. Databáze AKCÍ nebyla měněna.'
 
     Show-Info (
-        "Opravná spouštěcí vrstva TURTO 2.1.2 byla nainstalována.`r`n`r`n" +
+        "Aktuální spouštěcí vrstva TURTO byla obnovena.`r`n`r`n" +
         "Databáze AKCÍ nebyla měněna.`r`n" +
-        "Při prvním startu se znovu stáhne ověřený runtime 2.1.0 a modul smykových trnů.`r`n`r`n" +
+        "Při prvním startu se ověří a případně obnoví současná runtime sada.`r`n`r`n" +
         "Program se nyní pokusí spustit."
     )
 
