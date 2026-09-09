@@ -1,11 +1,21 @@
 {
-  "version": "2.2.11",
-  "notes": "Úklid instalační složky TURTO. Staré logy a vývojové zálohy se přesouvají do Logy a Zaloha, staré runtime markery se odstraňují, verifikační soubory a dokumentace se ukládají do Dokumentace. Běžné runtime soubory a uživatelská data zůstávají beze změny.",
+  "version": "2.2.12",
+  "notes": "Druhá etapa bezpečného úklidu instalační složky. Neaktivní staré app/action/platform moduly se po kontrole vazeb přesouvají do Archiv/Stare_moduly, jednorázové diagnostické skripty do Nastroje/Diagnostika a historický soupis zdrojů Schöck do Dokumentace/Zdroje. Aktivní runtime moduly, spouštěč a actions.sqlite3 jsou chráněné.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/bd5b9bf3a8b4cc7d9f475880c85a4f18daa395f7/updates/2.2.11/app.pyw",
-      "sha256": "cd1dd9ad53a8564b8ff10f175c16ec043318926f6db6da2db72c62705d9ca16e"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/792047948eb70a261ce9eb007fbb6661fc9d533a/updates/2.2.12/app.pyw",
+      "sha256": "72d91fc43167c2eaa5093fa8869c778d957749f0f49daaddc400e7449660086c"
+    },
+    {
+      "path": "cleanup_stage1.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/fe369e16850af276ce83fbf6cd4f07c45ddc0a27/updates/2.2.12/cleanup_stage1.py",
+      "sha256": "84d24d68433b5a7042b7278c681f18cad310cec9bf1a27e9a66be5ef223bfda2"
+    },
+    {
+      "path": "cleanup_stage2.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/51427333931aa6faf30f910bc0aaf4c7daa4608f/updates/2.2.12/cleanup_stage2.py",
+      "sha256": "29b76a2776d11cb60f39011a59847107490fc4e2cc91a28e8dd278dc70d54f21"
     }
   ]
 }
