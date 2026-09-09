@@ -5,13 +5,13 @@
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0f1290c8d76d9943451c19a52be0fe77273d07fd/updates/2.2.13/app.pyw",
-      "sha256": "c7bf26c0ce560c39e80d73a5478c073f517b277cd12ef5e8f8d361a7e0ba8ba4"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6b68e7d0bd8a2e456fdf2d2d88046dfb45a95b3b/updates/2.2.13/app.pyw",
+      "sha256": "bdca113140e4c1d40a9a36a08848364f77d1289c02daebbbf993622db458fc5d"
     },
     {
       "path": "app_runtime.pyw",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/43d9acb1b5db4b89aa757fbf52773cbc4d810f0e/updates/2.2.13/app_runtime.pyw",
-      "sha256": "23620196aa79bf1f4de4a5bd8854800ee788c9451c2368dbeda91f40d4fef856"
+      "sha256": "c22ae956c3691a3b15bebf69f97f2f65d8489aadc0f4fa1f028739d43eacc159"
     },
     {
       "path": "platform_workspace.py",
