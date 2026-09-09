@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE = ROOT / "updates" / "2.2.8"
-FILES = ("pdf_scope.py", "ui_cleanup_228.py", "platform_workspace.py", "app_runtime.pyw", "runtime_installer.py", "RELEASE_NOTES.txt")
+FILES = ("pdf_scope.py", "ui_cleanup_228.py", "platform_workspace.py", "app_runtime.pyw", "runtime_installer.py", "app.pyw", "RELEASE_NOTES.txt")
 
 
 def sha(path: Path) -> str:
@@ -25,22 +25,18 @@ def main() -> int:
     pdf = (RELEASE / "pdf_scope.py").read_text(encoding="utf-8")
     for token in ('ReportScope("all", "Celá AKCE")', 'ReportScope("iso.decoder"', 'ReportScope("iso.design"', 'ReportScope("iso.substitution"', 'ReportScope("shear.decoder"', 'ReportScope("shear.design"', 'ReportScope("shear.substitution"', '"Smykové trny → Záměny"', 'collect_report_sections', 'export_pdf_dialog'):
         assert token in pdf, token
-
     cleanup = (RELEASE / "ui_cleanup_228.py").read_text(encoding="utf-8")
     for token in ("PDF je nadřazené produktovým oblastem", "Dekodér pracuje se všemi katalogy", "Export PDF…", "Ancon/Leviat:"):
         assert token in cleanup, token
-
     platform = (RELEASE / "platform_workspace.py").read_text(encoding="utf-8")
-    assert "export_pdf_dialog" in platform
-    assert "apply_ui_cleanup_228" in platform
-
+    assert "export_pdf_dialog" in platform and "apply_ui_cleanup_228" in platform
     installer = (RELEASE / "runtime_installer.py").read_text(encoding="utf-8")
     for token in ('"pdf_scope.py"', '"ui_cleanup_228.py"', '"platform_workspace.py"', '"app_runtime.pyw"', 'TURTO-2.2.8-runtime'):
         assert token in installer, token
-
+    bootstrap = (RELEASE / "app.pyw").read_text(encoding="utf-8")
+    assert 'VERSION = "2.2.8"' in bootstrap and 'updates/2.2.8/runtime_installer.py' in bootstrap
     notes = (RELEASE / "RELEASE_NOTES.txt").read_text(encoding="utf-8")
-    assert "Smykové trny → Záměny" in notes
-    assert "Dekodér / Návrh / Záměny" in notes
+    assert "Smykové trny → Záměny" in notes and "Dekodér / Návrh / Záměny" in notes
     print("OK: TURTO 2.2.8 – selectable PDF scope and workspace cleanup")
     return 0
 
