@@ -17,16 +17,13 @@ BASE_PATH = "updates/2.2.12/runtime_installer.py"
 BASE_SHA256 = "929ae15466c136ee2da503df257a76f01edd52332164bde107f17770c0a70cf6"
 RUNTIME_LAYOUT = "6"
 
+# PAYLOADS are ordinary current-runtime overlays. Existing regression checks
+# compare these with same-name manifest targets when such a target exists.
 PAYLOADS = {
     "runtime_paths.py": (
         "6fa3dca596112b71f77c7b45da1380beca9b259f",
         "updates/2.2.13/runtime_paths.py",
         "d25f98aeed24d866cf6b9f8ed63833d45e65252cf070f06600a91e61ec0e025a",
-    ),
-    "updater.py": (
-        "ecea6f3954b9fc61701e118840472d3841434b65",
-        "updates/2.2.13/updater.py",
-        "66f92731447afd2ce0dca0970838e7e194ecfbbe40af0be6bd18e3b7f36c87ed",
     ),
     "catalog_browser.py": (
         "045395211a8984d17ac582fe8b7d9b7be639712e",
@@ -42,6 +39,18 @@ PAYLOADS = {
         "43d9acb1b5db4b89aa757fbf52773cbc4d810f0e",
         "updates/2.2.13/app_runtime.pyw",
         "c22ae956c3691a3b15bebf69f97f2f65d8489aadc0f4fa1f028739d43eacc159",
+    ),
+}
+
+# The root updater and the Program updater deliberately differ. Root updater.py
+# applies update manifests; Program\updater.py is only a proxy back to that root
+# updater. Keep it outside PAYLOADS so old same-name manifest checks do not
+# confuse the two distinct roles.
+PROGRAM_ONLY_PAYLOADS = {
+    "updater.py": (
+        "ecea6f3954b9fc61701e118840472d3841434b65",
+        "updates/2.2.13/updater.py",
+        "66f92731447afd2ce0dca0970838e7e194ecfbbe40af0be6bd18e3b7f36c87ed",
     ),
 }
 
@@ -100,6 +109,15 @@ def _verify_program(program: Path) -> None:
         raise RuntimeError("Program runtime není kompletní: " + ", ".join(missing))
 
 
+def _apply_payloads(staging: Path, payloads: dict[str, tuple[str, str, str]]) -> None:
+    for local, (commit, remote, expected) in payloads.items():
+        destination = staging / local
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(
+            _download(commit, remote, expected, "TURTO-2.2.13-runtime")
+        )
+
+
 def install_runtime(root: Path | str) -> None:
     root = Path(root).resolve()
     program = root / "Program"
@@ -127,13 +145,8 @@ def install_runtime(root: Path | str) -> None:
             raise RuntimeError("Základ runtime neobsahuje catalog_browser.py.")
         shutil.copy2(legacy_catalog, staging / "catalog_browser_2210.py")
 
-        for local, (commit, remote, expected) in PAYLOADS.items():
-            destination = staging / local
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_bytes(
-                _download(commit, remote, expected, "TURTO-2.2.13-runtime")
-            )
-
+        _apply_payloads(staging, PAYLOADS)
+        _apply_payloads(staging, PROGRAM_ONLY_PAYLOADS)
         _verify_program(staging)
 
         # Only after the complete staging tree is verified do we replace Program.
