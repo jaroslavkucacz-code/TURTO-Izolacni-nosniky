@@ -1,0 +1,9 @@
+TURTO 2.2.10
+
+- Katalogy se už neotevírají jako webové stránky.
+- Každý katalog má vlastní přehlednou lokální cestu ve složce Katalogy vedle programu.
+- Při prvním otevření chybějícího katalogu program nabídne jednorázové stažení přímo z PDF zdroje výrobce a uloží jej na disk.
+- Další otevření už používá lokální PDF v systémové PDF čtečce.
+- Přidán stav ANO / CHYBÍ a tlačítko Otevřít složku katalogů.
+- Původní URL zdrojů zůstávají pouze pro stažení/aktualizaci PDF, nikoli pro otevření webu.
+- Databáze AKCÍ ani statická pravidla se nemění.
