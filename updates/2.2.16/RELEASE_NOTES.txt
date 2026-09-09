@@ -1,0 +1,23 @@
+TURTO 2.2.16 – velký úklid a optimalizace runtime
+
+Hlavní změny
+- Aktivní runtime se už při běžném přechodu z 2.2.15 znovu celý nesestavuje. Nový installer ověří stávající Program a přenese jen malý ověřený overlay.
+- Spouštěcí kompozice byla zploštěna. app_runtime.pyw už neprochází historický řetězec app_runtime_202 -> app_runtime_200 -> app_runtime_127 -> app_runtime_prev.
+- Funkční chování starých wrapperů bylo přeneseno přímo do současné kompozice: centrální AKCE, UI/substitution polish, WT guard a platform workspace zůstávají zachovány.
+- Po dependency kontrole se nepoužívané historické app_runtime wrappery archivují do ověřeného ZIPu v Zaloha\Archiv a z Programu se odstraní.
+- Update manifest už nepřenáší runtime moduly do kořene instalace. Kořenová aktualizace obsahuje jen bootstrap, updater a poznámky k vydání; Program se spravuje vlastním ověřeným installerem.
+- RELEASE_NOTES.txt se po prvním úspěšném spuštění přesune do Dokumentace\Interni\Vydani.
+- Úklid je označen vlastním markerem a při běžném dalším spuštění se znovu neprovádí, pokud se neobjeví známý starý odpad.
+- Staré interní soubory *.turto_new a *.turto_restore se po bezpečném časovém odstupu odstraní.
+
+Bezpečnost dat
+- actions.sqlite3 je nadále explicitně chráněná a žádný krok 2.2.16 ji nepřesouvá, nemaže ani nepřepisuje.
+- Inkrementální overlay má vlastní rollback. Pokud se výměna runtime souboru nepovede, původní soubor se obnoví.
+- Pokud Program 2.2.15 není kompletní nebo ověřený, 2.2.16 automaticky použije plnou ověřenou obnovu přes předchozí installer.
+
+Výsledek
+- méně souborů v kořeni instalace,
+- méně historických wrapperů v Programu,
+- rychlejší běžná aktualizace,
+- méně práce při každém startu,
+- jednodušší základ pro další postupné zplošťování starších hit/action/platform vrstev.
