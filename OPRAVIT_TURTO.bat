@@ -9,7 +9,7 @@ set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" (
     echo.
     echo Oprava TURTO skoncila chybou. Kod: %RC%
-    echo Podrobnosti jsou zobrazeny v dialogu a pripadne v recovery.log.
+    echo Podrobnosti jsou zobrazeny v dialogu a pripadne v Logy\recovery.log.
     pause
 )
 
