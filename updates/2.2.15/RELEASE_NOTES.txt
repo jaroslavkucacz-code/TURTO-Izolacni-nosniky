@@ -1,0 +1,9 @@
+TURTO 2.2.15 – další úklid instalace
+
+- Staré aktualizační zálohy se přesouvají z .update_backup do Zaloha\Aktualizace.
+- Nouzové recovery zálohy se ukládají do Zaloha\Recovery místo skrytých složek v kořeni.
+- Historický Runtime_pred_2.2.13 se po ověření komprimuje do Zaloha\Archiv.
+- Zálohy Programu se automaticky redukují na dvě nejnovější generace.
+- Nový updater zapisuje své zálohy přímo do Zaloha\Aktualizace a log do Logy\update_apply.log.
+- Recovery zapisuje log přímo do Logy\recovery.log.
+- actions.sqlite3 zůstává chráněná a žádný krok úklidu ji nepřesouvá ani neupravuje.
