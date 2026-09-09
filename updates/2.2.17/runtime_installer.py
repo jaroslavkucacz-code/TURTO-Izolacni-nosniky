@@ -28,7 +28,7 @@ PAYLOADS = {
     "hit_workspace.py": (
         "a5a937b4260be0d7783f8f2bf49d6e9316dcc8e9",
         "updates/2.2.17/hit_workspace.py",
-        "0000000000000000000000000000000000000000000000000000000000000000",
+        "603739226ac9b20b75da2d97964f42fc518b2177c4c7fc8bda9b0898d39be968",
     ),
     "cleanup_stage6.py": (
         "bbd2a760ce719b4ff3b42f51be3babbd7b9e94f7",
