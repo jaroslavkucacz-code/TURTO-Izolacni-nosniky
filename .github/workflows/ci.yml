@@ -39,6 +39,8 @@ jobs:
         run: python tools/verify_runtime_flatten_2216.py
       - name: Verify HIT workspace flattening
         run: python tools/verify_hit_flatten_2217.py
+      - name: Print 2.2.17 release hashes
+        run: python tools/hash_release_2217.py
       - name: Verify shear-dowel movement
         run: python tools/verify_shear_movement.py
       - name: Verify UI, autocomplete and Schöck KL-O
