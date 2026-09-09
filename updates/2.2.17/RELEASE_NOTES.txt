@@ -1,0 +1,25 @@
+TURTO 2.2.17 – zploštění HIT workspace a další úklid
+
+Hlavní změny
+- Návrhová část HIT už nepoužívá mezivrstvy hit_workspace_201, hit_workspace_200 a hit_workspace_127.
+- Chování těchto historických vrstev bylo přeneseno přímo do aktuálního hit_workspace.py: rozdělení standardních a doplňkových prvků, globální PDF výstup, sjednocené výkazy/exporty, omezení typů a finální úpravy tabulek.
+- Aktivní základ hit_workspace_125 a jeho hlubší závislosti zatím zůstávají zachovány. Další zplošťování bude provedeno až po samostatném dependency auditu.
+- Běžný přechod z 2.2.16 je opět inkrementální a stahuje pouze nový app_runtime.pyw, hit_workspace.py a cleanup_stage6.py. Při nekompletní předchozí instalaci se automaticky použije ověřená obnova 2.2.16.
+- Inkrementální overlay má rollback a před přechodem ověřuje předchozí runtime.
+- Po dependency kontrole se nepoužívané HIT wrappery a případné zbytky starých app_runtime wrapperů archivují do ověřených ZIPů v Zaloha\Archiv. Při chybě analýzy se nic nemaže.
+- Python cache v Programu se při jednorázovém úklidu odstraní a znovu se vytvoří až podle potřeby.
+- RELEASE_NOTES.txt se po úspěšném spuštění přesune do Dokumentace\Interni\Vydani.
+- Úklid 2.2.17 nahrazuje starou etapu 5, aby poznámky k vydání nebyly omylem ukládány pod verzí 2.2.16.
+
+Bezpečnost dat
+- actions.sqlite3 je nadále explicitně chráněná. Aktualizace ani úklid ji nepřesouvají, nemažou ani nepřepisují.
+- Regresní test kontroluje zachování databáze byte-for-byte.
+- Archivace historických wrapperů proběhne až po AST dependency kontrole a po ověření obsahu ZIPu.
+- Pokud dependency analýza selže, historické moduly zůstávají na místě.
+
+Výsledek
+- kratší aktivní importní řetězec HIT,
+- méně historických souborů v Programu,
+- menší množství kódu načítaného při startu,
+- rychlá inkrementální aktualizace,
+- čistší základ pro další audit hit_workspace_125 / action / platform vrstev.
