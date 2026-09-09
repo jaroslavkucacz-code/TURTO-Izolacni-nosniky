@@ -22,32 +22,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Verify release and repository hygiene
         run: python tools/verify_release.py
-
       - name: Verify shear-dowel movement
         run: python tools/verify_shear_movement.py
-
       - name: Verify UI, autocomplete and Schöck KL-O
         run: python tools/verify_ui_223.py
-
       - name: Verify unified tables and tab consistency
         run: python tools/verify_ui_224.py
-
       - name: Verify layout hierarchy and contextual actions
         run: python tools/verify_ui_225.py
-
       - name: Verify substitution geometry and UI visibility
         run: python tools/verify_substitution_226.py
-
       - name: Verify PohlCon/MAX FRANK shear-dowel catalogs
         run: python tools/verify_shear_catalogs_227.py
+      - name: Verify selectable PDF scope and cleanup
+        run: python tools/verify_pdf_scope_228.py
 
   windows-smoke:
     name: Windows smoke
@@ -56,36 +50,28 @@ jobs:
       - name: Preserve repository bytes
         shell: pwsh
         run: git config --global core.autocrlf false
-
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Verify release on Windows
         run: python tools/verify_release.py
-
       - name: Verify shear-dowel movement on Windows
         run: python tools/verify_shear_movement.py
-
       - name: Verify UI, autocomplete and Schöck KL-O on Windows
         run: python tools/verify_ui_223.py
-
       - name: Verify unified tables and tab consistency on Windows
         run: python tools/verify_ui_224.py
-
       - name: Verify layout hierarchy and contextual actions on Windows
         run: python tools/verify_ui_225.py
-
       - name: Verify substitution geometry and UI visibility on Windows
         run: python tools/verify_substitution_226.py
-
       - name: Verify PohlCon/MAX FRANK shear-dowel catalogs on Windows
         run: python tools/verify_shear_catalogs_227.py
-
+      - name: Verify selectable PDF scope and cleanup on Windows
+        run: python tools/verify_pdf_scope_228.py
       - name: Parse recovery PowerShell
         shell: pwsh
         run: |
