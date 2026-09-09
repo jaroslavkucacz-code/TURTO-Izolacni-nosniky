@@ -14,6 +14,11 @@
       "sha256": "af75005a8b3b9f4c3e5b1567db2f4e0f440bc22246261e7317f0d12bc6410103"
     },
     {
+      "path": "platform_workspace.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b00811bdc0f2cc23e717902ea1c5141b78e4800a/updates/2.2.10/platform_workspace.py",
+      "sha256": "3a705fdcb0700177aa754c56ac4e520ab8be6d6ced12be7889f1fe5ae0ae1d0c"
+    },
+    {
       "path": "cleanup_stage1.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/fe369e16850af276ce83fbf6cd4f07c45ddc0a27/updates/2.2.12/cleanup_stage1.py",
       "sha256": "84d24d68433b5a7042b7278c681f18cad310cec9bf1a27e9a66be5ef223bfda2"
@@ -22,6 +27,26 @@
       "path": "cleanup_stage2.py",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/51427333931aa6faf30f910bc0aaf4c7daa4608f/updates/2.2.12/cleanup_stage2.py",
       "sha256": "9433e089866e9e5cc4b425d9edda7dcdd2bf7026195af6ba0d8d72cb027d926e"
+    },
+    {
+      "path": "hit_workspace.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/44994a40b3d018269841c915b4742adae26acafa/updates/2.1.3/hit_workspace.py",
+      "sha256": "79e4f24e58d0fed61f8b4481222593b7ec6d58599913525aa21fa5640e4841cb"
+    },
+    {
+      "path": "hit_pdf.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/44994a40b3d018269841c915b4742adae26acafa/updates/2.1.2/hit_pdf.py",
+      "sha256": "62909e7ecbcc5f56d7dca077cf95421cb1ee10931599433557abece32d629ea8"
+    },
+    {
+      "path": "updater.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/5f395e56a8911e12783bdbd8378592963352cf69/updates/2.2.1/updater.py",
+      "sha256": "4b680b86e3f4b7546f600ae56254dc34e65494824f3fe74bd9149c1a41e559c4"
+    },
+    {
+      "path": "RELEASE_NOTES.txt",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/03cf68c142cb098a1cc67f464833cc9e93ac4a52/updates/2.2.12/RELEASE_NOTES.txt",
+      "sha256": "d0e3333d1755f33e3e3fa9f65905d003955c7ed3d22cb51c0646203e74e91731"
     }
   ]
 }
