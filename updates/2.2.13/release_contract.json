@@ -1,0 +1,18 @@
+{
+  "version": "2.2.13",
+  "replace_required_targets": true,
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "Dokumentace/Interni/RELEASE_NOTES_2.2.13.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "root_runtime_files": [
+    "app.pyw",
+    "updater.py"
+  ],
+  "runtime_layout": "6"
+}
