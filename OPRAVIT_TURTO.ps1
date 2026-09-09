@@ -8,12 +8,12 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '2.2.14'
+$Version = '2.2.15'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = '0ce40f5b5580c835bd07c50ff360030f6b497ab6'
-$UpdaterCommit = '5f395e56a8911e12783bdbd8378592963352cf69'
-$AppSha256 = '503bc3b69d0c1f7c3e5c18ec8d9ee454f074605394342ca6760d5fc946c15e55'
-$UpdaterSha256 = '4b680b86e3f4b7546f600ae56254dc34e65494824f3fe74bd9149c1a41e559c4'
+$AppCommit = 'ea65af627c764524c1330c7be17f7e8d014c631c'
+$UpdaterCommit = '307c17bda050b38543f6a7f5cc228555b0698182'
+$AppSha256 = 'aad2cc7c9194be0cdd8dd1be1aaa9f092382c75722fe916eb712ef46c7e8b454'
+$UpdaterSha256 = 'ab9541c40647da063c77fa079f7cd19efd28bfd53d6207a377645356b171f1ae'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'
 $RecoveryLogName = 'recovery.log'
@@ -82,7 +82,7 @@ function Download-VerifiedFile(
         try {
             Write-RecoveryLog $LogPath "Stahuji $Label, pokus $attempt/4"
             Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Destination -Headers @{
-                'User-Agent' = 'TURTO-Recovery-2.2.14'
+                'User-Agent' = 'TURTO-Recovery-2.2.15'
                 'Cache-Control' = 'no-cache, no-store'
                 'Pragma' = 'no-cache'
             }
@@ -129,13 +129,24 @@ try {
         throw "Vybraná složka nevypadá jako instalace TURTO:`r`n$target"
     }
 
-    $recoveryLog = Join-Path $target $RecoveryLogName
+    $logDir = Join-Path $target 'Logy'
+    $backupRoot = Join-Path (Join-Path $target 'Zaloha') 'Recovery'
+    New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+    New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
+    $recoveryLog = Join-Path $logDir $RecoveryLogName
+
     $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
-    $backup = Join-Path $target ".recovery_backup_$stamp"
+    $backup = Join-Path $backupRoot $stamp
     New-Item -ItemType Directory -Path $backup -Force | Out-Null
 
-    foreach ($name in @('app.pyw', 'updater.py', $RuntimeMarker, $StartupLog, $RecoveryLogName)) {
+    foreach ($name in @('app.pyw', 'updater.py', $RuntimeMarker)) {
         $source = Join-Path $target $name
+        if (Test-Path -LiteralPath $source) {
+            Copy-Item -LiteralPath $source -Destination (Join-Path $backup $name) -Force
+        }
+    }
+    foreach ($name in @($StartupLog, $RecoveryLogName)) {
+        $source = Join-Path $logDir $name
         if (Test-Path -LiteralPath $source) {
             Copy-Item -LiteralPath $source -Destination (Join-Path $backup $name) -Force
         }
@@ -150,8 +161,8 @@ try {
     $appTemp = Join-Path $tempDir 'app.pyw'
     $updaterTemp = Join-Path $tempDir 'updater.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.14/app.pyw"
-    $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/2.2.1/updater.py"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.15/app.pyw"
+    $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/2.2.15/updater.py"
 
     Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog
     Download-VerifiedFile $updaterUrl $updaterTemp $UpdaterSha256 'updater.py' $recoveryLog
@@ -159,7 +170,6 @@ try {
     Copy-Item -LiteralPath $appTemp -Destination (Join-Path $target 'app.pyw') -Force
     Copy-Item -LiteralPath $updaterTemp -Destination (Join-Path $target 'updater.py') -Force
 
-    # Removing the marker forces the verified bootstrap to rebuild Program completely.
     Remove-Item -LiteralPath (Join-Path $target $RuntimeMarker) -Force -ErrorAction SilentlyContinue
 
     Write-RecoveryLog $recoveryLog 'Spouštěcí vrstva byla obnovena. actions.sqlite3 ani složka Program nebyly měněny.'
@@ -167,6 +177,7 @@ try {
     Show-Info (
         "Spouštěcí vrstva TURTO $Version byla obnovena.`r`n`r`n" +
         "Databáze AKCÍ nebyla měněna.`r`n" +
+        "Recovery záloha je uložena v Zaloha\Recovery a log v Logy\recovery.log.`r`n" +
         "Při prvním startu se složka Program znovu ověří a případně bezpečně sestaví.`r`n`r`n" +
         "Program se nyní pokusí spustit."
     )
