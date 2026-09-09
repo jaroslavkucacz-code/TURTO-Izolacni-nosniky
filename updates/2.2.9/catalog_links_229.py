@@ -30,6 +30,30 @@ CATALOG_RESOURCES = (
         "https://www.leviat.com/en-be/hit.html",
     ),
     CatalogResource(
+        "thermal.schoeck.isokorb",
+        "thermal_breaks",
+        "Schöck",
+        "Schöck Isokorb® T / XT",
+        "Technické informace, dimenzační tabulky, ETA a DoP",
+        "https://www.schoeck.com/cs/isokorb-t",
+    ),
+    CatalogResource(
+        "thermal.pohlcon.isopro",
+        "thermal_breaks",
+        "PohlCon",
+        "PohlCon ISOPRO® 80 / 120",
+        "ISOPRO® – technické informace, ETA, DoP a návrhové podklady",
+        "https://pohlcon.com/en-de/construction-support/thermal-insulation/balcony-insulation-elements",
+    ),
+    CatalogResource(
+        "thermal.maxfrank.egcobox",
+        "thermal_breaks",
+        "MAX FRANK",
+        "MAX FRANK Egcobox® M / XL",
+        "Egcobox® – technické informace, ETA a produktové podklady",
+        "https://www.maxfrank.com/intl-en/products/reinforcement-technologies/04-thermal-break-balcony-connector-egcobox/",
+    ),
+    CatalogResource(
         "shear.ancon.dsd",
         "shear_dowels",
         "Ancon",
@@ -71,6 +95,7 @@ CATALOG_RESOURCES = (
     ),
 )
 
+EXPECTED_THERMAL_MANUFACTURERS = ("Leviat", "Schöck", "PohlCon", "MAX FRANK")
 EXPECTED_SHEAR_MANUFACTURERS = ("Ancon", "Schöck", "PohlCon", "MAX FRANK")
 
 
@@ -82,9 +107,11 @@ def catalogs_for_domain(domain: str | None = None) -> tuple[CatalogResource, ...
 
 
 def selftest() -> None:
-    assert len(CATALOG_RESOURCES) == 6
+    assert len(CATALOG_RESOURCES) == 9
+    assert {item.manufacturer for item in catalogs_for_domain("thermal_breaks")} == set(EXPECTED_THERMAL_MANUFACTURERS)
     assert {item.manufacturer for item in catalogs_for_domain("shear_dowels")} == set(EXPECTED_SHEAR_MANUFACTURERS)
     assert all(item.url.startswith("https://") for item in CATALOG_RESOURCES)
+    assert len({item.id for item in CATALOG_RESOURCES}) == len(CATALOG_RESOURCES)
 
 
 if __name__ == "__main__":
