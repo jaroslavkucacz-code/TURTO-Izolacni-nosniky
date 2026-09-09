@@ -33,7 +33,7 @@ PAYLOADS = {
     "cleanup_stage6.py": (
         "bbd2a760ce719b4ff3b42f51be3babbd7b9e94f7",
         "updates/2.2.17/cleanup_stage6.py",
-        "0000000000000000000000000000000000000000000000000000000000000000",
+        "27e8ad0444f1252369b902342023e2d799aef3f584e3838845731df6708175d4",
     ),
 }
 
