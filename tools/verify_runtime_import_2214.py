@@ -69,8 +69,6 @@ def main() -> int:
     installer_hash = literal(app, "INSTALLER_SHA256")
     assert sha256(installer) == installer_hash
 
-    # Reproduce the risky condition from 2.2.13: Program path may have a stale
-    # negative importer-cache entry after the directory was replaced/created.
     namespace = runpy.run_path(str(app), run_name="verify_runtime_import_2214")
     activate = namespace["_activate_program_imports"]
     previous_runtime_paths = sys.modules.pop("runtime_paths", None)
@@ -82,8 +80,6 @@ def main() -> int:
             module_file = program / "runtime_paths.py"
             module_file.write_text("VALUE = 2214\n", encoding="utf-8")
 
-            # runpy returns a copy of the globals mapping. Update the function's
-            # real globals so the test exercises the exact activation code.
             activate.__globals__["PROGRAM"] = program
             program_text = str(program)
             sys.path_importer_cache[program_text] = None
@@ -102,11 +98,12 @@ def main() -> int:
             sys.modules["runtime_paths"] = previous_runtime_paths
 
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
-    assert manifest["version"] == "2.2.14"
-    assert str(manifest["runtime_layout"]) == "7"
+    current = tuple(int(part) for part in str(manifest["version"]).split("."))
+    assert current >= (2, 2, 14)
+    assert int(str(manifest["runtime_layout"])) >= 7
     assert all(item["path"] != "actions.sqlite3" for item in manifest["files"])
 
-    print("OK: TURTO 2.2.14 – runtime_paths import hotfix and stale-cache regression.")
+    print("OK: TURTO runtime_paths import hotfix and stale-cache regression.")
     return 0
 
 
