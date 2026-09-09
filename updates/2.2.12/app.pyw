@@ -15,9 +15,9 @@ from tkinter import messagebox
 
 VERSION = "2.2.12"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "d6403d48bd3562e968723d96e1de7f95afa04849"
-INSTALLER_SHA256 = "d56460b48d8d0d77e14b942aac23a3924e9a02c7f9a2541d97fcb7bc30b300ce"
-RUNTIME_LAYOUT = "4"
+INSTALLER_COMMIT = "a5266636a738e544c723721b3b87f682f51ab450"
+INSTALLER_SHA256 = "85ead1943aecaeeda66924dd811e1f05ccdbb678b4b1825a4d63cc20ccad1d56"
+RUNTIME_LAYOUT = "5"
 ROOT = Path(__file__).resolve().parent
 MARKER = ROOT / ".turto_runtime_current.ok"
 LOG_DIR = ROOT / "Logy"
@@ -31,6 +31,7 @@ REQUIRED_RUNTIME_FILES = (
     "ui_cleanup_229.py", "ui_cleanup_228.py", "hit_workspace.py", "hit_pdf.py", "updater.py",
     "shear_dowels_current.py", "shear_catalogs_227.py", "shear_ui_227.py", "ui_help.py",
     "table_controls.py", "ui_consistency.py", "ui_layout.py", "ui_visibility.py",
+    "cleanup_stage1.py", "cleanup_stage2.py",
 )
 
 
@@ -61,7 +62,7 @@ def _run_cleanup() -> None:
 def _download_installer() -> Path:
     url = (
         f"https://raw.githubusercontent.com/{REPOSITORY}/{INSTALLER_COMMIT}/"
-        "updates/2.2.11/runtime_installer.py"
+        "updates/2.2.12/runtime_installer.py"
     )
     last = None
     temp_dir = Path(tempfile.mkdtemp(prefix="turto_bootstrap_"))
