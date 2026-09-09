@@ -51,6 +51,12 @@ PREVIOUS_REQUIRED = (
     "hit_pdf.py",
     "shear_movement.py",
     "shear_dowels_current.py",
+    "table_polish.py",
+    "wt_safety_guard.py",
+    "substitution_workspace.py",
+    "schoeck_dorn_decoder.py",
+    "isokorb_compat.py",
+    "substitution_guard.py",
 )
 
 CURRENT_REQUIRED = (
@@ -67,6 +73,12 @@ CURRENT_REQUIRED = (
     "hit_pdf.py",
     "shear_movement.py",
     "shear_dowels_current.py",
+    "table_polish.py",
+    "wt_safety_guard.py",
+    "substitution_workspace.py",
+    "schoeck_dorn_decoder.py",
+    "isokorb_compat.py",
+    "substitution_guard.py",
 )
 
 
