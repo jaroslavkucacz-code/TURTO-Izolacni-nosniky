@@ -8,6 +8,7 @@ on:
       - "release/**"
       - "fix/**"
       - "feature/**"
+      - "hotfix/**"
   pull_request:
     branches:
       - main
@@ -30,6 +31,8 @@ jobs:
         run: python tools/verify_release.py
       - name: Verify Program layout migration
         run: python tools/verify_program_layout_2213.py
+      - name: Verify runtime_paths startup hotfix
+        run: python tools/verify_runtime_import_2214.py
       - name: Verify shear-dowel movement
         run: python tools/verify_shear_movement.py
       - name: Verify UI, autocomplete and Schöck KL-O
@@ -64,6 +67,8 @@ jobs:
         run: python tools/verify_release.py
       - name: Verify Program layout migration on Windows
         run: python tools/verify_program_layout_2213.py
+      - name: Verify runtime_paths startup hotfix on Windows
+        run: python tools/verify_runtime_import_2214.py
       - name: Verify shear-dowel movement on Windows
         run: python tools/verify_shear_movement.py
       - name: Verify UI, autocomplete and Schöck KL-O on Windows
