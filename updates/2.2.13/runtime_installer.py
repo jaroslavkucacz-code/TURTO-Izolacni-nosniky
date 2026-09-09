@@ -41,7 +41,7 @@ PAYLOADS = {
     "app_runtime.pyw": (
         "43d9acb1b5db4b89aa757fbf52773cbc4d810f0e",
         "updates/2.2.13/app_runtime.pyw",
-        "23620196aa79bf1f4de4a5bd8854800ee788c9451c2368dbeda91f40d4fef856",
+        "c22ae956c3691a3b15bebf69f97f2f65d8489aadc0f4fa1f028739d43eacc159",
     ),
 }
 
