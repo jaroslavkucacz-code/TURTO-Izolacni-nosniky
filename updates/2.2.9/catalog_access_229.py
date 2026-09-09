@@ -43,8 +43,8 @@ class CatalogDialog(tk.Toplevel):
         super().__init__(owner)
         self.owner = owner
         self.title("Katalogy a technické podklady")
-        self.geometry("860x560")
-        self.minsize(720, 500)
+        self.geometry("900x640")
+        self.minsize(740, 520)
         self.transient(owner)
         self.grab_set()
         try:
@@ -57,9 +57,9 @@ class CatalogDialog(tk.Toplevel):
         ttk.Label(outer, text="Katalogy a technické podklady", style="DialogTitle.TLabel").pack(anchor="w")
         ttk.Label(
             outer,
-            text="Všechny katalogy, ze kterých aktuální program čerpá, jsou dostupné z jednoho místa. Odkazy vedou na oficiální stránky výrobců.",
+            text="Katalogové rodiny, ze kterých program aktuálně čerpá, jsou dostupné z jednoho místa. Odkazy vedou na oficiální stránky výrobců s technickými podklady a aktuálními dokumenty.",
             style="Muted.TLabel",
-            wraplength=800,
+            wraplength=840,
             justify="left",
         ).pack(anchor="w", pady=(4, 12))
 
@@ -118,21 +118,18 @@ class CatalogDialog(tk.Toplevel):
 
 
 def _find_report_bar(owner: Any):
+    """Find the AKCE report bar after all older cleanup layers have run."""
     for widget in _walk(owner):
         try:
             if isinstance(widget, ttk.Button) and "Export PDF" in str(widget.cget("text")):
-                master = widget.master
-                if any(
-                    isinstance(child, ttk.Label) and "Výstup" in str(child.cget("text"))
-                    for child in master.winfo_children()
-                ):
-                    return master
+                return widget.master
         except Exception:
             pass
     return None
 
 
 def _cleanup_source_controls(owner: Any) -> None:
+    """Remove duplicated source controls now covered by the catalogue dialog."""
     for widget in _walk(owner):
         try:
             if isinstance(widget, ttk.Button):
@@ -149,10 +146,46 @@ def _cleanup_source_controls(owner: Any) -> None:
             pass
 
 
+def _patch_help() -> None:
+    """Keep the 2.2.8 help card aligned with multi-selection and catalogue access."""
+    try:
+        import ui_help
+    except Exception:
+        return
+    if getattr(ui_help, "_turto_help_229", False):
+        return
+    base = getattr(ui_help, "HelpDialog", None)
+    if base is None:
+        return
+
+    class HelpDialog229(base):
+        def __init__(self, owner: Any) -> None:
+            super().__init__(owner)
+            for widget in _walk(self):
+                try:
+                    if not isinstance(widget, ttk.Label):
+                        continue
+                    text = str(widget.cget("text"))
+                    if text.startswith("PDF lze exportovat jako"):
+                        widget.configure(
+                            text=(
+                                "PDF lze exportovat jako celou AKCI nebo jako kombinaci jedné či více "
+                                "produktových oblastí a záložek. Výběr se provede těsně před uložením PDF. "
+                                "Technické katalogy otevřete tlačítkem „Katalogy / podklady“ u výstupu AKCE."
+                            )
+                        )
+                except Exception:
+                    pass
+
+    ui_help.HelpDialog = HelpDialog229
+    ui_help._turto_help_229 = True
+
+
 def apply_catalog_access(owner: Any) -> None:
     if getattr(owner, "_turto_catalog_access_229_applied", False):
         return
     _cleanup_source_controls(owner)
+    _patch_help()
     bar = _find_report_bar(owner)
     if bar is not None:
         button = ttk.Button(bar, text="Katalogy / podklady", command=lambda: CatalogDialog(owner))
