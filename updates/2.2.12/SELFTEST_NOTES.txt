@@ -1,0 +1,9 @@
+Kontrolní body TURTO 2.2.12
+
+1. Aktualizace z 2.2.11 na 2.2.12 musí nahradit app.pyw a app_runtime.pyw a dodat cleanup_stage1.py + cleanup_stage2.py.
+2. Po aktualizaci musí být .turto_runtime_current.ok = 5.
+3. actions.sqlite3 nesmí být součástí manifestu ani seznamu přesouvaných souborů.
+4. app_runtime_202.pyw a všechny REQUIRED_RUNTIME_FILES musí zůstat v kořeni instalace.
+5. Staré moduly se pouze archivují, nikoli mažou.
+6. Při selhání analýzy aktivních modulů se Python moduly nearchivují.
+7. Úklid nesmí zabránit spuštění programu; chyby úklidu jsou pouze zapisovány do Logy/cleanup.log.
