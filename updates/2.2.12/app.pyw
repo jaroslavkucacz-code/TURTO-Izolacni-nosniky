@@ -15,8 +15,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.12"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "a5266636a738e544c723721b3b87f682f51ab450"
-INSTALLER_SHA256 = "85ead1943aecaeeda66924dd811e1f05ccdbb678b4b1825a4d63cc20ccad1d56"
+INSTALLER_COMMIT = "b74b8f31bd327da72120f3087ff3066b629846c9"
+INSTALLER_SHA256 = "929ae15466c136ee2da503df257a76f01edd52332164bde107f17770c0a70cf6"
 RUNTIME_LAYOUT = "5"
 ROOT = Path(__file__).resolve().parent
 MARKER = ROOT / ".turto_runtime_current.ok"
