@@ -1,0 +1,11 @@
+TURTO 2.2.9
+
+- Export PDF nyní umožňuje zaškrtnout jednu i více částí AKCE současně.
+- Lze kombinovat Izolační nosníky a Smykové trny i jednotlivé záložky Dekodér / Návrh / Záměny v jednom PDF.
+- Překrývající se volby se do reportu nevloží duplicitně.
+- U výstupu AKCE přibylo centrální tlačítko „Katalogy / podklady“.
+- Z programu lze nahlédnout do aktivních katalogových rodin izolačních nosníků: Leviat / HALFEN HIT, Schöck Isokorb, PohlCon ISOPRO a MAX FRANK Egcobox.
+- Z programu lze nahlédnout do aktivních katalogových rodin smykových trnů: Ancon DSD/DSDQ, Schöck Stacon LD, PohlCon HED a JDSD/JDSDQ, MAX FRANK Egcodorn/Egcodubel.
+- Odkazy směřují na oficiální stránky výrobců s aktuálními technickými podklady; lokálně načtené DoP HIT zůstává dostupné.
+- Pokračuje úklid rozhraní: duplicitní ovládání zdrojů je odstraněno a Nápověda odpovídá novému chování PDF.
+- Databáze AKCÍ actions.sqlite3 ani statická pravidla nejsou touto aktualizací měněny.
