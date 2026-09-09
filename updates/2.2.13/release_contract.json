@@ -1,11 +1,6 @@
 {
   "version": "2.2.13",
-  "replace_required_targets": true,
-  "required_targets": [
-    "app.pyw",
-    "updater.py",
-    "Dokumentace/Interni/RELEASE_NOTES_2.2.13.txt"
-  ],
+  "required_targets": [],
   "preserve": [
     "actions.sqlite3"
   ],
