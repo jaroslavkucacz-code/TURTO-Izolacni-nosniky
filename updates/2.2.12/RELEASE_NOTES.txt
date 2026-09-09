@@ -1,0 +1,13 @@
+TURTO 2.2.12
+
+Druhá etapa bezpečného úklidu instalační složky.
+
+- aktivní runtime moduly se před archivací ověřují podle importů a odkazů
+- neaktivní staré app/action/platform moduly se přesouvají do Archiv/Stare_moduly
+- jednorázové diagnostické a testovací skripty se přesouvají do Nastroje/Diagnostika
+- schoeck_archive_sources.json se přesouvá do Dokumentace/Zdroje
+- app.pyw, app_runtime.pyw, app_runtime_202.pyw, Spustit_program.vbs, actions.sqlite3 a aktuální runtime marker jsou chráněné
+- runtime a zobrazovaná verze jsou sjednocené na 2.2.12
+- runtime layout je zvýšen na 5; ověřený installer umí obnovit i cleanup moduly
+
+Uživatelská databáze actions.sqlite3 se neupravuje ani nepřesouvá.
