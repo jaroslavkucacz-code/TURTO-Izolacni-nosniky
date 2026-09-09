@@ -123,8 +123,9 @@ def main() -> int:
     assert "actions.sqlite3" in contract["preserve"]
 
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
-    assert manifest["version"] == "2.2.16"
-    assert str(manifest["runtime_layout"]) == "9"
+    current = tuple(int(part) for part in str(manifest["version"]).split("."))
+    assert current >= (2, 2, 16)
+    assert int(str(manifest["runtime_layout"])) >= 9
     manifest_paths = {str(item["path"]) for item in manifest["files"]}
     assert manifest_paths == {"app.pyw", "updater.py", "RELEASE_NOTES.txt"}
     assert "actions.sqlite3" not in manifest_paths
@@ -205,7 +206,7 @@ def main() -> int:
         assert cleanup_ns["_safe_obsolete_wrappers"](program) == []
 
     print(
-        "OK: TURTO 2.2.16 – flattened runtime composition, incremental overlay, "
+        "OK: TURTO 2.2.16+ – flattened runtime composition, incremental overlay, "
         "Program-only manifest and safe wrapper cleanup."
     )
     return 0

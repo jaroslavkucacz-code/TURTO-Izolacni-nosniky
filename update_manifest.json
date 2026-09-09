@@ -1,12 +1,12 @@
 {
-  "version": "2.2.16",
-  "runtime_layout": "9",
-  "notes": "Velký úklid a optimalizace: Program se aktualizuje inkrementálně, spouštěcí runtime byl zploštěn, nepoužívané app_runtime wrappery se bezpečně archivují a runtime moduly se už nekopírují do kořene. actions.sqlite3 se nemění.",
+  "version": "2.2.17",
+  "runtime_layout": "10",
+  "notes": "Další velký úklid: HIT workspace byl zploštěn, nepoužívané HIT/app runtime wrappery se po dependency kontrole archivují a běžný přechod z 2.2.16 zůstává inkrementální. actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e403f848ad40ee4bb4713f37eaa472f58afffcd8/updates/2.2.16/app.pyw",
-      "sha256": "8caf45d5edca1e05ca4c586dc0dcedb1beb2f80b21005f6d26c01fddf5042276"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/653e4f2a118b954f27cff24ae4d110875b903d1b/updates/2.2.17/app.pyw",
+      "sha256": "0bb74e9f8da4bb23bf057de4924393488a5520c0f6c4f8447e1f92d77f12e3ca"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1b230181e3cf6692080d2472f01f1a04286b8b7f/updates/2.2.16/RELEASE_NOTES.txt",
-      "sha256": "62320e1c8c4cd5edf08e83724a37afc21d2b1f4957737e8559ad7ccdc9ba3d22"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1db0ae46ec5dbaa468307b8d2f2303bb2cae6437/updates/2.2.17/RELEASE_NOTES.txt",
+      "sha256": "b63a7defa9f879b86fc3e743589c41fd8c7466d3bee80f7322c56b7b20710275"
     }
   ]
 }
