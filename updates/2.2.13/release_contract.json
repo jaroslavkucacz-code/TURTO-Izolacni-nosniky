@@ -1,0 +1,13 @@
+{
+  "version": "2.2.13",
+  "required_targets": [],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "root_runtime_files": [
+    "app.pyw",
+    "updater.py"
+  ],
+  "runtime_layout": "6"
+}

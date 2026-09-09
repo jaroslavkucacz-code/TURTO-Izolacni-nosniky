@@ -8,11 +8,11 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '2.2.12'
+$Version = '2.2.13'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = '1626fd953508a0511e72123412bc6c38268fe6fd'
+$AppCommit = '8ba324ebd3ec1ac95d2dda125c00f0eb0eee392a'
 $UpdaterCommit = '5f395e56a8911e12783bdbd8378592963352cf69'
-$AppSha256 = 'd6c031dcd894bfed8d344ce8d3890fb8ad9c7ac1a8d23c9755727ea4502e7bcc'
+$AppSha256 = '03a033325cd42eb5af36df9f76e0031f67c7618bbf4d318b00b8f7525018a5ba'
 $UpdaterSha256 = '4b680b86e3f4b7546f600ae56254dc34e65494824f3fe74bd9149c1a41e559c4'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'
@@ -49,7 +49,7 @@ function Select-TargetFolder {
     }
 
     $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
-    $dialog.Description = 'Vyberte složku, ve které je nainstalovaný program TURTO (obsahuje app.pyw / Spustit_program.vbs).'
+    $dialog.Description = 'Vyberte instalační složku TURTO.'
     $dialog.ShowNewFolderButton = $false
     if ($dialog.ShowDialog() -ne [System.Windows.Forms.DialogResult]::OK) {
         throw 'Nebyla vybrána složka programu TURTO.'
@@ -58,12 +58,11 @@ function Select-TargetFolder {
 }
 
 function Test-TurtoFolder([string]$Folder) {
-    foreach ($marker in @('app.pyw', 'updater.py', 'Spustit_program.vbs')) {
-        if (Test-Path (Join-Path $Folder $marker)) {
-            return $true
-        }
-    }
-    return $false
+    return (
+        (Test-Path (Join-Path $Folder 'app.pyw')) -or
+        (Test-Path (Join-Path $Folder 'Spustit_program.vbs')) -or
+        (Test-Path (Join-Path $Folder 'updater.py'))
+    )
 }
 
 function Write-RecoveryLog([string]$Path, [string]$Text) {
@@ -82,22 +81,17 @@ function Download-VerifiedFile(
     for ($attempt = 1; $attempt -le 4; $attempt++) {
         try {
             Write-RecoveryLog $LogPath "Stahuji $Label, pokus $attempt/4"
-            if ($attempt -eq 1) {
-                Write-RecoveryLog $LogPath ("Zdroj {0}: {1}" -f $Label, $Url)
-            }
             Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Destination -Headers @{
-                'User-Agent' = 'TURTO-Recovery-2.2.12'
+                'User-Agent' = 'TURTO-Recovery-2.2.13'
                 'Cache-Control' = 'no-cache, no-store'
                 'Pragma' = 'no-cache'
             }
-
-            if (-not (Test-Path $Destination)) {
+            if (-not (Test-Path -LiteralPath $Destination)) {
                 throw "Soubor $Label nebyl vytvořen."
             }
             if ((Get-Item -LiteralPath $Destination).Length -le 0) {
                 throw "Stažený soubor $Label je prázdný."
             }
-
             $actual = (Get-FileHash -LiteralPath $Destination -Algorithm SHA256).Hash.ToLowerInvariant()
             if ($actual -ne $ExpectedSha256.ToLowerInvariant()) {
                 throw "Kontrolní součet $Label nesouhlasí. Očekáváno $ExpectedSha256, získáno $actual."
@@ -132,26 +126,15 @@ try {
         throw "Vybraná složka neexistuje:`r`n$target"
     }
     if (-not (Test-TurtoFolder $target)) {
-        throw "Vybraná složka nevypadá jako instalace TURTO.`r`n`r`n$target`r`n`r`nVyberte složku obsahující app.pyw nebo Spustit_program.vbs."
+        throw "Vybraná složka nevypadá jako instalace TURTO:`r`n$target"
     }
 
     $recoveryLog = Join-Path $target $RecoveryLogName
-
     $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
     $backup = Join-Path $target ".recovery_backup_$stamp"
     New-Item -ItemType Directory -Path $backup -Force | Out-Null
 
-    $backupNames = @(
-        'app.pyw',
-        'updater.py',
-        $RuntimeMarker,
-        $StartupLog,
-        $RecoveryLogName,
-        '.turto_runtime_2_1_2.ok',
-        'startup_2_1_2.log',
-        'recovery_2_1_2.log'
-    )
-    foreach ($name in $backupNames) {
+    foreach ($name in @('app.pyw', 'updater.py', $RuntimeMarker, $StartupLog, $RecoveryLogName)) {
         $source = Join-Path $target $name
         if (Test-Path -LiteralPath $source) {
             Copy-Item -LiteralPath $source -Destination (Join-Path $backup $name) -Force
@@ -164,11 +147,10 @@ try {
 
     $tempDir = Join-Path $env:TEMP ("turto_recovery_" + [Guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
-
     $appTemp = Join-Path $tempDir 'app.pyw'
     $updaterTemp = Join-Path $tempDir 'updater.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.12/app.pyw"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.13/app.pyw"
     $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/2.2.1/updater.py"
 
     Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog
@@ -177,18 +159,15 @@ try {
     Copy-Item -LiteralPath $appTemp -Destination (Join-Path $target 'app.pyw') -Force
     Copy-Item -LiteralPath $updaterTemp -Destination (Join-Path $target 'updater.py') -Force
 
+    # Removing the marker forces the verified bootstrap to rebuild Program completely.
     Remove-Item -LiteralPath (Join-Path $target $RuntimeMarker) -Force -ErrorAction SilentlyContinue
-    Remove-Item -LiteralPath (Join-Path $target '.turto_runtime_2_1_2.ok') -Force -ErrorAction SilentlyContinue
-    Remove-Item -LiteralPath (Join-Path $target $StartupLog) -Force -ErrorAction SilentlyContinue
-    Remove-Item -LiteralPath (Join-Path $target 'startup_2_1_2.log') -Force -ErrorAction SilentlyContinue
-    Remove-Item -LiteralPath (Join-Path $target 'recovery_2_1_2.log') -Force -ErrorAction SilentlyContinue
 
-    Write-RecoveryLog $recoveryLog 'Aktuální spouštěcí vrstva byla nainstalována. Databáze AKCÍ nebyla měněna.'
+    Write-RecoveryLog $recoveryLog 'Spouštěcí vrstva byla obnovena. actions.sqlite3 ani složka Program nebyly měněny.'
 
     Show-Info (
-        "Aktuální spouštěcí vrstva TURTO byla obnovena.`r`n`r`n" +
+        "Spouštěcí vrstva TURTO $Version byla obnovena.`r`n`r`n" +
         "Databáze AKCÍ nebyla měněna.`r`n" +
-        "Při prvním startu se ověří a případně obnoví současná runtime sada.`r`n`r`n" +
+        "Při prvním startu se složka Program znovu ověří a případně bezpečně sestaví.`r`n`r`n" +
         "Program se nyní pokusí spustit."
     )
 
@@ -204,7 +183,7 @@ try {
         Start-Process -FilePath 'py.exe' -ArgumentList @('-3', ('"' + $app + '"')) -WorkingDirectory $target
     }
     else {
-        throw "Oprava byla dokončena, ale nebyl nalezen spouštěč Pythonu. Spusťte ručně app.pyw v této složce:`r`n$target"
+        throw "Oprava byla dokončena, ale nebyl nalezen spouštěč Pythonu."
     }
 
     Write-RecoveryLog $recoveryLog 'Byl vyvolán start programu.'
