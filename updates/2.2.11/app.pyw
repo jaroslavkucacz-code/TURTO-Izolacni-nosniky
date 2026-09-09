@@ -1,0 +1,290 @@
+from __future__ import annotations
+
+"""TURTO 2.2.11 verified bootstrap with safe installation cleanup."""
+
+import hashlib
+import runpy
+import shutil
+import tempfile
+import time
+import traceback
+import urllib.request
+from pathlib import Path
+import tkinter as tk
+from tkinter import messagebox
+
+VERSION = "2.2.11"
+REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
+INSTALLER_COMMIT = "d6403d48bd3562e968723d96e1de7f95afa04849"
+INSTALLER_SHA256 = "d56460b48d8d0d77e14b942aac23a3924e9a02c7f9a2541d97fcb7bc30b300ce"
+RUNTIME_LAYOUT = "4"
+ROOT = Path(__file__).resolve().parent
+MARKER = ROOT / ".turto_runtime_current.ok"
+LOG_DIR = ROOT / "Logy"
+BACKUP_DIR = ROOT / "Zaloha"
+DOCS_DIR = ROOT / "Dokumentace"
+INTERNAL_DOCS_DIR = DOCS_DIR / "Interni"
+STARTUP_LOG = LOG_DIR / "startup.log"
+CLEANUP_LOG = LOG_DIR / "cleanup.log"
+REQUIRED_RUNTIME_FILES = (
+    "app_runtime.pyw", "platform_workspace.py", "pdf_scope.py", "catalog_browser.py",
+    "ui_cleanup_229.py", "ui_cleanup_228.py", "hit_workspace.py", "hit_pdf.py", "updater.py",
+    "shear_dowels_current.py", "shear_catalogs_227.py", "shear_ui_227.py", "ui_help.py",
+    "table_controls.py", "ui_consistency.py", "ui_layout.py", "ui_visibility.py",
+)
+
+LEGACY_LOG_PATTERNS = (
+    "fix*.log",
+    "startup*.log",
+    "recovery*.log",
+    "update_apply.log",
+)
+BACKUP_PATTERNS = (
+    "*.bak",
+    "*.bak_*",
+    "*.py.bak_*",
+    "*.pyw.bak_*",
+)
+VERIFICATION_FILES = (
+    "REVIEW_VERIFICATION.json",
+    "PDF_VERIFICATION.json",
+    "HIT_WORKSPACE_VERIFICATION.json",
+    "HIT_IMPORT_VERIFICATION.json",
+    "HIT_HT_VERIFICATION.json",
+)
+DOCUMENTATION_FILES = (
+    "GITHUB_REPO.txt",
+    "README.txt",
+    "DATA_VALIDATION.txt",
+    "FORMAT_KATALOGU.md",
+    "FORMAT_PROJEKTU.md",
+    "CHANGELOG.txt",
+)
+
+
+def _runtime_ready() -> bool:
+    try:
+        return (
+            MARKER.is_file()
+            and MARKER.read_text(encoding="utf-8").strip() == RUNTIME_LAYOUT
+            and all((ROOT / name).is_file() for name in REQUIRED_RUNTIME_FILES)
+        )
+    except Exception:
+        return False
+
+
+def _unique_target(folder: Path, name: str) -> Path:
+    target = folder / name
+    if not target.exists():
+        return target
+    source = Path(name)
+    stamp = time.strftime("%Y%m%d_%H%M%S")
+    candidate = folder / f"{source.stem}_{stamp}{source.suffix}"
+    index = 2
+    while candidate.exists():
+        candidate = folder / f"{source.stem}_{stamp}_{index}{source.suffix}"
+        index += 1
+    return candidate
+
+
+def _move_file(source: Path, folder: Path, actions: list[str], errors: list[str]) -> None:
+    try:
+        if not source.is_file():
+            return
+        folder.mkdir(parents=True, exist_ok=True)
+        target = _unique_target(folder, source.name)
+        shutil.move(str(source), str(target))
+        actions.append(f"Přesunuto: {source.name} -> {target.relative_to(ROOT)}")
+    except Exception as exc:
+        errors.append(f"{source.name}: {exc}")
+
+
+def _prune_files(folder: Path, limit: int, actions: list[str], errors: list[str]) -> None:
+    try:
+        if not folder.is_dir():
+            return
+        files = [p for p in folder.iterdir() if p.is_file() and p.name != CLEANUP_LOG.name]
+        files.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+        for old in files[limit:]:
+            try:
+                old.unlink()
+                actions.append(f"Odstraněn starý soubor: {old.relative_to(ROOT)}")
+            except Exception as exc:
+                errors.append(f"{old}: {exc}")
+    except Exception as exc:
+        errors.append(f"Čištění {folder.name}: {exc}")
+
+
+def _prune_update_backups(actions: list[str], errors: list[str], keep: int = 3) -> None:
+    folder = ROOT / ".update_backup"
+    try:
+        if not folder.is_dir():
+            return
+        backups = [p for p in folder.iterdir() if p.is_dir()]
+        backups.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+        for old in backups[keep:]:
+            try:
+                shutil.rmtree(old)
+                actions.append(f"Odstraněna stará záloha aktualizace: {old.name}")
+            except Exception as exc:
+                errors.append(f"{old}: {exc}")
+    except Exception as exc:
+        errors.append(f"Čištění .update_backup: {exc}")
+
+
+def _write_cleanup_log(actions: list[str], errors: list[str]) -> None:
+    if not actions and not errors:
+        return
+    try:
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
+        with CLEANUP_LOG.open("a", encoding="utf-8") as handle:
+            handle.write(f"\n[{time.strftime('%Y-%m-%d %H:%M:%S')}] TURTO {VERSION}\n")
+            for item in actions:
+                handle.write(f"OK  {item}\n")
+            for item in errors:
+                handle.write(f"ERR {item}\n")
+    except Exception:
+        pass
+
+
+def _cleanup_installation() -> None:
+    """Safely tidy only known legacy/generated artifacts; runtime files stay untouched."""
+    actions: list[str] = []
+    errors: list[str] = []
+
+    # Root logs generated by older releases.
+    seen: set[Path] = set()
+    for pattern in LEGACY_LOG_PATTERNS:
+        for source in ROOT.glob(pattern):
+            if source in seen:
+                continue
+            seen.add(source)
+            _move_file(source, LOG_DIR, actions, errors)
+
+    # Development/runtime backups created beside source files.
+    seen.clear()
+    for pattern in BACKUP_PATTERNS:
+        for source in ROOT.glob(pattern):
+            if source in seen:
+                continue
+            seen.add(source)
+            _move_file(source, BACKUP_DIR, actions, errors)
+
+    # Old version-specific runtime markers are no longer used.
+    for marker in ROOT.glob(".turto_runtime_*.ok"):
+        if marker == MARKER:
+            continue
+        try:
+            marker.unlink()
+            actions.append(f"Odstraněn starý runtime marker: {marker.name}")
+        except Exception as exc:
+            errors.append(f"{marker.name}: {exc}")
+
+    # Verification artifacts are retained, but no longer clutter the installation root.
+    for name in VERIFICATION_FILES:
+        _move_file(ROOT / name, INTERNAL_DOCS_DIR, actions, errors)
+
+    # User-readable project documentation belongs in one folder.
+    for name in DOCUMENTATION_FILES:
+        _move_file(ROOT / name, DOCS_DIR, actions, errors)
+
+    # Keep useful history, but prevent endless accumulation.
+    _prune_files(LOG_DIR, 20, actions, errors)
+    _prune_files(BACKUP_DIR, 10, actions, errors)
+    _prune_update_backups(actions, errors, keep=3)
+
+    _write_cleanup_log(actions, errors)
+
+
+def _download_installer() -> Path:
+    url = f"https://raw.githubusercontent.com/{REPOSITORY}/{INSTALLER_COMMIT}/updates/2.2.11/runtime_installer.py"
+    last = None
+    temp_dir = Path(tempfile.mkdtemp(prefix="turto_bootstrap_"))
+    target = temp_dir / "runtime_installer.py"
+    for attempt in range(4):
+        try:
+            req = urllib.request.Request(
+                url + f"?turto={int(time.time()*1000)}_{attempt}",
+                headers={
+                    "User-Agent": "TURTO-2.2.11-Bootstrap",
+                    "Cache-Control": "no-cache, no-store",
+                    "Pragma": "no-cache",
+                },
+            )
+            with urllib.request.urlopen(req, timeout=45) as response:
+                data = response.read()
+            actual = hashlib.sha256(data).hexdigest().lower()
+            if not data or actual != INSTALLER_SHA256:
+                raise RuntimeError(
+                    "Kontrolní součet instalačního modulu nesouhlasí.\n"
+                    f"Očekáváno: {INSTALLER_SHA256}\nStaženo: {actual}"
+                )
+            target.write_bytes(data)
+            return target
+        except Exception as exc:
+            last = exc
+            if attempt < 3:
+                time.sleep(1 + attempt)
+    shutil.rmtree(temp_dir, ignore_errors=True)
+    raise RuntimeError(f"Nelze stáhnout ověřený instalační modul.\n{last}")
+
+
+def _install_runtime() -> None:
+    installer = _download_installer()
+    try:
+        namespace = runpy.run_path(str(installer))
+        install = namespace.get("install_runtime")
+        if not callable(install):
+            raise RuntimeError("Instalační modul neobsahuje install_runtime().")
+        install(ROOT)
+        MARKER.write_text(RUNTIME_LAYOUT, encoding="utf-8")
+    finally:
+        shutil.rmtree(installer.parent, ignore_errors=True)
+
+
+def _failure(stage: str, exc: BaseException) -> int:
+    try:
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
+        STARTUP_LOG.write_text(
+            f"TURTO {VERSION} – {stage}\n\n{type(exc).__name__}: {exc}\n\n{traceback.format_exc()}",
+            encoding="utf-8",
+        )
+    except Exception:
+        pass
+    try:
+        root = tk.Tk()
+        root.withdraw()
+        messagebox.showerror(
+            "TURTO – chyba při spuštění",
+            f"{exc}\n\nPodrobnosti: {STARTUP_LOG}",
+            parent=root,
+        )
+        root.destroy()
+    except Exception:
+        pass
+    return 2
+
+
+def main() -> int:
+    try:
+        _cleanup_installation()
+    except Exception:
+        # Cleanup is deliberately non-blocking: it must never prevent program startup.
+        pass
+
+    try:
+        if not _runtime_ready():
+            _install_runtime()
+    except Exception as exc:
+        return _failure("obnova runtime", exc)
+    try:
+        runpy.run_path(str(ROOT / "app_runtime.pyw"), run_name="__main__")
+    except SystemExit as exc:
+        return int(exc.code) if isinstance(exc.code, int) else 0
+    except BaseException as exc:
+        return _failure("spuštění programu", exc)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
