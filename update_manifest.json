@@ -1,17 +1,17 @@
 {
-  "version": "2.2.13",
-  "runtime_layout": "6",
-  "notes": "Velký úklid instalace: aktivní runtime se přesouvá do samostatné složky Program. Kořen zůstává pro spouštěč, updater, data a přehledné složky; původní runtime se po ověření pouze archivuje. actions.sqlite3 se nemění.",
+  "version": "2.2.14",
+  "runtime_layout": "7",
+  "notes": "Oprava spuštění po migraci do složky Program. Bootstrap nyní explicitně aktivuje Program a načítá runtime_paths přímo ze souboru; runtime se při přechodu z 2.2.13 bezpečně znovu sestaví a označí revizí 2.2.14. actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8ba324ebd3ec1ac95d2dda125c00f0eb0eee392a/updates/2.2.13/app.pyw",
-      "sha256": "03a033325cd42eb5af36df9f76e0031f67c7618bbf4d318b00b8f7525018a5ba"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0ce40f5b5580c835bd07c50ff360030f6b497ab6/updates/2.2.14/app.pyw",
+      "sha256": "503bc3b69d0c1f7c3e5c18ec8d9ee454f074605394342ca6760d5fc946c15e55"
     },
     {
       "path": "app_runtime.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/43d9acb1b5db4b89aa757fbf52773cbc4d810f0e/updates/2.2.13/app_runtime.pyw",
-      "sha256": "c22ae956c3691a3b15bebf69f97f2f65d8489aadc0f4fa1f028739d43eacc159"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/65d93976b0c6dc4a4a91e66549134411aeb3be4f/updates/2.2.14/app_runtime.pyw",
+      "sha256": "82427f2e52ef25275047f2a95558d25f180eb31ea1cc116fb4c2ea270d348637"
     },
     {
       "path": "platform_workspace.py",
@@ -40,8 +40,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0045ed011977d47bb3e1277997006f33eb35f94c/updates/2.2.13/RELEASE_NOTES.txt",
-      "sha256": "eb4e4514a1b5d95658d65d0596a858a27058824fb98143ce9e4d7533b6d2a6da"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/94a67965e54445e12daf05e52deb54a09bfeb81c/updates/2.2.14/RELEASE_NOTES.txt",
+      "sha256": "29af436b0f2684eedd2bd3a890b10b17daaed4edd4fbf7c824c16498a14566b5"
     }
   ]
 }
