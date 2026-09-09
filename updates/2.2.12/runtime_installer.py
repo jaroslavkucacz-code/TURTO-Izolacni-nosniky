@@ -19,7 +19,7 @@ RUNTIME_LAYOUT = "5"
 PAYLOADS = {
     "app_runtime.pyw": ("34f3a859e9e86ea72fa889bc915ba9e1e08dee7c", "updates/2.2.12/app_runtime.pyw", "af75005a8b3b9f4c3e5b1567db2f4e0f440bc22246261e7317f0d12bc6410103"),
     "cleanup_stage1.py": ("fe369e16850af276ce83fbf6cd4f07c45ddc0a27", "updates/2.2.12/cleanup_stage1.py", "84d24d68433b5a7042b7278c681f18cad310cec9bf1a27e9a66be5ef223bfda2"),
-    "cleanup_stage2.py": ("51427333931aa6faf30f910bc0aaf4c7daa4608f", "updates/2.2.12/cleanup_stage2.py", "29b76a2776d11cb60f39011a59847107490fc4e2cc91a28e8dd278dc70d54f21"),
+    "cleanup_stage2.py": ("51427333931aa6faf30f910bc0aaf4c7daa4608f", "updates/2.2.12/cleanup_stage2.py", "9433e089866e9e5cc4b425d9edda7dcdd2bf7026195af6ba0d8d72cb027d926e"),
 }
 
 
