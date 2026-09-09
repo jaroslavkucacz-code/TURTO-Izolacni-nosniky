@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""Regression checks for TURTO 2.2.13 Program\ installation layout."""
+"""Regression checks for TURTO 2.2.13 Program installation layout."""
 
 import ast
 import hashlib
@@ -137,11 +137,12 @@ def main() -> int:
         assert (archive / "runtime_paths.py").is_file()
 
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
-    assert manifest["version"] == "2.2.13"
-    assert str(manifest["runtime_layout"]) == "6"
+    current = tuple(int(part) for part in str(manifest["version"]).split("."))
+    assert current >= (2, 2, 13)
+    assert int(str(manifest["runtime_layout"])) >= 6
     assert all(item["path"] != "actions.sqlite3" for item in manifest["files"])
 
-    print("OK: TURTO 2.2.13 – Program layout, staged migration, root cleanup and data protection.")
+    print("OK: TURTO Program layout – staged migration, root cleanup and data protection.")
     return 0
 
 

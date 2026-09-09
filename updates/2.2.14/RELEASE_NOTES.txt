@@ -1,0 +1,8 @@
+TURTO 2.2.14 – oprava spuštění po migraci do Program
+
+- Opravuje ModuleNotFoundError: runtime_paths při startu TURTO 2.2.13.
+- Bootstrap po vytvoření nebo výměně složky Program znovu aktivuje importní cestu a explicitně načte Program/runtime_paths.py.
+- Runtime dostává vlastní revizní marker .turto_runtime_2_2_14.ok, takže nestačí pouze starý kořenový marker.
+- Při přechodu z 2.2.13 se runtime Program bezpečně znovu sestaví z ověřené sady a teprve poté spustí.
+- actions.sqlite3 se nemění, nepřesouvá ani nemaže.
+- Katalogy, dokumentace, logy, zálohy a archiv zůstávají v kořeni instalace.

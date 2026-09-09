@@ -1,0 +1,17 @@
+{
+  "version": "2.2.14",
+  "required_targets": [
+    "app.pyw",
+    "app_runtime.pyw",
+    "platform_workspace.py",
+    "hit_workspace.py",
+    "hit_pdf.py",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "7"
+}

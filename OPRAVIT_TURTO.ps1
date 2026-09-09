@@ -8,11 +8,11 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '2.2.13'
+$Version = '2.2.14'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = '8ba324ebd3ec1ac95d2dda125c00f0eb0eee392a'
+$AppCommit = '0ce40f5b5580c835bd07c50ff360030f6b497ab6'
 $UpdaterCommit = '5f395e56a8911e12783bdbd8378592963352cf69'
-$AppSha256 = '03a033325cd42eb5af36df9f76e0031f67c7618bbf4d318b00b8f7525018a5ba'
+$AppSha256 = '503bc3b69d0c1f7c3e5c18ec8d9ee454f074605394342ca6760d5fc946c15e55'
 $UpdaterSha256 = '4b680b86e3f4b7546f600ae56254dc34e65494824f3fe74bd9149c1a41e559c4'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'
@@ -82,7 +82,7 @@ function Download-VerifiedFile(
         try {
             Write-RecoveryLog $LogPath "Stahuji $Label, pokus $attempt/4"
             Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Destination -Headers @{
-                'User-Agent' = 'TURTO-Recovery-2.2.13'
+                'User-Agent' = 'TURTO-Recovery-2.2.14'
                 'Cache-Control' = 'no-cache, no-store'
                 'Pragma' = 'no-cache'
             }
@@ -150,7 +150,7 @@ try {
     $appTemp = Join-Path $tempDir 'app.pyw'
     $updaterTemp = Join-Path $tempDir 'updater.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.13/app.pyw"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.14/app.pyw"
     $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/2.2.1/updater.py"
 
     Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog
