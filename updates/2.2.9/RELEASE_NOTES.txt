@@ -1,0 +1,6 @@
+TURTO 2.2.9
+
+- Export PDF nyní umožňuje vybrat současně libovolnou kombinaci záložek Dekodér / Návrh / Záměny z obou produktových oblastí.
+- Přidáno tlačítko Katalogy… s přístupem ke všem aktuálním zdrojovým katalogům: Leviat/HALFEN HIT, Ancon/Leviat, Schöck Stacon, PohlCon HED a JDSD/JDSDQ, MAX FRANK Egcodorn/Egcodubel.
+- Pokračuje úklid názvů a hlavní pracovní plochy; původní „Otevřít zdroj“ je sjednoceno na „Otevřít katalog“.
+- Databáze AKCÍ ani statická pravidla se touto verzí nemění.
