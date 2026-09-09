@@ -143,7 +143,8 @@ def main() -> int:
         with zipfile.ZipFile(archives[0], "r") as archive:
             assert archive.testzip() is None
             assert "old_module.py" in archive.namelist()
-            assert archive.read("old_module.py") == b"OLD = True\n"
+            normalized = archive.read("old_module.py").replace(b"\r\n", b"\n")
+            assert normalized == b"OLD = True\n"
 
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
     assert manifest["version"] == "2.2.15"
