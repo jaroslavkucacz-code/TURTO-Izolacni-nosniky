@@ -1,0 +1,18 @@
+TURTO 2.2.8
+
+Volitelný rozsah PDF a další úklid pracovního rozhraní.
+
+PDF
+- Hlavní tlačítko je nově Export PDF… a před uložením vždy nabídne rozsah.
+- Lze exportovat celou AKCI, celou oblast Izolační nosníky / Smykové trny nebo jednu záložku Dekodér / Návrh / Záměny.
+- Příklad: Smykové trny → Záměny vytvoří PDF pouze z tabulky záměn smykových trnů.
+- Název PDF a titul dokumentu obsahují zvolený rozsah.
+- Dekodér a Záměny jsou nově skutečné reportovací sekce; Návrh dál používá ověřená návrhová data.
+
+ÚKLID UI
+- Katalogový souhrn pod nadpisem Smykové trny je odstraněn z hlavní pracovní plochy a přesunut do Nápovědy > Data a zdroje.
+- Obecný text PDF je nadřazené produktovým oblastem je odstraněn z pracovní plochy.
+- Obecná poznámka pod nadpisem Izolační nosníky je odstraněna z pracovní plochy.
+- Technická varování, výsledky posouzení, stav KONTROLA DESKY a údaje v Detailu prvku zůstávají viditelné.
+
+Databáze actions.sqlite3, katalogové tabulky a statická pravidla se touto verzí nemění.
