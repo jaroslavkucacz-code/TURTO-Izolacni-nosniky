@@ -275,6 +275,9 @@ def main() -> int:
     try:
         if not _runtime_ready():
             _install_runtime()
+            # Older chained installers may leave their own diagnostics behind.
+            # Run the same conservative cleanup once more after a runtime refresh.
+            _cleanup_installation()
     except Exception as exc:
         return _failure("obnova runtime", exc)
     try:
