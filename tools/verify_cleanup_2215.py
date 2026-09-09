@@ -6,6 +6,7 @@ import ast
 import hashlib
 import json
 import os
+import re
 import runpy
 import tempfile
 import zipfile
@@ -33,6 +34,10 @@ def _touch_dir(path: Path, age: int) -> None:
     (path / "data.txt").write_text(path.name, encoding="utf-8")
     stamp = 2_000_000_000 - age
     os.utime(path, (stamp, stamp))
+
+
+def _version_tuple(value: str) -> tuple[int, ...]:
+    return tuple(int(part) for part in value.split("."))
 
 
 def main() -> int:
@@ -87,7 +92,9 @@ def main() -> int:
     ):
         assert token in cleanup, token
 
-    assert "$Version = '2.2.15'" in recovery
+    recovery_match = re.search(r"^\$Version\s*=\s*'([^']+)'", recovery, flags=re.MULTILINE)
+    assert recovery_match is not None
+    assert _version_tuple(recovery_match.group(1)) >= (2, 2, 15)
     assert "'Zaloha') 'Recovery'" in recovery
     assert "$logDir = Join-Path $target 'Logy'" in recovery
     assert "$RecoveryLogName = 'recovery.log'" in recovery
@@ -147,11 +154,11 @@ def main() -> int:
             assert normalized == b"OLD = True\n"
 
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
-    assert manifest["version"] == "2.2.15"
-    assert str(manifest["runtime_layout"]) == "8"
+    assert _version_tuple(str(manifest["version"])) >= (2, 2, 15)
+    assert int(str(manifest["runtime_layout"])) >= 8
     assert all(item["path"] != "actions.sqlite3" for item in manifest["files"])
 
-    print("OK: TURTO 2.2.15 – backup hierarchy, archive compression and data protection.")
+    print("OK: TURTO 2.2.15+ – backup hierarchy, archive compression and data protection.")
     return 0
 
 

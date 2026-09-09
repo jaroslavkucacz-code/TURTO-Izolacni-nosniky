@@ -1,0 +1,15 @@
+{
+  "version": "2.2.16",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "9",
+  "manifest_root_only": true,
+  "runtime_strategy": "incremental-program-overlay"
+}

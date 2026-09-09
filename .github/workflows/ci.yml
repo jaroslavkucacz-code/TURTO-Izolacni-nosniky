@@ -35,6 +35,8 @@ jobs:
         run: python tools/verify_runtime_import_2214.py
       - name: Verify backup hierarchy cleanup
         run: python tools/verify_cleanup_2215.py
+      - name: Verify runtime flattening and incremental delivery
+        run: python tools/verify_runtime_flatten_2216.py
       - name: Verify shear-dowel movement
         run: python tools/verify_shear_movement.py
       - name: Verify UI, autocomplete and Schöck KL-O
@@ -73,6 +75,8 @@ jobs:
         run: python tools/verify_runtime_import_2214.py
       - name: Verify backup hierarchy cleanup on Windows
         run: python tools/verify_cleanup_2215.py
+      - name: Verify runtime flattening and incremental delivery on Windows
+        run: python tools/verify_runtime_flatten_2216.py
       - name: Verify shear-dowel movement on Windows
         run: python tools/verify_shear_movement.py
       - name: Verify UI, autocomplete and Schöck KL-O on Windows
