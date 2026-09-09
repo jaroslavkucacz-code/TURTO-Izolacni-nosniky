@@ -1,0 +1,11 @@
+TURTO 2.2.13 – velký úklid instalační složky
+
+- Aktivní programový runtime se nově instaluje do samostatné složky Program.
+- V kořeni instalace zůstává pouze spouštěcí a aktualizační vrstva, uživatelská data a přehledné datové složky.
+- Celý historický řetězec modulů se před přepnutím znovu sestaví a ověří v dočasné složce; až potom se aktivuje.
+- Původní kořenové Python/PYW moduly se nemažou. Pokud mají ověřenou náhradu v Program, přesunou se do Archiv\Runtime_pred_2.2.13.
+- Katalogy zůstávají v kořenové složce Katalogy; program je po přesunu otevírá stejným způsobem jako dříve.
+- Kořenový updater.py zůstává jediným modulem, který aplikuje aktualizace. Program používá bezpečný proxy modul.
+- actions.sqlite3 je výslovně chráněný a migrace jej nepřesouvá, nemaže ani neupravuje.
+- Při neúspěšné tvorbě Program runtime zůstává předchozí instalace zachována.
+- Nouzová oprava OPRAVIT_TURTO obnoví pouze spouštěcí vrstvu; Program se následně znovu vytvoří z ověřených zdrojů.
