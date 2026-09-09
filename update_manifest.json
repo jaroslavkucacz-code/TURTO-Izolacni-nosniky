@@ -1,11 +1,17 @@
 {
   "version": "2.2.12",
+  "runtime_layout": "5",
   "notes": "Druhá etapa bezpečného úklidu instalační složky. Neaktivní staré app/action/platform moduly se po kontrole vazeb přesouvají do Archiv/Stare_moduly, jednorázové diagnostické skripty do Nastroje/Diagnostika a historický soupis zdrojů Schöck do Dokumentace/Zdroje. Aktivní runtime moduly, spouštěč a actions.sqlite3 jsou chráněné.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/792047948eb70a261ce9eb007fbb6661fc9d533a/updates/2.2.12/app.pyw",
-      "sha256": "72d91fc43167c2eaa5093fa8869c778d957749f0f49daaddc400e7449660086c"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/037c39af297452b0a1ecf4ca4b0cefcbec25b0a9/updates/2.2.12/app.pyw",
+      "sha256": "9ce63c1f0d2869f44b11e18cde55f8d2ff056f2938472560c44aa9a3c98d22e1"
+    },
+    {
+      "path": "app_runtime.pyw",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/34f3a859e9e86ea72fa889bc915ba9e1e08dee7c/updates/2.2.12/app_runtime.pyw",
+      "sha256": "af75005a8b3b9f4c3e5b1567db2f4e0f440bc22246261e7317f0d12bc6410103"
     },
     {
       "path": "cleanup_stage1.py",
