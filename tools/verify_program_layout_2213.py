@@ -70,6 +70,7 @@ def main() -> int:
         'staging / "catalog_browser_2210.py"',
         'root / "Zaloha"',
         "actions.sqlite3 is never modified",
+        "PROGRAM_ONLY_PAYLOADS",
     ):
         assert token in installer, token
 
@@ -77,11 +78,12 @@ def main() -> int:
     assert sha256(ROOT / "updates" / "2.2.12" / "runtime_installer.py") == base_sha
 
     payloads = literal(RELEASE / "runtime_installer.py", "PAYLOADS")
+    program_only = literal(RELEASE / "runtime_installer.py", "PROGRAM_ONLY_PAYLOADS")
     assert {
-        "runtime_paths.py", "updater.py", "catalog_browser.py",
-        "cleanup_stage3.py", "app_runtime.pyw",
+        "runtime_paths.py", "catalog_browser.py", "cleanup_stage3.py", "app_runtime.pyw",
     } <= set(payloads)
-    for local, (_commit, source, expected) in payloads.items():
+    assert set(program_only) == {"updater.py"}
+    for local, (_commit, source, expected) in {**payloads, **program_only}.items():
         source_path = ROOT / source
         assert source_path.is_file(), source
         assert sha256(source_path) == expected, local
