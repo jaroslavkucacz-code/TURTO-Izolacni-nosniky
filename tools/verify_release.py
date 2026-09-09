@@ -27,6 +27,7 @@ DEFAULT_REQUIRED_TARGETS = {
     "app.pyw", "app_runtime.pyw", "platform_workspace.py", "hit_workspace.py",
     "hit_pdf.py", "updater.py", "RELEASE_NOTES.txt",
 }
+PROGRAM_ONLY_REQUIRED_TARGETS = {"app.pyw", "updater.py", "RELEASE_NOTES.txt"}
 PROTECTED_TARGETS = {"actions.sqlite3"}
 
 
@@ -202,11 +203,25 @@ def verify_manifest() -> tuple[str, str, dict[str, tuple[str, str, str]]]:
         fail(f"Chybí release adresář updates/{version}.")
 
     required_targets = set(DEFAULT_REQUIRED_TARGETS)
+    root_only = False
     contract_path = release_dir / "release_contract.json"
     if contract_path.is_file():
         contract = load_json(contract_path)
         if str(contract.get("version", "")).strip() != version:
             fail("release_contract.json má jinou verzi než manifest.")
+
+        root_only = contract.get("manifest_root_only") is True
+        if root_only:
+            required_targets = set(PROGRAM_ONLY_REQUIRED_TARGETS)
+            if str(contract.get("runtime_directory", "")).strip() != "Program":
+                fail("Program-only release musí mít runtime_directory=Program.")
+            if str(contract.get("runtime_layout", "")).strip() != runtime_layout:
+                fail("release_contract.json má jiné runtime_layout než manifest.")
+            if not (release_dir / "runtime_installer.py").is_file():
+                fail("Program-only release musí obsahovat runtime_installer.py.")
+            if not (release_dir / "app_runtime.pyw").is_file():
+                fail("Program-only release musí obsahovat app_runtime.pyw.")
+
         configured = contract.get("required_targets")
         if configured is not None:
             if not isinstance(configured, list) or not all(isinstance(x, str) for x in configured):
@@ -256,6 +271,14 @@ def verify_manifest() -> tuple[str, str, dict[str, tuple[str, str, str]]]:
     missing = sorted(required_targets - seen)
     if missing:
         fail("Manifest neobsahuje povinné cílové soubory: " + ", ".join(missing))
+
+    if root_only:
+        runtime_root_targets = (DEFAULT_REQUIRED_TARGETS - PROGRAM_ONLY_REQUIRED_TARGETS) & seen
+        if runtime_root_targets:
+            fail(
+                "Program-only release nesmí znovu vytvářet runtime moduly v kořeni: "
+                + ", ".join(sorted(runtime_root_targets))
+            )
 
     app_runtime = release_dir / "app_runtime.pyw"
     if app_runtime.is_file() and f'APP_VERSION = "{version}"' not in app_runtime.read_text(encoding="utf-8"):
