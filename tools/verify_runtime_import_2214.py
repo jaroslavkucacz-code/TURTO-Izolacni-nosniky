@@ -82,7 +82,9 @@ def main() -> int:
             module_file = program / "runtime_paths.py"
             module_file.write_text("VALUE = 2214\n", encoding="utf-8")
 
-            namespace["PROGRAM"] = program
+            # runpy returns a copy of the globals mapping. Update the function's
+            # real globals so the test exercises the exact activation code.
+            activate.__globals__["PROGRAM"] = program
             program_text = str(program)
             sys.path_importer_cache[program_text] = None
             activate()
