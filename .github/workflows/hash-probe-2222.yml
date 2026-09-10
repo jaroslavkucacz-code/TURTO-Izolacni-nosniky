@@ -1,0 +1,17 @@
+name: TURTO 2.2.22 hash probe
+on:
+  push:
+    branches:
+      - hotfix/2.2.22-release-notes-race
+permissions:
+  contents: read
+jobs:
+  hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute current payload hashes
+        run: |
+          sha256sum updates/2.2.22/app_runtime.pyw
+          sha256sum updates/2.2.22/runtime_installer.py
+          sha256sum updates/2.2.22/RELEASE_NOTES.txt
