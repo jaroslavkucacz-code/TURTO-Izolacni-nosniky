@@ -15,3 +15,5 @@ jobs:
           sha256sum updates/2.2.21/shear_dowels_current.py
           sha256sum updates/2.2.21/app_runtime.pyw
           sha256sum updates/2.2.21/runtime_installer.py
+          sha256sum updates/2.2.21/app.pyw
+          sha256sum updates/2.2.21/RELEASE_NOTES.txt
