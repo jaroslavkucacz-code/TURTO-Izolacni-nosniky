@@ -1,0 +1,11 @@
+TURTO 2.2.22
+
+Oprava archivace poznámek k vydání při online aktualizaci
+
+- Opraven závod mezi ukončovanou starší verzí TURTO a nově staženým RELEASE_NOTES.txt. Starší běžící verze už po instalaci novější verze nesmí přesunout její poznámky pod staré číslo vydání.
+- Bootstrap před archivací poznámek ověřuje, že RELEASE_NOTES.txt skutečně patří právě běžící verzi.
+- Při startu se bezpečně opraví dříve chybně zařazené poznámky: soubor v Dokumentace\Interni\Vydani se řídí verzí uvedenou v prvním řádku obsahu, nikoli chybným historickým názvem souboru.
+- Oprava pokrývá i přechod 2.2.20 -> 2.2.21, kdy mohl doběhnout cleanup 2.2.20 několik sekund po instalaci 2.2.21.
+- Návrh smykových trnů z 2.2.21, včetně správné terminologie Ancon ED/ESD/ESDQ a dalších plně vyhovujících alternativ, zůstává beze změny.
+- Programový runtime se mění pouze kvůli identitě verze; statické katalogy ani výpočtová data se nemění.
+- actions.sqlite3 se při aktualizaci ani opravě dokumentace nemění.
