@@ -1,0 +1,13 @@
+{
+  "version": "2.2.23",
+  "required_targets": ["app.pyw", "updater.py", "RELEASE_NOTES.txt"],
+  "preserve": ["actions.sqlite3"],
+  "runtime_directory": "Program",
+  "runtime_layout": "16",
+  "manifest_root_only": true,
+  "runtime_strategy": "incremental-program-overlay",
+  "release_notes_race_guard": true,
+  "release_notes_repair": true,
+  "shear_method_chain_repaired": true,
+  "shear_schedule_runtime_closure": true
+}

@@ -1,0 +1,11 @@
+TURTO 2.2.23
+
+Oprava startu pracovního prostoru smykových trnů
+
+- Opravena startovací regrese „'_tkinter.tkapp' object has no attribute 'open_shear_decoder_schedule'“, která se projevila i při ručním spuštění bootstrapu 2.2.21.
+- Příčinou byla vrstva shear_dowels_current z 2.2.21: nová nadstavba Ancon ED/ESD/ESDQ a dalších vyhovujících alternativ přeskočila stabilní install_methods() z 2.1.5, který instaluje Dekodér, hromadný výkaz a společné akce nad řádky.
+- Ve 2.2.23 se nejprve instaluje kompletní ověřená vrstva 2.1.5 a teprve potom přesná nadstavba 2.2.21. Současné návrhy čtyř výrobců, terminologie Ancon a tabulka dalších vyhovujících alternativ zůstávají zachované.
+- Runtime před spuštěním hlavního okna kontroluje, že jsou k dispozici open_shear_decoder_schedule, open_shear_design_schedule a další klíčové metody smykových trnů.
+- Instalační balík nově explicitně doplňuje i historicky ověřený řetězec schedule/UI souborů potřebný pro hromadné dekódování a návrh smykových trnů.
+- Ochrana proti souběhu aktualizace a archivace poznámek z 2.2.22 zůstává zachována.
+- actions.sqlite3 se při opravě ani aktualizaci nemění.
