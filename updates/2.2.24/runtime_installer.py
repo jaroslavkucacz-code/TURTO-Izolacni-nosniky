@@ -33,9 +33,9 @@ PAYLOADS = {
         "ed0dcb300ed07d12d70dc7775964d1ab38c1035e4ececd7ee379189004b2c23b",
     ),
     "shear_dowels_current.py": (
-        "35d37bece6b17d1899ba96bf0f19d09dadceadf9",
+        "4be402b2416bd4ee6cac3b740cbb90b38b8af392",
         "updates/2.2.24/shear_dowels_current.py",
-        "3643b6efec0e0e0109c5567cfea4f365ae52a12082134d228a6a13d1ee21aa60",
+        "42025cb2bcf5e5bdb8d6ccd6f098bffb9ae49a10632e8da3d660c2d54200b35f",
     ),
     "shear_dowels_current_221.py": (
         "3c4ebb0720f6db8e40bb59d697523b77fd3d53ca",
@@ -60,7 +60,7 @@ PAYLOADS = {
     "shear_dowels_ui_214.py": (
         "b198cbb7bf0720d694dfda5e9baf66c07d9bc23e",
         "updates/2.1.4/shear_dowels_ui_214.py",
-        "ece048d76888dbdb398ea9b6c67ef4bcb2765a0904987ae358cc59765a069813",
+        "ece048d76888dbdb2987aae0c19f807a5a36a8b",
     ),
 }
 
@@ -170,8 +170,6 @@ def install_runtime(root: Path | str) -> None:
     root = Path(root).resolve()
     program = root / "Program"
 
-    # A marker alone is no longer sufficient. The critical runtime payloads
-    # must also match their verified SHA-256 values.
     if _revision(program) and _payloads_match(program):
         return
 
@@ -180,10 +178,6 @@ def install_runtime(root: Path | str) -> None:
 
     with tempfile.TemporaryDirectory(prefix="turto_2224_") as temp_name:
         temp = Path(temp_name)
-
-        # Ensures the complete historical runtime exists. Even if 2.2.23
-        # itself considers its markers valid, the critical shear chain below
-        # is overlaid again from pinned, hash-checked sources.
         _ensure_223_base(root, temp)
         program.mkdir(parents=True, exist_ok=True)
         _apply_overlay(program, temp)
