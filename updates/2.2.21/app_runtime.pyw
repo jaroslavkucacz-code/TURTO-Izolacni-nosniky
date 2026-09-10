@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""TURTO 2.2.20 runtime – central AKCE layer flattened directly over app_base."""
+"""TURTO 2.2.21 runtime – central AKCE layer flattened directly over app_base."""
 
 import os
 from pathlib import Path
@@ -29,7 +29,7 @@ from shear_movement import install as install_shear_movement
 from isokorb_compat import install as install_isokorb_compat
 from substitution_guard import install as install_substitution_guard
 
-APP_VERSION = "2.2.20"
+APP_VERSION = "2.2.21"
 _BASE = _base
 
 # Former app_central_prev (1.1.23): central AKCE composition is installed here.
@@ -306,7 +306,7 @@ def selftest() -> None:
     assert PROGRAM == program_root()
     assert PROGRAM.name == "Program"
     assert _root_aware_choose_data_directory("Katalogy").parent in {ROOT, PROGRAM}
-    assert APP_VERSION == "2.2.20"
+    assert APP_VERSION == "2.2.21"
     assert hit_workspace.HitWorkspaceMixin is not None
     assert _base.CatalogDatabase is CombinedCatalogDatabase
     assert _base.ThermalConnectorApp._build_body is _central_build_body
