@@ -1,0 +1,16 @@
+TURTO 2.2.18 – oprava aktualizace po 2.2.17
+
+Hlavní oprava
+- Verze 2.2.17 obsahovala chybnou dvojici commit/path u dvou runtime payloadů. Bootstrap proto mohl stáhnout správný installer, ale ten následně dostal HTTP 404 při stahování app_runtime.pyw.
+- Verze 2.2.18 používá opravené připnutí zdrojů a záměrně navazuje přímo na poslední ověřený runtime 2.2.16. Tím bezpečně obnoví i instalaci, která se při přechodu na 2.2.17 zastavila před aplikací runtime overlaye.
+- Hotfix přenáší jen současný app_runtime.pyw a zploštěný hit_workspace.py. Další destruktivnější úklid je v této opravné verzi pozastaven, aby se nejdříve obnovilo spolehlivé spuštění.
+
+Prevence opakování
+- Release kontrola je rozšířena o ověření každé připnuté kombinace commit + cesta + SHA-256 přímo proti historii Gitu.
+- CI proto používá plnou historii repozitáře a nově selže, pokud commit existuje, ale požadovaný soubor v něm ještě neexistoval.
+- Stejně se kontroluje BASE installer a všechny runtime PAYLOADS.
+
+Bezpečnost dat
+- actions.sqlite3 se nepřesouvá, nemaže ani nepřepisuje.
+- Inkrementální overlay má rollback.
+- Pokud runtime 2.2.16 není kompletní, použije se jeho ověřená obnova.
