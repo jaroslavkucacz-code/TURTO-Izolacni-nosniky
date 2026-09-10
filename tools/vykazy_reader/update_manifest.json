@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "notes": [
-    "Ikona TURTO se nyní zobrazuje i na hlavním panelu Windows a v Alt+Tab.",
-    "Ikona je také přímo v horní hlavičce programu.",
-    "Přidáno tlačítko Aktualizace; další verze se instalují online bez stahování celého balíku."
+    "Aplikace se nově jmenuje TURTO – Výkazy kladecích plánů.",
+    "Přejmenování se promítá do titulku programu, hlavičky a názvu v Excel exportu.",
+    "Interní identifikátor, databáze akcí a archiv PDF zůstávají beze změny."
   ],
   "patches": [
     {
@@ -13,6 +13,17 @@
       "to": "0.13.2",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/26817f6f50e9bf7dc067c11afbd5c5d513a76beb/tools/vykazy_reader/updates/0.13.2/update_0_13_1_to_0_13_2.py",
       "sha256": "509b342e2cfdc63a53ea4eef29fb078ffe4f2d6eda60f09300dea5751878ed6f",
+      "targets": [
+        "app.py",
+        "README.txt",
+        "VERSION.txt"
+      ]
+    },
+    {
+      "from": "0.13.2",
+      "to": "0.13.3",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/9f7cbc39dbb816d2baf75e861be36c66465eec21/tools/vykazy_reader/updates/0.13.3/update_0_13_2_to_0_13_3.py",
+      "sha256": "70b67c2bf6dbab1e19617fda3a7b198dd64355d56e5f592dd6e90b70c0fd168a",
       "targets": [
         "app.py",
         "README.txt",
