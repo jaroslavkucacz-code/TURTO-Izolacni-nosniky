@@ -23,6 +23,7 @@ from tkinter import messagebox, ttk
 
 import shear_dowels_current_221 as _current
 import shear_dowels_ui_215 as _stable
+import shear_ui_227 as _ui227
 from shear_catalogs_227 import design_for_manufacturer
 
 ED_EXPLANATION = getattr(
@@ -407,6 +408,14 @@ def install_methods(cls: Any) -> None:
         )
 
     cls._turto_shear_224_installed = True
+
+
+# platform_workspace imports the public shear_ui_227 symbols after importing
+# shear_dowels_current.  Rebind them here so the visible workspace uses this
+# 2.2.24 UI and method layer, not the older 2.2.21 wrapper.
+_ui227.build_shear_workspace = build_shear_workspace
+_ui227.init_shear_workspace = init_shear_workspace
+_ui227.install_methods = install_methods
 
 
 __all__ = (
