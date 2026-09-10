@@ -1,0 +1,16 @@
+{
+  "version": "2.2.18",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "11",
+  "manifest_root_only": true,
+  "runtime_strategy": "recovery-from-2.2.16-incremental-overlay",
+  "pinned_runtime_sources_verified": true
+}
