@@ -1,6 +1,6 @@
-# TURTO – Výkazy izolačních prvků · online aktualizace
+# TURTO – Výkazy kladecích plánů · online aktualizace
 
-Samostatný aktualizační kanál pro program **TURTO – Výkazy izolačních prvků**.
+Samostatný aktualizační kanál pro program **TURTO – Výkazy kladecích plánů**.
 Nejde o runtime hlavní aplikace TURTO 2.x; soubory jsou záměrně oddělené pod `tools/vykazy_reader`.
 
 Aktualizátor mění pouze soubory uvedené v `update_manifest.json`. Databáze akcí,
