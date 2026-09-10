@@ -1,0 +1,25 @@
+TURTO 2.2.20 – zploštění centrální AKCE a další optimalizace
+
+Hlavní změny
+- Aktivní runtime už nepoužívá historickou mezivrstvu app_central_prev.pyw.
+- Logika centrální AKCE z 1.1.23 je přenesena přímo do současného app_runtime.pyw nad ověřeným app_base.py.
+- Zachována je stejná kompozice Dekodéru ISO, Návrhu HIT, Záměn, centrálního ukládání AKCÍ, hromadného dekódování a textů UI.
+- Přímé podpůrné moduly project/action/platform jsou nově explicitně součástí kontroly kompletnosti Programu. Poškozená instalace se proto neoprávněně nepovažuje za zdravou.
+- Běžný přechod z kompletní 2.2.19 používá malý inkrementální overlay: app_runtime.pyw, ověřený současný hit_workspace.py a cleanup_stage8.py.
+- Při nekompletní instalaci se obnoví úplný ověřený základ 2.2.16 a následně se nanese současná kompozice.
+- app_central_prev.pyw a starší již nepoužívané vrstvy se archivují až po úspěšném ukončení GUI a jen po fail-closed AST kontrole závislostí.
+- Aktivní Python cache zůstává zachována; odstraňuje se pouze bytecode skutečně archivovaných modulů.
+- Release guard nadále ověřuje každý runtime pin jako skutečný commit:path + SHA-256 proti historii Gitu.
+
+Bezpečnost dat
+- actions.sqlite3 se při instalaci ani úklidu nepřesouvá, nemaže ani nepřepisuje.
+- Installer i cleanup kontrolují databázi byte-for-byte.
+- Úklid nikdy není podmínkou pro spuštění programu; proběhne až po úspěšném běhu.
+- Při nejistotě dependency analýzy se historické moduly nemažou.
+
+Výsledek
+- o jednu aktivní historickou aplikační vrstvu méně,
+- kratší startovací importní řetězec,
+- přehlednější současný runtime,
+- lepší detekce poškozených podpůrných modulů,
+- připravený základ pro další bezpečné zploštění project_ui, action_* a platform_* vrstev.
