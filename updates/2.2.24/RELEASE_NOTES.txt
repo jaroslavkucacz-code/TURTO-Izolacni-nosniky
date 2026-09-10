@@ -1,0 +1,14 @@
+TURTO 2.2.24
+
+Smykové trny – oprava Ancon ED/ESD v Návrhu a Záměnách
+
+- Potvrzeno značení Ancon: ED je kompletní nízkoúnosný smykový konektor s odolným plastovým pouzdrem; ESD používá nerezové pouzdro; ESDQ je varianta pro příčný posun.
+- V kartě Záměny je nově viditelná volba varianty Ancon: ESD – nerezové pouzdro / ED – plastové pouzdro.
+- Stejná volba je dostupná i při převodu z Dekodéru do Záměn.
+- Odstraněna chyba, kdy synchronizace z Dekodéru zapisovala low_sleeve="stainless" natvrdo a tím znemožnila návrh ED.
+- Při příčném posunu se nadále automaticky použije ESDQ bez ohledu na volbu axiálního pouzdra.
+- Návrhová logika Ancon zůstává společná pro Návrh i Záměny; plastová volba vede na ED, nerezová na ESD.
+- Aktualizace 2.2.24 znovu přepíše kritické moduly smykových trnů z připnutých a SHA-256 ověřených zdrojů.
+- Kontrola aktuálnosti runtime už nespoléhá pouze na číslo verze a přítomnost souboru, ale ověřuje SHA-256 kritických modulů.
+- Tím se opraví i instalace 2.2.23, která měla správné značky verze, ale lokálně zůstal starší nebo smíšený runtime.
+- Databáze actions.sqlite3 se při aktualizaci nemění.
