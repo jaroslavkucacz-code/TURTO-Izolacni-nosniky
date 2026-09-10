@@ -1,0 +1,13 @@
+TURTO 2.2.21
+
+Smykové trny – Ancon a další vyhovující alternativy
+
+- Upřesněno označení Ancon ED: ED je kompletní nízkoúnosný smykový konektor tvořený nerezovým trnem a odolným plastovým pouzdrem s přibíjecí destičkou. ED není název samotného plastového pouzdra.
+- Výběr pouzdra u Anconu nyní přímo ukazuje související konektor: ESD pro nerezové pouzdro, ED pro plastové pouzdro a ESDQ pro příčný posun.
+- V Návrhu smykových trnů se po výběru navrženého řádku zobrazují také další plně vyhovující alternativy podle stejných vstupů a stejného výrobce.
+- Alternativy se řadí v pořadí vráceném ověřeným návrhovým modulem. Primární návrh se nemění.
+- Kandidáti se stavem „KONTROLA DESKY“ se nezobrazují mezi plně vyhovujícími alternativami.
+- Alternativy se pouze dopočítávají pro zobrazení a neukládají se do databáze AKCÍ.
+- Statické tabulky a únosnosti Ancon nebyly touto úpravou měněny.
+- Aktualizace z kompletní 2.2.20 mění pouze app_runtime.pyw a shear_dowels_current.py; při neúplné instalaci se použije ověřený základ 2.2.20.
+- actions.sqlite3 se při instalaci ani této úpravě nemění.
