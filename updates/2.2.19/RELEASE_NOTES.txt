@@ -1,0 +1,29 @@
+TURTO 2.2.19 – hlubší zploštění HIT a bezpečnější úklid
+
+Hlavní změny
+- Aktivní HIT workspace už nepoužívá mezivrstvy hit_workspace_125 ani hit_workspace_prev.
+- Funkce dříve vrstvené přes 1.1.22/1.1.25 jsou skládány přímo nad ověřeným hit_workspace_base: množství, virtualizované rolování, databáze návrhů, exporty, WT a doplňkové prvky.
+- hit_workspace_base zůstává zachován jako ověřený výpočetní základ. Samotné statické jádro ani katalogová data se v této etapě nemění.
+- Dříve skryté přímé závislosti hit_row_extension, hit_virtual_scroll, hit_design_ui a hit_export_ui jsou nyní explicitní součást kontroly kompletnosti Programu.
+- Běžná aktualizace z kompletní 2.2.18 přenáší jen app_runtime.pyw, hit_workspace.py a cleanup_stage7.py.
+- Pokud je Program nekompletní, installer se vrátí k poslednímu úplnému ověřenému základu 2.2.16 a teprve potom aplikuje 2.2.19 overlay.
+- Všechny runtime piny nadále procházejí kontrolou skutečného commit:path a SHA-256.
+
+Velký úklid
+- Po úspěšném ukončení aplikace se mohou archivovat již nepotřebné app_runtime wrappery, HIT wrappery 201/200/127/125/prev a staré cleanup_stage3 až cleanup_stage6.
+- Archivace probíhá pouze po fail-closed AST kontrole závislostí a po ověření ZIPu včetně SHA-256 jednotlivých souborů.
+- Úklid se spouští až po úspěšném běhu GUI, takže nikdy není podmínkou pro start programu.
+- Aktivní Python cache se už nemaže celá. Odstraňují se pouze .pyc soubory skutečně archivovaných modulů, aby další start nebyl zbytečně pomalejší.
+- RELEASE_NOTES.txt se ukládá do Dokumentace\Interni\Vydani.
+
+Bezpečnost dat
+- actions.sqlite3 se během instalace ani úklidu nepřesouvá, nemaže ani nepřepisuje.
+- Installer i cleanup kontrolují byte-for-byte zachování databáze, pokud je přítomná v instalačním kořeni.
+- Při nejistotě dependency analýzy se historické vrstvy ponechají na místě.
+
+Výsledek
+- kratší aktivní importní řetězec HIT,
+- méně historických vrstev v Programu,
+- explicitnější kontrola runtime závislostí,
+- bezpečnější recovery z nekompletní instalace,
+- zachovaná bytecode cache aktivních modulů pro rychlejší další start.
