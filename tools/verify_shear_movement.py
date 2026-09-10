@@ -30,8 +30,17 @@ def _assignment_literal(path: Path, name: str):
     for node in tree.body:
         if isinstance(node, ast.Assign):
             if any(isinstance(t, ast.Name) and t.id == name for t in node.targets):
-                return ast.literal_eval(node.value)
-    raise RuntimeError(f"{path}: chybí literální přiřazení {name}")
+                try:
+                    return ast.literal_eval(node.value)
+                except (ValueError, TypeError):
+                    # Newer installers may compose tuples using starred literal
+                    # groups. They are declarative modules, so evaluating their
+                    # top level via runpy is safe and avoids weakening the test.
+                    namespace = runpy.run_path(str(path), run_name="verify_installer_assignments")
+                    if name in namespace:
+                        return namespace[name]
+                    break
+    raise RuntimeError(f"{path}: chybí přiřazení {name}")
 
 
 def _source_from_manifest_item(item: dict) -> Path:

@@ -358,15 +358,19 @@ def main() -> int:
     assert contract["cleanup_strategy"] == "post-successful-run-fail-closed"
     assert "actions.sqlite3" in contract["preserve"]
 
+    # The current production manifest may be newer than 2.2.19. Keep this test
+    # focused on reproducing the historical 2.2.19 release while still checking
+    # that later releases retain the same root-only/data-protection contract.
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
-    assert manifest["version"] == "2.2.19"
-    assert str(manifest["runtime_layout"]) == "12"
+    current_version = (ROOT / "CURRENT_VERSION").read_text(encoding="utf-8").strip()
+    assert manifest["version"] == current_version
+    assert int(manifest["runtime_layout"]) >= 12
     assert {item["path"] for item in manifest["files"]} == {
         "app.pyw",
         "updater.py",
         "RELEASE_NOTES.txt",
     }
-    assert (ROOT / "CURRENT_VERSION").read_text(encoding="utf-8").strip() == "2.2.19"
+    assert all(item["path"] != "actions.sqlite3" for item in manifest["files"])
 
     print(
         "OK: TURTO 2.2.19 – direct HIT base composition, explicit helper closure, "
