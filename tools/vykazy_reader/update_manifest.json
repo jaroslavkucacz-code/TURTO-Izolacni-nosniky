@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "channel": "TURTO-Vykazy",
+  "version": "0.13.2",
+  "notes": [
+    "Ikona TURTO se nyní zobrazuje i na hlavním panelu Windows a v Alt+Tab.",
+    "Ikona je také přímo v horní hlavičce programu.",
+    "Přidáno tlačítko Aktualizace; další verze se instalují online bez stahování celého balíku."
+  ],
+  "patches": [
+    {
+      "from": "0.13.1",
+      "to": "0.13.2",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/26817f6f50e9bf7dc067c11afbd5c5d513a76beb/tools/vykazy_reader/updates/0.13.2/update_0_13_1_to_0_13_2.py",
+      "sha256": "509b342e2cfdc63a53ea4eef29fb078ffe4f2d6eda60f09300dea5751878ed6f",
+      "targets": [
+        "app.py",
+        "README.txt",
+        "VERSION.txt"
+      ]
+    }
+  ]
+}
