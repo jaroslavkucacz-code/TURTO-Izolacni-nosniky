@@ -53,6 +53,8 @@ jobs:
         run: python tools/verify_shear_movement.py
       - name: Verify Ancon ED terminology and passing alternatives
         run: python tools/verify_ancon_alternatives_2221.py
+      - name: Verify release-note race and repair
+        run: python tools/verify_release_notes_race_2222.py
       - name: Verify UI, autocomplete and Schöck KL-O
         run: python tools/verify_ui_223.py
       - name: Verify unified tables and tab consistency
@@ -107,6 +109,8 @@ jobs:
         run: python tools/verify_shear_movement.py
       - name: Verify Ancon ED terminology and passing alternatives on Windows
         run: python tools/verify_ancon_alternatives_2221.py
+      - name: Verify release-note race and repair on Windows
+        run: python tools/verify_release_notes_race_2222.py
       - name: Verify UI, autocomplete and Schöck KL-O on Windows
         run: python tools/verify_ui_223.py
       - name: Verify unified tables and tab consistency on Windows
