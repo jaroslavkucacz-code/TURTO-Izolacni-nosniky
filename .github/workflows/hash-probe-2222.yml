@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Compute current payload hashes
+      - name: Compute current release hashes
         run: |
           sha256sum updates/2.2.22/app_runtime.pyw
           sha256sum updates/2.2.22/runtime_installer.py
+          sha256sum updates/2.2.22/app.pyw
           sha256sum updates/2.2.22/RELEASE_NOTES.txt
