@@ -33,6 +33,8 @@ jobs:
         run: python tools/verify_release.py
       - name: Verify pinned runtime sources
         run: python tools/verify_pinned_sources.py
+      - name: Verify 2.2.18 recovery path
+        run: python tools/verify_recovery_2218.py
       - name: Verify Program layout migration
         run: python tools/verify_program_layout_2213.py
       - name: Verify runtime_paths startup hotfix
@@ -79,6 +81,8 @@ jobs:
         run: python tools/verify_release.py
       - name: Verify pinned runtime sources on Windows
         run: python tools/verify_pinned_sources.py
+      - name: Verify 2.2.18 recovery path on Windows
+        run: python tools/verify_recovery_2218.py
       - name: Verify Program layout migration on Windows
         run: python tools/verify_program_layout_2213.py
       - name: Verify runtime_paths startup hotfix on Windows
