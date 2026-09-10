@@ -1,12 +1,12 @@
 {
-  "version": "2.2.20",
-  "runtime_layout": "13",
-  "notes": "Další velký úklid: centrální AKCE už nepoužívá app_central_prev, podpůrné project/action/platform moduly jsou explicitně kontrolované a post-run cleanup bezpečně archivuje nepoužívané vrstvy. actions.sqlite3 se nemění.",
+  "version": "2.2.21",
+  "runtime_layout": "14",
+  "notes": "Upřesnění Ancon ED/ESD/ESDQ a zobrazení dalších plně vyhovujících alternativ v návrhu smykových trnů. Alternativy se pouze dopočítávají a actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1731f14eefa90beeb2984de15854ead455c468ff/updates/2.2.20/app.pyw",
-      "sha256": "98a3d1055b41c5af1c76f8038683f17a44ee7224b8239cc68f5281a1617f3cd3"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/26c342706b27935f29c28b64bbc0d3b42d6bab51/updates/2.2.21/app.pyw",
+      "sha256": "43e8d8293154750d4f668499e0511838b0912c69ececc71dda0695d32c5e72c7"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/75d58c33d307ad2c8c2e8beb633db45b24241210/updates/2.2.20/RELEASE_NOTES.txt",
-      "sha256": "41be973734437828397bc4dd99ebc6db4fb6f880b0da62c686d6939f0bf98abe"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/07d5ad755312ce7f330e2c06aebcfe963287d963/updates/2.2.21/RELEASE_NOTES.txt",
+      "sha256": "f8b210ba5afa8cf8aec62e60d15ab7006a85bcc0ca23db510e0ef7376ed7d0bb"
     }
   ]
 }
