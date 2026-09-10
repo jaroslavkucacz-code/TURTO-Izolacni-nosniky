@@ -15,6 +15,12 @@ ROOT = Path(__file__).resolve().parents[1]
 HEX40 = re.compile(r"^[0-9a-f]{40}$")
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 
 class VerificationError(RuntimeError):
     pass
@@ -113,7 +119,7 @@ def _verify_runtime_installer(installer: Path) -> None:
 
     payloads = _literal(installer, "PAYLOADS")
     if not isinstance(payloads, dict) or not payloads:
-        raise VerificationError("PAYLOADS musí být neprázzdný slovník.")
+        raise VerificationError("PAYLOADS musí být neprázdný slovník.")
     for local, value in payloads.items():
         if not isinstance(value, tuple) or len(value) != 3:
             raise VerificationError(f"PAYLOADS[{local!r}] nemá tvar (commit, path, sha256).")
