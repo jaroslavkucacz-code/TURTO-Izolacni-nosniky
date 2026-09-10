@@ -1,0 +1,17 @@
+{
+  "version": "2.2.19",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "12",
+  "manifest_root_only": true,
+  "runtime_strategy": "incremental-program-overlay-with-full-baseline-fallback",
+  "cleanup_strategy": "post-successful-run-fail-closed",
+  "active_hit_base": "hit_workspace_base.py"
+}

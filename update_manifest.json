@@ -1,12 +1,12 @@
 {
-  "version": "2.2.18",
-  "runtime_layout": "11",
-  "notes": "Opravná verze po chybě 2.2.17: runtime payloady mají ověřené commit+path+SHA-256 piny, obnova navazuje přímo na poslední ověřený Program 2.2.16 a actions.sqlite3 se nemění.",
+  "version": "2.2.19",
+  "runtime_layout": "12",
+  "notes": "Hlubší úklid HIT: workspace je složen přímo nad hit_workspace_base, staré vrstvy se archivují až po úspěšném běhu aplikace a všechny piny zůstávají ověřované commit+path+SHA-256. actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/834e263337a75b2f56628f69e195b38e28f83e4a/updates/2.2.18/app.pyw",
-      "sha256": "e3209c1bd82a2eafe2ff5b13798ea6e7726efbe4cdba607400d54de0ba3647d2"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/27c1954f391cbf253115a986f58e3cf537e4d16d/updates/2.2.19/app.pyw",
+      "sha256": "2a08e70dcaa856ac977c48ce7825955324a8ba12250d474898e791e340b89f10"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/cd4c87ca6389ba079f33fe5d360e191760892872/updates/2.2.18/RELEASE_NOTES.txt",
-      "sha256": "415b890f0624d5f462bb2658870b5b57135ed7ddbf3bad8e16bbeaeb7efed2cb"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/51492f4e1610b0160ea2052f97f1868523ac2ad8/updates/2.2.19/RELEASE_NOTES.txt",
+      "sha256": "896759ab3049eec9c09c00d8641f99211485e9a3e3bea65ebc11905111588803"
     }
   ]
 }

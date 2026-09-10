@@ -5,6 +5,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
+import re
 import runpy
 import tempfile
 from pathlib import Path
@@ -24,6 +25,14 @@ def literal(path: Path, name: str):
             if any(isinstance(target, ast.Name) and target.id == name for target in node.targets):
                 return ast.literal_eval(node.value)
     raise RuntimeError(f"{path}: chybí literální přiřazení {name}")
+
+
+def version_tuple(value: str) -> tuple[int, ...]:
+    parts = str(value).strip().split(".")
+    try:
+        return tuple(int(part) for part in parts)
+    except ValueError as exc:
+        raise RuntimeError(f"Neplatná verze: {value!r}") from exc
 
 
 def main() -> int:
@@ -49,6 +58,8 @@ def main() -> int:
     installer_text = installer.read_text(encoding="utf-8")
     runtime_text = runtime.read_text(encoding="utf-8")
 
+    # The historical 2.2.18 release itself stays pinned exactly. These checks
+    # must never be relaxed when CURRENT_VERSION advances.
     for token in (
         'VERSION = "2.2.18"',
         'RUNTIME_LAYOUT = "11"',
@@ -98,26 +109,37 @@ def main() -> int:
     assert contract["pinned_runtime_sources_verified"] is True
     assert "actions.sqlite3" in contract["preserve"]
 
+    # CURRENT_VERSION and the root manifest may move forward. Require them to
+    # retain the structural guarantees introduced by 2.2.18 instead of pinning
+    # this historical regression test to one production version forever.
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
-    assert manifest["version"] == "2.2.18"
-    assert str(manifest["runtime_layout"]) == "11"
+    current_version = (ROOT / "CURRENT_VERSION").read_text(encoding="utf-8").strip()
+    assert version_tuple(current_version) >= (2, 2, 18)
+    assert version_tuple(str(manifest["version"])) >= (2, 2, 18)
+    assert manifest["version"] == current_version
+    assert int(str(manifest["runtime_layout"])) >= 11
     assert {item["path"] for item in manifest["files"]} == {
         "app.pyw",
         "updater.py",
         "RELEASE_NOTES.txt",
     }
     assert all(item["path"] != "actions.sqlite3" for item in manifest["files"])
-    assert (ROOT / "CURRENT_VERSION").read_text(encoding="utf-8").strip() == "2.2.18"
 
+    # The root recovery tool is intentionally updated with the current release.
+    # Keep checking that it is not older than 2.2.18 and still restores the
+    # pinned root app/updater rather than mutating Program or the actions DB.
     recovery = (ROOT / "OPRAVIT_TURTO.ps1").read_text(encoding="utf-8")
-    assert "$Version = '2.2.18'" in recovery
-    assert "$AppCommit = '834e263337a75b2f56628f69e195b38e28f83e4a'" in recovery
-    assert "$AppSha256 = 'e3209c1bd82a2eafe2ff5b13798ea6e7726efbe4cdba607400d54de0ba3647d2'" in recovery
-    assert "updates/2.2.18/app.pyw" in recovery
+    match = re.search(r"\$Version = '([^']+)'", recovery)
+    assert match is not None
+    recovery_version = match.group(1)
+    assert version_tuple(recovery_version) >= (2, 2, 18)
+    assert recovery_version == current_version
+    assert f"updates/{current_version}/app.pyw" in recovery
+    assert "actions.sqlite3 ani složka Program nebyly měněny" in recovery
 
-    # Exact recovery scenario: 2.2.17 failed while staging downloads, so Program
-    # remains a valid 2.2.16 runtime. The hotfix must use only its two payloads
-    # and must not touch actions.sqlite3.
+    # Exact historical recovery scenario: 2.2.17 failed while staging downloads,
+    # so Program remains a valid 2.2.16 runtime. The 2.2.18 installer must use
+    # only its two payloads and must not touch actions.sqlite3.
     ns = runpy.run_path(str(installer), run_name="verify_recovery_2218")
     install_runtime = ns["install_runtime"]
     payload_bytes = {
@@ -160,8 +182,8 @@ def main() -> int:
         assert set(calls) == {value[1] for value in payloads.values()}
 
     print(
-        "OK: TURTO 2.2.18 – recovery from intact 2.2.16 Program, corrected payload pins, "
-        "rollback path and byte-identical actions.sqlite3."
+        "OK: TURTO 2.2.18 – historical recovery remains reproducible; current "
+        "release retains root-only manifest and data-protection guarantees."
     )
     return 0
 
