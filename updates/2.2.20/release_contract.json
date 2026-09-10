@@ -1,0 +1,19 @@
+{
+  "version": "2.2.20",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "13",
+  "manifest_root_only": true,
+  "runtime_strategy": "incremental-program-overlay-with-full-baseline-fallback",
+  "cleanup_strategy": "post-successful-run-fail-closed",
+  "active_app_base": "app_base.py",
+  "central_wrapper_flattened": true,
+  "pinned_runtime_sources_verified": true
+}
