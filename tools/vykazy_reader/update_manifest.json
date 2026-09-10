@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.4",
+  "version": "0.13.5",
   "notes": [
     "Akce mají stav Rozpracováno / Ke kontrole / Zkontrolováno / Exportováno.",
     "Excel má profily Kontrolní (kompletní) a Výkaz pro objednávku.",
-    "Po analýze se automaticky zobrazí přehled jednoznačných položek, řádků k ruční kontrole, rozdílů a upozornění PDF.",
-    "Opraven přechod z v0.13.3 na Windows, kde se app.py mohl lišit pouze konci řádků CRLF."
+    "Po analýze se zobrazí automatický přehled jednoznačných položek, řádků k ruční kontrole, rozdílů a upozornění PDF.",
+    "Online kontrola aktualizací nově obchází cache manifestu, aby se vždy načetla aktuální verze."
   ],
   "patches": [
     {
@@ -14,33 +14,21 @@
       "to": "0.13.2",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/26817f6f50e9bf7dc067c11afbd5c5d513a76beb/tools/vykazy_reader/updates/0.13.2/update_0_13_1_to_0_13_2.py",
       "sha256": "509b342e2cfdc63a53ea4eef29fb078ffe4f2d6eda60f09300dea5751878ed6f",
-      "targets": [
-        "app.py",
-        "README.txt",
-        "VERSION.txt"
-      ]
+      "targets": ["app.py", "README.txt", "VERSION.txt"]
     },
     {
       "from": "0.13.2",
       "to": "0.13.3",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/9f7cbc39dbb816d2baf75e861be36c66465eec21/tools/vykazy_reader/updates/0.13.3/update_0_13_2_to_0_13_3.py",
       "sha256": "70b67c2bf6dbab1e19617fda3a7b198dd64355d56e5f592dd6e90b70c0fd168a",
-      "targets": [
-        "app.py",
-        "README.txt",
-        "VERSION.txt"
-      ]
+      "targets": ["app.py", "README.txt", "VERSION.txt"]
     },
     {
       "from": "0.13.3",
-      "to": "0.13.4",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8545c91ec129a1824a623f2834351ddc2aaf7204/tools/vykazy_reader/updates/0.13.4/update_0_13_3_to_0_13_4_windows_compat.py",
-      "sha256": "90cac5a5d92f935f90d8a655d28aa38fb6430f38b443cdb3b1858ecd52cc6132",
-      "targets": [
-        "app.py",
-        "README.txt",
-        "VERSION.txt"
-      ]
+      "to": "0.13.5",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e66674e774111a6a1623f050748c6eed3809be0e/tools/vykazy_reader/updates/0.13.5/update_0_13_3_to_0_13_5.py",
+      "sha256": "e7090305ea2591705177a6aa7f3514cd76b2368f2426a14e4284434a68b2981e",
+      "targets": ["app.py", "VERSION.txt"]
     }
   ]
 }
