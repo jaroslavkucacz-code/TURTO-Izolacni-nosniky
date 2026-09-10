@@ -1,0 +1,18 @@
+{
+  "version": "2.2.21",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "14",
+  "manifest_root_only": true,
+  "runtime_strategy": "two-file-incremental-overlay-with-verified-2.2.20-fallback",
+  "feature_strategy": "derived-passing-shear-alternatives",
+  "shear_alternatives_persisted": false,
+  "ancon_ed_is_complete_connector": true
+}
