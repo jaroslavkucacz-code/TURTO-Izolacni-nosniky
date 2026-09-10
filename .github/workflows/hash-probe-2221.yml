@@ -1,0 +1,16 @@
+name: TURTO 2.2.21 hash probe
+on:
+  push:
+    branches:
+      - feature/2.2.21-ancon-alternatives
+permissions:
+  contents: read
+jobs:
+  hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute payload hashes
+        run: |
+          sha256sum updates/2.2.21/shear_dowels_current.py
+          sha256sum updates/2.2.21/app_runtime.pyw
