@@ -23,12 +23,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Verify release and repository hygiene
         run: python tools/verify_release.py
+      - name: Verify pinned runtime sources
+        run: python tools/verify_pinned_sources.py
+      - name: Verify 2.2.18 recovery path
+        run: python tools/verify_recovery_2218.py
       - name: Verify Program layout migration
         run: python tools/verify_program_layout_2213.py
       - name: Verify runtime_paths startup hotfix
@@ -65,12 +71,18 @@ jobs:
         run: git config --global core.autocrlf false
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Verify release on Windows
         run: python tools/verify_release.py
+      - name: Verify pinned runtime sources on Windows
+        run: python tools/verify_pinned_sources.py
+      - name: Verify 2.2.18 recovery path on Windows
+        run: python tools/verify_recovery_2218.py
       - name: Verify Program layout migration on Windows
         run: python tools/verify_program_layout_2213.py
       - name: Verify runtime_paths startup hotfix on Windows
