@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.3",
+  "version": "0.13.4",
   "notes": [
-    "Aplikace se nově jmenuje TURTO – Výkazy kladecích plánů.",
-    "Přejmenování se promítá do titulku programu, hlavičky a názvu v Excel exportu.",
-    "Interní identifikátor, databáze akcí a archiv PDF zůstávají beze změny."
+    "Akce mají stav Rozpracováno / Ke kontrole / Zkontrolováno / Exportováno.",
+    "Excel má profily Kontrolní (kompletní) a Výkaz pro objednávku.",
+    "Po analýze se automaticky zobrazí přehled jednoznačných položek, řádků k ruční kontrole, rozdílů a upozornění PDF."
   ],
   "patches": [
     {
@@ -24,6 +24,17 @@
       "to": "0.13.3",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/9f7cbc39dbb816d2baf75e861be36c66465eec21/tools/vykazy_reader/updates/0.13.3/update_0_13_2_to_0_13_3.py",
       "sha256": "70b67c2bf6dbab1e19617fda3a7b198dd64355d56e5f592dd6e90b70c0fd168a",
+      "targets": [
+        "app.py",
+        "README.txt",
+        "VERSION.txt"
+      ]
+    },
+    {
+      "from": "0.13.3",
+      "to": "0.13.4",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c066bcbfa0e53bb0b14af0e953f0a62204613028/tools/vykazy_reader/updates/0.13.4/update_0_13_3_to_0_13_4.py",
+      "sha256": "07e9344557d55b5c3cc3c3501b0eea94d9a7a8ace50b1a7f3bebf90a82930b22",
       "targets": [
         "app.py",
         "README.txt",
