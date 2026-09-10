@@ -1,12 +1,12 @@
 {
-  "version": "2.2.23",
-  "runtime_layout": "16",
-  "notes": "Oprava startovací regrese smykových trnů: obnovena kompletní instalační vrstva Dekodéru a výkazů před nadstavbou Ancon ED/ESD/ESDQ a dalších alternativ. actions.sqlite3 se nemění.",
+  "version": "2.2.24",
+  "runtime_layout": "17",
+  "notes": "Oprava Ancon ED/ESD v Návrhu a Záměnách: ED je kompletní konektor s plastovým pouzdrem, ESD s nerezovým pouzdrem a ESDQ pro příčný posun. Záměny nově umožní ED skutečně zvolit a aktualizace zároveň ověří a opraví kritické runtime moduly podle SHA-256.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6ec71ad109b4c5b47372d57b995e7ad5b2939c12/updates/2.2.23/app.pyw",
-      "sha256": "5b0fd15968cfcd94399bd916e1f26af2391c72d0d15a19ce58f1a5f1ebde8410"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b144405720048c8040ac981bde074b5f354b9ed4/updates/2.2.24/app.pyw",
+      "sha256": "15ccab436b7d68444af9ee78a3cc3e9f3d95dc09161fd9d3ef732f69a61bac0a"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/cbe6f4c0a65092397807fc99c3aee8ddcbfb4258/updates/2.2.23/RELEASE_NOTES.txt",
-      "sha256": "d038ac29b2697e387548db5268f494b812169900ffe2fa82cd5600ac6dd135df"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ff305a7a54ba6d127005a8198fbaaa4582ab5c2f/updates/2.2.24/RELEASE_NOTES.txt",
+      "sha256": "2fc25d580e6bdaeb49644ad1f3fdbb5317d47a2a7045e2000d18cec6e8a5a63b"
     }
   ]
 }
