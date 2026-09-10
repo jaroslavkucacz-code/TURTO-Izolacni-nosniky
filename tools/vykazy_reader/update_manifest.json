@@ -5,7 +5,8 @@
   "notes": [
     "Akce mají stav Rozpracováno / Ke kontrole / Zkontrolováno / Exportováno.",
     "Excel má profily Kontrolní (kompletní) a Výkaz pro objednávku.",
-    "Po analýze se automaticky zobrazí přehled jednoznačných položek, řádků k ruční kontrole, rozdílů a upozornění PDF."
+    "Po analýze se automaticky zobrazí přehled jednoznačných položek, řádků k ruční kontrole, rozdílů a upozornění PDF.",
+    "Opraven přechod z v0.13.3 na Windows, kde se app.py mohl lišit pouze konci řádků CRLF."
   ],
   "patches": [
     {
@@ -33,8 +34,8 @@
     {
       "from": "0.13.3",
       "to": "0.13.4",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c066bcbfa0e53bb0b14af0e953f0a62204613028/tools/vykazy_reader/updates/0.13.4/update_0_13_3_to_0_13_4.py",
-      "sha256": "07e9344557d55b5c3cc3c3501b0eea94d9a7a8ace50b1a7f3bebf90a82930b22",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8545c91ec129a1824a623f2834351ddc2aaf7204/tools/vykazy_reader/updates/0.13.4/update_0_13_3_to_0_13_4_windows_compat.py",
+      "sha256": "90cac5a5d92f935f90d8a655d28aa38fb6430f38b443cdb3b1858ecd52cc6132",
       "targets": [
         "app.py",
         "README.txt",
