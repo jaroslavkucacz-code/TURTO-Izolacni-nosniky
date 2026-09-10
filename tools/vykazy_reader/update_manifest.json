@@ -26,8 +26,8 @@
     {
       "from": "0.13.3",
       "to": "0.13.5",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/089fd6c91caebe830dc7fe430c5b5f46d5db04f1/tools/vykazy_reader/updates/0.13.5/update_0_13_3_to_0_13_5_wrapper.py",
-      "sha256": "c71e1c87536d5edb6658131ca5c0328100a46142f45e0637de888d7aceca2534",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8b51352ce6589e77ebe04d83d2857a1374fac717/tools/vykazy_reader/updates/0.13.5/update_0_13_3_to_0_13_5_exact.py",
+      "sha256": "4f32c2f8024b80b7214d3d3fb1e8c75cd93c71c1baa1d77bd8b137037810052d",
       "targets": ["app.py", "VERSION.txt"]
     }
   ]
