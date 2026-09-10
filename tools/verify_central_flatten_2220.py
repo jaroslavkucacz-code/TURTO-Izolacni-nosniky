@@ -121,10 +121,11 @@ def main() -> int:
         if actual != expected:
             raise RuntimeError(f"PAYLOAD {local}: očekáváno {expected}, skutečně {actual}")
 
-    previous_required = set(literal(installer, "PREVIOUS_REQUIRED"))
-    current_required = set(literal(installer, "CURRENT_REQUIRED"))
-    support_required = set(literal(installer, "CENTRAL_SUPPORT_REQUIRED"))
-    base_required = set(literal(installer, "BASE_REQUIRED"))
+    installer_ns = runpy.run_path(str(installer), run_name="inspect_installer_2220")
+    previous_required = set(installer_ns["PREVIOUS_REQUIRED"])
+    current_required = set(installer_ns["CURRENT_REQUIRED"])
+    support_required = set(installer_ns["CENTRAL_SUPPORT_REQUIRED"])
+    base_required = set(installer_ns["BASE_REQUIRED"])
     assert "app_central_prev.pyw" in previous_required
     assert "app_central_prev.pyw" not in current_required
     assert "cleanup_stage7.py" in previous_required
@@ -154,7 +155,7 @@ def main() -> int:
     assert "from cleanup_stage8 import cleanup_stage8" in app_text
     assert "app_central_prev.pyw" not in set(literal(app, "REQUIRED_PROGRAM_FILES"))
 
-    ns = runpy.run_path(str(installer), run_name="verify_installer_2220")
+    ns = installer_ns
     install_runtime = ns["install_runtime"]
     payload_bytes = {
         source: (ROOT / source).read_bytes()
