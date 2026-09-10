@@ -1,12 +1,12 @@
 {
-  "version": "2.2.21",
-  "runtime_layout": "14",
-  "notes": "Upřesnění Ancon ED/ESD/ESDQ a zobrazení dalších plně vyhovujících alternativ v návrhu smykových trnů. Alternativy se pouze dopočítávají a actions.sqlite3 se nemění.",
+  "version": "2.2.22",
+  "runtime_layout": "15",
+  "notes": "Oprava souběhu online aktualizace a post-run cleanup: poznámky k vydání se archivují pouze vlastní verzí a dříve chybně zařazené poznámky se při startu opraví podle obsahu. actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/26c342706b27935f29c28b64bbc0d3b42d6bab51/updates/2.2.21/app.pyw",
-      "sha256": "43e8d8293154750d4f668499e0511838b0912c69ececc71dda0695d32c5e72c7"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/826529ab20252fdde2dacfdc86a85986746b3373/updates/2.2.22/app.pyw",
+      "sha256": "5a8c1e308b692d9f33d1289d677622973303bc21b47a6b6db927e9ae5d5fd12b"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/07d5ad755312ce7f330e2c06aebcfe963287d963/updates/2.2.21/RELEASE_NOTES.txt",
-      "sha256": "f8b210ba5afa8cf8aec62e60d15ab7006a85bcc0ca23db510e0ef7376ed7d0bb"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0c8c04a55f6364f16f0359ec68941da12d7d5d3a/updates/2.2.22/RELEASE_NOTES.txt",
+      "sha256": "f05f309a905f2630f0f98f997d5a993fbf007cb35fb37f631afe7b28d90af8f3"
     }
   ]
 }
