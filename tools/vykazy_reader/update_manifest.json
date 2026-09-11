@@ -1,11 +1,12 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.6",
+  "version": "0.13.7",
   "notes": [
-    "Výkaz pro objednávku nově respektuje aktuálně zaškrtnutá podlaží.",
-    "Položky stejného typu z více vybraných podlaží se v objednávkovém výkazu sečtou.",
-    "Pokud není vybráno žádné podlaží, program export zastaví a vyžádá výběr alespoň jednoho podlaží."
+    "Kompletní kontrolní Excel export nově respektuje aktuálně zaškrtnutá podlaží.",
+    "Při výběru jen části objektu se negenerují detailní data a kontroly pro ostatní podlaží, takže je export výrazně rychlejší.",
+    "Porovnání vybraných podlaží s celkovým sumářem objektu se při částečném exportu správně vynechá a list Revize se omezí na zvolená podlaží.",
+    "V listu Souhrn je uveden rozsah exportu a během vytváření se zobrazuje aktuální stav ukládání."
   ],
   "patches": [
     {
@@ -34,6 +35,13 @@
       "to": "0.13.6",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e87b8186cf45363ccbd60cbe0b5b849a437f0b74/tools/vykazy_reader/updates/0.13.6/update_0_13_5_to_0_13_6.py",
       "sha256": "a93e6e5d918a8d347d3f583c60d38d0be095d637ee973358e6ee9f8cb9551728",
+      "targets": ["app.py", "VERSION.txt"]
+    },
+    {
+      "from": "0.13.6",
+      "to": "0.13.7",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/5a613ec49a519252dd0bd7d2133cd1ad7d957ad8/tools/vykazy_reader/updates/0.13.7/update_0_13_6_to_0_13_7.py",
+      "sha256": "349d159b5b61002a6b8cb5f57c0cb5734be517e9ae3de3059a73d68c09287f1e",
       "targets": ["app.py", "VERSION.txt"]
     }
   ]
