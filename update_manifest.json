@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b24168c142b5f691545644af1b62e715616ca16f/updates/2.2.30/app.pyw",
-      "sha256": "2b69e83797cf75a1ea2131a242adfa708d3e5c5d3c128f99767058d3ea9d2db0"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6a38faa6c24c4dcc4c7feb3db02606ebbafc9ecf/updates/2.2.30/app.pyw",
+      "sha256": "20ba951a1deddde748782f6a00d5a8524d58d6a80395a49f3eab00ee50badbb9"
     },
     {
       "path": "updater.py",
