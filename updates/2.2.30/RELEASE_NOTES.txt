@@ -1,0 +1,24 @@
+TURTO 2.2.30 – Peikko: ověřené katalogové tabulky a omezené porovnání M/V
+
+V běžném Dekodéru / Návrhu / Záměnách; žádná samostatná hlavní záložka Peikko.
+
+NOVÉ
+- EBEA-100, EBEA E-100 a EBEA-700: 244 záznamů momentové únosnosti a rotační tuhosti, 328 smykových hodnot z originálního manuálu Peikko Group 08/2023, revize 004.
+- Přesné tabulkové řádky podle standardního D, výztuže, ISO a S11; žádné odhady poměrem prutů ani interpolace. EBEA-700 rozlišuje S11=120, 160 a pásmo 200–430 mm.
+- Beton C20/25: redukce únosností 0,8 dle manuálu, nikoli redukce tuhosti. Pro vyšší beton se nepřidává nedoložené zvýšení.
+- Oddělený údaj standardního D (není automaticky Ds/Dt), který se uchovává v úplném označení i po uložení akce.
+- Tabulkové porovnání MEd/VEd a předvýběr standardních konfigurací s potvrzenou geometrií; výsledek není úplné statické posouzení ani schválená záměna.
+- Jednotky na prvek nebo na metr spoje. Přepočet na prvek vyžaduje výslovnou zatěžovací šířku; L se za ni nedosazuje.
+- TEBEA: 57 hodnot jednotlivých součástí dle ETA 23/0525 v01 (10. 2. 2025), včetně přesných podmínek a zdrojových tabulek. Nejde o únosnosti celého nosníku.
+- Zdrojové PDF: na vyžádání uložit do Katalogy/Peikko, ověřit SHA-256 a otevřít lokální soubor. Žádné automatické stahování PDF při spuštění. Zobrazený přehled lze uložit do TXT.
+- Posuvný formulář vedle výsledku; výsledky a akční tlačítka zůstávají viditelné i v nižším okně.
+
+BEZPEČNOST A ROZSAH
+- OQ, B2, netabulková výztuž, odlišná geometrie/krytí nebo neznámé parametry blokují potvrzení konkrétní konfigurace, nikoli zobrazení související reference.
+- Nenulové NEd / interakce M+N zůstávají blokované. V EBEA tabulce 16 je nejasná tištěná jednotka NRd; není opravena odhadem.
+- Nejasný řádek TEBEA A6.1 (průměr 14, ocel 1.4362, tištěné ISO 1 mm) není vydáván za údaj ISO 120.
+- Původní ochrana automatických statických záměn zůstává aktivní i při přímém volání návrhového rozhraní.
+- Statik musí ověřit kotvení, doplňkovou výztuž, navazující konstrukce, použitelnost, národní podmínky a požár. Načtené REI120 samo o sobě není ověření požáru.
+
+AKTUALIZACE
+- Přírůstková vrstva nad 2.2.29, runtime layout 21. Původní HIT a Ancon zůstávají beze změny. Zákaznická actions.sqlite3 není součástí aktualizace.
