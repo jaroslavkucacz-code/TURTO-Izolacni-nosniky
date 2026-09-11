@@ -1,12 +1,12 @@
 {
-  "version": "2.2.27",
-  "runtime_layout": "20",
-  "notes": "Oprava hlavního okna ve Windows: po návratu z maximalizovaného stavu se obnovovaná poloha ověří proti pracovní ploše nejbližšího aktivního monitoru a případně se vrátí na viditelné místo. Výpočty, katalogy i UI z 2.2.26 zůstávají zachované.",
+  "version": "2.2.28",
+  "runtime_layout": "21",
+  "notes": "Peikko EBEA / TEBEA: nový dekodér, konzervativní funkční záměny a bezpečný předvýběr návrhu. Statické únosnosti se bez ověřené národní databáze Peikko neodhadují; výsledky jsou označeny k ověření. Runtime 2.2.27, HIT, Ancon a smykové trny zůstávají zachované.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c2e65d3ca731bedb2c16de8f928a2bc9226edb6c/updates/2.2.27/app.pyw",
-      "sha256": "e4aa3ae398648c50efa31b14c1bbe19c10d362460ce3f63b1a74e886d4bd25f5"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/7de47f1338434e738dd2183a228412ea93ce944f/updates/2.2.28/app.pyw",
+      "sha256": "eb257228204477e87319f28466aef20cb2ba7b40417c8f3a5f4b690e047a4cba"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ad19353711a4f2c283d78cc355bfb7c7d342a4ae/updates/2.2.27/RELEASE_NOTES.txt",
-      "sha256": "e5c890780148da074fedf0e15fd34a2b9af6ff715af4805ac1c28028b14152c5"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/624bd7632bfa8e34d09e8fec93595554d713c1e5/updates/2.2.28/RELEASE_NOTES.txt",
+      "sha256": "9bf1fb8fc26eb9716caf25480e28fdb42f2d3cfe7742d60275f0a31823b7b4d6"
     }
   ]
 }
