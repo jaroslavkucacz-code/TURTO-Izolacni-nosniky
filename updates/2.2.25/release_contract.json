@@ -1,0 +1,20 @@
+{
+  "version": "2.2.25",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "18",
+  "manifest_root_only": true,
+  "runtime_strategy": "hash-verified-shear-ui-overlay",
+  "ancon_ed_substitution_fixed": true,
+  "decoder_substitution_sleeve_persisted": true,
+  "critical_runtime_hash_guard": true,
+  "shear_design_form_visible": true,
+  "shear_design_alternatives_separate_row": true
+}
