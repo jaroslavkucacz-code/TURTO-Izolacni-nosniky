@@ -233,7 +233,7 @@ def _build_design(owner: Any, parent: ttk.Frame) -> None:
         text="Předvýběr návrhu EBEA / TEBEA",
         style="Card.TLabel",
         font=("Calibri", 11, "bold"),
-    ).grid(row=0, column=0, columnspan=7, sticky="w")
+    ).grid(row=0, column=0, columnspan=6, sticky="w")
 
     ttk.Label(warning, text="Rodina:", style="Card.TLabel").grid(
         row=1, column=0, sticky="w", pady=(10, 0)
