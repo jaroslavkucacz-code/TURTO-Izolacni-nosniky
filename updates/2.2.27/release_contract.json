@@ -1,0 +1,13 @@
+{
+  "version": "2.2.27",
+  "required_targets": ["app.pyw", "updater.py", "RELEASE_NOTES.txt"],
+  "preserve": ["actions.sqlite3"],
+  "runtime_directory": "Program",
+  "runtime_layout": "20",
+  "manifest_root_only": true,
+  "runtime_strategy": "main-window-restore-guard",
+  "window_restore_guard": true,
+  "multi_monitor_work_area_clamp": true,
+  "normal_state_only_reposition": true,
+  "win32_physical_rect": true
+}
