@@ -5,7 +5,10 @@ from __future__ import annotations
 Uses only pinned repository history, no customer data and no network. Run with
 xvfb-run on Linux and directly on Windows with tkinter available.
 """
+from contextlib import ExitStack
+import gc
 import io
+import logging
 import json
 import os
 from pathlib import Path
@@ -38,7 +41,10 @@ def main():
             cache[key] = subprocess.check_output(["git", "show", key], cwd=ROOT)
         return io.BytesIO(cache[key])
 
-    with tempfile.TemporaryDirectory(prefix="turto_230_smoke_") as folder:
+    with tempfile.TemporaryDirectory(prefix="turto_230_smoke_") as folder, ExitStack() as cleanup:
+        # ExitStack runs before deletion, including when a GUI assertion fails.
+        cleanup.callback(gc.collect)
+        cleanup.callback(logging.shutdown)
         root = Path(folder)
         os.environ["TURTO_ROOT"] = str(root)
         os.environ["TURTO_PROGRAM_DIR"] = str(root / "Program")
@@ -46,11 +52,11 @@ def main():
         os.environ["LOCALAPPDATA"] = str(root / "localappdata")
         # The production installer uses the customer's existing catalog folders.
         shutil.copytree(ROOT / "updates/1.1.17/catalogs", root / "catalogs")
-        # Exercise genuine installed 2.2.28 baseline before the new overlay.
+        # Exercise genuine installed 2.2.29 baseline before the new overlay.
         with patch("urllib.request.urlopen", urlopen):
             ns = runpy.run_path(str(ROOT / "updates/2.2.29/runtime_installer.py"))
             ns["install_runtime"](root)
-        # The outer 2.2.28 bootstrap writes the layout marker after its installer.
+        # The outer bootstrap writes the layout marker after its installer.
         (root / ".turto_runtime_current.ok").write_text("21", encoding="utf-8")
         program = root / "Program"
         if (RELEASE / "runtime_installer.py").exists():
@@ -97,6 +103,15 @@ def main():
         with patch.object(messagebox, "showwarning", lambda *a, **k: dialogs.append(a)), \
              patch.object(messagebox, "showerror", lambda *a, **k: dialogs.append(a)):
             app = ns["_base"].ThermalConnectorApp()
+            def close_app():
+                try:
+                    app.destroy()
+                except tk.TclError:
+                    pass
+            cleanup.callback(close_app)
+            app.update()
+            # Cover ordinary 720p workspaces, not only a tall CI virtual display.
+            app.geometry("1180x704")
             app.update()
             assert [app.main_notebook.tab(t, "text") for t in app.main_notebook.tabs()] == ["Dekodér", "Návrh", "Záměny"]
             assert not hasattr(app, "peikko_tab")
@@ -132,7 +147,7 @@ def main():
                 # Numeric output and action rows must fit even at default window height.
                 out=panel._peikko_output
                 assert out.winfo_rooty()+out.winfo_height() <= parent.winfo_rooty()+parent.winfo_height()
-                assert out.winfo_height() >= 80
+                assert out.winfo_height() >= 80, (mode, app.geometry(), parent.winfo_geometry(), panel.winfo_geometry(), out.winfo_geometry())
                 for controls in panel._peikko_action_frames:
                     assert controls.winfo_rooty()+controls.winfo_height() <= parent.winfo_rooty()+parent.winfo_height()
                 canvas=panel._peikko_form_canvas
@@ -229,14 +244,6 @@ def main():
                 assert callable(getattr(app, method))
             assert not failures, failures
             assert not dialogs, dialogs
-            app.destroy()
-            # The real runtime logger owns app.log until interpreter shutdown.
-            # Close it explicitly before the Windows temporary-directory cleanup.
-            import logging
-            logging.shutdown()
-            # Release sqlite context-manager connections before Windows deletes the fixture.
-            import gc
-            gc.collect()
     print("OK: installed Tk runtime; 14 bulk rows, no extra tab, manufacturer switching, SQLite roundtrip, safety guards, original HIT/Ancon methods.")
 
 

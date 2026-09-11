@@ -123,8 +123,6 @@ def _build_panel(owner, parent, mode):
     panel._peikko_values = values
     candidates = []
     muted = [False]
-    ttk.Label(panel, text='Peikko – katalogová data a tabulkové porovnání; nikoli potvrzená záměna',
-        font=('Calibri', 11, 'bold')).grid(row=0, column=0, columnspan=2, sticky='w', pady=(0,6))
     # The legacy window can leave only 350 px to the workspace. Scroll INPUTS,
     # not the complete panel: the numerical result and all action buttons remain visible.
     left=ttk.Frame(panel,style='App.TFrame');left.grid(row=1,column=0,sticky='nsew',padx=(0,8))
@@ -134,6 +132,8 @@ def _build_panel(owner, parent, mode):
     form_scroll=ttk.Scrollbar(left,orient='vertical',command=canvas.yview)
     form_scroll.grid(row=0,column=1,sticky='ns');canvas.configure(yscrollcommand=form_scroll.set)
     form=ttk.Frame(canvas,style='App.TFrame',padding=(0,0,5,5))
+    ttk.Label(form, text='Peikko – katalogová data a tabulkové porovnání',
+        font=('Calibri', 11, 'bold')).pack(anchor='w', pady=(0, 6))
     window=canvas.create_window(0,0,window=form,anchor='nw')
     canvas.bind('<Configure>',lambda e:canvas.itemconfigure(window,width=e.width))
     form.bind('<Configure>',lambda _e:canvas.configure(scrollregion=canvas.bbox('all')))
@@ -163,6 +163,9 @@ def _build_panel(owner, parent, mode):
     mat=label_entry(dline,'Provedení:','material',6,('RS','VE1','VE2'))
     label_entry(dline,'S11 [mm]:','s11',6)
     style=ttk.Style(owner)
+    # The application-wide button padding consumes two tall rows on Windows.
+    # Keep these contextual actions compact, without changing other workspaces.
+    style.configure('Peikko.TButton', font=('Calibri', 10), padding=(8, 4))
     style.configure('Peikko.TCheckbutton',background=owner.colors['bg'],foreground=owner.colors['text'],font=('Calibri',10))
     ttk.Checkbutton(form,variable=values['geometry'],style='Peikko.TCheckbutton',
         text='Potvrzuji standardní geometrii, výztuž a krytí.').pack(anchor='w',pady=3)
@@ -309,11 +312,11 @@ def _build_panel(owner, parent, mode):
         source=data()['sources']['tebea_eta01' if family_name=='TEBEA' else 'ebea_004']
         open_source_async(owner, pdf_button, source)
     for label,callback in [('Katalogová data',show),('Porovnat M/V',check),('Tabulkový předvýběr',select_tables)]:
-        ttk.Button(buttons, text=label, command=callback).pack(side='left', padx=(0,7))
+        ttk.Button(buttons, text=label, command=callback, style='Peikko.TButton').pack(side='left', padx=(0,7))
     for label,callback in [('Převzít z Dekodéru',from_decoder),('Uložit do Dekodéru',add_to_decoder)]:
-        ttk.Button(actions, text=label, command=callback).pack(side='left', padx=(0,7))
-    ttk.Button(exports,text='Uložit přehled TXT',command=export).pack(side='left',padx=(0,7))
-    pdf_button=ttk.Button(exports, text='Zdrojové PDF (lokální)', command=source_pdf)
+        ttk.Button(actions, text=label, command=callback, style='Peikko.TButton').pack(side='left', padx=(0,7))
+    ttk.Button(exports,text='Uložit přehled TXT',command=export,style='Peikko.TButton').pack(side='left',padx=(0,7))
+    pdf_button=ttk.Button(exports, text='Zdrojové PDF (lokální)', command=source_pdf, style='Peikko.TButton')
     pdf_button.pack(side='left')
     def clear_candidates(*_):
         if muted[0]:return
