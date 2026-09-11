@@ -178,6 +178,10 @@ def main():
             assert not failures, failures
             assert not dialogs, dialogs
             app.destroy()
+            # The real runtime logger owns app.log until interpreter shutdown.
+            # Close it explicitly before the Windows temporary-directory cleanup.
+            import logging
+            logging.shutdown()
             # Release sqlite context-manager connections before Windows deletes the fixture.
             import gc
             gc.collect()
