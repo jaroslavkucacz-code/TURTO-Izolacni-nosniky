@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.9",
+  "version": "0.13.10",
   "notes": [
-    "Opravena příčina zamrznutí při kompletním Excel exportu: detekce exportního profilu už nevolá blokující get() na interní worker_queue.",
-    "Exportní profil se nyní čte výhradně z ovládacího prvku export_profile_var.",
-    "Oprava je důležitá zejména u akcí znovu otevřených z databáze, kde je pracovní fronta běžně prázdná.",
-    "Aktualizační krok 0.13.8 → 0.13.9 je znovu publikován jako byteově ověřená varianta V2 se správným SHA-256."
+    "V Databázi akcí lze sloupce tabulek přirozeně rozšiřovat a zmenšovat; všechny sloupce se také podílejí na roztažení při změně velikosti okna.",
+    "Záhlaví tabulek je vždy zarovnáno stejně jako hodnoty v daném sloupci.",
+    "Úprava platí pro seznam akcí, verze podkladů, originální PDF i Historii oprav.",
+    "Stejné pravidlo zarovnání záhlaví se používá i u ostatních řaditelných tabulek programu."
   ],
   "patches": [
     {
@@ -56,6 +56,13 @@
       "to": "0.13.9",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ff2b9281af0127a94e9cbf87c5e7b0d971869716/tools/vykazy_reader/updates/0.13.9/update_0_13_8_to_0_13_9_v2.py",
       "sha256": "9c24222a230178422acc58dc4b03430d439ff789fe2fda4c788c83b16d7c22f9",
+      "targets": ["app.py", "VERSION.txt"]
+    },
+    {
+      "from": "0.13.9",
+      "to": "0.13.10",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6b8e6f0f05dc04730f5fea02c3e88981c6cf70e7/tools/vykazy_reader/updates/0.13.10/update_0_13_9_to_0_13_10.py",
+      "sha256": "72fbccacfbfa51e8b0d043df403d4c5f3850b93a6969e6c639915529974f7b3f",
       "targets": ["app.py", "VERSION.txt"]
     }
   ]
