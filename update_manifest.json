@@ -1,12 +1,12 @@
 {
-  "version": "2.2.25",
-  "runtime_layout": "18",
-  "notes": "Oprava Návrhu smykových trnů: panel dalších alternativ už nepřekrývá ruční formulář. Pole VEd/geometrie a tlačítko Navrhnout a přidat jsou znovu viditelné; Ancon ED/ESD/ESDQ z 2.2.24 zůstává zachován.",
+  "version": "2.2.26",
+  "runtime_layout": "19",
+  "notes": "Responzivní ovládání: Smykové trny mají dvouřádkové vstupní formuláře a viditelná pravá akční tlačítka; HIT přesouvá pravé exportní/ukládací akce do druhého řádku. Ancon ED/ESD/ESDQ i ostatní výpočtová logika zůstávají zachovány.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b542c563179c7ba1821d4f9bb499dbdde75385ab/updates/2.2.25/app.pyw",
-      "sha256": "2edc4bea023fba43ea2d5af580070949b97d00e9d6b9a2f7bd30a7f5eee7a341"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/fd22dc135718f6df1231da1c774e6fa46a0aef6a/updates/2.2.26/app.pyw",
+      "sha256": "b9ef2643ed812822bb338d3a55292026e47b3deb97368079481c2eeea5fbc9d0"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/bd8e25963ce38ef19d8d65c32ce069d986bfb5a6/updates/2.2.25/RELEASE_NOTES.txt",
-      "sha256": "9f9a266e8a6a2a6c7b2fab1a8ac4661df643cbd4dcd3321bf039f4c1a1d0ffe6"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1edea28875191b4223ddce387028ccf3a8f80b39/updates/2.2.26/RELEASE_NOTES.txt",
+      "sha256": "78e5cf7291bad5fbb8c0a2fef2b9da6e4fe94c4814907ac84f2782905627d975"
     }
   ]
 }
