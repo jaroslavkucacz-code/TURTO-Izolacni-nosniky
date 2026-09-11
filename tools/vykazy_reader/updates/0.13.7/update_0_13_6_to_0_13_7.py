@@ -17,8 +17,8 @@ OLD_SUMMARY_ROWS = '            summary_rows = [\n                ("Akce", self.
 NEW_SUMMARY_ROWS = '            summary_rows = [\n                ("Akce", self.current_project_name or "—"),\n                ("Rozsah exportu", export_scope_text),\n                ("ID akce", f"A{int(self.current_project_id):04d}" if self.current_project_id else "—"),\n'
 OLD_REV = '            if self.previous_sources:\n                rev_rows = compare_revisions(self.sources, self.previous_sources)\n                rev = wb.create_sheet("Revize")\n'
 NEW_REV = '            if self.previous_sources:\n                rev_rows = [\n                    r for r in compare_revisions(self.sources, self.previous_sources)\n                    if r.floor in selected_export_floors\n                ]\n                rev = wb.create_sheet("Revize")\n'
-OLD_SAVE = '            wb.save(path)\n            self.status_var.set(f"Excel uložen: {path}")\n'
-NEW_SAVE = '            self.status_var.set(f"Ukládám Excel · {export_scope_text}…")\n            self.update_idletasks()\n            wb.save(path)\n            self.status_var.set(f"Excel uložen: {path} · {export_scope_text}")\n'
+OLD_SAVE = '            wb.save(path)\n            self._mark_current_project_exported()\n            self.status_var.set(f"Excel uložen: {path}")\n'
+NEW_SAVE = '            self.status_var.set(f"Ukládám Excel · {export_scope_text}…")\n            self.update_idletasks()\n            wb.save(path)\n            self._mark_current_project_exported()\n            self.status_var.set(f"Excel uložen: {path} · {export_scope_text}")\n'
 
 
 def atomic_write(path: Path, data: bytes) -> None:
