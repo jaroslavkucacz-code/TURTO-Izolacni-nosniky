@@ -53,6 +53,8 @@ jobs:
         run: python tools/verify_shear_movement.py
       - name: Verify Ancon ED terminology and passing alternatives
         run: python tools/verify_ancon_alternatives_2221.py
+      - name: Verify visible shear-dowel design form
+        run: python tools/verify_shear_design_ui_2225.py
       - name: Verify release-note race and repair
         run: python tools/verify_release_notes_race_2222.py
       - name: Verify shear-dowel startup method chain
@@ -111,6 +113,8 @@ jobs:
         run: python tools/verify_shear_movement.py
       - name: Verify Ancon ED terminology and passing alternatives on Windows
         run: python tools/verify_ancon_alternatives_2221.py
+      - name: Verify visible shear-dowel design form on Windows
+        run: python tools/verify_shear_design_ui_2225.py
       - name: Verify release-note race and repair on Windows
         run: python tools/verify_release_notes_race_2222.py
       - name: Verify shear-dowel startup method chain on Windows

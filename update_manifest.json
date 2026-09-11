@@ -1,12 +1,12 @@
 {
-  "version": "2.2.24",
-  "runtime_layout": "17",
-  "notes": "Oprava Ancon ED/ESD v Návrhu a Záměnách: ED je kompletní konektor s plastovým pouzdrem, ESD s nerezovým pouzdrem a ESDQ pro příčný posun. Záměny nově umožní ED skutečně zvolit a aktualizace zároveň ověří a opraví kritické runtime moduly podle SHA-256.",
+  "version": "2.2.25",
+  "runtime_layout": "18",
+  "notes": "Oprava Návrhu smykových trnů: panel dalších alternativ už nepřekrývá ruční formulář. Pole VEd/geometrie a tlačítko Navrhnout a přidat jsou znovu viditelné; Ancon ED/ESD/ESDQ z 2.2.24 zůstává zachován.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/58d26464294f0f8277ee1d6b664bc565d76d0227/updates/2.2.24/app.pyw",
-      "sha256": "e69ae3f91d28a10d9b558e3dcaa8eb75abaf7e33c4aa243f8e66506c2ba2f754"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b542c563179c7ba1821d4f9bb499dbdde75385ab/updates/2.2.25/app.pyw",
+      "sha256": "2edc4bea023fba43ea2d5af580070949b97d00e9d6b9a2f7bd30a7f5eee7a341"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ff305a7a54ba6d127005a8198fbaaa4582ab5c2f/updates/2.2.24/RELEASE_NOTES.txt",
-      "sha256": "2fc25d580e6bdaeb49644ad1f3fdbb5317d47a2a7045e2000d18cec6e8a5a63b"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/bd8e25963ce38ef19d8d65c32ce069d986bfb5a6/updates/2.2.25/RELEASE_NOTES.txt",
+      "sha256": "9f9a266e8a6a2a6c7b2fab1a8ac4661df643cbd4dcd3321bf039f4c1a1d0ffe6"
     }
   ]
 }
