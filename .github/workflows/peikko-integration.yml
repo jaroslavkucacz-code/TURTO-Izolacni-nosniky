@@ -4,9 +4,9 @@ on:
     branches: [fix/peikko-unified-2.2.29]
     paths: [.github/workflows/peikko-integration.yml]
 permissions:
-  contents: read
+  contents: write
 jobs:
-  source-snapshot:
+  build-verified-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,14 +15,65 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Export audited source snapshot
+      - name: Verify and unpack tested implementation
+        shell: python
         run: |
-          git archive HEAD -o source.zip
-          git bundle create history.bundle --all
+          from pathlib import Path
+          import base64, hashlib, json, zlib
+          expected = [
+            'ae69fb89d021015e6b50d7851d336526787a5a6f2f7272abc9f4d0d4680108d6',
+            'b6e35c650aaa7601ae644c8de2d27e49226aa7abb60abbb2e18d1f2c72a6a0f6',
+            'c901e39647c87ac6f2064a633a30ce740a22518556522719ba5e536260834c55',
+            'a46db20f2391dd4e7fb6a26d3d486cbab892375cfec919f02274a9c7b7d03644',
+          ]
+          parts = [Path(f'tools/.peikko229payload{i:02}').read_text().strip() for i in range(4)]
+          for i, part in enumerate(parts):
+              actual = hashlib.sha256(part.encode()).hexdigest()
+              print('Transfer part', i, 'characters', len(part), 'SHA256', actual, flush=True)
+              assert actual == expected[i], f'Transfer mismatch in part {i}'
+          data = base64.b64decode(''.join(parts), validate=True)
+          assert hashlib.sha256(data).hexdigest() == 'b2c919937ade3f96d2afa0fd175d0dc3422c30169f1d2cb4af286e89cbfdb8a5'
+          files = json.loads(zlib.decompress(data))
+          allowed = {
+              'updates/2.2.29/peikko_workspace.py', 'updates/2.2.29/peikko_thermal_breaks.py',
+              'updates/2.2.29/peikko_catalog.py', 'updates/2.2.29/app_runtime.pyw',
+              'updates/2.2.29/RELEASE_NOTES.txt', 'updates/2.2.29/PEIKKO_DATA_SCOPE.md',
+              'tools/verify_peikko_2229.py', 'tools/verify_peikko_2229_runtime.py',
+              '/tmp/build_release229.py',
+          }
+          assert set(files) == allowed
+          for name, text in files.items():
+              target = Path(name)
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_text(text, encoding='utf-8', newline='\n')
+          print('All nine audited source/build files restored exactly.')
+      - name: Build immutable release commits
+        run: |
+          git config user.name 'TURTO release'
+          git config user.email 'noreply@github.com'
+          git rm tools/.peikko229payload00 tools/.peikko229payload01 tools/.peikko229payload02 tools/.peikko229payload03
+          python /tmp/build_release229.py
+      - name: Verify release, source pins and exact EBEA configurations
+        run: |
+          python tools/verify_release.py
+          python tools/verify_pinned_sources.py
+          python tools/verify_peikko_2229.py
+          xvfb-run -a python tools/verify_peikko_2229_runtime.py
+      - name: Publish verified branch only
+        run: |
+          git diff --exit-code
+          git push origin HEAD:fix/peikko-unified-2.2.29
+          git log -4 --oneline
+      - name: Export verification snapshot
+        if: always()
+        run: |
+          git archive HEAD -o /tmp/peikko-branch.zip
+          git bundle create /tmp/peikko-branch.bundle --all
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: peikko-source-audit
+          name: peikko-verified-branch
           path: |
-            source.zip
-            history.bundle
+            /tmp/peikko-branch.zip
+            /tmp/peikko-branch.bundle
           retention-days: 1
