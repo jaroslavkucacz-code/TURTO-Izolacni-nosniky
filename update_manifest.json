@@ -1,12 +1,12 @@
 {
-  "version": "2.2.28",
+  "version": "2.2.29",
   "runtime_layout": "21",
-  "notes": "Peikko EBEA / TEBEA: nový dekodér, konzervativní funkční záměny a bezpečný předvýběr návrhu. Statické únosnosti se bez ověřené národní databáze Peikko neodhadují; výsledky jsou označeny k ověření. Runtime 2.2.27, HIT, Ancon a smykové trny zůstávají zachované.",
+  "notes": "EBEA/TEBEA v běžném Dekodéru a přes výběr výrobce v Návrhu/Záměnách. Úplné konfigurace, víceřádkový výkaz, oddělení S11 a centrální uložení. Bez odhadovaných únosností; zachován HIT/Ancon runtime a chráněná databáze AKCE.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/7de47f1338434e738dd2183a228412ea93ce944f/updates/2.2.28/app.pyw",
-      "sha256": "eb257228204477e87319f28466aef20cb2ba7b40417c8f3a5f4b690e047a4cba"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/78450fd868a1e0c744d34b13e37acb4e533f3b4f/updates/2.2.29/app.pyw",
+      "sha256": "e7be91533bfadccf99b06ad9fe97634a43ab8fe695173128f31c1fe7d4f4bf6a"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/624bd7632bfa8e34d09e8fec93595554d713c1e5/updates/2.2.28/RELEASE_NOTES.txt",
-      "sha256": "9bf1fb8fc26eb9716caf25480e28fdb42f2d3cfe7742d60275f0a31823b7b4d6"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/5f38de20ab8ebff5afd8d47669813a3e3461346d/updates/2.2.29/RELEASE_NOTES.txt",
+      "sha256": "e87bfd8f8b73de8df8607be53f051978bf3dab087b4630ebe6e0e509c060c091"
     }
   ]
 }
