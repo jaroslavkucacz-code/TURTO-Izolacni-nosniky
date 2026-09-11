@@ -1,0 +1,12 @@
+TURTO 2.2.26
+
+Responzivní ovládání – žádná akční tlačítka mimo viditelnou plochu
+
+- Smykové trny / Návrh: vstupy jsou rozdělené do dvou řádků; tlačítko „Navrhnout a přidat“ je vždy na samostatném pravém konci druhého řádku.
+- Smykové trny / Dekodér: označení dostalo pružnou šířku a akční tlačítko zůstává viditelné; geometrie je ve druhém řádku.
+- Smykové trny / Záměny: ruční vstup i horní panel cílového výrobce/varianty jsou rozdělené do dvou řádků.
+- Převod Dekodér → Záměny: cílový výrobce, varianta Ancon a tlačítko jsou uspořádané bez vodorovného ořezu.
+- Zachována je logika Ancon ED / ESD / ESDQ z 2.2.24 a panel alternativ z 2.2.25.
+- Izolační nosníky / HIT: pravé exportní a ukládací akce jsou přesunuté do druhého řádku nástrojové lišty a dlouhý horní popis se zalamuje.
+- Horní lišta AKCE/PDF a řádky společných akcí byly zkontrolovány; jejich pružné sloupce již ořez pravých tlačítek nezpůsobují.
+- Databáze actions.sqlite3 se při aktualizaci nemění.
