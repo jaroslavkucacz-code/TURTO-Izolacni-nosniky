@@ -143,6 +143,100 @@ def substitution_block_reason(value: Any) -> str | None:
     )
 
 
+_FUNCTION_LABEL = {
+    "loadbearing": "nosný balkonový prvek",
+    "special": "speciální prvek",
+    "moment_shear": "moment + smyk",
+    "shear": "smyk",
+    "horizontal": "vodorovná síla",
+    "non_loadbearing": "nenosný / distanční prvek",
+}
+
+
+def build_catalog_package() -> dict[str, Any]:
+    """Create schema-v2 catalog data used only for identification/autocomplete."""
+    families: list[dict[str, Any]] = []
+
+    def record(family: str, type_code: str, insulation: int, function_class: str) -> dict[str, Any]:
+        designation = f"Peikko {family} {type_code} – {insulation} mm"
+        aliases = [
+            f"{family} {type_code} {insulation}",
+            f"{family} {type_code} {insulation} mm",
+            f"PEIKKO {family} {type_code} {insulation}",
+            f"PEIKKO {family} {type_code} {insulation} mm",
+        ]
+        return {
+            "designation": designation,
+            "aliases": aliases,
+            "moment_class": "NEOVĚŘENO",
+            "concrete_min": "—",
+            "shear_class": _FUNCTION_LABEL[function_class],
+            "cover": "—",
+            "height_mm": "—",
+            "insulation_thickness_mm": insulation,
+            "function_class": function_class,
+            "verified_capacity": False,
+            "automatic_substitution_allowed": False,
+            "design_status": UNVERIFIED_STATUS,
+            "results": [{"kind": "text", "key": "design_status", "label": "Stav", "text": UNVERIFIED_STATUS}],
+            "notes": [
+                "Identifikační záznam bez ověřené statické únosnosti.",
+                "Automatický návrh a automatická záměna jsou zablokovány.",
+            ],
+        }
+
+    for type_code in EBEA_TYPES:
+        function_class = _EBEA_FUNCTION[type_code]
+        families.append({
+            "manufacturer": MANUFACTURER,
+            "brand": MANUFACTURER,
+            "model": "EBEA",
+            "type": type_code,
+            "generation": "aktuální",
+            "backend": "records",
+            "function_class": function_class,
+            "verified_capacity": False,
+            "automatic_substitution_allowed": False,
+            "standard_insulation_mm": [80, 120],
+            "records": [
+                record("EBEA", type_code, 80, function_class),
+                record("EBEA", type_code, 120, function_class),
+            ],
+        })
+
+    for type_code in TEBEA_TYPES:
+        function_class = _TEBEA_FUNCTION[type_code]
+        families.append({
+            "manufacturer": MANUFACTURER,
+            "brand": MANUFACTURER,
+            "model": "TEBEA",
+            "type": type_code,
+            "generation": "aktuální",
+            "backend": "records",
+            "function_class": function_class,
+            "verified_capacity": False,
+            "automatic_substitution_allowed": False,
+            "standard_insulation_mm": [120],
+            "records": [record("TEBEA", type_code, 120, function_class)],
+        })
+
+    return {
+        "schema_version": 2,
+        "catalog": {
+            "id": "peikko_ebea_tebea_identification_2026_09",
+            "edition": "EBEA / TEBEA – identifikační vrstva",
+            "publication_label": "Peikko – identifikace bez statických únosností",
+            "publication_date": "2026-09-11",
+            "source": "Peikko product families / TURTO identification layer",
+            "notes": [
+                "Pouze rozpoznání a klasifikace EBEA/TEBEA.",
+                "Neobsahuje ověřené statické únosnosti a nesmí se použít pro automatický statický návrh.",
+            ],
+        },
+        "families": families,
+    }
+
+
 def selftest() -> None:
     cases = {
         "EBEA 100 80": ("EBEA", "100", 80, "loadbearing"),
@@ -166,3 +260,7 @@ def selftest() -> None:
     assert not decode_peikko_designation("TEBEA UNKNOWN")["recognized"]
     assert functionally_compatible("TEBEA CM-V", "TEBEA LM-V")
     assert not functionally_compatible("TEBEA CM-V", "TEBEA PV-S")
+    package = build_catalog_package()
+    assert package["schema_version"] == 2
+    assert len(package["families"]) == len(EBEA_TYPES) + len(TEBEA_TYPES)
+    assert all(f.get("verified_capacity") is False for f in package["families"])
