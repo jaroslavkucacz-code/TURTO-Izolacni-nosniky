@@ -1,0 +1,19 @@
+TURTO 2.2.28
+
+Peikko EBEA / TEBEA
+- Přidána samostatná pracovní karta „Peikko EBEA / TEBEA“ se záložkami Dekodér, Záměny a Návrh / předvýběr.
+- Dekodér rozpoznává řady EBEA 100/200/500/600/700/800/900/1000/1100/1200, E-100, E-900 a Type G.
+- Dekodér rozpoznává aktuální řady TEBEA CM/PM/RM, PV/PVV/V, LM, EA/EH/ES a N.
+- Výrobky jsou rozdělené podle skutečné funkce: moment + smyk, smyk, vodorovné síly, speciální nosné a nenosné prvky.
+- Záměny jsou konzervativní: program nenabízí funkčně odlišný prvek ani záměnu mezi EBEA a TEBEA jen podle podobnosti názvu.
+- Návrh v této verzi provádí bezpečný funkční předvýběr podle rodiny, funkce a tloušťky izolantu.
+
+Statická bezpečnost
+- Verze 2.2.28 neobsahuje odhadované ani převzaté obecné únosnosti Peikko.
+- Každý výsledek bez ověřené statické databáze je označen „Rozpoznáno – nutné statické ověření“.
+- Využití a statická vyhovující záměna se nevyhodnocují, dokud nebudou doplněny ověřené národní podklady Peikko.
+
+Aktualizace
+- Vychází z ověřeného runtime TURTO 2.2.27.
+- Stávající logika HIT, Ancon a smykových trnů zůstává beze změny.
+- Runtime se instaluje transakčně a actions.sqlite3 je během aktualizace chráněna.
