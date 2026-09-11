@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.8",
+  "version": "0.13.9",
   "notes": [
-    "Výrazně zrychlen kompletní Excel export, zejména při výběru jen několika podlaží.",
-    "Datové buňky už nejsou formátovány po jedné novými objekty stylů; Calibri se nastaví jednou pro celý sešit.",
-    "Porovnání revizí se při částečném exportu počítá pouze pro vybraná podlaží, ne pro celý objekt.",
-    "Surová OCR diagnostika se neduplikuje do všech kategoriálních listů a počty ručních oprav se načítají jedním databázovým dotazem."
+    "Opravena příčina zamrznutí při kompletním Excel exportu: detekce exportního profilu už nevolá blokující get() na interní worker_queue.",
+    "Exportní profil se nyní čte výhradně z ovládacího prvku export_profile_var.",
+    "Oprava je důležitá zejména u akcí znovu otevřených z databáze, kde je pracovní fronta běžně prázdná.",
+    "Optimalizace kompletního exportu a filtrování vybraných podlaží z v0.13.7–0.13.8 zůstávají zachovány."
   ],
   "patches": [
     {
@@ -49,6 +49,13 @@
       "to": "0.13.8",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/99299ee9a8455073147bbafd582da2a30af7b661/tools/vykazy_reader/updates/0.13.8/update_0_13_7_to_0_13_8.py",
       "sha256": "4697d64645d5b26a79f015cfd54563d4a4f32349d8f41eeddc6833cfc0cf706a",
+      "targets": ["app.py", "VERSION.txt"]
+    },
+    {
+      "from": "0.13.8",
+      "to": "0.13.9",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c8b9c703c33282f3b8b92a54d5b4605191fe7888/tools/vykazy_reader/updates/0.13.9/update_0_13_8_to_0_13_9.py",
+      "sha256": "64f3afcc4dd8656689422e88e9da0248813e5730e62f6d330161fde6f10435eb",
       "targets": ["app.py", "VERSION.txt"]
     }
   ]
