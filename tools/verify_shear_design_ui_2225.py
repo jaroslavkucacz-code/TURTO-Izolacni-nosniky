@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import ast
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +14,12 @@ FIXED_LAYER = ROOT / "updates" / "2.2.25" / "shear_dowels_current.py"
 INSTALLER = ROOT / "updates" / "2.2.25" / "runtime_installer.py"
 BOOTSTRAP = ROOT / "updates" / "2.2.25" / "app.pyw"
 CONTRACT = ROOT / "updates" / "2.2.25" / "release_contract.json"
+
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 
 def _literal(path: Path, name: str):
