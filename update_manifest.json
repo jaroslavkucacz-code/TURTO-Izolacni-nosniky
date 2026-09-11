@@ -1,12 +1,12 @@
 {
-  "version": "2.2.26",
-  "runtime_layout": "19",
-  "notes": "Responzivní ovládání: Smykové trny mají dvouřádkové vstupní formuláře a viditelná pravá akční tlačítka; HIT přesouvá pravé exportní/ukládací akce do druhého řádku. Ancon ED/ESD/ESDQ i ostatní výpočtová logika zůstávají zachovány.",
+  "version": "2.2.27",
+  "runtime_layout": "20",
+  "notes": "Oprava hlavního okna ve Windows: po návratu z maximalizovaného stavu se obnovovaná poloha ověří proti pracovní ploše nejbližšího aktivního monitoru a případně se vrátí na viditelné místo. Výpočty, katalogy i UI z 2.2.26 zůstávají zachované.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/fd22dc135718f6df1231da1c774e6fa46a0aef6a/updates/2.2.26/app.pyw",
-      "sha256": "b9ef2643ed812822bb338d3a55292026e47b3deb97368079481c2eeea5fbc9d0"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c2e65d3ca731bedb2c16de8f928a2bc9226edb6c/updates/2.2.27/app.pyw",
+      "sha256": "e4aa3ae398648c50efa31b14c1bbe19c10d362460ce3f63b1a74e886d4bd25f5"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1edea28875191b4223ddce387028ccf3a8f80b39/updates/2.2.26/RELEASE_NOTES.txt",
-      "sha256": "78e5cf7291bad5fbb8c0a2fef2b9da6e4fe94c4814907ac84f2782905627d975"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ad19353711a4f2c283d78cc355bfb7c7d342a4ae/updates/2.2.27/RELEASE_NOTES.txt",
+      "sha256": "e5c890780148da074fedf0e15fd34a2b9af6ff715af4805ac1c28028b14152c5"
     }
   ]
 }
