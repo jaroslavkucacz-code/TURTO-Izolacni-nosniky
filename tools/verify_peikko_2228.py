@@ -8,6 +8,12 @@ import runpy
 import sys
 from pathlib import Path
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE = ROOT / "updates" / "2.2.28"
 MODULE = RELEASE / "peikko_thermal_breaks.py"
