@@ -1,12 +1,12 @@
 {
-  "version": "2.2.26",
-  "runtime_layout": "19",
-  "notes": "Responzivní ovládání: Smykové trny mají dvouřádkové vstupní formuláře a viditelná pravá akční tlačítka; HIT přesouvá pravé exportní/ukládací akce do druhého řádku. Ancon ED/ESD/ESDQ i ostatní výpočtová logika zůstávají zachovány.",
+  "version": "2.2.28",
+  "runtime_layout": "21",
+  "notes": "Peikko EBEA/TEBEA: přidána bezpečná identifikace a funkční klasifikace. Statické únosnosti Peikko zatím nejsou ověřeně přiřazeny, proto je automatický návrh a automatická záměna zablokována stavem ‚rozpoznáno – nutné statické ověření‘. Zachovány opravy runtime 2.2.27 a Ancon ED/ESD/ESDQ.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/fd22dc135718f6df1231da1c774e6fa46a0aef6a/updates/2.2.26/app.pyw",
-      "sha256": "b9ef2643ed812822bb338d3a55292026e47b3deb97368079481c2eeea5fbc9d0"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d91212b45b416a5afa652d6fa9c6a239ea9b77d3/updates/2.2.28/app.pyw",
+      "sha256": "1473fd07675d76d18de2919cd4a152e6f91f8732a60741f090bb8f3d091f74ed"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1edea28875191b4223ddce387028ccf3a8f80b39/updates/2.2.26/RELEASE_NOTES.txt",
-      "sha256": "78e5cf7291bad5fbb8c0a2fef2b9da6e4fe94c4814907ac84f2782905627d975"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/60a2953fe0d3da08bb2a839ab028017f2eb19c2d/updates/2.2.28/RELEASE_NOTES.txt",
+      "sha256": "434ec123b34e454b7418e377eef8f11dad4c125bf672b451295cb9753443e4a5"
     }
   ]
 }
