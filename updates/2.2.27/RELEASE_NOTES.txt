@@ -1,0 +1,11 @@
+TURTO 2.2.27
+
+Hlavní okno – oprava návratu z maximalizovaného stavu
+
+- Opraveno chování ve Windows, kdy se po kliknutí na tlačítko Obnovit dolů vedle X mohlo hlavní okno přesunout mimo obrazovku.
+- Program nyní sleduje přechody stavů hlavního okna a při návratu do normálního stavu ověří skutečný obdélník okna proti pracovní ploše nejbližšího aktivního monitoru.
+- Pokud je uložená/obnovená poloha mimo monitor (např. po změně sestavy monitorů nebo staré geometrii), okno se přesune zpět na viditelné místo.
+- Kontrola proběhne dvakrát krátce po změně stavu, aby zachytila i pozdní aplikaci Windows restore rectangle.
+- Běžné ruční přesouvání okna v normálním stavu se neomezuje; korekce se spouští jen při změně stavu na normal a při prvním zobrazení normálního okna.
+- Více monitorů a záporné souřadnice sekundárních monitorů jsou podporované.
+- Výpočty, katalogy, Ancon ED/ESD/ESDQ a actions.sqlite3 se nemění.
