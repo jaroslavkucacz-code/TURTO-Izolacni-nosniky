@@ -6,7 +6,7 @@
     "Opravena příčina zamrznutí při kompletním Excel exportu: detekce exportního profilu už nevolá blokující get() na interní worker_queue.",
     "Exportní profil se nyní čte výhradně z ovládacího prvku export_profile_var.",
     "Oprava je důležitá zejména u akcí znovu otevřených z databáze, kde je pracovní fronta běžně prázdná.",
-    "Optimalizace kompletního exportu a filtrování vybraných podlaží z v0.13.7–0.13.8 zůstávají zachovány."
+    "Aktualizační krok 0.13.8 → 0.13.9 je znovu publikován jako byteově ověřená varianta V2 se správným SHA-256."
   ],
   "patches": [
     {
@@ -54,8 +54,8 @@
     {
       "from": "0.13.8",
       "to": "0.13.9",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c8b9c703c33282f3b8b92a54d5b4605191fe7888/tools/vykazy_reader/updates/0.13.9/update_0_13_8_to_0_13_9.py",
-      "sha256": "64f3afcc4dd8656689422e88e9da0248813e5730e62f6d330161fde6f10435eb",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ff2b9281af0127a94e9cbf87c5e7b0d971869716/tools/vykazy_reader/updates/0.13.9/update_0_13_8_to_0_13_9_v2.py",
+      "sha256": "9c24222a230178422acc58dc4b03430d439ff789fe2fda4c788c83b16d7c22f9",
       "targets": ["app.py", "VERSION.txt"]
     }
   ]
