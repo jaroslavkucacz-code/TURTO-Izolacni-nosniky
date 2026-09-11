@@ -1,0 +1,12 @@
+TURTO 2.2.25
+
+Smykové trny – obnovení ručního Návrhu
+
+- Opravena chyba rozložení, kdy panel „Další vyhovující alternativy“ překrýval formulář ručního návrhu smykového trnu.
+- Pole Pozice, Ks, VEd, h, spára, beton, pohyb, aplikace a varianta pouzdra jsou znovu viditelná.
+- Tlačítko „Navrhnout a přidat“ je znovu dostupné.
+- Hlavní tabulka návrhu zůstává nad panelem dalších vyhovujících alternativ.
+- Zachována logika Ancon ED = plastové pouzdro, ESD = nerezové pouzdro a ESDQ = příčný posun z verze 2.2.24.
+- Zachována možnost hromadného návrhu z výkazu.
+- Aktualizace ověří kritické runtime soubory pomocí SHA-256.
+- Databáze actions.sqlite3 se při aktualizaci nemění.
