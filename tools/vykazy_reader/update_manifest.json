@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.7",
+  "version": "0.13.8",
   "notes": [
-    "Kompletní kontrolní Excel export nově respektuje aktuálně zaškrtnutá podlaží.",
-    "Při výběru jen části objektu se negenerují detailní data a kontroly pro ostatní podlaží, takže je export výrazně rychlejší.",
-    "Porovnání vybraných podlaží s celkovým sumářem objektu se při částečném exportu správně vynechá a list Revize se omezí na zvolená podlaží.",
-    "V listu Souhrn je uveden rozsah exportu a během vytváření se zobrazuje aktuální stav ukládání."
+    "Výrazně zrychlen kompletní Excel export, zejména při výběru jen několika podlaží.",
+    "Datové buňky už nejsou formátovány po jedné novými objekty stylů; Calibri se nastaví jednou pro celý sešit.",
+    "Porovnání revizí se při částečném exportu počítá pouze pro vybraná podlaží, ne pro celý objekt.",
+    "Surová OCR diagnostika se neduplikuje do všech kategoriálních listů a počty ručních oprav se načítají jedním databázovým dotazem."
   ],
   "patches": [
     {
@@ -42,6 +42,13 @@
       "to": "0.13.7",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/63d9d616f115cc406eee0f4c4a2e591d3090eb27/tools/vykazy_reader/updates/0.13.7/update_0_13_6_to_0_13_7.py",
       "sha256": "3a1d707502f92ce0339d2adb7d6d5a252d1f047f240ca04439e7d60865f72782",
+      "targets": ["app.py", "VERSION.txt"]
+    },
+    {
+      "from": "0.13.7",
+      "to": "0.13.8",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/99299ee9a8455073147bbafd582da2a30af7b661/tools/vykazy_reader/updates/0.13.8/update_0_13_7_to_0_13_8.py",
+      "sha256": "4697d64645d5b26a79f015cfd54563d4a4f32349d8f41eeddc6833cfc0cf706a",
       "targets": ["app.py", "VERSION.txt"]
     }
   ]
