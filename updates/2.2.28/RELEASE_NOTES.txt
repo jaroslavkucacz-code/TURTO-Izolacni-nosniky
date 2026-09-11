@@ -1,0 +1,10 @@
+TURTO 2.2.28
+
+- Přidána identifikační podpora Peikko EBEA a TEBEA do katalogové/dekodovací vrstvy.
+- EBEA: 100, 200, 500, 600, 700, 800, 900, 1000, 1100, 1200, E-100, E-900 a Type G.
+- TEBEA: CM-V/PM-V/RM-V, CM-VV/PM-VV/RM-VV, RMC-V, HM-W, PV/PVV/V varianty S/W, LM-V/LM-VV, EA/EH/ES a N.
+- EBEA je vedena se standardními izolanty 80/120 mm; TEBEA se standardním izolantem 120 mm.
+- Typy jsou rozděleny podle statické funkce (moment+smyk, smyk, vodorovná síla, nenosný/speciální).
+- Peikko zatím neobsahuje ověřené statické únosnosti. Automatický návrh a automatická záměna jsou proto bezpečnostně zablokovány a záznamy nesou stav „rozpoznáno – nutné statické ověření“.
+- Zachovány opravy runtime 2.2.27 i Ancon ED/ESD/ESDQ z předchozích verzí.
+- Aktualizace nemění actions.sqlite3.
