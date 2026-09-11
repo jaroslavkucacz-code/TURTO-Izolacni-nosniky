@@ -1,12 +1,11 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.5",
+  "version": "0.13.6",
   "notes": [
-    "Akce mají stav Rozpracováno / Ke kontrole / Zkontrolováno / Exportováno.",
-    "Excel má profily Kontrolní (kompletní) a Výkaz pro objednávku.",
-    "Po analýze se zobrazí automatický přehled jednoznačných položek, řádků k ruční kontrole, rozdílů a upozornění PDF.",
-    "Online kontrola aktualizací nově obchází cache manifestu, aby se vždy načetla aktuální verze."
+    "Výkaz pro objednávku nově respektuje aktuálně zaškrtnutá podlaží.",
+    "Položky stejného typu z více vybraných podlaží se v objednávkovém výkazu sečtou.",
+    "Pokud není vybráno žádné podlaží, program export zastaví a vyžádá výběr alespoň jednoho podlaží."
   ],
   "patches": [
     {
@@ -28,6 +27,13 @@
       "to": "0.13.5",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8b51352ce6589e77ebe04d83d2857a1374fac717/tools/vykazy_reader/updates/0.13.5/update_0_13_3_to_0_13_5_exact.py",
       "sha256": "4f32c2f8024b80b7214d3d3fb1e8c75cd93c71c1baa1d77bd8b137037810052d",
+      "targets": ["app.py", "VERSION.txt"]
+    },
+    {
+      "from": "0.13.5",
+      "to": "0.13.6",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e87b8186cf45363ccbd60cbe0b5b849a437f0b74/tools/vykazy_reader/updates/0.13.6/update_0_13_5_to_0_13_6.py",
+      "sha256": "a93e6e5d918a8d347d3f583c60d38d0be095d637ee973358e6ee9f8cb9551728",
       "targets": ["app.py", "VERSION.txt"]
     }
   ]
