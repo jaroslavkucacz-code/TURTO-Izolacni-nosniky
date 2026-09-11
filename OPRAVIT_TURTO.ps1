@@ -8,11 +8,11 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '2.2.27'
+$Version = '2.2.28'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = 'c2e65d3ca731bedb2c16de8f928a2bc9226edb6c'
+$AppCommit = '7de47f1338434e738dd2183a228412ea93ce944f'
 $UpdaterCommit = '307c17bda050b38543f6a7f5cc228555b0698182'
-$AppSha256 = 'e4aa3ae398648c50efa31b14c1bbe19c10d362460ce3f63b1a74e886d4bd25f5'
+$AppSha256 = 'eb257228204477e87319f28466aef20cb2ba7b40417c8f3a5f4b690e047a4cba'
 $UpdaterSha256 = '2eb9a19329479615c41288d790a40aa8fe8a82280d49271c8fec42a132bf355e'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'
@@ -57,14 +57,6 @@ function Select-TargetFolder {
     return [System.IO.Path]::GetFullPath($dialog.SelectedPath)
 }
 
-function Test-TurtoFolder([string]$Folder) {
-    return (
-        (Test-Path (Join-Path $Folder 'app.pyw')) -or
-        (Test-Path (Join-Path $Folder 'Spustit_program.vbs')) -or
-        (Test-Path (Join-Path $Folder 'updater.py'))
-    )
-}
-
 function Write-RecoveryLog([string]$Path, [string]$Text) {
     $stamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
     Add-Content -LiteralPath $Path -Encoding UTF8 -Value "[$stamp] $Text"
@@ -82,7 +74,7 @@ function Download-VerifiedFile(
         try {
             Write-RecoveryLog $LogPath "Stahuji $Label, pokus $attempt/4"
             Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Destination -Headers @{
-                'User-Agent' = 'TURTO-Recovery-2.2.27'
+                'User-Agent' = 'TURTO-Recovery-2.2.28'
                 'Cache-Control' = 'no-cache, no-store'
                 'Pragma' = 'no-cache'
             }
@@ -125,7 +117,11 @@ try {
     if (-not (Test-Path -LiteralPath $target -PathType Container)) {
         throw "Vybraná složka neexistuje:`r`n$target"
     }
-    if (-not (Test-TurtoFolder $target)) {
+    if (-not (
+        (Test-Path (Join-Path $target 'app.pyw')) -or
+        (Test-Path (Join-Path $target 'Spustit_program.vbs')) -or
+        (Test-Path (Join-Path $target 'updater.py'))
+    )) {
         throw "Vybraná složka nevypadá jako instalace TURTO:`r`n$target"
     }
 
@@ -161,7 +157,7 @@ try {
     $appTemp = Join-Path $tempDir 'app.pyw'
     $updaterTemp = Join-Path $tempDir 'updater.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.27/app.pyw"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/2.2.28/app.pyw"
     $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/2.2.15/updater.py"
 
     Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog
@@ -170,7 +166,7 @@ try {
     Copy-Item -LiteralPath $appTemp -Destination (Join-Path $target 'app.pyw') -Force
     Copy-Item -LiteralPath $updaterTemp -Destination (Join-Path $target 'updater.py') -Force
 
-    # Marker removal forces the verified bootstrap to validate/repair Program.
+    # Odstranění markeru vynutí kontrolu a případnou opravu Program při prvním startu.
     Remove-Item -LiteralPath (Join-Path $target $RuntimeMarker) -Force -ErrorAction SilentlyContinue
 
     Write-RecoveryLog $recoveryLog 'Spouštěcí vrstva byla obnovena. actions.sqlite3 ani složka Program nebyly měněny.'
@@ -195,7 +191,7 @@ try {
         Start-Process -FilePath 'py.exe' -ArgumentList @('-3', ('"' + $app + '"')) -WorkingDirectory $target
     }
     else {
-        throw "Oprava byla dokončena, ale nebyl nalezen spouštěč Pythonu."
+        throw 'Oprava byla dokončena, ale nebyl nalezen spouštěč Pythonu.'
     }
 
     Write-RecoveryLog $recoveryLog 'Byl vyvolán start programu.'
