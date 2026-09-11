@@ -1,0 +1,47 @@
+name: Peikko source data audit
+on:
+  push:
+    branches: [release/2.2.30-peikko-data]
+    paths: [.github/workflows/peikko-data-audit.yml]
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Export source and original manufacturer documents
+        run: |
+          mkdir -p audit
+          git archive HEAD -o audit/source.zip
+          git bundle create audit/history.bundle --all
+          python - <<'PY'
+          import pathlib, urllib.request, json, hashlib
+          sources = {
+            'EBEA_004.pdf': 'https://media.peikko.com/file/dl/i/OGas3A/Nous9DJNosZwZjufJk_Uiw/EBEA_Peikko_Group_004_Technical_Manual_Web.pdf?fv=5548',
+            'TEBEA_ETA_01.pdf': 'https://media.peikko.com/file/dl/i/cPI0Nw/75qMwAS9V0SMGRPKy9iGbg/ETA_23-0525_version-01_Peikko_TEBEA.pdf?fv=f80a'
+          }
+          report = {}
+          for name, url in sources.items():
+              try:
+                  req = urllib.request.Request(url, headers={'User-Agent': 'TURTO-source-audit/2.2.30'})
+                  with urllib.request.urlopen(req, timeout=90) as response:
+                      data = response.read(60000000)
+                  assert data.startswith(b'%PDF-'), 'Not a PDF'
+                  pathlib.Path('audit', name).write_bytes(data)
+                  report[name] = {'url': url, 'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)}
+              except Exception as exc:
+                  report[name] = {'url': url, 'error': str(exc)}
+          pathlib.Path('audit/download-report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
+          print(json.dumps(report, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: peikko-data-audit-2230
+          path: audit/
+          retention-days: 3
