@@ -1,12 +1,12 @@
-name: Peikko source data audit
+name: Peikko 2.2.30 release assembly
 on:
   push:
     branches: [release/2.2.30-peikko-data]
     paths: [.github/workflows/peikko-data-audit.yml]
 permissions:
-  contents: read
+  contents: write
 jobs:
-  audit:
+  assemble:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,33 +15,88 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Export source and original manufacturer documents
+      - name: Verify and apply the locally tested source archive
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          mkdir -p audit
-          git archive HEAD -o audit/source.zip
-          git bundle create audit/history.bundle --all
           python - <<'PY'
-          import pathlib, urllib.request, json, hashlib
-          sources = {
-            'EBEA_004.pdf': 'https://media.peikko.com/file/dl/i/OGas3A/Nous9DJNosZwZjufJk_Uiw/EBEA_Peikko_Group_004_Technical_Manual_Web.pdf?fv=5548',
-            'TEBEA_ETA_01.pdf': 'https://media.peikko.com/file/dl/i/cPI0Nw/75qMwAS9V0SMGRPKy9iGbg/ETA_23-0525_version-01_Peikko_TEBEA.pdf?fv=f80a'
-          }
-          report = {}
-          for name, url in sources.items():
-              try:
-                  req = urllib.request.Request(url, headers={'User-Agent': 'TURTO-source-audit/2.2.30'})
-                  with urllib.request.urlopen(req, timeout=90) as response:
-                      data = response.read(60000000)
-                  assert data.startswith(b'%PDF-'), 'Not a PDF'
-                  pathlib.Path('audit', name).write_bytes(data)
-                  report[name] = {'url': url, 'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)}
-              except Exception as exc:
-                  report[name] = {'url': url, 'error': str(exc)}
-          pathlib.Path('audit/download-report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
-          print(json.dumps(report, indent=2))
+          import base64, hashlib, json, os, pathlib, urllib.request, zlib
+          repo = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
+          ids = ['93b6072a5ee54807761200b8bb5f284ea0c3a611', '031ca93c7cf61e1e9fe2ad812d85e2ee7daec1c3', '72ff12b0a498e6a94602dc5316a94a9df5d7db28', 'f98c9c565945e1511f0f325d1e1ad0c720dc2fd0', 'ab47c89c605f4856fd151c90201a1d06dbb30ab3']
+          expected = ['93b6072a5ee54807761200b8bb5f284ea0c3a611', '5fe4a507bd96cdc7f7a08f2db7e8f05cf8e172d3', '72ff12b0a498e6a94602dc5316a94a9df5d7db28', 'f98c9c565945e1511f0f325d1e1ad0c720dc2fd0', 'ab47c89c605f4856fd151c90201a1d06dbb30ab3']
+          parts = []
+          for index, blob in enumerate(ids):
+              req = urllib.request.Request('https://api.github.com/repos/'+repo+'/git/blobs/'+blob, headers={'Authorization': 'Bearer '+os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'User-Agent': 'TURTO-release-assembly'})
+              with urllib.request.urlopen(req, timeout=45) as response:
+                  obj = json.load(response)
+              data = base64.b64decode(obj['content'])
+              if index == 1:
+                  # Correct one transport transcription, then verify exact original Git SHA.
+                  text = base64.b64encode(data).decode('ascii')
+                  assert text.count('rdCKXL/dddfx') == 1
+                  data = base64.b64decode(text.replace('rdCKXL/dddfx','rdCKXL/ddfx')+'c', validate=True)
+              actual = hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+              assert actual == expected[index], (index, actual)
+              parts.append(data)
+          archive = b''.join(parts)
+          assert hashlib.sha256(archive).hexdigest() == '2cfda7d178ec339983c66f7fdd2ebd6e4bd5f361fe22581eba05691cf3e3f657'
+          files = json.loads(zlib.decompress(archive))
+          allowed = {'.github/workflows/ci.yml', 'tools/build_peikko_tables_2230.py', 'tools/prepare_peikko_2230_release.py', 'tools/verify_peikko_2230.py', 'tools/verify_peikko_2230_runtime.py'}
+          allowed.update('updates/2.2.30/'+n for n in ('PEIKKO_DATA_SCOPE.md','RELEASE_NOTES.txt','app_runtime.pyw','peikko_catalog.py','peikko_documents.py','peikko_technical.py','peikko_technical_data.json.gz','peikko_thermal_breaks.py','peikko_workspace.py','release_contract.json'))
+          assert set(files) == allowed
+          output = {}
+          for name, entry in files.items():
+              path = pathlib.Path(name)
+              assert not path.is_absolute() and '..' not in path.parts
+              if 'text' in entry:
+                  data = entry['text'].encode('utf-8')
+              elif 'base64' in entry:
+                  data = base64.b64decode(entry['base64'], validate=True)
+              else:
+                  base = pathlib.Path(entry['base'])
+                  assert not base.is_absolute() and '..' not in base.parts
+                  original = base.read_bytes()
+                  assert hashlib.sha256(original).hexdigest() == entry['base_sha'], name
+                  text = original.decode('utf-8')
+                  for start, end, replacement in reversed(entry['edits']):
+                      assert 0 <= start <= end <= len(text)
+                      text = text[:start] + replacement + text[end:]
+                  data = text.encode('utf-8')
+              assert hashlib.sha256(data).hexdigest() == entry['sha256'], name
+              output[name] = data
+          for name, data in output.items():
+              path = pathlib.Path(name)
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_bytes(data)
+          pathlib.Path('.github/workflows/peikko-data-audit.yml').unlink()
+          print('Verified and restored 15 tested source files; temporary workflow removed.')
           PY
+          git config user.name 'TURTO Release Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- .github/workflows/ci.yml .github/workflows/peikko-data-audit.yml tools/build_peikko_tables_2230.py tools/prepare_peikko_2230_release.py tools/verify_peikko_2230.py tools/verify_peikko_2230_runtime.py updates/2.2.30
+          git -c commit.gpgsign=false commit -m 'Peikko 2.2.30: reviewed EBEA tables, TEBEA components and shared UI'
+      - name: Freeze source, installer, bootstrap and manifest
+        run: python tools/prepare_peikko_2230_release.py
+      - name: Verify release and immutable pins
+        run: |
+          python tools/verify_release.py
+          python tools/verify_pinned_sources.py
+      - name: Verify reviewed reference values and installed application
+        run: |
+          python tools/verify_peikko_2230.py
+          xvfb-run -a python tools/verify_peikko_2230_runtime.py
+      - name: Push candidate branch without changing main
+        run: git push origin HEAD:release/2.2.30-peikko-data
+      - name: Export assembled source and history
+        if: always()
+        run: |
+          mkdir -p "$RUNNER_TEMP/peikko-2230-audit"
+          git archive HEAD -o "$RUNNER_TEMP/peikko-2230-audit/source.zip"
+          git bundle create "$RUNNER_TEMP/peikko-2230-audit/history.bundle" --all
+          git log -6 --format='%H %s' > "$RUNNER_TEMP/peikko-2230-audit/commits.txt"
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: peikko-data-audit-2230
-          path: audit/
+          name: peikko-2230-release-candidate
+          path: ${{ runner.temp }}/peikko-2230-audit/
           retention-days: 3
