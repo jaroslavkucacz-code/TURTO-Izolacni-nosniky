@@ -1,0 +1,19 @@
+{
+  "version": "2.2.28",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "21",
+  "manifest_root_only": true,
+  "runtime_strategy": "peikko-ebea-tebea-overlay",
+  "peikko_decoder": true,
+  "peikko_substitution_guard": true,
+  "peikko_design_preselection": true,
+  "peikko_country_specific_resistance_required": true
+}
