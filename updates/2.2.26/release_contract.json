@@ -1,0 +1,14 @@
+{
+  "version": "2.2.26",
+  "required_targets": ["app.pyw", "updater.py", "RELEASE_NOTES.txt"],
+  "preserve": ["actions.sqlite3"],
+  "runtime_directory": "Program",
+  "runtime_layout": "19",
+  "manifest_root_only": true,
+  "runtime_strategy": "responsive-ui-overlay",
+  "shear_design_two_line_form": true,
+  "shear_decoder_two_line_form": true,
+  "shear_substitution_two_line_form": true,
+  "hit_toolbar_second_row": true,
+  "right_edge_actions_visible": true
+}
