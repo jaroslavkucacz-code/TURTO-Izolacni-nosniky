@@ -56,6 +56,30 @@ PAYLOADS = {
     ),
 }
 
+PREVIOUS_REQUIRED = (
+    "app_runtime.pyw", "app_runtime_221.pyw", "app_base.py", "runtime_paths.py", "updater.py",
+    "cleanup_stage8.py", "platform_workspace.py", "hit_workspace.py", "hit_workspace_base.py",
+    "hit_row_extension.py", "hit_virtual_scroll.py", "hit_design_ui.py", "hit_export_ui.py",
+    "hit_aux_ui.py", "hit_wt_ui.py", "unified_schedule.py", "supplier_export.py", "hit_pdf.py",
+    "shear_movement.py", "shear_dowels_current.py", "table_polish.py", "wt_safety_guard.py",
+    "substitution_workspace.py", "schoeck_dorn_decoder.py", "isokorb_compat.py", "substitution_guard.py",
+    "project_ui.py", "project_ui_prev.py", "project_ui_base.py", "action_workspace.py",
+    "action_browser.py", "action_browser_123.py", "action_payload.py", "action_payload_200.py",
+    "action_payload_127.py", "action_payload_125.py", "action_payload_prev.py", "action_store.py",
+    "action_store_127.py", "action_store_125.py", "action_store_prev.py", "platform_registry.py",
+    "platform_registry_200.py", "platform_state.py", "platform_state_200.py", "bulk_import.py",
+    "bulk_import_engine.py", "hit_decoder_catalog.py", "hit_decoder_catalog_prev.py",
+    "shear_dowels_current_221.py", "shear_dowels_schedule.py", "shear_dowels_schedule_guard.py",
+    "shear_dowels_ui_214.py", "shear_dowels_schedule_215.py", "shear_dowels_ui_215.py",
+    "historical_schoeck_dorn.py",
+)
+
+CURRENT_REQUIRED = (
+    *PREVIOUS_REQUIRED,
+    "shear_ui_227.py",
+    "shear_catalogs_227.py",
+)
+
 
 def _raw(commit: str, path: str) -> str:
     return f"https://raw.githubusercontent.com/{REPOSITORY}/{commit}/{path}"
@@ -89,6 +113,10 @@ def _download(commit: str, path: str, expected: str, agent: str) -> bytes:
     raise RuntimeError(f"Nelze stáhnout {path}\n{last}")
 
 
+def _complete(program: Path, required: tuple[str, ...]) -> bool:
+    return program.is_dir() and all((program / name).is_file() for name in required)
+
+
 def _payloads_match(program: Path) -> bool:
     try:
         for local, (_commit, _remote, expected) in PAYLOADS.items():
@@ -108,6 +136,7 @@ def _revision_ok(program: Path) -> bool:
         return (
             marker.is_file()
             and marker.read_text(encoding="utf-8").strip() == "2.2.24"
+            and _complete(program, CURRENT_REQUIRED)
             and _payloads_match(program)
         )
     except Exception:
@@ -124,6 +153,9 @@ def _install_base(root: Path, temp: Path) -> None:
     if not callable(install):
         raise RuntimeError("Installer 2.2.23 neobsahuje install_runtime().")
     install(root)
+    program = root / "Program"
+    if not _complete(program, PREVIOUS_REQUIRED):
+        raise RuntimeError("Ověřený runtime 2.2.23 se nepodařilo obnovit kompletně.")
 
 
 def _install_payloads(program: Path, temp: Path) -> None:
@@ -175,6 +207,8 @@ def install_runtime(root: Path | str) -> None:
         program.mkdir(parents=True, exist_ok=True)
         _install_payloads(program, temp)
 
+        if not _complete(program, CURRENT_REQUIRED):
+            raise RuntimeError("Runtime 2.2.24 není po aktualizaci kompletní.")
         if not _payloads_match(program):
             raise RuntimeError("Kontrola runtime 2.2.24 po instalaci selhala.")
 
@@ -192,6 +226,9 @@ def install_runtime(root: Path | str) -> None:
 def selftest() -> None:
     assert RUNTIME_LAYOUT == "17"
     assert len(PAYLOADS) == 7
+    assert "shear_movement.py" in CURRENT_REQUIRED
+    assert "shear_ui_227.py" in CURRENT_REQUIRED
+    assert "shear_catalogs_227.py" in CURRENT_REQUIRED
     assert all(len(spec[2]) == 64 for spec in PAYLOADS.values())
 
 
