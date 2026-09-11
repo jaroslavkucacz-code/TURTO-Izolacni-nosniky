@@ -1,0 +1,11 @@
+TURTO 2.2.29 – EBEA/TEBEA ve společném pracovním postupu
+
+- Odstraněna samostatná hlavní záložka Peikko. Označení EBEA/TEBEA se zadává do běžného Dekodéru. V Návrhu a Záměnách se Peikko volí jako výrobce.
+- Dekodér odděluje RS/VE1/VE2, kód výztuže, B2, Ds, Dt, SW, L, S11, CV (pouze je-li uvedeno), beton, REI a OQ. Neznámé údaje zachová a upozorní na ně. Rozporné rozměry odmítne.
+- Hromadné vložení zpracuje i víceřádkové označení, prázdné Markdown tabulky, HTML mezery a samostatné pozice e1–e13/zs. Nesčítá kusy podle kódu výztuže.
+- Konfigurace e9/e10 se liší S11 a zůstávají oddělené. GL0945_E12 se uchová jako reference, nikoliv jako součást výrobku. Rozpoznají se EBEA-E100 a EBEA-ZS.
+- Celé označení a parametry přežijí uložení a nové načtení centrální AKCE. Návrh a Záměny používají společný Dekodér, nikoli oddělený seznam prvků.
+- U Peikko se zobrazuje K ověření, nikoli statické OK. Číselné únosnosti a procenta využití nejsou odhadována. Návrh je zatím pouze předvýběr modelových řad; automaticky potvrzená statická záměna není dostupná bez ověřených dat konkrétní konfigurace.
+- ZS, B2 a OQ jsou rozpoznané kódy z dodaného výkazu. Význam speciálního provedení, nosná funkce ZS a požární deklarace nejsou touto aktualizací technicky potvrzeny.
+- Ověřeno 14 reálných vzorů, varianty zápisu, konfliktní parametry, oddělení konfigurací a round-trip přes centrální databázi. Zachován runtime HIT, Ancon ED, smykových trnů a oprava polohy okna z 2.2.27.
+- Aktualizátor používá připnuté zdroje a SHA-256. actions.sqlite3 není součástí aktualizačního balíčku a zůstává beze změny.

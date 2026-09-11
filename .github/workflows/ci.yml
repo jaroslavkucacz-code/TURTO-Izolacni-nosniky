@@ -35,6 +35,10 @@ jobs:
         run: python tools/verify_pinned_sources.py
       - name: Verify Peikko EBEA/TEBEA 2.2.28
         run: python tools/verify_peikko_2228.py
+      - name: Verify exact Peikko 2.2.29
+        run: python tools/verify_peikko_2229.py
+      - name: Verify installed Peikko Tk and SQLite workflow
+        run: xvfb-run -a python tools/verify_peikko_2229_runtime.py
       - name: Verify 2.2.18 recovery path
         run: python tools/verify_recovery_2218.py
       - name: Verify Program layout migration
@@ -101,6 +105,10 @@ jobs:
         run: python tools/verify_pinned_sources.py
       - name: Verify Peikko EBEA/TEBEA 2.2.28 on Windows
         run: python tools/verify_peikko_2228.py
+      - name: Verify exact Peikko 2.2.29 on Windows
+        run: python tools/verify_peikko_2229.py
+      - name: Verify installed Peikko Tk and SQLite workflow on Windows
+        run: python tools/verify_peikko_2229_runtime.py
       - name: Verify 2.2.18 recovery path on Windows
         run: python tools/verify_recovery_2218.py
       - name: Verify Program layout migration on Windows

@@ -2,7 +2,7 @@
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.2.8**
+**Aktuální vydání: TURTO 2.2.29**
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -12,6 +12,9 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 ## Aktuální funkce
 
 ### Izolační nosníky
+- EBEA/TEBEA ve společném Dekodéru, Návrhu a Záměnách; Peikko se volí jako výrobce,
+- úplné rozlišení konfigurace (Ds, Dt, SW, L, S11, RS/VE1, B2, REI, OQ) a hromadné vložení,
+- Peikko: rozpoznání / předvýběr; bez ověřených únosností se nepotvrzuje statická záměna,
 - dekódování katalogových označení,
 - hromadné vložení z výkazu,
 - návrh Leviat HIT,
