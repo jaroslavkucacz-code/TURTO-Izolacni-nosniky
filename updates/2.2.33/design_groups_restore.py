@@ -47,7 +47,10 @@ def _select_group(owner, group: str) -> None:
 
 def _show_hit_group(self, group: str) -> None:
     """Leave the compact shared form and open the requested verified HIT group."""
+    key = str(group or "").strip().lower()
     try:
+        if key not in _TAB_ATTR:
+            raise ValueError("Neznámá návrhová skupina HIT.")
         if self.owner.design_manufacturer_var.get() != "Leviat":
             self.owner.design_manufacturer_var.set("Leviat")
             self.switch()
@@ -63,10 +66,9 @@ def _show_hit_group(self, group: str) -> None:
         for widget in state[2]:
             widget.grid()
 
-        _select_group(self.owner, group)
+        _select_group(self.owner, key)
         self.owner._shared_return_bar.grid(row=4, column=0, sticky="ew", pady=3)
-        self.owner.design_catalog_var.set(_CATALOG_LABEL[group])
-        self.owner.mark_project_dirty()
+        self.owner.design_catalog_var.set(_CATALOG_LABEL[key])
     except Exception as exc:
         messagebox.showerror("Návrh Leviat HIT", str(exc), parent=self.owner)
 
@@ -112,13 +114,13 @@ def _install_group_bar(shared_cls) -> None:
             )
             button.pack(side="left", padx=(0, 7))
             self.hit_group_buttons[key] = button
-            # Keep the full type list available to tests/tooltips without changing
-            # the structural engine or overloading the visible button caption.
+            # Keep the full type list available to regression tests without
+            # changing the structural engine or overloading the visible caption.
             button._turto_group_detail = detail
 
         ttk.Label(
             bar,
-            text="Plné historické návrhové tabulky – stejné výpočtové moduly jako před sjednocením formuláře.",
+            text="Původní ověřené moduly; bez změny statického výpočtu.",
             style="Muted.TLabel",
         ).pack(side="left", padx=(3, 0))
 
