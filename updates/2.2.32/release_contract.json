@@ -1,11 +1,18 @@
 {
   "version": "2.2.32",
-  "runtime_layout": "21",
-  "strategy": "schedule-import-regression-overlay",
-  "base_version": "2.2.31",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
   "preserve": [
     "actions.sqlite3"
   ],
+  "runtime_directory": "Program",
+  "runtime_layout": "21",
+  "manifest_root_only": true,
+  "runtime_strategy": "schedule-import-regression-overlay",
+  "base_version": "2.2.31",
   "payloads": [
     "app_runtime.pyw",
     "schedule_restore.py"
@@ -15,5 +22,10 @@
     "restore Vložit výkaz entry in shared design UI",
     "reuse unified_schedule.py without changing verified parser",
     "do not modify actions.sqlite3"
-  ]
+  ],
+  "shared_design_form": true,
+  "schedule_import_restored": true,
+  "schedule_parser_reused": "unified_schedule.py",
+  "schedule_import_target": "verified Leviat HIT row engines",
+  "peikko_bulk_static_design_added": false
 }
