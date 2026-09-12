@@ -1,0 +1,47 @@
+{
+  "version": "2.2.33",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "21",
+  "manifest_root_only": true,
+  "runtime_strategy": "design-groups-router-overlay",
+  "base_version": "2.2.32",
+  "payloads": [
+    "app_runtime.pyw",
+    "design_groups_restore.py"
+  ],
+  "requirements": [
+    "preserve verified 2.2.32 runtime as app_runtime_232.pyw",
+    "restore direct access to Desky / balkony, Doplňkové prvky and Stěny WT inside shared Návrh",
+    "include existing DVL / DDL standard HIT types",
+    "reuse existing HT / AT / FT / OTX and HIT-WT structural engines without new calculations",
+    "preserve Vložit výkaz from 2.2.32",
+    "do not add a Peikko top-level tab",
+    "do not modify actions.sqlite3"
+  ],
+  "shared_design_form": true,
+  "design_group_router": true,
+  "leviat_design_groups": [
+    "MVX",
+    "MVXL",
+    "ZVX",
+    "ZDX",
+    "DD",
+    "DVL",
+    "DDL",
+    "HT",
+    "AT",
+    "FT",
+    "OTX",
+    "WT"
+  ],
+  "new_structural_calculation": false,
+  "peikko_bulk_static_design_added": false
+}

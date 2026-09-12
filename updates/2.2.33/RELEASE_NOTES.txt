@@ -1,0 +1,14 @@
+TURTO 2.2.33
+
+Obnovení všech návrhových skupin Leviat HIT ve společné záložce Návrh
+
+- Ve společném Návrhu jsou nyní přímo viditelné vstupy do všech ověřených modulů Leviat HIT.
+- „Desky / balkony“ otevírá plný původní modul MVX, MVXL, ZVX, ZDX, DD, DVL a DDL.
+- „Doplňkové prvky“ otevírá ověřené návrhy HT, AT, FT a OTX.
+- „Stěny WT“ otevírá původní návrh HIT-WT s MEd−, VEd,v+ a VEd,h± na jeden prvek.
+- Kompaktní společný formulář pro standardní automatický předvýběr Leviat / Peikko zůstává zachován.
+- Tlačítko „Vložit výkaz…“ z 2.2.32 zůstává zachováno.
+- Nezavádí se žádný nový statický výpočet: 2.2.33 pouze směruje na existující ověřené HIT moduly v runtime.
+- Peikko EBEA / TEBEA se touto změnou staticky nerozšiřuje a nemění se jeho bezpečnostní omezení.
+- Nevzniká nová horní záložka; pracovní postup zůstává Dekodér / Návrh / Záměny.
+- Databáze actions.sqlite3 se při aktualizaci nemění.
