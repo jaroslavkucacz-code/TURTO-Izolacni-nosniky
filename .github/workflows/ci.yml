@@ -31,6 +31,8 @@ jobs:
           python-version: "3.12"
       - name: Verify release and repository hygiene
         run: python tools/verify_release.py
+      - name: Verify restored schedule import 2.2.32
+        run: python tools/verify_schedule_restore_2232.py
       - name: Verify pinned runtime sources
         run: python tools/verify_pinned_sources.py
       - name: Verify Peikko EBEA/TEBEA 2.2.28
@@ -45,8 +47,6 @@ jobs:
         run: xvfb-run -a python tools/verify_peikko_2230_runtime.py
       - name: Verify shared Leviat and Peikko design 2.2.31
         run: xvfb-run -a python tools/verify_thermal_design_2231.py
-      - name: Verify restored schedule import 2.2.32
-        run: python tools/verify_schedule_restore_2232.py
       - name: Verify 2.2.18 recovery path
         run: python tools/verify_recovery_2218.py
       - name: Verify Program layout migration
@@ -109,6 +109,8 @@ jobs:
           python-version: "3.12"
       - name: Verify release on Windows
         run: python tools/verify_release.py
+      - name: Verify restored schedule import 2.2.32 on Windows
+        run: python tools/verify_schedule_restore_2232.py
       - name: Verify pinned runtime sources on Windows
         run: python tools/verify_pinned_sources.py
       - name: Verify Peikko EBEA/TEBEA 2.2.28 on Windows
@@ -123,8 +125,6 @@ jobs:
         run: python tools/verify_peikko_2230_runtime.py
       - name: Verify shared Leviat and Peikko design 2.2.31 on Windows
         run: python tools/verify_thermal_design_2231.py
-      - name: Verify restored schedule import 2.2.32 on Windows
-        run: python tools/verify_schedule_restore_2232.py
       - name: Verify 2.2.18 recovery path on Windows
         run: python tools/verify_recovery_2218.py
       - name: Verify Program layout migration on Windows
