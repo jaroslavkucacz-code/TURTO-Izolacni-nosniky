@@ -1,0 +1,19 @@
+{
+  "version": "2.2.32",
+  "runtime_layout": "21",
+  "strategy": "schedule-import-regression-overlay",
+  "base_version": "2.2.31",
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "payloads": [
+    "app_runtime.pyw",
+    "schedule_restore.py"
+  ],
+  "requirements": [
+    "preserve verified 2.2.31 runtime as app_runtime_231.pyw",
+    "restore Vložit výkaz entry in shared design UI",
+    "reuse unified_schedule.py without changing verified parser",
+    "do not modify actions.sqlite3"
+  ]
+}
