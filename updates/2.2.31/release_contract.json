@@ -1,0 +1,28 @@
+{
+  "version": "2.2.31",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "21",
+  "manifest_root_only": true,
+  "runtime_strategy": "shared-design-inputs-guarded-engines",
+  "peikko_decoder": true,
+  "peikko_substitution_guard": true,
+  "peikko_design_preselection": true,
+  "peikko_country_specific_resistance_required": true,
+  "peikko_separate_main_tab": false,
+  "peikko_reference_cases": 14,
+  "peikko_bending_rows": 244,
+  "peikko_shear_rows": 328,
+  "peikko_component_rows": 57,
+  "peikko_automatic_design_approval": false,
+  "peikko_source_pdf_sha_verified": true,
+  "shared_design_form": true,
+  "design_inputs_persisted": true
+}

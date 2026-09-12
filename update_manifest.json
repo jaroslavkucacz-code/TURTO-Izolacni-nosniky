@@ -1,12 +1,12 @@
 {
-  "version": "2.2.30",
+  "version": "2.2.31",
   "runtime_layout": "21",
-  "notes": "Peikko: ověřené tabulky EBEA-100/E-100/700, reference TEBEA ETA, přesné D/S11 a jednotky, tabulkové porovnání M/V bez automatického statického schválení. Zdrojové PDF lokálně s SHA kontrolou. Chrání databázi AKCE i dosavadní HIT/Ancon.",
+  "notes": "Jeden společný formulář návrhu Leviat HIT / Peikko: stejné vstupy, zachování hodnot při přepnutí výrobce, převzetí z Dekodéru a ukládání v AKCI. Specifika v Pokročilých. Původní návrhový modul HIT a bezpečnostní omezení Peikko zachovány; databáze se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6a38faa6c24c4dcc4c7feb3db02606ebbafc9ecf/updates/2.2.30/app.pyw",
-      "sha256": "20ba951a1deddde748782f6a00d5a8524d58d6a80395a49f3eab00ee50badbb9"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/042e5a64995fb22a4e2bfe9a1d2ee4cf7cc32c5f/updates/2.2.31/app.pyw",
+      "sha256": "2fafdcbbe77777b422cfcf1daaeed2e090b87d76f19a662f168586163912f429"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/5ebd1d46e0c2073f463d8e40f7f423bb051883b6/updates/2.2.30/RELEASE_NOTES.txt",
-      "sha256": "2f13ce94802b62137d391ac35d0d6550ef33c2868fde29b6bf5d2cfce32f38f2"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/042e5a64995fb22a4e2bfe9a1d2ee4cf7cc32c5f/updates/2.2.31/RELEASE_NOTES.txt",
+      "sha256": "75f7474e1a258927a085680dc437ca296dbabd6d58d2caeebbcaf4cc77285b81"
     }
   ]
 }
