@@ -1,0 +1,14 @@
+TURTO 2.2.32
+
+Oprava regrese – návrh izolačních nosníků
+
+- Do společného formuláře Návrhu se vrací tlačítko „Vložit výkaz…“.
+- Tlačítko znovu používá ověřený jednotný parser výkazu, který byl v programu před sjednocením formuláře Leviat / Peikko.
+- Zachováno je rozpoznání více řádků, kontrola jednotek, náhled před importem a rozřazení na Desky / balkony, Doplňkové prvky a Stěny WT.
+- Po úspěšném vložení se automaticky zobrazí víceřádkový návrh Leviat HIT, aby importované položky nebyly skryté za novým jednořádkovým formulářem.
+- Tlačítko je součástí stejného společného rozhraní; historický importní adaptér však nadále vytváří ověřené řádky Leviat HIT. Peikko se tímto hotfixem staticky nerozšiřuje.
+- Stávající společné zadání Leviat / Peikko, Peikko katalogová data, záměny i návrh zůstávají beze změny.
+- Databáze actions.sqlite3 se při aktualizaci nemění.
+
+Důvod opravy:
+Při zavedení společného formuláře v 2.2.31 zůstal modul unified_schedule.py v runtime zachovaný, ale vstup „Vložit výkaz…“ se nepřenesl do nového společného formuláře.
