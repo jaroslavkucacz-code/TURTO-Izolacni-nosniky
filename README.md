@@ -2,7 +2,7 @@
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.2.30**
+**Aktuální vydání: TURTO 2.2.31**
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -15,7 +15,9 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - EBEA/TEBEA ve společném Dekodéru, Návrhu a Záměnách; Peikko se volí jako výrobce,
 - úplné rozlišení konfigurace (Ds, Dt, SW, L, S11, RS/VE1, B2, REI, OQ) a hromadné vložení,
 - Peikko: ověřené tabulky EBEA-100/E-100/700, součásti TEBEA ETA a omezené porovnání M/V; bez automaticky potvrzené statické záměny,
-- explicitní standardní D, jednotky na prvek / na metr se zatěžovací šířkou, lokální zdrojové PDF s SHA kontrolou,
+- jeden společný formulář návrhu Leviat / Peikko; stejné vstupy a zachování hodnot při přepnutí výrobce,
+- společné zadání uložené v AKCI; katalogová specifika, rozteč a původní výkaz HIT v Pokročilých,
+- doložené standardní D, jednotky na prvek / na metr se zatěžovací šířkou, lokální zdrojové PDF s SHA kontrolou,
 - dekódování katalogových označení,
 - hromadné vložení z výkazu,
 - návrh Leviat HIT,
