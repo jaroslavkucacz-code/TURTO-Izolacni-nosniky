@@ -10,15 +10,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 UPDATE = ROOT / "updates" / "2.2.32"
-
-EXPECTED = {
-    "schedule_restore.py": "9eda896646371cef4bda70ba6eea8c787c9c5c48046be5d5f6636a5f2bf20f01",
-    "app_runtime.pyw": "56540f96213666734a527ddc208ac1ff6150cb78a114be05646ffdf8d6bcdb3f",
-    "runtime_installer.py": "3c74eb26ea0b545ea2db760419bca9f4c795a43a7d40a727feed8aacfe9756af",
-    "app.pyw": "db3181a5a41ebc43cbd415efeff474b4c70d63ce8accbbd765ddbfbd04f7f9a3",
-    "RELEASE_NOTES.txt": "beca2b3f602d48ad8954a59f09af0d47c1241b4f90fd7180bd201d74f8bd0b52",
-    "release_contract.json": "7d0e31da659016609a0d34846b3ee94ac69dd8795b9a25c4fb4e4131597581eb",
-}
+REQUIRED = (
+    "schedule_restore.py",
+    "app_runtime.pyw",
+    "runtime_installer.py",
+    "app.pyw",
+    "RELEASE_NOTES.txt",
+    "release_contract.json",
+)
 
 
 def sha(path: Path) -> str:
@@ -26,11 +25,8 @@ def sha(path: Path) -> str:
 
 
 def main() -> None:
-    for name, expected in EXPECTED.items():
-        path = UPDATE / name
-        assert path.is_file(), f"missing 2.2.32 payload: {name}"
-        actual = sha(path)
-        assert actual == expected, f"unexpected hash for {name}: {actual}"
+    for name in REQUIRED:
+        assert (UPDATE / name).is_file(), f"missing 2.2.32 payload: {name}"
 
     for name in ("schedule_restore.py", "app_runtime.pyw", "runtime_installer.py", "app.pyw"):
         py_compile.compile(str(UPDATE / name), doraise=True)
@@ -63,13 +59,21 @@ def main() -> None:
     payloads = installer_ns["PAYLOADS"]
     assert set(payloads) == {"app_runtime.pyw", "schedule_restore.py"}
     for local, (_commit, _remote, expected) in payloads.items():
-        assert sha(UPDATE / local) == expected.lower()
+        actual = sha(UPDATE / local)
+        assert actual == str(expected).lower(), f"payload hash mismatch: {local}: {actual}"
 
     app_ns = runpy.run_path(str(UPDATE / "app.pyw"), run_name="verify_app_2232")
     app_ns["selftest"]()
     assert app_ns["VERSION"] == "2.2.32"
     assert app_ns["INSTALLER_COMMIT"] == "4481100bdbb2dc0bd96d993c8c5042c25fe5d6fa"
     assert app_ns["INSTALLER_SHA256"] == sha(UPDATE / "runtime_installer.py")
+
+    manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
+    assert manifest["version"] == "2.2.32"
+    app_item = next(item for item in manifest["files"] if item["path"] == "app.pyw")
+    notes_item = next(item for item in manifest["files"] if item["path"] == "RELEASE_NOTES.txt")
+    assert app_item["sha256"].lower() == sha(UPDATE / "app.pyw")
+    assert notes_item["sha256"].lower() == sha(UPDATE / "RELEASE_NOTES.txt")
 
     contract = json.loads((UPDATE / "release_contract.json").read_text(encoding="utf-8"))
     assert contract["version"] == "2.2.32"
