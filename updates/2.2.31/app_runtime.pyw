@@ -30,6 +30,17 @@ peikko_workspace.install(_base)
 import thermal_design_ui
 thermal_design_ui.install(_base)
 
+# Reloading HIT data through either the new or the legacy screen invalidates results.
+_original_load_hit_data = _base.ThermalConnectorApp._load_hit_data
+
+def _load_hit_data_with_shared_refresh(self, *args, **kwargs):
+    shared = getattr(self, "shared_thermal_design", None)
+    if shared is not None:
+        shared.invalidate()
+    return _original_load_hit_data(self, *args, **kwargs)
+
+_base.ThermalConnectorApp._load_hit_data = _load_hit_data_with_shared_refresh
+
 try:
     _base.APP_VERSION = APP_VERSION
     _base.APP_NAME = "TURTO"
