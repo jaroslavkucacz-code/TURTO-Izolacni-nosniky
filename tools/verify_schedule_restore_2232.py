@@ -24,6 +24,10 @@ def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest().lower()
 
 
+def version_tuple(value: str) -> tuple[int, ...]:
+    return tuple(int(part) for part in str(value).strip().split("."))
+
+
 def main() -> None:
     for name in REQUIRED:
         assert (UPDATE / name).is_file(), f"missing 2.2.32 payload: {name}"
@@ -36,7 +40,7 @@ def main() -> None:
     assert "from unified_schedule import open_unified_schedule" in restore
     assert "open_unified_schedule(self.owner)" in restore
     assert "self.show_legacy()" in restore
-    assert "design_manufacturer_var.set(\"Leviat\")" in restore
+    assert 'design_manufacturer_var.set("Leviat")' in restore
     # This hotfix must reuse the verified parser, not introduce another parser.
     assert "import re" not in restore
     assert "def route_schedule" not in restore
@@ -68,12 +72,16 @@ def main() -> None:
     assert app_ns["INSTALLER_COMMIT"] == "efc7da60c44bf7aecb747aa2ab0394e15857c3ff"
     assert app_ns["INSTALLER_SHA256"] == sha(UPDATE / "runtime_installer.py")
 
+    # The repository manifest advances with every release. This historical
+    # regression must remain valid after 2.2.32 is no longer CURRENT_VERSION.
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
-    assert manifest["version"] == "2.2.32"
-    app_item = next(item for item in manifest["files"] if item["path"] == "app.pyw")
-    notes_item = next(item for item in manifest["files"] if item["path"] == "RELEASE_NOTES.txt")
-    assert app_item["sha256"].lower() == sha(UPDATE / "app.pyw")
-    assert notes_item["sha256"].lower() == sha(UPDATE / "RELEASE_NOTES.txt")
+    assert version_tuple(manifest["version"]) >= (2, 2, 32)
+    assert str(manifest.get("runtime_layout")) == "21"
+    if manifest["version"] == "2.2.32":
+        app_item = next(item for item in manifest["files"] if item["path"] == "app.pyw")
+        notes_item = next(item for item in manifest["files"] if item["path"] == "RELEASE_NOTES.txt")
+        assert app_item["sha256"].lower() == sha(UPDATE / "app.pyw")
+        assert notes_item["sha256"].lower() == sha(UPDATE / "RELEASE_NOTES.txt")
 
     contract = json.loads((UPDATE / "release_contract.json").read_text(encoding="utf-8"))
     assert contract["version"] == "2.2.32"
