@@ -51,6 +51,29 @@ def _source_from_manifest_item(item: dict) -> Path:
     return ROOT / "/".join(parts[3:])
 
 
+def _inherited_required(installer_path: Path) -> tuple[str, ...]:
+    """Resolve required runtime files through incremental overlay installers."""
+    seen: set[Path] = set()
+    current = installer_path.resolve()
+    while True:
+        if current in seen:
+            raise RuntimeError("Cyklický BASE_PATH v řetězci runtime installerů.")
+        seen.add(current)
+        try:
+            required = _assignment_literal(current, "CURRENT_REQUIRED")
+            return tuple(required)
+        except RuntimeError:
+            try:
+                base_path = str(_assignment_literal(current, "BASE_PATH"))
+            except RuntimeError as exc:
+                raise RuntimeError(
+                    f"Installer {current.relative_to(ROOT)} nemá CURRENT_REQUIRED ani BASE_PATH."
+                ) from exc
+            current = (ROOT / base_path).resolve()
+            if not current.is_file():
+                raise RuntimeError(f"Chybí BASE installer: {current.relative_to(ROOT)}")
+
+
 def _movement_source(release: Path, manifest_items: dict[str, dict], installer_path: Path) -> Path:
     movement_item = manifest_items.get("shear_movement.py")
     if isinstance(movement_item, dict):
@@ -62,15 +85,16 @@ def _movement_source(release: Path, manifest_items: dict[str, dict], installer_p
         return movement_path
 
     # Since 2.2.16 runtime modules are intentionally no longer copied to the
-    # installation root. The current installer must still require the verified
-    # movement module inherited from the previous Program runtime.
+    # installation root. Incremental overlays may inherit CURRENT_REQUIRED from
+    # their BASE installer, so follow BASE_PATH until the verified requirement
+    # list is found.
     contract_path = release / "release_contract.json"
     contract = json.loads(contract_path.read_text(encoding="utf-8")) if contract_path.is_file() else {}
     if contract.get("manifest_root_only") is not True:
         raise RuntimeError("Manifest neobsahuje shear_movement.py a release není Program-only.")
-    current_required = _assignment_literal(installer_path, "CURRENT_REQUIRED")
+    current_required = _inherited_required(installer_path)
     if "shear_movement.py" not in current_required:
-        raise RuntimeError("Program-only runtime installer nevyžaduje shear_movement.py.")
+        raise RuntimeError("Program-only runtime installer nevyžaduje shear_movement.py ani v BASE řetězci.")
     if not LEGACY_MOVEMENT_SOURCE.is_file():
         raise RuntimeError("Chybí ověřený zdroj shear_movement.py z 2.2.2.")
     if _sha256(LEGACY_MOVEMENT_SOURCE) != LEGACY_MOVEMENT_SHA256:

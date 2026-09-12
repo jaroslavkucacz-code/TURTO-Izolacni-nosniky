@@ -1,12 +1,12 @@
 {
-  "version": "2.2.31",
+  "version": "2.2.32",
   "runtime_layout": "21",
-  "notes": "Jeden společný formulář návrhu Leviat HIT / Peikko: stejné vstupy, zachování hodnot při přepnutí výrobce, převzetí z Dekodéru a ukládání v AKCI. Specifika v Pokročilých. Původní návrhový modul HIT a bezpečnostní omezení Peikko zachovány; databáze se nemění.",
+  "notes": "Oprava regrese: do společného Návrhu se vrací Vložit výkaz… a znovu používá ověřený jednotný parser víceřádkového výkazu pro Leviat HIT. Náhled, kontrola jednotek, Desky / balkony, Doplňkové prvky a Stěny WT zůstávají zachovány. Databáze se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/042e5a64995fb22a4e2bfe9a1d2ee4cf7cc32c5f/updates/2.2.31/app.pyw",
-      "sha256": "2fafdcbbe77777b422cfcf1daaeed2e090b87d76f19a662f168586163912f429"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/3011bdb7cf45c2c29f246f4e11823e35482668a6/updates/2.2.32/app.pyw",
+      "sha256": "39dca2232fe7147430973d5a996bec75765958644b0b919fc6f7a144b91d478f"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/042e5a64995fb22a4e2bfe9a1d2ee4cf7cc32c5f/updates/2.2.31/RELEASE_NOTES.txt",
-      "sha256": "75f7474e1a258927a085680dc437ca296dbabd6d58d2caeebbcaf4cc77285b81"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ac67be7c7dbbfe3b706df1c2845b811c590b7a2d/updates/2.2.32/RELEASE_NOTES.txt",
+      "sha256": "beca2b3f602d48ad8954a59f09af0d47c1241b4f90fd7180bd201d74f8bd0b52"
     }
   ]
 }
