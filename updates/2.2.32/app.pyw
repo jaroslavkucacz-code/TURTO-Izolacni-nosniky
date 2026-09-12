@@ -18,8 +18,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.32"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "4481100bdbb2dc0bd96d993c8c5042c25fe5d6fa"
-INSTALLER_SHA256 = "3c74eb26ea0b545ea2db760419bca9f4c795a43a7d40a727feed8aacfe9756af"
+INSTALLER_COMMIT = "efc7da60c44bf7aecb747aa2ab0394e15857c3ff"
+INSTALLER_SHA256 = "9470f825a04ecb0c843eea6b17a42ff2ba9faab6fe77f8efc9bd2b612092eb34"
 RUNTIME_LAYOUT = "21"
 
 ROOT = Path(__file__).resolve().parent
@@ -31,7 +31,7 @@ STARTUP_LOG = ROOT / "Logy" / "startup.log"
 CRITICAL_PROGRAM_SHA256 = {
     "app_runtime.pyw": "56540f96213666734a527ddc208ac1ff6150cb78a114be05646ffdf8d6bcdb3f",
     "app_runtime_231.pyw": "186a327b161b03cac8b612a097cf480e1e650df3b3b04c67bef8a0ddaa60c4e2",
-    "schedule_restore.py": "9eda896646371cef4bda70ba6eea8c787c9c5c48046be5d5f6636a5f2bf20f01",
+    "schedule_restore.py": "986b0190134ef6ad54c92cb7aaf2f883a99292997e03bc498f55732404444e2f",
 }
 
 
