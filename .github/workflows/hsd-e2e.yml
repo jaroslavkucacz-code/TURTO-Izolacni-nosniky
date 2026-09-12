@@ -2,6 +2,7 @@ name: HSD integration
 on:
   push:
     branches: ['repair/hsd-schedule-2236']
+    paths: ['.github/workflows/hsd-e2e.yml', 'tools/verify_hsd_workflow_2236.py']
 permissions:
   contents: read
 jobs:
@@ -15,18 +16,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Archive exact source tree for regression review
-        run: git archive --format=zip HEAD -o source-review.zip
-      - uses: actions/upload-artifact@v4
-        with:
-          name: hsd-source-review
-          path: source-review.zip
-          retention-days: 3
       - name: Install decoding dependencies
         run: python -m pip install pillow openpyxl pdfplumber pymupdf reportlab
       - name: Reproduce installed 2.2.35 runtime in isolated directory
         run: |
-          python - <<'PY'
+          xvfb-run -a python - <<'PY'
           from pathlib import Path
           import runpy, shutil
           root = Path('runtime-review').resolve()
