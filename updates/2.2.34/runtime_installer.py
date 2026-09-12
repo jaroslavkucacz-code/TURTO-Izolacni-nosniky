@@ -47,7 +47,6 @@ REQUIRED_SUPPORT = (
     "shear_ui_227.py",
     "shear_catalogs_227.py",
     "shear_dowels_ui_215.py",
-    "shear_autocomplete.py",
     "hit_workspace.py",
     "unified_schedule.py",
 )
