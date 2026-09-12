@@ -52,26 +52,41 @@ def _source_from_manifest_item(item: dict) -> Path:
 
 
 def _inherited_required(installer_path: Path) -> tuple[str, ...]:
-    """Resolve required runtime files through incremental overlay installers."""
+    """Resolve required runtime files through the complete incremental BASE chain.
+
+    New release overlays intentionally list only the files they actively guard.
+    Historical runtime requirements therefore have to be accumulated rather than
+    stopping at the first CURRENT_REQUIRED declaration.
+    """
     seen: set[Path] = set()
+    collected: list[str] = []
     current = installer_path.resolve()
     while True:
         if current in seen:
             raise RuntimeError("Cyklický BASE_PATH v řetězci runtime installerů.")
         seen.add(current)
+
         try:
             required = _assignment_literal(current, "CURRENT_REQUIRED")
-            return tuple(required)
         except RuntimeError:
-            try:
-                base_path = str(_assignment_literal(current, "BASE_PATH"))
-            except RuntimeError as exc:
-                raise RuntimeError(
-                    f"Installer {current.relative_to(ROOT)} nemá CURRENT_REQUIRED ani BASE_PATH."
-                ) from exc
-            current = (ROOT / base_path).resolve()
-            if not current.is_file():
-                raise RuntimeError(f"Chybí BASE installer: {current.relative_to(ROOT)}")
+            required = ()
+        for name in required:
+            text = str(name)
+            if text not in collected:
+                collected.append(text)
+
+        try:
+            base_path = str(_assignment_literal(current, "BASE_PATH"))
+        except RuntimeError:
+            if collected:
+                return tuple(collected)
+            raise RuntimeError(
+                f"Installer {current.relative_to(ROOT)} nemá CURRENT_REQUIRED ani BASE_PATH."
+            )
+
+        current = (ROOT / base_path).resolve()
+        if not current.is_file():
+            raise RuntimeError(f"Chybí BASE installer: {current.relative_to(ROOT)}")
 
 
 def _movement_source(release: Path, manifest_items: dict[str, dict], installer_path: Path) -> Path:
@@ -86,8 +101,7 @@ def _movement_source(release: Path, manifest_items: dict[str, dict], installer_p
 
     # Since 2.2.16 runtime modules are intentionally no longer copied to the
     # installation root. Incremental overlays may inherit CURRENT_REQUIRED from
-    # their BASE installer, so follow BASE_PATH until the verified requirement
-    # list is found.
+    # any ancestor installer, so accumulate the complete BASE_PATH chain.
     contract_path = release / "release_contract.json"
     contract = json.loads(contract_path.read_text(encoding="utf-8")) if contract_path.is_file() else {}
     if contract.get("manifest_root_only") is not True:
