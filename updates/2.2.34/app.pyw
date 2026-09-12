@@ -18,8 +18,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.34"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "44e2da6b7ac54174a5a57cb0453c9639776d266a"
-INSTALLER_SHA256 = "6ba5a46b7390948314d68a02990e1005685bcfbffbb1e7875bbfac8cb32b7e35"
+INSTALLER_COMMIT = "1c8f35b20bedb0c1d0cd3539ad14ba8f0ea3c069"
+INSTALLER_SHA256 = "c373ca0411e6e4a682664ce154ea08efacc15ee15d5c1b573936074b34e854b3"
 RUNTIME_LAYOUT = "21"
 
 ROOT = Path(__file__).resolve().parent
@@ -55,7 +55,6 @@ def _runtime_ready() -> bool:
             "shear_ui_227.py",
             "shear_catalogs_227.py",
             "shear_dowels_ui_215.py",
-            "shear_autocomplete.py",
             "design_groups_restore.py",
             "schedule_restore.py",
         )
