@@ -1,12 +1,12 @@
 {
-  "version": "2.2.32",
+  "version": "2.2.33",
   "runtime_layout": "21",
-  "notes": "Oprava regrese: do společného Návrhu se vrací Vložit výkaz… a znovu používá ověřený jednotný parser víceřádkového výkazu pro Leviat HIT. Náhled, kontrola jednotek, Desky / balkony, Doplňkové prvky a Stěny WT zůstávají zachovány. Databáze se nemění.",
+  "notes": "Obnovení všech ověřených návrhových skupin Leviat HIT ve společném Návrhu: Desky / balkony včetně DVL/DDL, Doplňkové prvky HT/AT/FT/OTX a Stěny WT. Používají se stávající ověřené statické moduly; Peikko a databáze se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/3011bdb7cf45c2c29f246f4e11823e35482668a6/updates/2.2.32/app.pyw",
-      "sha256": "39dca2232fe7147430973d5a996bec75765958644b0b919fc6f7a144b91d478f"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d68b2ec8a46444dc3ebadd7753dc14e58b1589d3/updates/2.2.33/app.pyw",
+      "sha256": "099ebdf01024e1ca5b5820ac6938a6150d911c3d22946472f4f29c06bcb98448"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ac67be7c7dbbfe3b706df1c2845b811c590b7a2d/updates/2.2.32/RELEASE_NOTES.txt",
-      "sha256": "beca2b3f602d48ad8954a59f09af0d47c1241b4f90fd7180bd201d74f8bd0b52"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d68b2ec8a46444dc3ebadd7753dc14e58b1589d3/updates/2.2.33/RELEASE_NOTES.txt",
+      "sha256": "a21d0bd86b61a7283062876131b99d84c8a80302e442f82e8ee975183b5dc25e"
     }
   ]
 }
