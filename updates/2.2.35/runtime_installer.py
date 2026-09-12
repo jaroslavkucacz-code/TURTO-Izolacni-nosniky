@@ -18,13 +18,12 @@ BASE_SHA256 = "48e73e1813296bcb16ff9fc1e9a2a040a7dab35650b9196d96d59a225aa834fe"
 BASE_APP_RUNTIME_SHA256 = "5576cdae794c9c8fd4f566573acb55bb5e687b5fbcc5c3f1fb521afc0cfcc883"
 HSD_DATA_SHA256 = "805f811bee2a8302c2c8ced979ecd2c26a3c92fbe6fd1024940a28dd98e617be"
 HSD_UI_SHA256 = "299705a9091784ad88be8d38b6fdbdc69c1bc29d4baf813fb69030e1c11aadf7"
-PAYLOAD_COMMIT = "c83e26bdb47c666e66d4bc2ef47b8aca3cb4e76d"
 RUNTIME_LAYOUT = "21"
 PROGRAM_REVISION = ".turto_runtime_2_2_35.ok"
 
 PAYLOADS = {
     "app_runtime.pyw": (
-        PAYLOAD_COMMIT,
+        "c83e26bdb47c666e66d4bc2ef47b8aca3cb4e76d",
         "updates/2.2.35/app_runtime.pyw",
         "8e4c7e8b5ec4a56379e8fa7d1b44ac8a9c6bb8a4a94ac322c29ee1079d7b4290",
     ),
