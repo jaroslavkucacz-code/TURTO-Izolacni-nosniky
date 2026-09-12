@@ -16,7 +16,7 @@ BASE_COMMIT = "f045c3f77b8420cd35e966184ce5404e4d2e30d7"
 BASE_PATH = "updates/2.2.33/runtime_installer.py"
 BASE_SHA256 = "db554cec25ec7b727e44e553044731d45b0d4fdd87779c083cdf70d5fcc15edc"
 BASE_APP_RUNTIME_SHA256 = "380e46fe925eca48a44c69e533074ecc434771efbc7eeb16dc53e58bac138291"
-PAYLOAD_COMMIT = "3307ae5cf4236819c5480ea479b055319a3de912"
+PAYLOAD_COMMIT = "8c9a97fef13f351e19b63c97bae03d0500e60db4"
 RUNTIME_LAYOUT = "21"
 PROGRAM_REVISION = ".turto_runtime_2_2_34.ok"
 
@@ -34,7 +34,7 @@ PAYLOADS = {
     "shear_dowels_hsd_234.py": (
         PAYLOAD_COMMIT,
         "updates/2.2.34/shear_dowels_hsd_234.py",
-        "c5eba049fb1be4f215dc10280797da8e1fc3a051711b0dd35a24fc4d006e5cd9",
+        "299705a9091784ad88be8d38b6fdbdc69c1bc29d4baf813fb69030e1c11aadf7",
     ),
 }
 
