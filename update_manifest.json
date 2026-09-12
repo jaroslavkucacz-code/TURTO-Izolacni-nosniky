@@ -1,12 +1,12 @@
 {
-  "version": "2.2.33",
+  "version": "2.2.34",
   "runtime_layout": "21",
-  "notes": "Obnovení všech ověřených návrhových skupin Leviat HIT ve společném Návrhu: Desky / balkony včetně DVL/DDL, Doplňkové prvky HT/AT/FT/OTX a Stěny WT. Používají se stávající ověřené statické moduly; Peikko a databáze se nemění.",
+  "notes": "Dekodér smykových trnů doplněn o Leviat/HALFEN HSD EC 10-E (03/2026): HSD-CRET / V, HSD-D/S/P/SV a HSD-SET; tabulkové VRd bez interpolace, HSD-CRET 145/150/155 pouze s geometrií, protože katalog uvádí dimenzační únosnosti na vyžádání. Databáze AKCÍ se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d68b2ec8a46444dc3ebadd7753dc14e58b1589d3/updates/2.2.33/app.pyw",
-      "sha256": "099ebdf01024e1ca5b5820ac6938a6150d911c3d22946472f4f29c06bcb98448"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/858a36e076631415837a1c1260546e9532b2fced/updates/2.2.34/app.pyw",
+      "sha256": "c1ef2f874a7950aed135508e9745c14f48e55ed570c6f149f954ca7af77f64e8"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d68b2ec8a46444dc3ebadd7753dc14e58b1589d3/updates/2.2.33/RELEASE_NOTES.txt",
-      "sha256": "a21d0bd86b61a7283062876131b99d84c8a80302e442f82e8ee975183b5dc25e"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/604c47eacbcc71b1ac5cd3917e42c8f235ed4dae/updates/2.2.34/RELEASE_NOTES.txt",
+      "sha256": "f79d51b1e918e4faf54955e5fd34db1c72fa69d6f130f4781a4f02b87c1ee06f"
     }
   ]
 }
