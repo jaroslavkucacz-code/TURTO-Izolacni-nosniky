@@ -17,7 +17,7 @@ EXPECTED = {
     "runtime_installer.py": "3c74eb26ea0b545ea2db760419bca9f4c795a43a7d40a727feed8aacfe9756af",
     "app.pyw": "db3181a5a41ebc43cbd415efeff474b4c70d63ce8accbbd765ddbfbd04f7f9a3",
     "RELEASE_NOTES.txt": "beca2b3f602d48ad8954a59f09af0d47c1241b4f90fd7180bd201d74f8bd0b52",
-    "release_contract.json": "83bb5fa06e58186115355cbacb02912bdd3876f0764194a6f18a44946f5d62b2",
+    "release_contract.json": "7d0e31da659016609a0d34846b3ee94ac69dd8795b9a25c4fb4e4131597581eb",
 }
 
 
@@ -74,8 +74,12 @@ def main() -> None:
     contract = json.loads((UPDATE / "release_contract.json").read_text(encoding="utf-8"))
     assert contract["version"] == "2.2.32"
     assert contract["base_version"] == "2.2.31"
+    assert contract["manifest_root_only"] is True
+    assert contract["runtime_directory"] == "Program"
     assert "actions.sqlite3" in contract["preserve"]
-    assert contract["strategy"] == "schedule-import-regression-overlay"
+    assert contract["runtime_strategy"] == "schedule-import-regression-overlay"
+    assert contract["schedule_import_restored"] is True
+    assert contract["peikko_bulk_static_design_added"] is False
 
     notes = (UPDATE / "RELEASE_NOTES.txt").read_text(encoding="utf-8")
     assert notes.startswith("TURTO 2.2.32")
