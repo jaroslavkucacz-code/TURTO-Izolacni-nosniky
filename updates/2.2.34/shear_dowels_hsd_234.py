@@ -28,6 +28,8 @@ def install(app_base: Any) -> None:
     original_substitution = ui215._substitution_from_values
 
     def decode_dowel(designation: str):
+        # HSD must be decoded by the 03/2026 catalogue overlay first. This prevents
+        # a broad older pattern from silently classifying the same marking elsewhere.
         value = _hsd.decode_designation(designation)
         if value is not None:
             return value
@@ -58,6 +60,8 @@ def install(app_base: Any) -> None:
             concrete=str(row.get("concrete", "C25/30") or "C25/30"),
         )
         if capacity:
+            # 2.1.5 already has a generic VRd/source display path under archive_*
+            # keys. Re-use it to remain backwards compatible with saved actions.
             row["archive_vrd"] = capacity["vrd"]
             row["archive_source"] = capacity["source"]
             row["archive_note"] = capacity["note"]
@@ -81,12 +85,15 @@ def install(app_base: Any) -> None:
                 tree.heading("source", text="Zdroj / kontrola")
             except Exception:
                 pass
+        # Extend the explanatory sentence without changing layout.
         try:
             for widget in ui215._prev._walk(parent):
                 if widget.__class__.__name__.endswith("Label"):
                     text = str(widget.cget("text"))
                     if "Historické Schöck Dorn" in text and "HSD-CRET" not in text:
-                        widget.configure(text=text + " Leviat/HALFEN HSD-CRET a HSD-SET se vyhodnocují z HSD EC 10-E (03/2026).")
+                        widget.configure(
+                            text=text + " Leviat/HALFEN HSD-CRET a HSD-SET se vyhodnocují z HSD EC 10-E (03/2026)."
+                        )
                         break
         except Exception:
             pass
@@ -169,10 +176,14 @@ def install(app_base: Any) -> None:
             return value
         return original_substitution(values, target_manufacturer)
 
+    # Patch the decoder and the exact globals used by the 2.1.4/2.1.5 UI chain.
     decoder_base.decode_dowel = decode_dowel
     ui215._enrich_decoder_row = enrich_decoder_row
     ui215.build_decoder = build_decoder
     ui215._substitution_from_values = substitution
+
+    # ui215 intentionally redirects the 2.1.4 workspace to its own functions.
+    # Keep those redirections current so build_shear_workspace sees this overlay.
     ui215._prev.build_decoder = build_decoder
     ui215._prev._substitution_from_values = substitution
     ui215._base.decode_dowel = decode_dowel
