@@ -65,7 +65,7 @@ def main() -> None:
     app_ns = runpy.run_path(str(UPDATE / "app.pyw"), run_name="verify_app_2232")
     app_ns["selftest"]()
     assert app_ns["VERSION"] == "2.2.32"
-    assert app_ns["INSTALLER_COMMIT"] == "4481100bdbb2dc0bd96d993c8c5042c25fe5d6fa"
+    assert app_ns["INSTALLER_COMMIT"] == "efc7da60c44bf7aecb747aa2ab0394e15857c3ff"
     assert app_ns["INSTALLER_SHA256"] == sha(UPDATE / "runtime_installer.py")
 
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
