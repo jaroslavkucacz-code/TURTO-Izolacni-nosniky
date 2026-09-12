@@ -1,4 +1,5 @@
-TURTO 2.2.31 – společné zadání návrhu Leviat / Peikko
+TURTO 2.2.31
+Společné zadání návrhu Leviat / Peikko
 
 Leviat HIT a Peikko EBEA používají jeden skutečně společný formulář: funkce, výška desky, izolant, beton, krytí, MEd, VEd, NEd, požární požadavek a jednotky. Přepnutí výrobce zachovává společné hodnoty a zneplatní starý výsledek.
 
