@@ -1,0 +1,19 @@
+TURTO 2.2.34
+
+Leviat / HALFEN HSD v Dekodéru smykových trnů
+
+- Dekodér smykových trnů nově rozpoznává těžké trny HSD-CRET 122 / 124 / 128 / 134 / 140 / 145 / 150 / 155 a jejich varianty V pro podélný + příčný posun.
+- Rozpoznává také jednotlivé HSD-D 20 / 22 / 25 / 30, pouzdra HSD-S / HSD-SV / HSD-P a kompletní označení HSD-SET, včetně kombinací typu „HSD-D 22-A4 + HSD-SV 22“.
+- Pro HSD-CRET 122–140 se v Dekodéru zobrazuje katalogová VRd podle tloušťky prvku, šířky spáry, betonu a směru posunu. Hodnoty se neinterpolují; spára se volí konzervativně na nejbližší vyšší tabulkovou hodnotu a tloušťka na nejbližší nižší použitelnou tabulkovou hodnotu.
+- Pro beton C30/37 a vyšší se u HSD-CRET používají hodnoty tabulky C25/30 přesně podle katalogu.
+- HSD-CRET 145 / 150 / 155 se správně dekódují, ale program jim nevymýšlí VRd: dodaný katalog uvádí jejich návrhové únosnosti pouze jako dostupné na vyžádání.
+- U kompletních HSD-D sestav se používají tabulky pro železobeton, cnom = 30 mm a VRd = min(VRd,s; VRd,c). Prázdné tabulkové hodnoty HSD-SV zůstávají bez únosnosti, nic se nedopočítává.
+- Samostatný HSD-D bez pouzdra a samostatné HSD-S / HSD-SV / HSD-P se dekódují jako komponenty, ale bez automatické VRd kompletního spoje.
+- Kontroluje se základní kompatibilita materiálu a pouzdra: provedení FV je v katalogu vázané na plastové HSD-P; A4 + HSD-P se nebere jako ověřená kompletní sestava.
+- HSD-F se rozpozná jako protipožární vložka, nikoli jako nosný smykový trn.
+- HSD je v této verzi zdroj pro Dekodér (a při dostupné VRd může sloužit jako zdroj stávajícího workflow záměn); nepřidává se jako nový výrobce do automatického Návrhu smykových trnů.
+- Našeptávač byl doplněn o HSD-CRET, HSD-SET a běžné kombinace HSD-D + pouzdro.
+- Stávající Ancon, Schöck, PohlCon a MAX FRANK zůstávají beze změny. Databáze actions.sqlite3 se při aktualizaci nemění.
+
+Zdroj dat:
+Leviat / HALFEN HSD EC 10-E, vydání PDF 03/26. Technické tabulkové stránky dokumentu jsou označené © 2020 a odkazují na EN 1992-1-1:2008; program tuto skutečnost uvádí ve zdroji a nepřepisuje ji novějším datem PDF.
