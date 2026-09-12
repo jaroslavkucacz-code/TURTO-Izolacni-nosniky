@@ -26,6 +26,7 @@ def install(app_base: Any) -> None:
     original_enrich = ui215._enrich_decoder_row
     original_build_decoder = ui215.build_decoder
     original_substitution = ui215._substitution_from_values
+    original_refresh = ui215.refresh
 
     def decode_dowel(designation: str):
         # HSD must be decoded by the 03/2026 catalogue overlay first. This prevents
@@ -97,6 +98,64 @@ def install(app_base: Any) -> None:
                         break
         except Exception:
             pass
+
+    def refresh(self: Any) -> None:
+        # The 2.1.5 refresh path only renders VRd for historical Schöck rows.
+        # Let it do its normal work first, then fill the same generic columns for HSD.
+        original_refresh(self)
+        tree = getattr(self, "shear_decoder_tree", None)
+        if tree is None:
+            return
+        try:
+            columns = tuple(tree["columns"])
+            vrd_index = columns.index("vrd")
+            source_index = columns.index("source")
+        except Exception:
+            return
+
+        try:
+            tree.tag_configure("hsd_catalog", foreground=self.colors.get("accent", self.colors.get("text", "")))
+            tree.tag_configure("hsd_error", foreground=self.colors.get("warning_text", self.colors.get("danger", "")))
+        except Exception:
+            pass
+
+        for iid in tree.get_children(""):
+            try:
+                row = self.shear_decoder_rows[int(iid)]
+                info = decode_dowel(str(row.get("designation", "") or ""))
+            except Exception:
+                continue
+            if not _is_hsd(info):
+                continue
+
+            enrich_decoder_row(row)
+            capacity = row.get("hsd_capacity")
+            if isinstance(capacity, dict):
+                vrd_text = ui215._prev._fmt(capacity.get("vrd"))
+                source_text = (
+                    f"{capacity.get('source', _hsd.CATALOG_SOURCE)} • "
+                    f"h tab. {capacity.get('slab_table_mm')} mm • "
+                    f"spára tab. {capacity.get('gap_table_mm')} mm • "
+                    f"{capacity.get('note', '')}"
+                ).strip(" •")
+                tag = "hsd_catalog"
+            else:
+                vrd_text = "—"
+                source_text = (
+                    f"{row.get('archive_source', _hsd.CATALOG_SOURCE)} • "
+                    f"{row.get('archive_note', '')}"
+                ).strip(" •")
+                tag = "hsd_error"
+
+            try:
+                values = list(tree.item(iid, "values"))
+                while len(values) < len(columns):
+                    values.append("")
+                values[vrd_index] = vrd_text
+                values[source_index] = source_text
+                tree.item(iid, values=values, tags=(tag,))
+            except Exception:
+                pass
 
     def hsd_substitution(values: dict[str, Any], target_manufacturer: str) -> dict[str, Any] | None:
         source_designation = str(values.get("source_designation", "") or "").strip()
@@ -181,14 +240,17 @@ def install(app_base: Any) -> None:
     ui215._enrich_decoder_row = enrich_decoder_row
     ui215.build_decoder = build_decoder
     ui215._substitution_from_values = substitution
+    ui215.refresh = refresh
 
     # ui215 intentionally redirects the 2.1.4 workspace to its own functions.
     # Keep those redirections current so build_shear_workspace sees this overlay.
     ui215._prev.build_decoder = build_decoder
     ui215._prev._substitution_from_values = substitution
     ui215._base.decode_dowel = decode_dowel
+    ui215._base.refresh = refresh
 
     cls = app_base.ThermalConnectorApp
+    cls.refresh_shear_tables = refresh
     setattr(cls, "_turto_hsd_234_installed", True)
     _INSTALLED = True
 
