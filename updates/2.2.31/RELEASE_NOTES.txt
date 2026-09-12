@@ -1,0 +1,13 @@
+TURTO 2.2.31 – společné zadání návrhu Leviat / Peikko
+
+Leviat HIT a Peikko EBEA používají jeden skutečně společný formulář: funkce, výška desky, izolant, beton, krytí, MEd, VEd, NEd, požární požadavek a jednotky. Přepnutí výrobce zachovává společné hodnoty a zneplatní starý výsledek.
+
+Délka, rozmístění, pevné označení a specifické parametry jsou v Pokročilých. D, S11 a provedení výztuže se pro nový standardní návrh vybírají z doložených konfigurací. Převzaté označení není automaticky převedeno na standardní prvek; OQ/B2, chybějící D a geometrické rozpory zůstávají blokované.
+
+Výsledek uvádí skutečné krytí a předpoklady. Souvislá řada předpokládá rozteč a = L; pro jednotlivé prvky s mezerami nastavte vlastní rozteč. Zadání na prvek se převádí podle fyzické délky. Znaménko momentu se zachovává (záporné pro konzolu).
+
+Původní výkaz a speciální typy HIT, katalogová data Peikko a místní PDF jsou dostupné přes Pokročilé. Běžné tlačítko Uložit ukládá také společné zadání; načtení AKCE obnoví vstupy, nikoli stará procenta využití. Zrušení Nové akce zachovává rozpracované hodnoty.
+
+HIT používá původní návrhový modul. Peikko nadále porovnává samostatné tabulkové meze M/V, nikoli úplný statický posudek nebo potvrzenou záměnu. TEBEA má zatím data součástí; požární požadavek není automaticky potvrzen. Neověřené NEd není ignorováno.
+
+Aktualizace 2.2.30 → 2.2.31 stahuje pouze tři změněné programové soubory. Ověřené katalogy ani actions.sqlite3 se nemění. Runtime layout zůstává 21; obnova kontroluje nové soubory pomocí SHA-256.
