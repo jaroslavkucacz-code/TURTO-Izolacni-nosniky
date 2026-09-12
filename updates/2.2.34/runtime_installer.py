@@ -31,9 +31,9 @@ PAYLOADS = {
         "683b8eb3e3fc8b307fc1368d97c2e452df3e15eed649a5ac8280d0b89d3f12fd",
     ),
     "hsd_decoder.py": (
-        "078e2176c3f3a8f19e181cb59e711e6f1e29256c",
+        "eced3200649bb9c7336127053ffed9a6455c7189",
         "updates/2.2.34/hsd_decoder.py",
-        "742ae4c19a8a879052c4354daad889654682db1dd47976f7c5470d98eebf00ee",
+        "98bea121e2f7242fff9925ae1b05d988409063914c62298264691d7e82a45bdc",
     ),
 }
 
