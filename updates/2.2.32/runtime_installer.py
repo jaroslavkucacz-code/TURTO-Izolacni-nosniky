@@ -28,7 +28,7 @@ PAYLOADS = {
     "schedule_restore.py": (
         "f7b7208d1e91260978ec035f5cddd0ffc65d446b",
         "updates/2.2.32/schedule_restore.py",
-        "9eda896646371cef4bda70ba6eea8c787c9c5c48046be5d5f6636a5f2bf20f01",
+        "986b0190134ef6ad54c92cb7aaf2f883a99292997e03bc498f55732404444e2f",
     ),
 }
 
