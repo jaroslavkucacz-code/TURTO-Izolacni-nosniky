@@ -18,8 +18,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.34"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "1c8f35b20bedb0c1d0cd3539ad14ba8f0ea3c069"
-INSTALLER_SHA256 = "c373ca0411e6e4a682664ce154ea08efacc15ee15d5c1b573936074b34e854b3"
+INSTALLER_COMMIT = "6fd6d71d051582675e35ba13ebdb0c24ded0774b"
+INSTALLER_SHA256 = "9292d5b6cc48655b4380c54fedbb7e2d7c06111132f2a6a9cc39b810fd6cc062"
 RUNTIME_LAYOUT = "21"
 
 ROOT = Path(__file__).resolve().parent
@@ -32,7 +32,7 @@ CRITICAL_PROGRAM_SHA256 = {
     "app_runtime.pyw": "1f2a59d20334c6c71e6b3b60f794010c78a42417eef7b118d9afcc2b54aa4f45",
     "app_runtime_233.pyw": "380e46fe925eca48a44c69e533074ecc434771efbc7eeb16dc53e58bac138291",
     "leviat_hsd.py": "683b8eb3e3fc8b307fc1368d97c2e452df3e15eed649a5ac8280d0b89d3f12fd",
-    "hsd_decoder.py": "742ae4c19a8a879052c4354daad889654682db1dd47976f7c5470d98eebf00ee",
+    "hsd_decoder.py": "98bea121e2f7242fff9925ae1b05d988409063914c62298264691d7e82a45bdc",
 }
 
 
