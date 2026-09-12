@@ -62,6 +62,8 @@ def install_catalog_hooks() -> None:
     catalog.catalog_summary = catalog_summary
     catalog._leviat_hsd_234 = True
 
+    # The stable decoder modules call the original catalogue module through
+    # their imported _base reference. Patch that one shared module object too.
     try:
         catalog._base.decode_dowel = decode_dowel
     except Exception:
@@ -75,61 +77,6 @@ def install_catalog_hooks() -> None:
                 module.catalog_summary = catalog_summary
         except Exception:
             pass
-
-
-def _extend_autocomplete() -> None:
-    try:
-        import shear_autocomplete as autocomplete
-    except Exception:
-        return
-    if getattr(autocomplete, "_leviat_hsd_234", False):
-        return
-    original = autocomplete._build_catalog
-
-    def build():
-        out = list(original())
-        seen = {autocomplete._compact(item.designation) for item in out}
-
-        def add(designation: str, details: str, *aliases: str) -> None:
-            key = autocomplete._compact(designation)
-            if key in seen:
-                return
-            seen.add(key)
-            out.append(autocomplete.ShearSuggestion(designation, details, tuple(aliases)))
-
-        for size in (122, 124, 128, 134, 140, 145, 150, 155):
-            suffix = " • VRd na vyžádání" if size >= 145 else ""
-            add(
-                f"HSD-CRET {size}",
-                f"Leviat/HALFEN • HSD-CRET • podélný posun{suffix}",
-                f"CRET {size}", f"HSD CRET {size}",
-            )
-            add(
-                f"HSD-CRET {size} V",
-                f"Leviat/HALFEN • HSD-CRET V • podélný + příčný posun{suffix}",
-                f"CRET {size} V", f"HSD CRET {size} V",
-            )
-        for size in (20, 22, 25, 30):
-            add(
-                f"HSD-SET {size}-A4",
-                "Leviat/HALFEN • HSD-D + HSD-S • podélný posun",
-                f"HSD-D {size}-A4 + HSD-S {size}",
-            )
-            add(
-                f"HSD-SET {size} V-A4",
-                "Leviat/HALFEN • HSD-D + HSD-SV • podélný + příčný posun",
-                f"HSD-D {size}-A4 + HSD-SV {size}",
-            )
-            add(
-                f"HSD-D {size}-FV + HSD-P {size}",
-                "Leviat/HALFEN • HSD-D FV + plastové HSD-P • podélný posun",
-                f"HSD-P {size}",
-            )
-        return out
-
-    autocomplete._build_catalog = build
-    autocomplete._CACHE = None
-    autocomplete._leviat_hsd_234 = True
 
 
 def _decorate_decoder(owner: Any) -> None:
@@ -206,7 +153,6 @@ def _decorate_decoder(owner: Any) -> None:
 
 def install(base: Any) -> None:
     install_catalog_hooks()
-    _extend_autocomplete()
 
     cls = base.ThermalConnectorApp
     if getattr(cls, "_leviat_hsd_decoder_234", False):
