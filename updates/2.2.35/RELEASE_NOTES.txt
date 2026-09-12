@@ -1,0 +1,15 @@
+TURTO 2.2.35
+
+- Dekodér smykových trnů doplněn o Leviat / HALFEN HSD podle HSD EC 10-E, vydání PDF 03/2026.
+- HSD-CRET 122, 124, 128, 134 a 140 mají katalogové VRd pro C20/25 a C25/30, podélný pohyb i variantu V s podélným + příčným pohybem.
+- Katalogové VRd a zdroj/kontrola se zobrazují přímo v tabulce Dekodéru.
+- Pro beton C30/37 a vyšší se podle katalogu používají hodnoty tabulky C25/30.
+- Tabulkové vyhodnocení je konzervativní bez interpolace: výška se bere směrem dolů na nejbližší tabulkovou hodnotu, spára směrem nahoru.
+- HSD-CRET 145, 150 a 155 se dekódují včetně geometrie a minimální tloušťky, ale VRd se nedoplňuje, protože katalog uvádí dimenzační únosnosti pouze na vyžádání.
+- Doplněny jednoduché HSD-D 20/22/25/30, pouzdra HSD-S, HSD-P, HSD-SV a komplety HSD-SET / HSD-SET V. Samostatným komponentám se záměrně nepřiřazuje systémové VRd.
+- U kompletních HSD-SET se VRd určuje jako minimum ocelové a betonové únosnosti pro vyztužený beton při katalogových podmínkách; podmínky se zobrazují ve zdroji/kontrole.
+- Maximální spára je hlídána podle katalogových tabulek: 60 mm pro HSD-CRET a 40 mm pro jednoduché HSD-D/HSD-SET.
+- Dekódovaný kompletní HSD s dostupným katalogovým VRd lze použít jako zdroj pro Záměny na Ancon nebo Schöck.
+- Ověřovací body: HSD-CRET 124, C25/30, h=280 mm, f=30 mm -> 108,8 kN; HSD-CRET 124 V -> 101,4 kN; HSD-SET 25 V, h=240 mm, f=30 mm -> 11,8 kN.
+- Verze 2.2.35 zároveň vynutí opravu runtime i u případné meziverze 2.2.34, aby se použila finální implementace zobrazení HSD v Dekodéru.
+- Databáze AKCÍ ani ověřené moduly izolačních nosníků se aktualizací nemění.
