@@ -11,8 +11,7 @@ Leviat / HALFEN HSD v Dekodéru smykových trnů
 - Samostatný HSD-D bez pouzdra a samostatné HSD-S / HSD-SV / HSD-P se dekódují jako komponenty, ale bez automatické VRd kompletního spoje.
 - Kontroluje se základní kompatibilita materiálu a pouzdra: provedení FV je v katalogu vázané na plastové HSD-P; A4 + HSD-P se nebere jako ověřená kompletní sestava.
 - HSD-F se rozpozná jako protipožární vložka, nikoli jako nosný smykový trn.
-- HSD je v této verzi zdroj pro Dekodér (a při dostupné VRd může sloužit jako zdroj stávajícího workflow záměn); nepřidává se jako nový výrobce do automatického Návrhu smykových trnů.
-- Našeptávač byl doplněn o HSD-CRET, HSD-SET a běžné kombinace HSD-D + pouzdro.
+- HSD je v této verzi rozšíření Dekodéru. Nepřidává se jako nový výrobce do automatického Návrhu ani jako nový automatický cílový výrobce Záměn.
 - Stávající Ancon, Schöck, PohlCon a MAX FRANK zůstávají beze změny. Databáze actions.sqlite3 se při aktualizaci nemění.
 
 Zdroj dat:
