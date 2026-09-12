@@ -18,8 +18,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.34"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "448806d709fe857b6414699cded7068757b14a8d"
-INSTALLER_SHA256 = "a901cb52c6d850a2b84f135347d9a724d22faf91462ef6186252b3151f3824a5"
+INSTALLER_COMMIT = "51024386356d7596ba0518518db24f37b8fcfc72"
+INSTALLER_SHA256 = "48e73e1813296bcb16ff9fc1e9a2a040a7dab35650b9196d96d59a225aa834fe"
 RUNTIME_LAYOUT = "21"
 
 ROOT = Path(__file__).resolve().parent
@@ -32,7 +32,7 @@ CRITICAL_PROGRAM_SHA256 = {
     "app_runtime.pyw": "5576cdae794c9c8fd4f566573acb55bb5e687b5fbcc5c3f1fb521afc0cfcc883",
     "app_runtime_233.pyw": "380e46fe925eca48a44c69e533074ecc434771efbc7eeb16dc53e58bac138291",
     "halfen_hsd_2026.py": "805f811bee2a8302c2c8ced979ecd2c26a3c92fbe6fd1024940a28dd98e617be",
-    "shear_dowels_hsd_234.py": "c5eba049fb1be4f215dc10280797da8e1fc3a051711b0dd35a24fc4d006e5cd9",
+    "shear_dowels_hsd_234.py": "299705a9091784ad88be8d38b6fdbdc69c1bc29d4baf813fb69030e1c11aadf7",
     "design_groups_restore.py": "8aa2b4507f96a8b34b2e79d266e9779732d1a38f29050f64b49a7ed75d00aea8",
 }
 
