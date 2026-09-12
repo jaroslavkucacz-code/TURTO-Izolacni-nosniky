@@ -1,0 +1,37 @@
+{
+  "version": "2.2.34",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_directory": "Program",
+  "runtime_layout": "21",
+  "manifest_root_only": true,
+  "runtime_strategy": "leviat-hsd-decoder-overlay",
+  "base_version": "2.2.33",
+  "payloads": [
+    "app_runtime.pyw",
+    "leviat_hsd.py",
+    "hsd_decoder.py"
+  ],
+  "requirements": [
+    "preserve verified 2.2.33 runtime as app_runtime_233.pyw",
+    "add Leviat/HALFEN HSD-CRET and HSD-D family decoding to the existing shear-dowel Decoder",
+    "use only reviewed HSD EC 10-E tabular data without interpolation",
+    "do not fabricate HSD-CRET 145/150/155 resistances because the catalogue states they are available on request",
+    "do not infer missing numeric HSD-SV concrete resistance cells",
+    "keep HSD as decoder/source adapter; do not add a new HSD target design engine",
+    "do not change Ancon, Schöck, PohlCon or MAX FRANK structural engines",
+    "do not modify actions.sqlite3"
+  ],
+  "hsd_decoder_added": true,
+  "hsd_source": "Leviat / HALFEN HSD EC 10-E, PDF 03/26; technical tables marked 2020",
+  "hsd_cret_sizes": [122, 124, 128, 134, 140, 145, 150, 155],
+  "hsd_single_sizes": [20, 22, 25, 30],
+  "hsd_cret_published_capacity_sizes": [122, 124, 128, 134, 140],
+  "new_hsd_target_design_engine": false
+}
