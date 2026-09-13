@@ -2,9 +2,9 @@ name: HSD integration
 on:
   push:
     branches: ['repair/hsd-schedule-2236']
-    paths: ['.github/workflows/hsd-e2e.yml', 'tools/verify_hsd_workflow_2236.py']
+    paths: ['.github/workflows/hsd-e2e.yml', 'tools/verify_hsd_workflow_2236.py', 'tools/fixtures/hsd_*', 'updates/2.2.36/**']
   pull_request:
-    paths: ['updates/2.2.36/**', 'tools/verify_hsd_workflow_2236.py']
+    paths: ['updates/2.2.36/**', 'tools/verify_hsd_workflow_2236.py', 'tools/fixtures/hsd_*', '.github/workflows/hsd-e2e.yml']
 permissions:
   contents: read
 jobs:
@@ -30,10 +30,16 @@ jobs:
       - name: Actual Tk workflow and native OCR on Windows
         if: runner.os == 'Windows'
         run: python tools/verify_hsd_workflow_2236.py
+      - name: Archive exact reviewed source snapshot
+        if: runner.os == 'Linux'
+        run: git archive --format=zip --output=hsd-source.zip HEAD
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: hsd-results-${{ runner.os }}
-          path: hsd-test-*.json
+          path: |
+            hsd-test-*.json
+            hsd-evidence-*.png
+            hsd-source.zip
           if-no-files-found: warn
           retention-days: 14

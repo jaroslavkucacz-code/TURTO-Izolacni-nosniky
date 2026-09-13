@@ -1,0 +1,5 @@
+Regression fixture derived from the supplied 635 x 477 screenshot.
+Only preprocessing: convert to luminance, threshold at 180 (black/white PNG).
+No labels, digits, positions or table lines have been redrawn or replaced.
+Expected rows: CRET 122 V = 5; CRET 124 = 7; CRET 128 = 4; CRET 134 = 8; CRET 140 = 6.
+The image is tested through the application's native Windows OCR adapter.

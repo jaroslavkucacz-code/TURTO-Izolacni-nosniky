@@ -1,7 +1,11 @@
 from __future__ import annotations
-"""Real installed 2.2.35 -> 2.2.36 integration test; no customer database."""
+"""Installed 2.2.35 -> 2.2.36 GUI integration; only disposable test databases.
+
+Raster fixture is thresholded from the customer's actual screenshot, not redrawn.
+"""
 import io
 import json
+import logging
 import os
 from pathlib import Path
 import runpy
@@ -77,22 +81,30 @@ def main():
             assert hsd.capacity_for(name,h,g,c)[0] is None
         assert ui.decode_dowel('Ancon HLD 22') and ui.decode_dowel('Schöck Dorn SLD 40')
         def parse(text):return parse_rows(text,decoder=ui.decode_dowel,defaults={},existing_names=set())
+        def check_rows(rows):
+            assert len(rows)==5,[(r.raw,r.error) for r in rows]
+            assert [r.quantity for r in rows]==[5,7,4,8,6]
+            assert not any(r.error for r in rows),[(r.raw,r.error) for r in rows]
         for separator in ('\t',';',' | ',' '):
-            rows=parse('\n'.join(f'{n}{separator}{q}' for n,q in SAMPLES))
-            assert len(rows)==5 and [r.quantity for r in rows]==[5,7,4,8,6] and not any(r.error for r in rows)
+            check_rows(parse('\n'.join(f'{n}{separator}{q}' for n,q in SAMPLES)))
         for text in ('CRET 124\t0','CRET 124\t2.5','CRET 124\t-2','UNKNOWN\t5'):
             assert parse(text)[0].error
         assert parse('S010 | 7 | CRET 124')[0].name=='S010'
         csvfile=root/'schedule.csv';csvfile.write_text(TEXT.replace('\t',';'),encoding='utf-8')
-        assert len(parse(read_file(csvfile).text))==5
-        # PDF reading order intentionally column-wise; physical positions must pair quantities.
+        check_rows(parse(read_file(csvfile).text))
+        from openpyxl import Workbook
+        book=Workbook();sheet=book.active;sheet.append(['Název','Počet'])
+        for row in SAMPLES:sheet.append(row)
+        xlsx=root/'schedule.xlsx';book.save(xlsx);book.close()
+        check_rows(parse(read_file(xlsx).text))
+        # PDF text objects are column-wise; positions must pair the quantities.
         import fitz
         pdf=root/'schedule.pdf'
         doc=fitz.open();page=doc.new_page()
         for i,(name,qty) in enumerate(SAMPLES):page.insert_text((80,100+i*30),name)
         for i,(name,qty) in enumerate(SAMPLES):page.insert_text((400,100+i*30),str(qty))
         doc.save(pdf);doc.close()
-        assert [r.quantity for r in parse(read_file(pdf).text)]==[5,7,4,8,6]
+        check_rows(parse(read_file(pdf).text))
         failures=[]
         def callback_error(owner,*exc):
             failures.append(''.join(traceback.format_exception(*exc)))
@@ -109,7 +121,7 @@ def main():
                 if d.loading and time.monotonic()<deadline:
                     app.after(100,finish_import);return
                 assert not d.loading,'File worker timed out'
-                assert len(d.items)==5 and sum(r.quantity for r in d.items)==30
+                check_rows(d.items)
                 d.insert_button.invoke()
             def choose_file():
                 d=app._hsd_last_import_dialog
@@ -123,7 +135,6 @@ def main():
             assert len(app.shear_decoder_rows)==5 and sum(r['quantity'] for r in app.shear_decoder_rows)==30
             assert all(r.get('hsd_capacity') is None for r in app.shear_decoder_rows)
             assert all(app.shear_decoder_tree.set(i,'vrd')=='—' for i in app.shear_decoder_tree.get_children())
-            # Actual modal OCR review gate, without another expensive OCR call.
             d=workflow.DecoderFileDialog(app,mode='decoder',decoder=ui.decode_dowel,defaults={},existing_names=set())
             d.set_file_text(FileText(TEXT,'raster fixture',True))
             assert str(d.insert_button['state'])=='disabled'
@@ -146,24 +157,23 @@ def main():
             app.add_shear_design_row();app.update();assert len(app.shear_design_rows)==1
             app.refresh_shear_tables();assert app.shear_design_tree.selection()
             assert not failures,failures
+            if os.name=='nt':
+                from PIL import ImageGrab
+                ImageGrab.grab().save(ROOT/'hsd-evidence-windows.png')
             app.destroy()
-        ocr_status='not run on Linux CI; actual customer image checked separately with local Tesseract'
+            # Application logging remains registered until interpreter shutdown.
+            # Close handlers before TemporaryDirectory removes app.log on Windows.
+            logging.shutdown()
+        ocr_status='not run on Linux; native Windows path tested in Windows job'
         if os.name=='nt':
-            from PIL import Image,ImageDraw,ImageFont
-            image=Image.new('RGB',(700,340),'white');draw=ImageDraw.Draw(image)
-            font=ImageFont.truetype('C:/Windows/Fonts/arial.ttf',30)
-            for i,(name,qty) in enumerate(SAMPLES):
-                draw.text((40,20+i*55),name,font=font,fill='black');draw.text((550,20+i*55),str(qty),font=font,fill='black')
-            imagefile=root/'ocr_fixture.png';image.save(imagefile)
-            try:
-                extracted=read_file(imagefile)
-                assert [r.quantity for r in parse(extracted.text)]==[5,7,4,8,6],extracted.text
-                ocr_status='Windows native OCR passed: five rows, thirty pieces'
-            except subprocess.CalledProcessError as exc:
-                error=exc.stderr.decode('utf-8',errors='replace')
-                if 'Windows OCR language is unavailable' not in error:raise RuntimeError(error) from exc
-                ocr_status='Windows runner has no installed OCR language; adapter returned explicit unavailable status'
-        report={'version':'2.2.36','platform':sys.platform,'rows':5,'pieces':30,'runtime_install':'pass','database_bytes_preserved':True,'file_button_csv':'pass','position_based_pdf':'pass','transfer':'pass','sqlite_roundtrip':'pass','ocr':ocr_status}
+            imagefile=ROOT/'tools/fixtures/hsd_schedule_from_screenshot.png'
+            extracted=read_file(imagefile)
+            rows=parse(extracted.text)
+            check_rows(rows)
+            assert rows[0].values['canonical_designation']=='HSD-CRET 122 V'
+            assert extracted.review_required
+            ocr_status='pass: thresholded user screenshot; five correct types and thirty pieces'
+        report={'version':'2.2.36','platform':sys.platform,'rows':5,'pieces':30,'runtime_install':'pass','database_bytes_preserved':True,'file_button_csv':'pass','xlsx':'pass','position_based_pdf':'pass','transfer':'pass','sqlite_roundtrip':'pass','ocr':ocr_status}
         (ROOT/('hsd-test-'+sys.platform+'.json')).write_text(json.dumps(report,indent=2),encoding='utf-8')
         print(json.dumps(report,indent=2))
 
