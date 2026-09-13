@@ -11,13 +11,13 @@ import urllib.request
 VERSION = "2.2.36"
 RUNTIME_LAYOUT = "21"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-PAYLOAD_COMMIT = "19f966f4222a69a62a1518ce201d6e7e3ddabed5"
+PAYLOAD_COMMIT = "aa16ba5f3662ae7661fa17077c9b8828b03ca9f9"
 BASE_COMMIT = "4b648ef95c8261150a9c1b4bf33bbc83e0f34794"
 BASE_INSTALLER_SHA256 = "cd9e576a6a9ff331f4c821d4023af163feff3e3f9095b42aaff8ac8b1f98b0db"
 # Full known 2.2.35 runtime digest (the base installer digest is distinct).
 BASE_RUNTIME_SHA256 = "8e4c7e8b5ec4a56379e8fa7d1b44ac8a9c6bb8a4a94ac322c29ee1079d7b4290"
 PAYLOADS = {
-    "app_runtime.pyw": "4a8920c497177730214f01fdadf133b26899a385454c814bb49fc907753f8a3f",
+    "app_runtime.pyw": "75e9b1899532d82a7c0562dedd7dfae0110ef616482195fd2f58d3a304fcb8d4",
     "shear_schedule_io_236.py": "5c21aec2b230c8e73d37cf0e3d2f2a27cb0efe42619bbcc618a56ae6051576f4",
     "shear_workflow_236.py": "c96f573dafd7893f36bf809d064135ecf56573157895f3051bc97d56a93df7f3",
     "hsd_windows_ocr.ps1": "b76a281f1b8eef02c7bbfc6aa4d4cc3c3f41b5abef814d49f526b9dff79babf3",
