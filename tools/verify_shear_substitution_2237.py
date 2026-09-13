@@ -75,9 +75,13 @@ def main() -> None:
     assert missing["status"] == "CHYBÍ VEd", missing
     assert not missing["target"], missing
 
+    installer = runpy.run_path(str(RELEASE / "runtime_installer.py"))
+    installer["selftest"]()
+
     print("2.2.37 substitution regression: PASS")
     print("PAYLOAD shear_substitution_237.py", _sha(RELEASE / "shear_substitution_237.py"))
     print("PAYLOAD app_runtime.pyw", _sha(RELEASE / "app_runtime.pyw"))
+    print("PAYLOAD runtime_installer.py", _sha(RELEASE / "runtime_installer.py"))
 
 
 if __name__ == "__main__":
