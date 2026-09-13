@@ -1,0 +1,9 @@
+TURTO 2.2.38 – PDF logo repair verification scope
+
+- Missing Program/assets/turto_logo_vector.json is recreated from the historical verified vector contour data.
+- Corrupted vector-logo JSON is replaced deterministically.
+- The repair is executed both by the runtime installer and at application startup before the main UI runs.
+- Version 2.2.37 shear-dowel substitution logic remains the runtime base and is not changed by this release.
+- actions.sqlite3 is protected and is not part of the update payload.
+
+Automated checks: tools/verify_pdf_logo_2238.py on Windows and Linux plus the repository release verifier.
