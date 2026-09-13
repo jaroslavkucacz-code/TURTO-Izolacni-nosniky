@@ -1,0 +1,10 @@
+TURTO 2.2.40
+
+PDF export – správná terminologie a čitelná kontrola záměn smykových trnů
+
+- Export části „Smykové trny“ už nepoužívá názvy „Návrh nosníků HIT“, „Navržený HIT“ ani „Statická kontrola návrhu HIT“. HIT zůstává označením přímého návrhu izolačních nosníků Leviat.
+- Záměny smykových trnů se do PDF načítají ze strukturovaných dat záměny, nikoli zpětným čtením viditelné tabulky. Zachovají se proto VRd původního trnu, VRd záměny, režim kontroly, VEd a poměr únosností.
+- V souhrnu je VRd navržené záměny zobrazena před VRd původního prvku a je vizuálně zvýrazněna; původní VRd je vedena jako referenční hodnota.
+- Ve statické kontrole podle VEd jsou hlavními údaji VEd, VRd navržené záměny a využití η = VEd / VRd. VRd původního typu je pouze orientační reference.
+- V katalogovém režimu 1:1 je přehledně uveden poměr VRd,zám / VRd,pův; pokud je záměna slabší, PDF výslovně uvádí, že ji lze potvrdit po doložení VEd ≤ VRd záměny.
+- Únosnosti se nadále neinterpolují. Výpočtová logika HSD/CRET/Ancon/Schöck ani databáze actions.sqlite3 se nemění.
