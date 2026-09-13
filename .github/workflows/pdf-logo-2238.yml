@@ -1,0 +1,34 @@
+name: TURTO PDF logo 2.2.38
+
+on:
+  push:
+    branches:
+      - main
+      - "fix/**"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  pdf-logo-linux:
+    name: PDF logo repair (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/verify_pdf_logo_2238.py
+
+  pdf-logo-windows:
+    name: PDF logo repair (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/verify_pdf_logo_2238.py
