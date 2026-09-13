@@ -17,8 +17,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.39"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "2b2118a30328eae0210252f1204612a83065115b"
-INSTALLER_SHA256 = "86b067f2f8c1d5fad346edbc74cd5dac5ac3849b0c9e33e116212152393faa90"
+INSTALLER_COMMIT = "4555783d7e1a6cf16dcc5a30819eae093b94dd6a"
+INSTALLER_SHA256 = "0bc1edf87da6a1c24d5612632b53d8fd4221f359287ac90af788957a07d4048d"
 RUNTIME_LAYOUT = "23"
 
 ROOT = Path(__file__).resolve().parent
@@ -42,12 +42,12 @@ CRITICAL_PROGRAM_SHA256 = {
     "halfen_hsd_2026.py": "805f811bee2a8302c2c8ced979ecd2c26a3c92fbe6fd1024940a28dd98e617be",
     "shear_dowels_hsd_234.py": "299705a9091784ad88be8d38b6fdbdc69c1bc29d4baf813fb69030e1c11aadf7",
     "design_groups_restore.py": "8aa2b4507f96a8b34b2e79d266e9779732d1a38f29050f64b49a7ed75d00aea8",
-    "cret_series_100_239.py": "b5699cebac08d64d1c49398a6be43a976816d40a9d131982230cc329ff3d159f",
-    "cret_series_100_239_data1.py": "5add1e1e78f9ca5504c57b6b589b8d4ce101654c99376ebb8f534bf69c38fe9c",
-    "cret_series_100_239_data2.py": "114386d2376c8cf70692ae4cb4b408b2d0fd657f2ddc61f05b27510d03c6c113",
-    "cret_series_100_239_data3.py": "b09c9703c9e2a05a7c646c83da2285fc9616d10d4db63c53f365db861bffd08d",
+    "cret_series_100_239.py": "70f4d4064613188a2dc68b985effae53da671da321b9a41bbfeaae3bc26b5ceb",
+    "cret_series_100_239_data1.py": "23a22c1b6a09181109120639a5d0fb10ada8faa5c13c4021eaa9e91e35879e9e",
+    "cret_series_100_239_data2.py": "1bad7aed0efe72b386df16599dff612f964c648e75215f60ff2da86a7029e5b4",
+    "cret_series_100_239_data3.py": "e12083a49d9c16e970eceb4d570c8af08eed1359c197cca37370fd5dbe0f0c9e",
     "cret_series_100_239_data4.py": "d1f19448871355961c6784dbd3f34ce5ae62678236660632ba41bfa0f5708136",
-    "shear_cret_239.py": "409dcb80eee7f7029a67947797f153417270d644703f365f194cdff4b9d2a0c4",
+    "shear_cret_239.py": "fc70804efe1dba44498f26e483d62fd5711d55b761a76d93312b685c0b0b1099",
 }
 
 
