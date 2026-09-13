@@ -111,23 +111,26 @@ def read_file(path: str | Path, *, page: int | None = None) -> FileText:
     if suffix in {".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff"}:
         return FileText(_ocr_image(p), str(p), True, "OCR: zkontrolujte označení, písmeno V a počty. Text lze opravit před vložením.")
     if suffix == ".pdf":
-        import fitz
-        with fitz.open(p) as doc:
-            if doc.needs_pass:
-                raise ValueError("PDF je chráněné heslem.")
-            if page is None and len(doc) > 1:
+        try:
+            import pdfplumber
+        except ImportError as exc:
+            raise RuntimeError("Pro PDF chybí knihovna pdfplumber. Instalace: py -m pip install pdfplumber") from exc
+        with pdfplumber.open(p) as doc:
+            if page is None and len(doc.pages) > 1:
                 raise ValueError("Vyberte číslo stránky s výkazem.")
             n = 0 if page is None else page-1
-            if n < 0 or n >= len(doc):
-                raise ValueError(f"PDF má {len(doc)} stran; zadejte platné číslo stránky.")
-            words = doc[n].get_text("words")
+            if n < 0 or n >= len(doc.pages):
+                raise ValueError(f"PDF má {len(doc.pages)} stran; zadejte platné číslo stránky.")
+            pg = doc.pages[n]
+            words = [(w["x0"], w["top"], w["x1"], w["bottom"], w["text"])
+                     for w in pg.extract_words()]
             text = words_to_text(words)
             if text.strip():
                 return FileText(text, f"{p} | strana {n+1}")
             # Only the explicitly selected page is sent to the local recognizer.
             with tempfile.TemporaryDirectory(prefix="turto_scan_") as folder:
                 target = Path(folder) / "page.png"
-                doc[n].get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False).save(target)
+                pg.to_image(resolution=144).original.save(target)
                 text = _ocr_image(target)
             return FileText(text, f"{p} | strana {n+1}", True, "Sken PDF / OCR: potvrďte kontrolu označení a počtů.")
     if suffix in {".xlsx", ".xlsm"}:
@@ -160,6 +163,8 @@ def read_file(path: str | Path, *, page: int | None = None) -> FileText:
 
 def parse_rows(text: str, *, decoder: Callable, defaults: dict[str, str], existing_names: set[str], use_defaults: bool = False):
     from shear_dowels_schedule import ScheduleItem
+    if len(text) > 2_000_000 or text.count("\n") > 20000:
+        raise ValueError("Výkaz je příliš velký; vyberte samostatnou tabulku.")
     names = set(existing_names)
     header: dict[str, int] = {}
     out = []
@@ -180,20 +185,23 @@ def parse_rows(text: str, *, decoder: Callable, defaults: dict[str, str], existi
             continue
         if re.fullmatch(r"(?:celkem|total)\s*[:\t ]*\d+\s*(?:ks)?", _plain(raw)):
             continue
-        count = "1"
+        count = ""
         designation = raw
         explicit_qty = False
         position = ""
         if header and len(cells) > max(header.values()):
             designation, count = cells[header["product"]], cells[header["quantity"]]
             explicit_qty = True
-        elif len(cells) >= 3 and re.fullmatch(r"[A-Za-z][\w./-]*",cells[0]) and not decoder(cells[0]):
-            from shear_dowels_schedule import _position_qty_content
-            position, qty_old, designation = _position_qty_content(raw, "")
-            count, explicit_qty = str(qty_old), True
-        elif len(cells) > 1 and decoder(cells[0]):
+        elif len(cells) >= 3 and re.fullmatch(r"[A-Za-z][\w./-]*", cells[0]) and not decoder(cells[0]):
+            position = cells[0]
+            if decoder(cells[1]):
+                designation, count = cells[1], cells[2]
+            else:
+                count, designation = cells[1], cells[2]
+            explicit_qty = bool(count)
+        elif len(cells) > 1:
             designation, count = cells[0], cells[-1]
-            explicit_qty = True
+            explicit_qty = bool(count)
         else:
             prefix = re.fullmatch(r"(\d+)\s*[x×]\s*(.+)", raw, re.I)
             trailing = re.fullmatch(r"(.+?)\s+([+-]?\d+(?:[.,]\d+)?)(?:\s*ks)?", raw, re.I)
@@ -205,8 +213,9 @@ def parse_rows(text: str, *, decoder: Callable, defaults: dict[str, str], existi
         while f"S{index:03}" in names:
             index += 1
         name = position or f"S{index:03}"
+        duplicate = name in names
         names.add(name)
-        valid_count = re.fullmatch(r"\s*([1-9]\d*)\s*(?:ks)?\s*", count, re.I)
+        valid_count = re.fullmatch(r"\s*([1-9]\d*)(?:[.,]0+)?\s*(?:ks)?\s*", count, re.I)
         qty = int(valid_count[1]) if valid_count else 0
         info = decoder(designation)
         geometry = dict(defaults) if use_defaults else {"slab":"", "gap":"", "concrete":""}
@@ -224,8 +233,12 @@ def parse_rows(text: str, *, decoder: Callable, defaults: dict[str, str], existi
         item = ScheduleItem(line, raw, name, qty, values)
         if not info:
             item.error = "Označení nebylo rozpoznáno; opravte vstupní text."
-        elif not valid_count:
-            item.error = "Počet musí být celé kladné číslo."
+        elif not explicit_qty or not count.strip():
+            item.error = "Chybí počet kusů. Doplňte jej; program nesmí dosadit 1 ks."
+        elif not valid_count or qty > 1_000_000:
+            item.error = "Počet musí být celé číslo 1–1 000 000."
+        elif duplicate:
+            item.error = f"Pozice {name} již existuje. Změňte pozici nebo zvolte nahrazení řádků."
         elif not math.isfinite(h) or not math.isfinite(gap) or h < 0 or gap < 0 or (known and h == 0):
             item.error = "Neplatná tloušťka nebo šířka spáry."
         else:
@@ -234,7 +247,5 @@ def parse_rows(text: str, *, decoder: Callable, defaults: dict[str, str], existi
             item.result = str(values["canonical_designation"])
             if not known:
                 item.result += " • pouze typ a počet; doplňte h, spáru a beton"
-            if not explicit_qty:
-                item.result += " • počet neuveden: 1 ks"
         out.append(item)
     return out

@@ -1,0 +1,13 @@
+TURTO 2.2.36 – oprava Dekodéru smykových trnů a importu výkazů
+
+Smykové trny > Dekodér > Načíst výkaz ze souboru / textu…
+- Skutečný import CSV, XLSX/XLSM (aktivní list), textového PDF (vybraná stránka), TXT/TSV a obrázků. Před vložením je vždy upravitelný text a kontrolní náhled.
+- HSD je ve viditelné nabídce Leviat / HALFEN i v našeptávači. Rozpoznají se také názvy CRET 122 V, CRET 124, CRET 128, CRET 134, CRET 140 bez předpony HSD.
+- Typy a počty lze načíst i ručně zadat bez geometrie. VRd zůstává prázdné, dokud nejsou výslovně doplněné h, návrhová spára a beton.
+- Obrázky a skeny používají lokální OCR. Výsledek není bezchybný automatický přepis: označení (zejména číslice 4 a přípona V) a počty je nutné zkontrolovat podle zdroje a kontrolu potvrdit. Změna textu předchozí potvrzení zruší. Zdrojový soubor lze otevřít přímo z náhledu.
+- Chybějící, záporné nebo necelé počty, nerozpoznané typy a duplicitní pozice blokují vložení celého výkazu. Chybějící počet se nikdy nedosazuje jako 1 kus.
+- Opravené vzájemně rekurzivní obsluhy hromadného importu a předání do Záměn.
+- Kompaktní ovládání a výsledková tabulka pro menší displeje. Další operace s řádky jsou v nabídce Další…; h / spáru / beton lze doplnit více označeným řádkům najednou.
+- Našeptávač se neotevírá nad neaktivní záložkou. Při obnovení tabulek se zachovává výběr řádků také v Návrhu.
+
+Aktualizace mění programové soubory, nikoli actions.sqlite3. Runtime je vázán na neměnné commity a kontrolní součty; poškozený nebo chybějící modul vyvolá opravu instalace.
