@@ -1,0 +1,6 @@
+{
+  "version": "2.2.38",
+  "runtime_layout": "22",
+  "database": "actions.sqlite3 must never be modified",
+  "purpose": "Self-healing TURTO vector-logo asset for PDF export; preserve 2.2.37 engineering behavior."
+}
