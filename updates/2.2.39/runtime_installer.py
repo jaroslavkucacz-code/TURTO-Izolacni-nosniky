@@ -19,12 +19,12 @@ BASE_INSTALLER_SHA256 = "b8e54a92254d125f33da1842aa13f429d810e0b946bf12cc6951fb4
 BASE_RUNTIME_SHA256 = "99cd795fbd49ba790737e4ffe03c4e3cf2ae9f23caf12a71a879e7cbb8ee93ba"
 PAYLOADS = {
     "app_runtime.pyw": "d59becb2a663ce755f1dc53abfb0ab817835a938d1bb9c5cd39be072429c1b54",
-    "cret_series_100_239.py": "b5699cebac08d64d1c49398a6be43a976816d40a9d131982230cc329ff3d159f",
-    "cret_series_100_239_data1.py": "5add1e1e78f9ca5504c57b6b589b8d4ce101654c99376ebb8f534bf69c38fe9c",
-    "cret_series_100_239_data2.py": "114386d2376c8cf70692ae4cb4b408b2d0fd657f2ddc61f05b27510d03c6c113",
-    "cret_series_100_239_data3.py": "b09c9703c9e2a05a7c646c83da2285fc9616d10d4db63c53f365db861bffd08d",
+    "cret_series_100_239.py": "70f4d4064613188a2dc68b985effae53da671da321b9a41bbfeaae3bc26b5ceb",
+    "cret_series_100_239_data1.py": "23a22c1b6a09181109120639a5d0fb10ada8faa5c13c4021eaa9e91e35879e9e",
+    "cret_series_100_239_data2.py": "1bad7aed0efe72b386df16599dff612f964c648e75215f60ff2da86a7029e5b4",
+    "cret_series_100_239_data3.py": "e12083a49d9c16e970eceb4d570c8af08eed1359c197cca37370fd5dbe0f0c9e",
     "cret_series_100_239_data4.py": "d1f19448871355961c6784dbd3f34ce5ae62678236660632ba41bfa0f5708136",
-    "shear_cret_239.py": "409dcb80eee7f7029a67947797f153417270d644703f365f194cdff4b9d2a0c4",
+    "shear_cret_239.py": "fc70804efe1dba44498f26e483d62fd5711d55b761a76d93312b685c0b0b1099",
 }
 BASE_CRITICAL = {
     "app_runtime_237.pyw": "590f3d4e5595688a85dd3143b2fce05b1bbfb687833f919cff516625b325bf6f",
