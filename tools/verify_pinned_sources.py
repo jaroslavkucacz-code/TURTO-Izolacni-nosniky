@@ -31,11 +31,22 @@ def _sha256(data: bytes) -> str:
 
 
 def _literal(path: Path, name: str):
-    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    """Evaluate only literal containers and references to earlier constants."""
+    tree=ast.parse(path.read_text(encoding="utf-8"),filename=str(path))
+    constants={}
+    def value(node):
+        if isinstance(node,ast.Name) and node.id in constants:return constants[node.id]
+        if isinstance(node,ast.Tuple):return tuple(value(v) for v in node.elts)
+        if isinstance(node,ast.List):return [value(v) for v in node.elts]
+        if isinstance(node,ast.Dict):return {value(k):value(v) for k,v in zip(node.keys,node.values)}
+        return ast.literal_eval(node)
     for node in tree.body:
-        if isinstance(node, ast.Assign):
-            if any(isinstance(target, ast.Name) and target.id == name for target in node.targets):
-                return ast.literal_eval(node.value)
+        if not isinstance(node,ast.Assign):continue
+        try:result=value(node.value)
+        except (ValueError,TypeError):continue
+        for target in node.targets:
+            if isinstance(target,ast.Name):constants[target.id]=result
+        if name in constants:return constants[name]
     raise VerificationError(f"{path.relative_to(ROOT)}: chybí literální přiřazení {name}")
 
 
@@ -112,19 +123,33 @@ def _verify_bootstrap(version: str) -> Path:
 
 
 def _verify_runtime_installer(installer: Path) -> None:
-    base_commit = str(_literal(installer, "BASE_COMMIT")).lower()
-    base_path = str(_literal(installer, "BASE_PATH"))
-    base_hash = str(_literal(installer, "BASE_SHA256")).lower()
-    _verify_pin("BASE installer", base_commit, base_path, base_hash)
-
-    payloads = _literal(installer, "PAYLOADS")
-    if not isinstance(payloads, dict) or not payloads:
-        raise VerificationError("PAYLOADS musí být neprázdný slovník.")
-    for local, value in payloads.items():
-        if not isinstance(value, tuple) or len(value) != 3:
-            raise VerificationError(f"PAYLOADS[{local!r}] nemá tvar (commit, path, sha256).")
-        commit, source, expected = value
-        _verify_pin(f"runtime payload {local}", str(commit).lower(), str(source), str(expected).lower())
+    base_commit=str(_literal(installer,"BASE_COMMIT")).lower()
+    try:
+        base_path=str(_literal(installer,"BASE_PATH"))
+        base_hash=str(_literal(installer,"BASE_SHA256")).lower()
+    except VerificationError:
+        # Compact incremental installers pass the base path literally to _download.
+        tree=ast.parse(installer.read_text(encoding="utf-8"))
+        paths=[node.args[1].value for node in ast.walk(tree)
+               if isinstance(node,ast.Call) and isinstance(node.func,ast.Name)
+               and node.func.id=="_download" and len(node.args)==3
+               and isinstance(node.args[0],ast.Name) and node.args[0].id=="BASE_COMMIT"
+               and isinstance(node.args[1],ast.Constant) and isinstance(node.args[1].value,str)
+               and isinstance(node.args[2],ast.Name) and node.args[2].id=="BASE_INSTALLER_SHA256"]
+        if len(set(paths))!=1:raise VerificationError("Nejednoznačná cesta základního installeru.")
+        base_path=paths[0];base_hash=str(_literal(installer,"BASE_INSTALLER_SHA256")).lower()
+    _verify_pin("BASE installer",base_commit,base_path,base_hash)
+    payloads=_literal(installer,"PAYLOADS")
+    if not isinstance(payloads,dict) or not payloads:raise VerificationError("PAYLOADS musí být neprázdný slovník.")
+    for local,item in payloads.items():
+        if isinstance(item,tuple) and len(item)==3:
+            commit,source,expected=item
+        elif isinstance(item,str) and HEX64.fullmatch(item):
+            commit=_literal(installer,"PAYLOAD_COMMIT")
+            version=_literal(installer,"VERSION")
+            source=f"updates/{version}/{local}";expected=item
+        else:raise VerificationError(f"Neplatný záznam PAYLOADS[{local!r}].")
+        _verify_pin(f"runtime payload {local}",str(commit).lower(),str(source),str(expected).lower())
 
 
 def main() -> int:
