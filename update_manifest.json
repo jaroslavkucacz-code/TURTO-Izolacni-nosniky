@@ -1,12 +1,12 @@
 {
-  "version": "2.2.39",
-  "runtime_layout": "23",
-  "notes": "Nový samostatný zdroj Leviat / Aschwanden CRET Série 100 podle dokumentace 05/2026: přesné tabulky FRd a aD,min pro CRET-122 až CRET-155, přímý návrh i záměny bez interpolace. Výslovné HALFEN HSD-CRET zůstává na dosavadním zdroji HSD EC 10-E (03/2026).",
+  "version": "2.2.40",
+  "runtime_layout": "24",
+  "notes": "PDF export smykových trnů nyní používá správnou terminologii bez označení HIT. Záměny se exportují ze strukturovaných dat a přehledně zobrazují VRd navržené záměny, VRd původního prvku, VEd, režim kontroly a skutečné využití. Únosnost záměny je hlavní kontrolovaná hodnota; původní VRd zůstává referencí pro katalogovou záměnu 1:1. Výpočtová logika a katalogová data se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/624736ed4b32019c7177dae670a9fbea349d8b6a/updates/2.2.39/app.pyw",
-      "sha256": "8fc5314ee7a6a295423b4ab89cdc7c0d666bf37ac56d545e00cb8c9b37a253de"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f2ef62c47fc10a047d97185ce474c18922936eb5/updates/2.2.40/app.pyw",
+      "sha256": "34ae38aafd893aeaf1c99274550b8098e05d974d1aa63fe5588bc69c7cd66291"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4ac0435772ef839ba8fb156f97d10ee8bc434742/updates/2.2.39/RELEASE_NOTES.txt",
-      "sha256": "a54c75731fb68cd0a07f184800e1ba1d65d6343c29bde4823a93a19229f00369"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4fa5304ef10564a35c4cc0530cf5f5fade14e697/updates/2.2.40/RELEASE_NOTES.txt",
+      "sha256": "d418dc8d92c6f855de7e0717e97640ab16e493e36639614481d671fc198581b8"
     }
   ]
 }
