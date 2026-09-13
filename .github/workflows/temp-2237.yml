@@ -35,4 +35,4 @@ jobs:
         run: xvfb-run -a -s "-screen 0 1366x768x24" python tools/verify_shear_substitution_ui_2237.py
       - name: Verify installed Tk substitution UI on Windows
         if: runner.os == 'Windows'
-        run: python tools/verify_shear_substitution_ui_2237.py
+        run: python -X utf8 tools/verify_shear_substitution_ui_2237.py
