@@ -1,0 +1,11 @@
+TURTO 2.2.39
+
+CRET Série 100 – Leviat / Aschwanden 05/2026
+
+- Samostatný oficiální zdroj CRET: označení CRET-122 až CRET-155 se už nesmí tiše převádět na HALFEN HSD-CRET. Výslovné HSD-CRET zůstává beze změny na katalogu HSD EC 10-E (03/2026).
+- Zapracovány přesné tabulky FRd pro CRET-122, 124, 128, 134, 140, 145, 150 a 155 pro beton C25/30 a C30/37, včetně výšek h a spár e podle dokumentace 05/2026.
+- Zapracovány tabulkové minimální vzdálenosti aD,min pro ρ = 0,2 / 0,5 / 1,0 %, konstrukční minimální vzdálenosti V-variant, závěsná výztuž, korozní třídy a příčné posuny.
+- CRET Série 100 lze použít v Dekodéru, přímo navrhovat podle VEd a volit jako cílový výrobek v Záměnách. Únosnosti se neinterpolují: h se volí konzervativně dolů a spára nahoru.
+- CRET Série 500, CRET Seismic a CRET Magnet se rozpoznají v Dekodéru, ale bez detailních tabulek z tohoto podkladu se jim nepřiřazuje automatická návrhová únosnost.
+- Pro CRET se třída betonu automaticky nenahrazuje: detailní tabulky tohoto podkladu jsou použity jen pro C25/30 a C30/37.
+- Databáze actions.sqlite3 se aktualizací nemění.
