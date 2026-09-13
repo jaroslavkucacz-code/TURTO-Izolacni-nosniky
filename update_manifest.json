@@ -1,12 +1,12 @@
 {
-  "version": "2.2.37",
-  "runtime_layout": "21",
-  "notes": "Záměny smykových trnů podle katalogové VRd nebo skutečného VEd; nejlepší blízký kandidát zůstává viditelný bez interpolace únosností.",
+  "version": "2.2.38",
+  "runtime_layout": "22",
+  "notes": "Oprava exportu PDF po aktualizaci 2.2.37: chybějící nebo poškozené vektorové logo TURTO se při instalaci i spuštění automaticky obnoví. Katalogové hodnoty, dekódování, návrh a logika záměn smykových trnů se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/17ed7d852b00b622b83c01e767bc1b3f4e4ee019/updates/2.2.37/app.pyw",
-      "sha256": "6b01b94117904ab0760c28d7f8318967a13c324d69d6e9bda76ffb74a0b449ea"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b6e2de08b49d3015d0a98a925add65335f6a36b4/updates/2.2.38/app.pyw",
+      "sha256": "fcb9ceef8c772f9f2b236443b2c546ba013447325665938b019efd1bc5a21609"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/bddeeed6c873a059b71208cfbc24940620a13aff/updates/2.2.37/RELEASE_NOTES.txt",
-      "sha256": "3e402b02fe39dbf020f21f92a91f45c662ae3848a63dc24a3a5741fb09ec2c29"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b6e2de08b49d3015d0a98a925add65335f6a36b4/updates/2.2.38/RELEASE_NOTES.txt",
+      "sha256": "944e35a627be57be25836589b94dce95bb6889d9dbb056ad270288faec5d9651"
     }
   ]
 }
