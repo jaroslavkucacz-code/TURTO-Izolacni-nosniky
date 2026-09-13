@@ -74,17 +74,14 @@ def main() -> None:
         assert not error and value, (designation, error)
         assert abs(float(value["vrd"]) - expected) < 1e-9, (designation, value["vrd"], expected)
 
-    # No silent concrete-class substitution for the new CRET source.
     value, error = cret.capacity_for("CRET-122", 220, 20, "C35/45")
     assert value is None and "C25/30 a C30/37" in error
 
-    # Bare CRET and explicit HALFEN HSD-CRET are intentionally distinct sources.
     info = cret.decode_designation("CRET 145 V42")
     assert info and info["manufacturer"] == "Leviat / Aschwanden"
     assert info["movement"] == "transverse"
     assert cret.decode_designation("HSD-CRET 145") is None
 
-    # Overview-only products may be decoded but must not receive invented detailed VRd.
     info500 = cret.decode_designation("CRET-504A V20")
     assert info500 and info500["decoder_only"] is True
     value, error = cret.capacity_for(info500, 300, 20, "C30/37")
@@ -106,9 +103,11 @@ def main() -> None:
         "ss237.evaluate",
         "design_cret",
         "_turto_cret_239",
-        "CRET Série 500",
     ):
         assert marker in text, marker
+
+    core_text = (UPDATE / "cret_series_100_239.py").read_text(encoding="utf-8")
+    assert "CRET Série 500" in core_text and "CRET Seismic" in core_text and "CRET Magnet" in core_text
 
     runtime = (UPDATE / "app_runtime.pyw").read_text(encoding="utf-8")
     assert 'APP_VERSION = "2.2.39"' in runtime
