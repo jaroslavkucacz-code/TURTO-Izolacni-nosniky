@@ -21,6 +21,35 @@ _hit_workspace = _namespace.get("_hit_workspace")
 import shear_cret_239
 shear_cret_239.install(_base)
 
+# Correct the inherited Ancon-only source label in the shared design table.
+_original_refresh_239 = _base.ThermalConnectorApp.refresh_shear_tables
+def _refresh_cret_source_239(self):
+    _original_refresh_239(self)
+    tree = getattr(self, "shear_design_tree", None)
+    if tree is None:
+        return
+    try:
+        columns = tuple(tree["columns"])
+        if "source" not in columns:
+            return
+        for iid in tree.get_children(""):
+            try:
+                row = self.shear_design_rows[int(iid)]
+            except Exception:
+                continue
+            candidate = row.get("candidate") if isinstance(row.get("candidate"), dict) else {}
+            if str(candidate.get("manufacturer", "")) != "Leviat / Aschwanden":
+                continue
+            source = "CRET Série 100 • 05/2026"
+            page = str(candidate.get("page", "") or "")
+            if page:
+                source += f" • s. {page}"
+            tree.set(iid, "source", source)
+    except Exception:
+        pass
+
+_base.ThermalConnectorApp.refresh_shear_tables = _refresh_cret_source_239
+
 _base.APP_VERSION = APP_VERSION
 _base.APP_NAME = "TURTO"
 try:
@@ -40,6 +69,7 @@ def selftest() -> None:
     assert BASE_RUNTIME.name == "app_runtime_238.pyw"
     assert getattr(_base.ThermalConnectorApp, "_turto_shear_substitution_237", False)
     assert getattr(_base.ThermalConnectorApp, "_turto_cret_239", False)
+    assert _base.ThermalConnectorApp.refresh_shear_tables is _refresh_cret_source_239
     shear_cret_239.selftest()
 
 
