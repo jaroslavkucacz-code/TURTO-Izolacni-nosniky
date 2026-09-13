@@ -13,12 +13,12 @@ import urllib.request
 VERSION = "2.2.39"
 RUNTIME_LAYOUT = "23"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-PAYLOAD_COMMIT = "a258b1823dde8c92024b19e2b039230981df37c3"
+PAYLOAD_COMMIT = "c94b9ee492da314bdb78ccf534e246a5ff9825ba"
 BASE_COMMIT = "950e684c3e6f365682d3cff21ad2875c048311c2"
 BASE_INSTALLER_SHA256 = "b8e54a92254d125f33da1842aa13f429d810e0b946bf12cc6951fb4df9fbe392"
 BASE_RUNTIME_SHA256 = "99cd795fbd49ba790737e4ffe03c4e3cf2ae9f23caf12a71a879e7cbb8ee93ba"
 PAYLOADS = {
-    "app_runtime.pyw": "d59becb2a663ce755f1dc53abfb0ab817835a938d1bb9c5cd39be072429c1b54",
+    "app_runtime.pyw": "6ef5e7799268b56c390156c9bc758481a9528e222442a19a61adb7a84efde5a7",
     "cret_series_100_239.py": "70f4d4064613188a2dc68b985effae53da671da321b9a41bbfeaae3bc26b5ceb",
     "cret_series_100_239_data1.py": "23a22c1b6a09181109120639a5d0fb10ada8faa5c13c4021eaa9e91e35879e9e",
     "cret_series_100_239_data2.py": "1bad7aed0efe72b386df16599dff612f964c648e75215f60ff2da86a7029e5b4",
