@@ -43,7 +43,7 @@ def main() -> None:
         return io.BytesIO(cache[key])
 
     report = {"version": "2.2.37", "platform": sys.platform}
-    with tempfile.TemporaryDirectory(prefix="turto_2237_ui_") as folder:
+    with tempfile.TemporaryDirectory(prefix="turto_2237_ui_", ignore_cleanup_errors=True) as folder:
         root = Path(folder)
         program = root / "Program"
         os.environ.update(
