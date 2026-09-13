@@ -18,8 +18,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.36"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "46a82622053c371eec4ba8516def532a426ebef2"
-INSTALLER_SHA256 = "5000ec328138488c85fea36b415298a00c24e8dd1496838fd0668054775d16b3"
+INSTALLER_COMMIT = "76219167edb4a65267d399b91dac90c6a18f98d5"
+INSTALLER_SHA256 = "78ea08317f8b37488735e64709644b5beba69d0af3302ba63002908c507d5c1e"
 RUNTIME_LAYOUT = "21"
 
 ROOT = Path(__file__).resolve().parent
@@ -35,8 +35,8 @@ CRITICAL_PROGRAM_SHA256 = {
     "shear_dowels_hsd_234.py": "299705a9091784ad88be8d38b6fdbdc69c1bc29d4baf813fb69030e1c11aadf7",
     "design_groups_restore.py": "8aa2b4507f96a8b34b2e79d266e9779732d1a38f29050f64b49a7ed75d00aea8",
     "app_runtime_235.pyw": "8e4c7e8b5ec4a56379e8fa7d1b44ac8a9c6bb8a4a94ac322c29ee1079d7b4290",
-    "shear_workflow_236.py": "f52650bee99e82d41fc34bb9c283faf8cf88ee0979266963d98229991fd813e5",
-    "shear_schedule_io_236.py": "1822fe73a0e09cd0e4f5d4b226a5fdde939ae372b92d2b7bbbbe3a46ed263647",
+    "shear_workflow_236.py": "c96f573dafd7893f36bf809d064135ecf56573157895f3051bc97d56a93df7f3",
+    "shear_schedule_io_236.py": "5c21aec2b230c8e73d37cf0e3d2f2a27cb0efe42619bbcc618a56ae6051576f4",
     "hsd_windows_ocr.ps1": "b76a281f1b8eef02c7bbfc6aa4d4cc3c3f41b5abef814d49f526b9dff79babf3",
 }
 
