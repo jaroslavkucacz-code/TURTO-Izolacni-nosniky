@@ -76,7 +76,7 @@ def main() -> None:
     # regression must remain valid after 2.2.32 is no longer CURRENT_VERSION.
     manifest = json.loads((ROOT / "update_manifest.json").read_text(encoding="utf-8"))
     assert version_tuple(manifest["version"]) >= (2, 2, 32)
-    assert str(manifest.get("runtime_layout")) == "21"
+    assert int(str(manifest.get("runtime_layout"))) >= 21
     if manifest["version"] == "2.2.32":
         app_item = next(item for item in manifest["files"] if item["path"] == "app.pyw")
         notes_item = next(item for item in manifest["files"] if item["path"] == "RELEASE_NOTES.txt")

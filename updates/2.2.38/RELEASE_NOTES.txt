@@ -1,0 +1,12 @@
+TURTO 2.2.38
+================
+
+Oprava exportu PDF po aktualizaci 2.2.37.
+
+- Program při spuštění automaticky obnoví chybějící nebo poškozený soubor Program\assets\turto_logo_vector.json z ověřeného vestavěného vektorového podkladu.
+- PDF export proto již nesmí skončit chybou pouze kvůli chybějícímu vektorovému logu TURTO.
+- Oprava nemění katalogové hodnoty, dekódování, návrh ani logiku záměn smykových trnů.
+- Režimy Katalogová VRd / Podle VEd a zobrazení blízkého kandidáta HLD 42 z verze 2.2.37 zůstávají beze změny.
+- actions.sqlite3 není součástí aktualizace a není upravována.
+
+Vytvořil Ing. Jaroslav Kučera
