@@ -3,6 +3,7 @@ from __future__ import annotations
 
 Raster fixture is thresholded from the customer's actual screenshot, not redrawn.
 """
+import gc
 import io
 import json
 import logging
@@ -49,6 +50,7 @@ def main():
         db=root/'actions.sqlite3'
         with sqlite3.connect(db) as con:
             con.execute('CREATE TABLE sentinel (v TEXT)');con.execute("INSERT INTO sentinel VALUES ('unchanged customer data')")
+        con.close()
         before=db.read_bytes()
         installer=runpy.run_path(str(RELEASE/'runtime_installer.py'));installer['selftest']()
         with patch('urllib.request.urlopen',urlopen):
@@ -82,9 +84,9 @@ def main():
         assert ui.decode_dowel('Ancon HLD 22') and ui.decode_dowel('Schöck Dorn SLD 40')
         def parse(text):return parse_rows(text,decoder=ui.decode_dowel,defaults={},existing_names=set())
         def check_rows(rows):
-            assert len(rows)==5,[(r.raw,r.error) for r in rows]
-            assert [r.quantity for r in rows]==[5,7,4,8,6]
-            assert not any(r.error for r in rows),[(r.raw,r.error) for r in rows]
+            assert len(rows)==5,[repr(r) for r in rows]
+            assert [r.quantity for r in rows]==[5,7,4,8,6],[repr(r) for r in rows]
+            assert not any(r.error for r in rows),[repr(r) for r in rows]
         for separator in ('\t',';',' | ',' '):
             check_rows(parse('\n'.join(f'{n}{separator}{q}' for n,q in SAMPLES)))
         for text in ('CRET 124\t0','CRET 124\t2.5','CRET 124\t-2','UNKNOWN\t5'):
@@ -161,13 +163,13 @@ def main():
                 from PIL import ImageGrab
                 ImageGrab.grab().save(ROOT/'hsd-evidence-windows.png')
             app.destroy()
-            # Application logging remains registered until interpreter shutdown.
-            # Close handlers before TemporaryDirectory removes app.log on Windows.
             logging.shutdown()
+            gc.collect()
         ocr_status='not run on Linux; native Windows path tested in Windows job'
         if os.name=='nt':
             imagefile=ROOT/'tools/fixtures/hsd_schedule_from_screenshot.png'
             extracted=read_file(imagefile)
+            print('OCR_TEXT_JSON:',json.dumps(extracted.text,ensure_ascii=True),flush=True)
             rows=parse(extracted.text)
             check_rows(rows)
             assert rows[0].values['canonical_designation']=='HSD-CRET 122 V'
