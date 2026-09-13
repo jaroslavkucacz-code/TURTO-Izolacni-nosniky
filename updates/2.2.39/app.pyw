@@ -17,8 +17,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.39"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "4555783d7e1a6cf16dcc5a30819eae093b94dd6a"
-INSTALLER_SHA256 = "0bc1edf87da6a1c24d5612632b53d8fd4221f359287ac90af788957a07d4048d"
+INSTALLER_COMMIT = "7bf86fd34a4dab31a56672863731a2367a446af0"
+INSTALLER_SHA256 = "f857f1b1f860f1d655d57174741d38de747826691965acb9410b2b410559dae5"
 RUNTIME_LAYOUT = "23"
 
 ROOT = Path(__file__).resolve().parent
@@ -28,7 +28,7 @@ PROGRAM_MARKER = PROGRAM / ".turto_runtime_2_2_39.ok"
 STARTUP_LOG = ROOT / "Logy" / "startup.log"
 
 CRITICAL_PROGRAM_SHA256 = {
-    "app_runtime.pyw": "d59becb2a663ce755f1dc53abfb0ab817835a938d1bb9c5cd39be072429c1b54",
+    "app_runtime.pyw": "6ef5e7799268b56c390156c9bc758481a9528e222442a19a61adb7a84efde5a7",
     "app_runtime_238.pyw": "99cd795fbd49ba790737e4ffe03c4e3cf2ae9f23caf12a71a879e7cbb8ee93ba",
     "app_runtime_237.pyw": "590f3d4e5595688a85dd3143b2fce05b1bbfb687833f919cff516625b325bf6f",
     "app_runtime_236.pyw": "75e9b1899532d82a7c0562dedd7dfae0110ef616482195fd2f58d3a304fcb8d4",
