@@ -18,8 +18,8 @@ from tkinter import messagebox
 
 VERSION = "2.2.36"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "76219167edb4a65267d399b91dac90c6a18f98d5"
-INSTALLER_SHA256 = "78ea08317f8b37488735e64709644b5beba69d0af3302ba63002908c507d5c1e"
+INSTALLER_COMMIT = "2c77199a55db92c5a445743a33afbf7f199cc151"
+INSTALLER_SHA256 = "8917fad4f50b4b7c4f36ff45c0f92ac580739f65c676ba97f405e440430c4424"
 RUNTIME_LAYOUT = "21"
 
 ROOT = Path(__file__).resolve().parent
@@ -29,7 +29,7 @@ PROGRAM_MARKER = PROGRAM / ".turto_runtime_2_2_36.ok"
 STARTUP_LOG = ROOT / "Logy" / "startup.log"
 
 CRITICAL_PROGRAM_SHA256 = {
-    "app_runtime.pyw": "4a8920c497177730214f01fdadf133b26899a385454c814bb49fc907753f8a3f",
+    "app_runtime.pyw": "75e9b1899532d82a7c0562dedd7dfae0110ef616482195fd2f58d3a304fcb8d4",
     "app_runtime_234.pyw": "5576cdae794c9c8fd4f566573acb55bb5e687b5fbcc5c3f1fb521afc0cfcc883",
     "halfen_hsd_2026.py": "805f811bee2a8302c2c8ced979ecd2c26a3c92fbe6fd1024940a28dd98e617be",
     "shear_dowels_hsd_234.py": "299705a9091784ad88be8d38b6fdbdc69c1bc29d4baf813fb69030e1c11aadf7",
