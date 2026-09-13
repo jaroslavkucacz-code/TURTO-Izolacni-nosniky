@@ -78,11 +78,26 @@ def _inherited_required(installer_path: Path) -> tuple[str, ...]:
         try:
             base_path = str(_assignment_literal(current, "BASE_PATH"))
         except RuntimeError:
-            if collected:
+            # Compact overlays declare the BASE path at their verified download
+            # call rather than in a separate variable. Still traverse the same
+            # actual dependency; do not skip the inherited movement requirement.
+            tree = ast.parse(current.read_text(encoding="utf-8"))
+            paths = [node.args[1].value for node in ast.walk(tree)
+                     if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                     and node.func.id == "_download" and len(node.args) == 3
+                     and isinstance(node.args[0], ast.Name) and node.args[0].id == "BASE_COMMIT"
+                     and isinstance(node.args[1], ast.Constant) and isinstance(node.args[1].value, str)
+                     and isinstance(node.args[2], ast.Name) and node.args[2].id == "BASE_INSTALLER_SHA256"]
+            if len(set(paths)) == 1:
+                base_path = paths[0]
+            elif paths:
+                raise RuntimeError("Nejednoznačná cesta základního installeru.")
+            elif collected:
                 return tuple(collected)
-            raise RuntimeError(
-                f"Installer {current.relative_to(ROOT)} nemá CURRENT_REQUIRED ani BASE_PATH."
-            )
+            else:
+                raise RuntimeError(
+                    f"Installer {current.relative_to(ROOT)} nemá CURRENT_REQUIRED ani BASE_PATH."
+                )
 
         current = (ROOT / base_path).resolve()
         if not current.is_file():
@@ -141,7 +156,15 @@ def main() -> int:
     assert not module["validate_ancon_application"]("existing_wall", "axial")
 
     payloads = _assignment_literal(installer_path, "PAYLOADS")
-    for local, (commit, source, expected) in payloads.items():
+    for local, payload in payloads.items():
+        if isinstance(payload, tuple) and len(payload) == 3:
+            commit, source, expected = payload
+        elif isinstance(payload, str) and len(payload) == 64:
+            commit = _assignment_literal(installer_path, "PAYLOAD_COMMIT")
+            payload_version = _assignment_literal(installer_path, "VERSION")
+            source, expected = f"updates/{payload_version}/{local}", payload
+        else:
+            raise RuntimeError(f"Neplatný runtime payload: {local}")
         source_path = ROOT / source
         if not source_path.is_file():
             raise RuntimeError(f"Runtime payload chybí v repozitáři: {source}")

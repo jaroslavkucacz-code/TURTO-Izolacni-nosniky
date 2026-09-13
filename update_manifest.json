@@ -1,12 +1,12 @@
 {
-  "version": "2.2.35",
+  "version": "2.2.36",
   "runtime_layout": "21",
-  "notes": "Dekodér smykových trnů doplněn o Leviat/HALFEN HSD EC 10-E (03/2026): HSD-CRET / V, HSD-D/S/P/SV a HSD-SET. Katalogové VRd se zobrazují přímo v Dekodéru; tabulkové vyhodnocení je bez interpolace. HSD-CRET 145/150/155 se dekódují bez VRd, protože katalog uvádí dimenzační únosnosti na vyžádání. Verze 2.2.35 vynutí finální runtime i přes případnou meziverzi 2.2.34. Databáze AKCÍ se nemění.",
+  "notes": "Oprava Dekodéru HSD/CRET, import výkazů s počty, povinná kontrola OCR a přehlednější tabulka.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/87d66a8fc9660445a49fcd6f933fc2d553d38923/updates/2.2.35/app.pyw",
-      "sha256": "3cc37fe7894d3199a74ccd78f1b27c4868227ff5bab071fc2a9536e4bd6d09b3"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/92036b3fb0211769d7cc2390cb6d7d3a0915dbfc/updates/2.2.36/app.pyw",
+      "sha256": "de946bffd97fb6ec7f86a62ed653d3ef54a3262824dc2e004cb376e313bc50ea"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0d72f1d7c297b2c7a5b7207308ac544177162c9d/updates/2.2.35/RELEASE_NOTES.txt",
-      "sha256": "c1705b1231d4b237e7847721727a3ca9f28f604614390ab7460960159ee78f7f"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/19f966f4222a69a62a1518ce201d6e7e3ddabed5/updates/2.2.36/RELEASE_NOTES.txt",
+      "sha256": "25fbd1147db47db6d79b8b1bdce77f488eb1baafdd592c4d882fe55faf368c24"
     }
   ]
 }
