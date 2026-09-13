@@ -1,0 +1,13 @@
+TURTO 2.2.37
+
+Smykové trny – záměny podle katalogové VRd nebo skutečného VEd
+
+- Záměny nově rozlišují režim „Katalogová VRd“ a „Podle VEd“.
+- V režimu Katalogová VRd zůstává konzervativní pravidlo 1:1: cílový trn musí mít VRd alespoň jako původní prvek.
+- Pokud přesná záměna 1:1 neexistuje, program už vhodný katalogový kandidát neskrývá. Zobrazí nejlepší geometricky použitelný výrobek se stavem „OVĚŘIT VEd“, poměrem k původní VRd a upozorněním na nutnost kontroly skutečného VEd.
+- V režimu Podle VEd se cílový výrobek posuzuje přímo podmínkou VEd ≤ VRd cíle.
+- Pro HSD-CRET 140, h = 350 mm, spáru 20 mm a beton C30/37 se v katalogovém režimu zobrazí Ancon HLD 42 s VRd = 334 kN, tj. 96,3 % původní katalogové VRd 347 kN, se stavem „OVĚŘIT VEd“.
+- Při VEd = 320 kN/trn stejný Ancon HLD 42 vyhoví v režimu Podle VEd; při VEd = 340 kN/trn nevyhoví.
+- Únosnosti se neinterpolují. Program nadále používá ověřené katalogové tabulkové hodnoty a stávající konzervativní výběr geometrie.
+- Do tabulky záměn byly doplněny sloupce Režim a VEd [kN] a ovládání pro přepnutí vybraných řádků mezi oběma režimy.
+- Aktualizace nemění ani nepřepisuje actions.sqlite3.

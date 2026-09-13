@@ -1,0 +1,17 @@
+{
+  "version": "2.2.37",
+  "manifest_root_only": true,
+  "runtime_directory": "Program",
+  "runtime_layout": "21",
+  "preserve": [
+    "actions.sqlite3",
+    "catalogs",
+    "Logy",
+    "Zaloha"
+  ],
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ]
+}
