@@ -1,12 +1,12 @@
 {
-  "version": "2.2.38",
-  "runtime_layout": "22",
-  "notes": "Oprava exportu PDF po aktualizaci 2.2.37: chybějící nebo poškozené vektorové logo TURTO se při instalaci i spuštění automaticky obnoví. Katalogové hodnoty, dekódování, návrh a logika záměn smykových trnů se nemění.",
+  "version": "2.2.39",
+  "runtime_layout": "23",
+  "notes": "Nový samostatný zdroj Leviat / Aschwanden CRET Série 100 podle dokumentace 05/2026: přesné tabulky FRd a aD,min pro CRET-122 až CRET-155, přímý návrh i záměny bez interpolace. Výslovné HALFEN HSD-CRET zůstává na dosavadním zdroji HSD EC 10-E (03/2026).",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b6e2de08b49d3015d0a98a925add65335f6a36b4/updates/2.2.38/app.pyw",
-      "sha256": "fcb9ceef8c772f9f2b236443b2c546ba013447325665938b019efd1bc5a21609"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/624736ed4b32019c7177dae670a9fbea349d8b6a/updates/2.2.39/app.pyw",
+      "sha256": "8fc5314ee7a6a295423b4ab89cdc7c0d666bf37ac56d545e00cb8c9b37a253de"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b6e2de08b49d3015d0a98a925add65335f6a36b4/updates/2.2.38/RELEASE_NOTES.txt",
-      "sha256": "944e35a627be57be25836589b94dce95bb6889d9dbb056ad270288faec5d9651"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4ac0435772ef839ba8fb156f97d10ee8bc434742/updates/2.2.39/RELEASE_NOTES.txt",
+      "sha256": "a54c75731fb68cd0a07f184800e1ba1d65d6343c29bde4823a93a19229f00369"
     }
   ]
 }
