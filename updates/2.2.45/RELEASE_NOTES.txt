@@ -1,0 +1,10 @@
+TURTO 2.2.45
+
+- Opraveno vyhodnocení kandidátů Schöck Isokorb XT při hromadném dekódování.
+- QL používá pro rozlišení pouze parametry relevantní pro tuto rodinu; falešné rozdíly v momentu, krytí a tlakovém přenosu již nevytvářejí další možnosti.
+- QP a QP-Z využívají z označení smykovou třídu V, výšku H, délku L a generaci; nerelevantní moment/krytí/tlakový přenos se nepoužívají jako důvod k dotazu.
+- ZL se již nerozpadá podle nerelevantních M/V/CV parametrů.
+- Více statických katalogových řádků se stejným skutečným objednacím označením je považováno za jeden produkt.
+- KL-VV1 se nikdy automaticky nezamění za KL-V1; bez skutečné shody VV1 zůstane řádek k doplnění.
+- Přidána regresní sada všech 30 označení P001–P030 z kontrolního výkazu.
+- Beze změny zůstávají statické únosnosti, návrhová data, pravidla záměn a databáze actions.sqlite3.
