@@ -1,0 +1,12 @@
+TURTO 2.2.43
+
+Oprava přesné analýzy označení Schöck Isokorb XT ve výkazech.
+
+- Prefix „XT Typ“ se před katalogovým vyhledáním bezpečně odstraní pouze tehdy, když celý zbytek odpovídá známé struktuře označení XT.
+- Přesně rozlišeny rodiny KL, QL, QP, QP-Z a ZL.
+- Přesně rozlišeno V a VV; V10 se nesmí zaměnit za V1.
+- QP-Z je zpracováno jako samostatná rodina, nikoli jako QP + posunuté pole.
+- ZL používá EI, ostatní zde podporované rodiny REI.
+- Neúplné nebo neznámé struktury se nedohadují; zůstávají k ruční kontrole.
+- Regresní sada obsahuje všech 30 dodaných označení: 601 ks celkem (KL 333, QL 40, QP 48, QP-Z 9, ZL 171).
+- Statická katalogová data, únosnosti ani databáze AKCÍ se touto opravou nemění.
