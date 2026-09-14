@@ -95,13 +95,22 @@ def _candidate_matches(suggestion, parsed) -> bool:
 
 def _identity(suggestion, parsed) -> tuple[str, ...]:
     r = suggestion.result
-    return tuple(_value(r, key).casefold() for key in _RELEVANT[parsed.family])
+    # For these XT families the commercial designation is the product identity.
+    # The catalogue may contain several statical rows for the same order type;
+    # those rows must not be presented as different products.
+    designation = _engine.normalize_designation_text(str(r.designation or ""))
+    if designation:
+        return ("designation", designation)
+    return ("fields",) + tuple(_value(r, key).casefold() for key in _RELEVANT[parsed.family])
 
 def _refine(candidates, parsed):
     matched = [x for x in candidates if _candidate_matches(x, parsed)]
-    pool = matched or list(candidates)
+    # Safety first: never infer from a failed family/token filter. This is
+    # essential for KL-VV1, which must not silently collapse to KL-V1.
+    if not matched:
+        return list(candidates)
     groups = defaultdict(list)
-    for item in pool:
+    for item in matched:
         groups[_identity(item, parsed)].append(item)
     return [items[0] for items in groups.values()]
 
