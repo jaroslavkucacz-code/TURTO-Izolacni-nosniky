@@ -1,12 +1,12 @@
 {
-  "version": "2.2.42",
-  "runtime_layout": "26",
-  "notes": "Oprava spuštění po 2.2.41. CRET záměny jsou napojené na skutečnou metodu recalculate_shear_substitutions a nadále přebírají aktuální katalogovou VRd z CRET 05/2026. Pro h=350 mm, spáru 20 mm a C30/37 zůstává CRET 140 = 353,4 kN. Bez interpolace; katalogová data a actions.sqlite3 se nemění.",
+  "version": "2.2.43",
+  "runtime_layout": "27",
+  "notes": "Oprava přesné analýzy označení Schöck Isokorb XT ve výkazech. Prefix XT Typ se bezpečně odstraní pouze u úplně rozpoznaného označení. Přesně se rozlišují KL, QL, QP, QP-Z a ZL, dále V/VV a V10/V1. Regresní sada: 30 označení, 601 ks. Statická katalogová data, únosnosti ani actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b354437e75c0ed9bd0200f3916933f8cd6ed1d0c/updates/2.2.42/app.pyw",
-      "sha256": "7de4fec1cc9ac92a90e0b7d0798718b0c0dd3a934837478a61276af514d6b6a3"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/944d5250e45b968d1378c894549075d9da0519b9/updates/2.2.43/app.pyw",
+      "sha256": "c353135b5772a7dbe5eb48baf6a672bb734e6fac30ad31964c8b099d5337d486"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/a3d0f623ea5606cba489943094fcb035f59ab07a/updates/2.2.42/RELEASE_NOTES.txt",
-      "sha256": "75f85f89bb7fefb14092f826646c821a3e2a2a4303b58847c188414fbcf2adb5"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c40cc6979ca90307b29a0529630a9168ab55149a/updates/2.2.43/RELEASE_NOTES.txt",
+      "sha256": "4a5e362cc22d0d50b9a293441877772592bd615f354e3893c5189c67e49d60a3"
     }
   ]
 }
