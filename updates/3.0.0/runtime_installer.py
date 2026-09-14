@@ -33,7 +33,7 @@ PAYLOADS = {
     "turto_logo_300.png": (
         "5f723b15712d6f39e68f03fda14fe966077da33c",
         "updates/3.0.0/turto_logo_300.png",
-        "9466ad8706d3a7f0473b025a9eb2ddd82fb0ae0b2ac06a0665780e28af16820f",
+        "042dc49e79c4168139335ea146d708cbb871e6ba9afbc7db6f412c436879d665",
     ),
 }
 MARKER = ".turto_runtime_3_0_0.ok"
