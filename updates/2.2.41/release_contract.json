@@ -1,0 +1,19 @@
+{
+  "version": "2.2.41",
+  "base_version": "2.2.40",
+  "manifest_root_only": true,
+  "runtime_directory": "Program",
+  "runtime_layout": "25",
+  "preserve": [
+    "actions.sqlite3",
+    "catalogs",
+    "Logy",
+    "Zaloha"
+  ],
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "runtime_strategy": "cret-source-vrd-regression-overlay"
+}
