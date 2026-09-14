@@ -65,6 +65,10 @@ def main() -> None:
         namespace = runpy.run_path(str(overlay), run_name="verify_pdf_context_240")
         namespace["selftest"]()
 
+    if _version_tuple(current) >= (2, 2, 41):
+        verifier = runpy.run_path(str(ROOT / "tools" / "verify_cret_sync_241.py"), run_name="verify_cret_sync_241_entry")
+        verifier["main"]()
+
     print(f"TURTO {current}: PDF multi-selection, catalog browser and PDF context checks OK")
 
 
