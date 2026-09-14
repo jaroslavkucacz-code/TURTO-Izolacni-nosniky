@@ -1,0 +1,16 @@
+{
+  "version": "2.2.46",
+  "runtime_layout": "30",
+  "manifest_root_only": true,
+  "runtime_directory": "Program",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_strategy": "gui-bound-family-aware-xt-resolver-over-2.2.44",
+  "base_version": "2.2.44"
+}
