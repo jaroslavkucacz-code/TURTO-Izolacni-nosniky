@@ -1,0 +1,12 @@
+TURTO 2.2.41
+
+Oprava přenosu katalogové únosnosti CRET z Dekodéru do Záměn.
+
+- Příkaz „Aktualizovat z Dekodéru“ už nepřepočítává bare CRET přes starší uzavřenou logiku 2.2.37.
+- Zdrojová VRd v Záměnách se znovu vyhodnotí přes aktuální Leviat / Aschwanden CRET Série 100, PDF 05/2026.
+- Oprava se vztahuje také na hromadný přepočet Záměn a na ručně přidanou záměnu CRET.
+- Pro kontrolní případ h = 350 mm, spára = 20 mm, C30/37 se do Záměn přenášejí: CRET 122 V = 96,3 kN; CRET 124 = 122,9 kN; CRET 128 = 167,2 kN; CRET 134 = 238,9 kN; CRET 140 = 353,4 kN.
+- Poměr záměny se počítá proti této aktuální zdrojové VRd. U CRET 140 → Ancon HLD 42 je tedy 334,0 / 353,4 = 94,5 % a stav zůstává „OVĚŘIT VEd“.
+- Únosnosti se neinterpolují. Výpočtové tabulky CRET 05/2026 ani Ancon se touto opravou nemění.
+- PDF záměn používá stejná opravená strukturovaná data, takže zobrazuje shodnou VRd jako tabulka Záměn.
+- actions.sqlite3 se při aktualizaci nemění.
