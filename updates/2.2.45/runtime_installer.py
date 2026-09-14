@@ -17,10 +17,10 @@ BASE_PATH = "updates/2.2.44/runtime_installer.py"
 BASE_SHA256 = "c48e5209e605dce8c46ed571754bc3bf10670460f3d706f792d1f70e7074bb14"
 BASE_RUNTIME_SHA256 = "815ba2950af3145552c0d40ed2771bd3448c0c00d6feab580c321ee9410b4627"
 
-PAYLOAD_COMMIT = "0294a83eae710d21b99f226e90c51fbcea75797c"
+PAYLOAD_COMMIT = "e7eaa0dbe2b258f4e2f6d59b635ecc7393679bb5"
 PAYLOADS = {
     "app_runtime.pyw": "8a6b3dc73bef1c6f55ea365016bf8c77ac190e54c0727c7ad415cad9f0582c79",
-    "isokorb_xt_resolver_245.py": "193b6f360f80b3136af557197208607442ec263cfab59780a2fbc147658bbe49",
+    "isokorb_xt_resolver_245.py": "e0a633936c4d901aa9fa88f89b50fa85e55e6eea80a43b2235a743117144dda7",
 }
 MARKER = ".turto_runtime_2_2_45.ok"
 
