@@ -1,12 +1,12 @@
 {
-  "version": "2.2.44",
-  "runtime_layout": "28",
-  "notes": "Stabilizační vydání navazující na ověřený runtime 2.2.43. Přesná analýza Schöck Isokorb XT pro KL, QL, QP, QP-Z a ZL zůstává beze změny včetně rozlišení V/VV a V10/V1. Runtime 2.2.43 je zmrazen jako verzovaný základ; statická katalogová data, únosnosti, pravidla návrhu/záměn ani actions.sqlite3 se nemění.",
+  "version": "2.2.45",
+  "runtime_layout": "29",
+  "notes": "Oprava hromadného dekódování Schöck Isokorb XT. Resolver nyní vyhodnocuje kandidáty podle parametrů relevantních pro rodiny KL, QL, QP, QP-Z a ZL a slučuje pouze katalogové řádky se stejným skutečným objednacím označením. KL-VV1 se nesmí automaticky zaměnit za V1. Statická katalogová data, únosnosti, návrhová pravidla ani actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b15350900b866ee2765427d8d3205baa29ebd31b/updates/2.2.44/app.pyw",
-      "sha256": "b59511a7b0307c2a79ad1d4d78d8313d5685cc7d9296a71bafa142ce9acb3448"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d0dd64d36ccf95d7d09606d443ffed101c690957/updates/2.2.45/app.pyw",
+      "sha256": "902109994a36603ba58f2225a84fcbc6d84794bf9bd4aa01e21ff9064fdc50aa"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/55535aa35f8e50de1d81191bab50dafaf358c740/updates/2.2.44/RELEASE_NOTES.txt",
-      "sha256": "901b6eea0d1086bf9f13317ad1a1891fd1a29bfa86a63b0e0c13a4f6ad986a87"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b418f9d0771b1115eacdccd81186745d58a895f6/updates/2.2.45/RELEASE_NOTES.txt",
+      "sha256": "3708f0afa4f62c3a75d3826282f0e5737cef40fabfe5022dbde1a5bcf43ebf92"
     }
   ]
 }
