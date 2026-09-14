@@ -1,0 +1,22 @@
+{
+  "version": "2.2.44",
+  "runtime_layout": "28",
+  "manifest_root_only": true,
+  "runtime_directory": "Program",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ],
+  "runtime_strategy": "maintenance-wrapper-over-2.2.43",
+  "base_version": "2.2.43",
+  "requirements": [
+    "preserve exact Schöck Isokorb XT analysis from 2.2.43",
+    "freeze verified 2.2.43 runtime as app_runtime_243.pyw",
+    "do not change catalogue resistance data or design/substitution rules",
+    "do not modify actions.sqlite3"
+  ]
+}
