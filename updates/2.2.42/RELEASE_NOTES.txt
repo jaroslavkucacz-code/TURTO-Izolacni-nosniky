@@ -1,0 +1,10 @@
+TURTO 2.2.42
+
+Oprava spuštění po aktualizaci 2.2.41.
+
+- Opraveno napojení CRET synchronizační vrstvy na skutečnou metodu recalculate_shear_substitutions.
+- Zachována oprava z 2.2.41: záměny CRET znovu vyhodnocují zdrojovou VRd přes katalog CRET 05/2026.
+- Hromadný přepočet, převzetí z Dekodéru a ruční přidání používají stejnou aktuální logiku.
+- Pro h = 350 mm, spáru 20 mm a C30/37 zůstává CRET 140 = 353,4 kN.
+- Bez interpolace únosností.
+- actions.sqlite3 ani katalogová data se touto opravou nemění.
