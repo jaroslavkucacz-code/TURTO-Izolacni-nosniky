@@ -1,0 +1,12 @@
+TURTO 3.0.0
+
+Hlavní vydání TURTO 3.0.
+
+Novinky:
+- nové jednoduché logo, které spojuje motiv izolačního nosníku a smykového trnu,
+- logo je použito v záhlaví programu a jako ikona hlavního okna,
+- uživatelské označení programu je TURTO 3.0,
+- zachována oprava hromadného dekódování Schöck XT z verze 2.2.46,
+- beze změny zůstávají katalogové statické hodnoty, návrhová pravidla a data AKCÍ.
+
+Aktualizace používá ověřený runtime 2.2.46 jako základ a pouze přidává novou značku a verzi 3.0.0. Soubor actions.sqlite3 není součástí aktualizace a není měněn.
