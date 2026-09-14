@@ -1,0 +1,10 @@
+TURTO 2.2.44
+
+Stabilizační vydání navazující na ověřenou verzi 2.2.43.
+
+- Ověřený runtime 2.2.43 je zmrazen jako základ a 2.2.44 jej načítá přes samostatnou verzovanou vrstvu.
+- Přesná analýza Schöck Isokorb XT zůstává zachována beze změny: KL, QL, QP, QP-Z a ZL; správné rozlišení V/VV a V10/V1.
+- Regresní sada XT zůstává 30 označení / 601 ks.
+- Sjednocena verze release metadat a dokumentace repozitáře na 2.2.44.
+- Statická katalogová data, únosnosti a pravidla návrhu/záměn se tímto vydáním nemění.
+- Databáze actions.sqlite3 zůstává mimo aktualizační manifest a instalační vrstva ji kontroluje proti změně.
