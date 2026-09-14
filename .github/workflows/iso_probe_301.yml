@@ -1,0 +1,21 @@
+name: ISO 3.0.1 diagnostic source
+on:
+  push:
+    branches: ["fix/3.0.1-iso-logo"]
+    paths: [".github/workflows/iso_probe_301.yml"]
+permissions:
+  contents: read
+jobs:
+  diagnostic-source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Collect source history without credentials or working data
+        run: git bundle create iso-source-history.bundle --all
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iso-source-history
+          path: iso-source-history.bundle
+          retention-days: 1
