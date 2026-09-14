@@ -1,0 +1,8 @@
+{
+  "version": "3.0.0",
+  "runtime_layout": "31",
+  "manifest_root_only": true,
+  "runtime_directory": "Program",
+  "required_targets": ["app.pyw", "updater.py", "RELEASE_NOTES.txt"],
+  "preserve": ["actions.sqlite3"]
+}

@@ -2,12 +2,14 @@
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 2.2.46**
+**Aktuální vydání: TURTO 3.0** (`3.0.0`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
 - **Izolační nosníky** – Dekodér / Návrh / Záměny
 - **Smykové trny** – Dekodér / Návrh / Záměny
+
+TURTO 3.0 používá nové jednoduché logo kombinující motiv izolačního nosníku a smykového trnu. Logo je součástí záhlaví a ikony hlavního okna; funkční základ zůstává ověřený runtime 2.2.46.
 
 ## Aktuální funkce
 
@@ -96,7 +98,7 @@ Hlavní dokumentace:
 - `docs/RELEASE_PROCESS.md`
 - `updates/<verze>/RELEASE_NOTES.txt`
 
-Historické migrační nástroje jsou oddělené v `legacy/` a pro současné instalace 2.x se nepoužívají.
+Historické migrační nástroje jsou oddělené v `legacy/` a pro současné instalace se nepoužívají.
 
 ## Důležité upozornění
 
