@@ -1,12 +1,12 @@
 {
-  "version": "2.2.41",
-  "runtime_layout": "25",
-  "notes": "Oprava přenosu CRET 05/2026 z Dekodéru do Záměn: zdrojová VRd se nyní vždy znovu vyhodnotí aktuální cestou Leviat / Aschwanden CRET Série 100 podle h, spáry a betonu. Hromadný přepočet i ruční přidání CRET používají stejnou logiku. Pro h=350 mm, spáru 20 mm a C30/37 se CRET 140 přenáší jako 353,4 kN, nikoli 347,0 kN. Bez interpolace; katalogová data a actions.sqlite3 se nemění.",
+  "version": "2.2.42",
+  "runtime_layout": "26",
+  "notes": "Oprava spuštění po 2.2.41. CRET záměny jsou napojené na skutečnou metodu recalculate_shear_substitutions a nadále přebírají aktuální katalogovou VRd z CRET 05/2026. Pro h=350 mm, spáru 20 mm a C30/37 zůstává CRET 140 = 353,4 kN. Bez interpolace; katalogová data a actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0142d9477fe0142d37cc59026e0d06aa314e03a8/updates/2.2.41/app.pyw",
-      "sha256": "475e5e74fcc7aaa2864a06b8a389dbd8d54d80111ecc152b9f9fa79dc90d877f"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b354437e75c0ed9bd0200f3916933f8cd6ed1d0c/updates/2.2.42/app.pyw",
+      "sha256": "7de4fec1cc9ac92a90e0b7d0798718b0c0dd3a934837478a61276af514d6b6a3"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/41301026a606aebd15f9db76313ed6c260b52f77/updates/2.2.41/RELEASE_NOTES.txt",
-      "sha256": "05e608625b494d818da1713a35b6fac063b0214831072c11908227c1dfb936f9"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/a3d0f623ea5606cba489943094fcb035f59ab07a/updates/2.2.42/RELEASE_NOTES.txt",
+      "sha256": "75f85f89bb7fefb14092f826646c821a3e2a2a4303b58847c188414fbcf2adb5"
     }
   ]
 }
