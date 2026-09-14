@@ -1,0 +1,11 @@
+TURTO 2.2.46
+
+Oprava aktivní vazby hromadného dekodéru Schöck Isokorb XT.
+
+- 2.2.45 správně připravila family-aware resolver, ale okno Hromadné dekódování mělo už při startu uložený starší alias analyze_bulk_text.
+- 2.2.46 po načtení ověřeného runtime výslovně přepojí také bulk_import.analyze_bulk_text, tedy přesně globální funkci používanou tlačítkem Analyzovat.
+- QL, QP, QP-Z a ZL proto nyní skutečně používají rodinové filtrování a deduplikaci zavedenou v 2.2.45.
+- KL-VV1 zůstává bezpečnostně chráněné: při neexistující přesné katalogové shodě se nesmí zaměnit za KL-V1.
+- Regresní sada nadále obsahuje všech 30 označení P001–P030 / 601 ks z kontrolního výkazu.
+- Přidána kontrola, že GUI alias bulk_import.analyze_bulk_text a aktivní bulk_import_engine.analyze_bulk_text ukazují po instalaci na stejný resolver.
+- Statické únosnosti, katalogové hodnoty, pravidla návrhu/záměn ani actions.sqlite3 se nemění.
