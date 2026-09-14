@@ -1,12 +1,12 @@
 {
-  "version": "2.2.40",
-  "runtime_layout": "24",
-  "notes": "PDF export smykových trnů nyní používá správnou terminologii bez označení HIT. Záměny se exportují ze strukturovaných dat a přehledně zobrazují VRd navržené záměny, VRd původního prvku, VEd, režim kontroly a skutečné využití. Únosnost záměny je hlavní kontrolovaná hodnota; původní VRd zůstává referencí pro katalogovou záměnu 1:1. Výpočtová logika a katalogová data se nemění.",
+  "version": "2.2.41",
+  "runtime_layout": "25",
+  "notes": "Oprava přenosu CRET 05/2026 z Dekodéru do Záměn: zdrojová VRd se nyní vždy znovu vyhodnotí aktuální cestou Leviat / Aschwanden CRET Série 100 podle h, spáry a betonu. Hromadný přepočet i ruční přidání CRET používají stejnou logiku. Pro h=350 mm, spáru 20 mm a C30/37 se CRET 140 přenáší jako 353,4 kN, nikoli 347,0 kN. Bez interpolace; katalogová data a actions.sqlite3 se nemění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f2ef62c47fc10a047d97185ce474c18922936eb5/updates/2.2.40/app.pyw",
-      "sha256": "34ae38aafd893aeaf1c99274550b8098e05d974d1aa63fe5588bc69c7cd66291"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/0142d9477fe0142d37cc59026e0d06aa314e03a8/updates/2.2.41/app.pyw",
+      "sha256": "475e5e74fcc7aaa2864a06b8a389dbd8d54d80111ecc152b9f9fa79dc90d877f"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4fa5304ef10564a35c4cc0530cf5f5fade14e697/updates/2.2.40/RELEASE_NOTES.txt",
-      "sha256": "d418dc8d92c6f855de7e0717e97640ab16e493e36639614481d671fc198581b8"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/41301026a606aebd15f9db76313ed6c260b52f77/updates/2.2.41/RELEASE_NOTES.txt",
+      "sha256": "05e608625b494d818da1713a35b6fac063b0214831072c11908227c1dfb936f9"
     }
   ]
 }
