@@ -13,14 +13,21 @@ VERSION = "2.2.44"
 RUNTIME_LAYOUT = "28"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
 
-BASE_INSTALLER_COMMIT = "b194cfd7c25937ea25317dc236b85ba0fc06be26"
-BASE_INSTALLER_PATH = "updates/2.2.43/runtime_installer.py"
-BASE_INSTALLER_SHA256 = "8f1a570370c7e47a68641d916b33a5d17007b6859983c32c902c0f714451f5ed"
+BASE_COMMIT = "b194cfd7c25937ea25317dc236b85ba0fc06be26"
+BASE_PATH = "updates/2.2.43/runtime_installer.py"
+BASE_SHA256 = "8f1a570370c7e47a68641d916b33a5d17007b6859983c32c902c0f714451f5ed"
 BASE_RUNTIME_SHA256 = "fd527e691770a5547f387e1cb47c535aae06df8dc063f07917bdcfd88a07f752"
 XT_PARSER_SHA256 = "680f6853fbb62234a440c2a43e8d1b4f0b03e0df2b4d69c4b84b6b52a2a28352"
 
 PAYLOAD_COMMIT = "a80c2dd2b0177c4107b097ecfb81382bc1748e02"
 NEW_RUNTIME_SHA256 = "815ba2950af3145552c0d40ed2771bd3448c0c00d6feab580c321ee9410b4627"
+PAYLOADS = {
+    "app_runtime.pyw": (
+        PAYLOAD_COMMIT,
+        "updates/2.2.44/app_runtime.pyw",
+        NEW_RUNTIME_SHA256,
+    ),
+}
 MARKER = ".turto_runtime_2_2_44.ok"
 
 
@@ -126,9 +133,9 @@ def install_runtime(root) -> Path:
             installer = Path(folder) / "runtime_installer_243.py"
             installer.write_bytes(
                 _download(
-                    BASE_INSTALLER_COMMIT,
-                    BASE_INSTALLER_PATH,
-                    BASE_INSTALLER_SHA256,
+                    BASE_COMMIT,
+                    BASE_PATH,
+                    BASE_SHA256,
                     "TURTO-2.2.44-base",
                 )
             )
@@ -141,10 +148,11 @@ def install_runtime(root) -> Path:
     if not _base_ready(program):
         raise RuntimeError("Ověřený runtime 2.2.43 se nepodařilo připravit.")
 
+    payload_commit, payload_path, payload_sha = PAYLOADS["app_runtime.pyw"]
     new_runtime = _download(
-        PAYLOAD_COMMIT,
-        "updates/2.2.44/app_runtime.pyw",
-        NEW_RUNTIME_SHA256,
+        payload_commit,
+        payload_path,
+        payload_sha,
         "TURTO-2.2.44-runtime",
     )
 
@@ -190,15 +198,15 @@ def install_runtime(root) -> Path:
 def selftest() -> None:
     assert VERSION == "2.2.44"
     assert RUNTIME_LAYOUT == "28"
-    assert len(BASE_INSTALLER_COMMIT) == 40
+    assert len(BASE_COMMIT) == 40
     assert len(PAYLOAD_COMMIT) == 40
-    assert len(BASE_INSTALLER_SHA256) == 64
+    assert len(BASE_SHA256) == 64
     assert len(BASE_RUNTIME_SHA256) == 64
     assert len(XT_PARSER_SHA256) == 64
     assert len(NEW_RUNTIME_SHA256) == 64
     assert "actions.sqlite3" not in (
-        BASE_INSTALLER_PATH,
-        "updates/2.2.44/app_runtime.pyw",
+        BASE_PATH,
+        PAYLOADS["app_runtime.pyw"][1],
     )
 
 
