@@ -1,0 +1,14 @@
+{
+  "version": "2.2.43",
+  "runtime_layout": "27",
+  "manifest_root_only": true,
+  "runtime_directory": "Program",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt"
+  ],
+  "preserve": [
+    "actions.sqlite3"
+  ]
+}
