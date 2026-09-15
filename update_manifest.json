@@ -1,12 +1,12 @@
 {
-  "version": "3.0.5",
-  "runtime_layout": "36",
-  "notes": "Standardní firemní logo TURTO ve všech PDF výstupech nosníků a trnů, včetně celé AKCE. Zachována průhlednost a kvalita. Logo a ikona aplikace se nemění. Původní PDF znovu exportujte z AKCE.",
+  "version": "3.0.6",
+  "runtime_layout": "37",
+  "notes": "Oprava nepoužitých prvních řádků v návrhu: Desky / balkony, Doplňkové prvky a Stěny WT začínají prázdné a při načtení AKCE nevznikají falešné návrhy. Přehled starších akcí nezapočítává přesně rozpoznané nepoužité výchozí řádky. Rozpracované a výslovně přidané řádky se zachovávají. Bez migrace actions.sqlite3; logo PDF z 3.0.5 zachováno.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/56f72cc3fb8909f3befd8fbc86792b4be172c161/updates/3.0.5/app.pyw",
-      "sha256": "3a05c6a99c1226d5c0f570c69a3e17c58961842153907eff31d6c598c5fa2f6c"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d2518b144503661200a7de72f67bc09939ec41d7/updates/3.0.6/app.pyw",
+      "sha256": "abd542049b6e4d1d73494cd1f601844ff2c2c8486eb4a4787a136c283c0b5bae"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f3993a50d2a79e51e1d88994e056a6c88d9a7931/updates/3.0.5/RELEASE_NOTES.txt",
-      "sha256": "daa4a268878113d8d9873a3e86680026ef47e084f21e4f5ae06966523e7f5b78"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/5d282066d94d8903feba0e6ccff629dc11a1c735/updates/3.0.6/RELEASE_NOTES.txt",
+      "sha256": "b8c9644b9fb7a3961b6640de29d2174124a9c0bd77cd64a52dd28974f7a2dc83"
     }
   ]
 }

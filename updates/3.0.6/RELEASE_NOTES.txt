@@ -1,0 +1,12 @@
+TURTO 3.0.6
+2026-09-15
+
+Prázdné moduly návrhu a správné počty návrhů v databázi AKCÍ.
+
+- Desky / balkony, Doplňkové prvky a Stěny WT začínají bez automatického prvního řádku.
+- Načtení prázdného návrhu ani založení nové AKCE už nepřidá nepoužitý návrh.
+- Starší přesně rozpoznané výchozí řádky bez uživatelských změn se při čtení nezapočítávají. Databáze se při aktualizaci ani otevření seznamu nepřepisuje.
+- Řádky se změněným názvem, počtem, geometrií, zatížením (včetně zadané nuly), importem nebo výsledkem zůstávají zachované i jako rozpracované.
+- Nově výslovně přidaný řádek zůstává uložený i před dokončením zadání.
+- Zachováno standardní firemní logo PDF z 3.0.5 a stávající logo a ikona programu.
+- Aktualizace neprovádí migraci ani změnu actions.sqlite3 a nemění katalogová a výpočtová data.

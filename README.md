@@ -1,4 +1,6 @@
-# TURTO 3.0.5
+# TURTO 3.0.6
+
+Moduly Desky / balkony, Doplňkové prvky a Stěny WT začínají prázdné. Nová AKCE ani načtení prázdného návrhu automaticky nepřidává první řádek. Přehled AKCÍ nezapočítává přesně rozpoznané starší výchozí řádky bez úprav; změněné a výslovně přidané návrhy se zachovávají i nedokončené. Přepočet počtů při zobrazení seznamu je pouze čtecí, bez migrace databáze. Podrobnosti v `updates/3.0.6/RELEASE_NOTES.txt`.
 
 PDF výstupy všech částí nosníků a trnů používají standardní firemní logo TURTO z dodaného PNG. Logo je na každé stránce v původní kvalitě, s průhledností a zachovanými proporcemi. Symbol a ikona uvnitř programu zůstávají beze změny. Podrobnosti v `updates/3.0.5/RELEASE_NOTES.txt`.
 
@@ -7,7 +9,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.5** (`3.0.5`)
+**Aktuální vydání: TURTO 3.0.6** (`3.0.6`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
