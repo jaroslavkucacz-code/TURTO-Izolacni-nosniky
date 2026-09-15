@@ -1,60 +1,53 @@
-name: ZVX 3.0.3 manufacturer-source inspection
+name: ZVX 3.0.3 integration
+
 on:
   push:
-    branches: [fix/3.0.3-zvx-table-columns]
-    paths: [.github/workflows/zvx-303.yml]
+    branches:
+      - main
+      - "fix/**"
+      - "release/**"
+  pull_request:
+    branches:
+      - main
+
 permissions:
   contents: read
+
 jobs:
-  inspect:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  zvx-303-integration:
+    name: ZVX tables 3.0.3 (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     steps:
+      - name: Preserve exact bytes on Windows
+        if: runner.os == 'Windows'
+        run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install pdfplumber pymupdf
-      - name: Read official DoP without modifying installed data
-        shell: bash
-        run: |
-          python - <<'PY'
-          import hashlib, json, sys, time, urllib.request
-          from pathlib import Path
-          import pdfplumber, fitz
-          folder = Path('zvx303-evidence'); folder.mkdir()
-          url = 'https://downloads.halfen.com/catalogues/de/media/declarationofperformance/reinforcementsystems/CONF-DOP_HIT-HP_SP_07-23-E.pdf'
-          data = None
-          for attempt in range(3):
-              try:
-                  req = urllib.request.Request(url, headers={'User-Agent': 'TURTO-catalogue-verification/3.0.3'})
-                  with urllib.request.urlopen(req, timeout=90) as response:
-                      data = response.read(40 * 1024 * 1024)
-                  assert data.startswith(b'%PDF-')
-                  break
-              except Exception:
-                  if attempt == 2: raise
-                  time.sleep(3)
-          path = folder / 'CONF-DOP_HIT-HP_SP_07-23-E.pdf'; path.write_bytes(data)
-          sys.path.insert(0, str(Path('updates/1.1.17').resolve()))
-          import hit_core
-          with pdfplumber.open(path) as pdf:
-              assert len(pdf.pages) == 124
-              old = hit_core._parse_zvx_pages(pdf)
-              (folder / 'old-records.json').write_text(json.dumps(old, ensure_ascii=False, indent=2), encoding='utf-8')
-              for i in range(94, 100):
-                  (folder / f'page-{i+1}.txt').write_text(pdf.pages[i].extract_text(x_tolerance=1, y_tolerance=2) or '', encoding='utf-8')
-                  (folder / f'page-{i+1}-words.json').write_text(json.dumps(pdf.pages[i].extract_words(), ensure_ascii=False), encoding='utf-8')
-          doc = fitz.open(path)
-          for i in (94, 95, 97, 98, 99):
-              doc[i].get_pixmap(matrix=fitz.Matrix(2, 2)).save(folder / f'page-{i+1}.png')
-          report = {'source_url': url, 'sha256': hashlib.sha256(data).hexdigest(), 'pages': len(doc), 'old_zvx_records': len(old)}
-          (folder / 'inspection.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
-          print(json.dumps(report))
-          PY
+      - name: Install runtime dependencies
+        run: python -m pip install pillow openpyxl pdfplumber reportlab
+      - name: Actual 3.0.2 to 3.0.3 update and manufacturer-table proposals on Linux
+        if: runner.os == 'Linux'
+        run: xvfb-run -a -s "-screen 0 1600x1000x24" python tools/verify_zvx_303.py
+      - name: Actual 3.0.2 to 3.0.3 update and manufacturer-table proposals on Windows
+        if: runner.os == 'Windows'
+        run: python tools/verify_zvx_303.py
+      - name: Verify live immutable payload downloads
+        run: python -c "import runpy; d=runpy.run_path('updates/3.0.3/runtime_installer.py'); [d['_download'](*p) for p in d['PAYLOADS'].values()]; print('All 3.0.3 live payload hashes verified')"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: zvx303-manufacturer-evidence
-          path: zvx303-evidence/
+          name: zvx303-results-${{ runner.os }}
+          path: |
+            zvx303-test-*.json
+            zvx303-window-*.png
+          if-no-files-found: warn
           retention-days: 14
