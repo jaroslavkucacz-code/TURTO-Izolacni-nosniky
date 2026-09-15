@@ -77,6 +77,7 @@ def install(base):
     if getattr(cls, "_turto_design_rows_306", False):
         return
     import action_store
+    import action_payload_prev
     import hit_design_ui
 
     old_build = cls._build_hit_tab
@@ -114,6 +115,19 @@ def install(base):
     cls.add_hit_row = add_hit
     cls.add_aux_row_for_type = add_aux
     cls.add_wt_row = add_wt
+
+    # New AKCE clears rows through a separate legacy helper, which used to
+    # recreate N1 after clearing. Keep the existing confirmation/reset chain.
+    old_clear = action_payload_prev._clear_hit_rows
+
+    @wraps(old_clear)
+    def clear_hit(owner):
+        with _suppress_initial_rows(owner, "hit_design"):
+            result = old_clear(owner)
+        owner.update_hit_status()
+        return result
+
+    _replace_imported("_clear_hit_rows", old_clear, clear_hit)
 
     old_hit_load = hit_design_ui._load_design_record
 
