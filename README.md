@@ -1,11 +1,11 @@
-# TURTO 3.0.3
+# TURTO 3.0.4
 
-Oprava fyzických sloupců tabulek HIT ZVX/ZDX a automatické doplnění dříve vynechaných záznamů z ověřeného DoP při načtení starší databáze HIT. Jeden nesrovnalý řádek C20/25 se nepoužije pro návrh. Původní uložené soubory katalogů ani databáze akcí se nepřepisují. Podrobnosti v `updates/3.0.3/RELEASE_NOTES.txt`.
+Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF přímo z dat AKCE. PDF zachovává celé záměny, rozměry, směrové kontroly, jednotky na prvek a skutečné využití; chybějící data nemohou vytvořit falešné VYHOVUJE / 0,0 %. CXT AP zůstává zvláštním posouzením KF. Podrobnosti v `updates/3.0.4/RELEASE_NOTES.txt`.
 
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.3** (`3.0.3`)
+**Aktuální vydání: TURTO 3.0.4** (`3.0.4`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -42,7 +42,7 @@ Dekódované prvky, návrhy a záměny obou produktových oblastí se ukládají
 
 ## PDF
 
-Od TURTO 2.2.8 používá hlavní tlačítko **Export PDF…** výběrr rozsahu. Lze exportovat:
+Od TURTO 2.2.8 používá hlavní tlačítko **Export PDF…** výběr rozsahu. Lze exportovat:
 
 - celou AKCI,
 - všechny Izolační nosníky,
@@ -94,7 +94,7 @@ Kontroluje mimo jiné:
 - jednotné tabulky a ovládání,
 - rozsah PDF exportu,
 - Windows PowerShell recovery,
-- skutečné aktualizace 3.0.1 → 3.0.2 a 3.0.2 → 3.0.3 a tlačítko Navrhnout vše na Windows/Linux,
+- skutečné aktualizace 3.0.1 → 3.0.2, 3.0.2 → 3.0.3 a 3.0.3 → 3.0.4 a tlačítko Navrhnout vše na Windows/Linux,
 - původní Annex 3 přímo z ověřeného DoP, opravu staršího souboru HIT v paměti, přepočet kN/m na skutečný prvek, pozice P021/P025/P026/P027, ochranu nesrovnalých dat a SQLite round-trip.
 
 Hlavní dokumentace:
@@ -108,3 +108,7 @@ Historické migrační nástroje jsou oddělené v `legacy/` a pro současné in
 ## Důležité upozornění
 
 TURTO je katalogová databázová a návrhová pomůcka. Nenahrazuje technické informace výrobce ani úplné statické posouzení. Před použitím ve výpočtu vždy ověřte celé označení, katalogové vydání, geometrické podmínky a zdrojové tabulky.
+
+## Ověření 3.0.4
+
+`tools/verify_decoder_pdf_304.py` ověřuje skutečný přechod 3.0.3 → 3.0.4, tlačítka Analyzovat a Navrhnout vše, všech šest rozsahů PDF, uložení do SQLite, vybranou variantu, momentové a smykové jednotky a odmítnutí neúplných výsledků. Překlady a pořadí sloupců GUI nemají ovlivnit PDF. Schématové katalogy TEST_ONLY se do instalace nedodávají. Původní chybné exporty znovu vytvořte z AKCE; samotné neúplné PDF neobsahuje všechna potřebná data.

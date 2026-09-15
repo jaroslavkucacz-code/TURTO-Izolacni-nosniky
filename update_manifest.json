@@ -1,12 +1,12 @@
 {
-  "version": "3.0.3",
-  "runtime_layout": "34",
-  "notes": "Oprava fyzických sloupců tabulek HIT ZVX/ZDX. Automatické doplnění vynechaných hodnot z ověřeného DoP také při načtení staršího souboru HIT; nesrovnalý řádek C20/25 zůstává vyloučen z návrhu. Opraveny chybějící návrhy P021/P025/P026/P027. Původní soubory katalogů ani actions.sqlite3 se nepřepisují; kontroly záměn zůstávají zachovány.",
+  "version": "3.0.4",
+  "runtime_layout": "35",
+  "notes": "Oprava dekodéru T/XT/CXT a přenosu skutečných dat AKCE do PDF. Export obsahuje celé záměny, geometrii, směrové kontroly, správné jednotky na prvek a skutečné využití. Chybějící údaje již nevytvářejí falešné VYHOVUJE / 0,0 %. CXT AP je identifikace se zvláštním posouzením KF, nikoliv automatický statický návrh. Původní katalogové soubory a actions.sqlite3 se nemění; staré PDF znovu exportujte.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b41e1b92abbcdbf39db73e9c97c349e482dc1eae/updates/3.0.3/app.pyw",
-      "sha256": "e16da30629b36bb307cfa16a77e250bed7259fdc2ca2a1d9b1dabe342bb55e33"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/cdacaedb5b4db02193ac668fe284a027dfda9525/updates/3.0.4/app.pyw",
+      "sha256": "169622a1a883fd7106f8f1ef89effb1710d4645283d0b8c60c0cc0dc8fa00293"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ccc50fe326cf0c20173d0aa93fd9ff7967a885b0/updates/3.0.3/RELEASE_NOTES.txt",
-      "sha256": "60e66780922120dcb9c1e5385b8e74f9fdbc1abb400ea47337dcd9ca2967c334"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/3b7f4d8821e6f26ebcb66cc3443a66a0ae3ffa1d/updates/3.0.4/RELEASE_NOTES.txt",
+      "sha256": "f993e73e1345c713f219d6f2ef7183e204de1a6a442ba72340d8f17e624e461c"
     }
   ]
 }
