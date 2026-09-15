@@ -1,0 +1,20 @@
+TURTO 3.0.2
+2026-09-15
+
+OPRAVA ZAMEN SMYKOVYCH PRVKU
+- U uplne zadanych Schock XT QL 6.0 a QP/QP-Z 5.0 bez volby CV uz prazdne kryti zdroje samo nezablokuje hledani nahrady.
+- Zdrojove kryti zustava nezadane (v tabulce 'dle typu'); pro HIT ZVX/ZDX se pouzije pevne dolni kryti 30 mm ('30 mm (pevne)').
+- QL-VV se smeruje na ZDX; QP-V a QP-Z-V na ZVX. Nadale se kontroluji oba smery smyku, unosnost, vyska, delka, beton a provedeni s/bez tlakovych lozisek.
+- Nejde o potvrzeni shodneho kryti obou vyrobku. Pozadavky projektu na kryti zustavaji k overeni. Vysvetleni je v poznamce a vypoctu.
+- Vyslovne zadane CV/cnom, poznamky ke kryti a prvky s momentem nebo normalovou silou se timto pravidlem neprepisuji.
+- Nebyl pridan zadny novy katalog ani unosnost; nevyhovujici nebo chybejici HIT se automaticky nevybere.
+
+AKTUALIZACE
+- Zachovano schvalene logo a prubezny ISO dekoder z 3.0.1.
+- Overovane SHA-256 soubory, oprava poskozeneho modulu a rollback pri chybe zapisu.
+- Bez zmen katalogovych souboru a uzivatelske databaze actions.sqlite3.
+
+TESTY
+- Regresni sada pouziva oddelene TEST_ONLY zdrojove a HIT zaznamy, ktere se neinstaluji uzivateli.
+- Skutecne tlacitko Navrhnout vse, 15 oznaceni P014-P028, 36 ochrannych a jednotkovych kontrol, aktualizace 3.0.1 -> 3.0.2 a SQLite round trip.
+- Tyto testy overuji software, nikoli uplnost uzivatelovych katalogu nebo statickou vhodnost konkretni zamenny v projektu.
