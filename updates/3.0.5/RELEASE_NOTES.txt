@@ -1,0 +1,13 @@
+TURTO 3.0.5
+2026-09-15
+
+Standardní firemní logo TURTO ve všech PDF výstupech.
+
+- PDF používá dodané oficiální logo TURTO v původní kvalitě a s průhledností.
+- Logo je v záhlaví každé stránky: souhrn, detaily i poznámky.
+- Platí pro Dekodér, Návrh a Záměny izolačních nosníků i smykových trnů, vybrané části a celou AKCI.
+- Logo a ikona uvnitř aplikace zůstávají beze změny.
+- PDF již nevyžaduje starý vektorový soubor loga. Při poškození firemního loga se export zastaví se srozumitelnou chybou.
+- Aktualizace chrání actions.sqlite3 a katalogy. Výpočty, výběr prvků a přenos dat do PDF zůstávají zachovány.
+
+Dříve uložené PDF vytvořte znovu exportem z AKCE.
