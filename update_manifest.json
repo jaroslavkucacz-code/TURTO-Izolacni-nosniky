@@ -1,12 +1,12 @@
 {
-  "version": "3.0.0",
-  "runtime_layout": "31",
-  "notes": "TURTO 3.0 přináší nové jednoduché logo kombinující motiv izolačního nosníku a smykového trnu. Logo je použito v záhlaví programu a jako ikona hlavního okna. Funkční základ zůstává ověřený runtime 2.2.46 včetně opravy aktivního Schöck XT resolveru. Statická data, únosnosti, návrhová pravidla ani actions.sqlite3 se nemění.",
+  "version": "3.0.1",
+  "runtime_layout": "32",
+  "notes": "Oprava skutečné průběžné klasifikace hromadného výkazu a zobrazení schváleného loga. Úplné XT označení již nepadá do obecných návrhů; chybějící katalogový záznam má stav Chybí data. Bez změny statických hodnot, katalogů a actions.sqlite3.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f56a459568d1272222e41b26cf957beab8599204/updates/3.0.0/app.pyw",
-      "sha256": "e3f51cc4f24bb35ed6d8d7cbe32a2bee8c79a043b68cdc9d2a9d6171b3857ca2"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/15ec470158dfdabfc9cb5a54a028d9fc427bf25d/updates/3.0.1/app.pyw",
+      "sha256": "93048e69ffc5236f8c826b9407fedbd302c3db9e10e737b2291c048e1e774df1"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1a6654b464a8aa45435886bd74ea83a412633402/updates/3.0.0/RELEASE_NOTES.txt",
-      "sha256": "578700a7378f6febba26856cede943b5353b445e573c77fed6c5ade07abf479c"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6fd9aa4f390a4c67fc3967eb8ccdb7ff2371b361/updates/3.0.1/RELEASE_NOTES.txt",
+      "sha256": "36be444dd6ff059b9aca74fa43292b989788e144464ae5c1346cf7663873084b"
     }
   ]
 }

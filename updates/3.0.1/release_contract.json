@@ -1,0 +1,12 @@
+{
+  "version": "3.0.1",
+  "manifest_root_only": true,
+  "runtime_directory": "Program",
+  "runtime_layout": "32",
+  "preserve": [
+    "actions.sqlite3",
+    "catalogs",
+    "sources",
+    "Katalogy"
+  ]
+}
