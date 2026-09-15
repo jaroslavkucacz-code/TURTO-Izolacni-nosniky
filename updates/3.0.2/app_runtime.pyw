@@ -27,6 +27,10 @@ import shear_cover_302
 branding_301.install(_base)
 iso_bulk_301.install(_base)
 shear_cover_302.install(_base)
+_base.ThermalConnectorApp.COLUMNS = tuple(
+    (key, label, max(width, 112) if key == "target_cover" else width, anchor, stretch)
+    for key, label, width, anchor, stretch in _base.ThermalConnectorApp.COLUMNS
+)
 
 _base.APP_VERSION = APP_VERSION
 _base.APP_NAME = "TURTO 3.0"
