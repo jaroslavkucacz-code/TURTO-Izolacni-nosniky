@@ -2,22 +2,12 @@ from __future__ import annotations
 
 """TURTO 3.0.4 - live ISO substitution PDF data and corporate PDF logo."""
 
-import base64
-from io import BytesIO
-from pathlib import Path
 from functools import wraps
 from typing import Any
 
 VERSION = "3.0.4"
-LOGO_FILE = Path(__file__).with_name("turto_pdf_logo_304.jpg.b64")
 _INSTALLED = False
 
-
-def logo_bytes() -> bytes:
-    raw = base64.b64decode("".join(LOGO_FILE.read_text(encoding="ascii").split()), validate=True)
-    if not raw.startswith(b"\xff\xd8\xff") or not raw.endswith(b"\xff\xd9"):
-        raise ValueError("Standardní logo TURTO není platný JPEG.")
-    return raw
 
 
 def _status_text(value: Any) -> str:
@@ -144,6 +134,7 @@ def _install_input_summary_patch(hit_pdf) -> None:
             module._input_summary = new
     cls = getattr(hit_pdf, "_ProposalReport", None)
     if cls is not None:
+        # The oldest methods resolve globals in their defining module.
         for name in ("summary_row", "card_flows"):
             fn = getattr(cls, name, None)
             if callable(fn):
@@ -154,18 +145,6 @@ def _install_input_summary_patch(hit_pdf) -> None:
                     new._turto_pdf_304 = True
                     gl["_input_summary"] = new
 
-
-def _logo_draw(self, canvas) -> None:
-    from reportlab.lib.utils import ImageReader
-    data = logo_bytes()
-    image = ImageReader(BytesIO(data))
-    x = self.margin
-    top = 12.0
-    max_w, max_h = 68.0, 68.0
-    width, height = image.getSize()
-    scale = min(max_w / float(width), max_h / float(height))
-    w, h = width * scale, height * scale
-    canvas.drawImage(image, x, self.h - top - h, width=w, height=h, preserveAspectRatio=True, mask="auto")
 
 
 def install(app_base=None) -> None:
@@ -181,6 +160,8 @@ def install(app_base=None) -> None:
     @wraps(old_collect)
     def collect(owner):
         sections = old_collect(owner)
+        # Unlike the historical Treeview adapter this reads the same row,
+        # mapping, selected target and actions used by the live Záměny workspace.
         sections[("thermal_breaks", "substitution")] = _live_iso_substitution_rows(owner)
         return sections
 
@@ -189,7 +170,6 @@ def install(app_base=None) -> None:
 
     report_cls = getattr(hit_pdf, "_ProposalReport", None)
     if report_cls is not None:
-        report_cls.logo_draw = _logo_draw
         old_header = report_cls.summary_header
         old_catalog = report_cls._catalog_table
 
@@ -226,11 +206,10 @@ def install(app_base=None) -> None:
 
         report_cls.summary_header = summary_header
         report_cls._catalog_table = catalog_table
-        report_cls._turto_pdf_logo_304 = True
+        report_cls._turto_pdf_logo_304 = True  # standard vector TURTO logo inherited from report base
     sub_report = getattr(substitution_pdf, "_Report", None)
     if sub_report is not None:
-        sub_report.logo_draw = _logo_draw
-        sub_report._turto_pdf_logo_304 = True
+        sub_report._turto_pdf_logo_304 = True  # standard vector TURTO logo already bundled in assets
 
     if app_base is not None:
         app_base.ThermalConnectorApp._turto_pdf_export_304 = True
@@ -239,8 +218,6 @@ def install(app_base=None) -> None:
 
 def selftest() -> None:
     assert VERSION == "3.0.4"
-    raw = logo_bytes()
-    assert raw[:3] == b"\xff\xd8\xff" and raw[-2:] == b"\xff\xd9"
 
 
 if __name__ == "__main__":
