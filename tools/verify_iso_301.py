@@ -127,6 +127,14 @@ def main():
             assert any(isinstance(w, ttk.Label) and str(w.cget("image"))
                        for frame in app.winfo_children() if isinstance(frame, ttk.Frame)
                        and str(frame.cget("style")) == "Header.TFrame" for w in frame.winfo_children())
+            # Explorer/DWM paints taskbar icons asynchronously, after Tk idle.
+            until = time.monotonic() + 1.0
+            while time.monotonic() < until:
+                app.update()
+                time.sleep(0.05)
+            if sys.platform == "win32":
+                assert app._turto_native_icon_loaded
+            report["native_windows_icon_loaded"] = bool(getattr(app, "_turto_native_icon_loaded", False))
             ImageGrab.grab().save(ROOT / f"iso301-window-{sys.platform}.png")
 
             def analyze(db):
