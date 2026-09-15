@@ -6,6 +6,7 @@ import logging
 from pathlib import Path
 import struct
 import sys
+import tempfile
 import tkinter as tk
 from tkinter import ttk
 import zlib
@@ -41,6 +42,57 @@ def logo_bytes():
     return raw
 
 
+def ico_bytes(square):
+    """Encode 16/32px BMP-based ICO for native Windows, without image libraries."""
+    images = []
+    for size in (16, 32):
+        pixels, mask = bytearray(), bytearray()
+        stride = ((size + 31) // 32) * 4
+        for y in reversed(range(size)):
+            row = bytearray(stride)
+            sy = min(square.height() - 1, y * square.height() // size)
+            for x in range(size):
+                sx = min(square.width() - 1, x * square.width() // size)
+                r, g, b = square.get(sx, sy)
+                transparent = square.transparency_get(sx, sy)
+                pixels.extend((b, g, r, 0 if transparent else 255))
+                if transparent:
+                    row[x // 8] |= 128 >> (x % 8)
+            mask.extend(row)
+        header = struct.pack("<IiiHHIIiiII", 40, size, size * 2, 1, 32, 0,
+                             len(pixels), 0, 0, 0, 0)
+        images.append((size, header + pixels + mask))
+    offset = 6 + 16 * len(images)
+    directory = bytearray(struct.pack("<HHH", 0, 1, len(images)))
+    for size, data in images:
+        directory.extend(struct.pack("<BBBBHHII", size, size, 0, 0, 1, 32, len(data), offset))
+        offset += len(data)
+    return bytes(directory) + b"".join(data for size, data in images)
+
+
+def native_icon(window):
+    """Apply after the Windows wrapper HWND exists, not before initial mapping."""
+    if sys.platform != "win32":
+        return
+    try:
+        import ctypes
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+            ctypes.c_wchar_p("TURTO.TechnickePrvky"))
+        # Tcl/Tk loads both icon handles synchronously; the temporary file can
+        # be removed immediately afterwards. No customer directories are written.
+        with tempfile.TemporaryDirectory(prefix="turto_icon_301_") as folder:
+            path = Path(folder) / "turto.ico"
+            path.write_bytes(ico_bytes(window._turto_icon_square))
+            window.iconbitmap(str(path))
+            window.iconbitmap(default=str(path))
+        window._turto_native_icon_loaded = True
+        window._turto_logo_loaded = True
+    except Exception:
+        window._turto_native_icon_loaded = False
+        window._turto_logo_loaded = False
+        LOG.exception("TURTO 3.0.1: systémovou ikonu Windows nelze nastavit")
+
+
 def install(base):
     cls = base.ThermalConnectorApp
     if getattr(cls, "_turto_branding_301", False):
@@ -63,9 +115,12 @@ def install(base):
             side = max(logo.width(), logo.height())
             square = tk.PhotoImage(master=self, width=side, height=side)
             self.tk.call(square, "copy", logo, "-to", (side-logo.width())//2, (side-logo.height())//2)
+            self._turto_icon_square = square
             self._turto_icon_sizes = [square.subsample(k, k) for k in (1, 2, 4, 8)]
             self.iconphoto(True, *self._turto_icon_sizes)
-            self._turto_logo_loaded = True
+            self._turto_logo_loaded = sys.platform != "win32"
+            if sys.platform == "win32":
+                self.after_idle(lambda: native_icon(self))
         except Exception:
             self._turto_logo_loaded = False
             LOG.exception("TURTO 3.0.1: logo nelze načíst")
@@ -82,7 +137,7 @@ def install(base):
                 if isinstance(widget, ttk.Label) and str(widget.cget("style")) == "HeaderTitle.TLabel":
                     widget.configure(text="TURTO 3.0.1 | Izolační nosníky a smykové trny")
                     self._turto_brand_title = widget
-        if not getattr(self, "_turto_logo_loaded", False):
+        if getattr(self, "_turto_logo_master", None) is None:
             LOG.error("Záhlaví TURTO běží bez nové ikony; viz Logy.")
 
     cls._set_icon = set_icon
