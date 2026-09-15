@@ -16,8 +16,8 @@ from tkinter import messagebox
 
 VERSION = "3.0.6"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "b1858760a14069fada8f0e2721daa477c98daa1c"
-INSTALLER_SHA256 = "a0fb73e54ae4efeb42254a3d839cf099c743f93c139b5440709e93c7803317d8"
+INSTALLER_COMMIT = "366d07e254a3ce71854363c7bd4a2b1f59f0ea2e"
+INSTALLER_SHA256 = "26d19b1bd09b72cb8da11821fe5892c56b09373d6ee284ba2a3683e02f2b30a2"
 RUNTIME_LAYOUT = "37"
 
 ROOT = Path(__file__).resolve().parent
@@ -55,7 +55,7 @@ CRITICAL_PROGRAM_SHA256 = {'app_runtime.pyw': '7818a7e0ea7c4be9e6b2debe4126279eb
  'project_model.py': 'dcbf91bb5c8863e90b2f09e5cd93be248a48249e88c3a36bf6ddb292a281786e',
  'pdf_branding_305.py': '70d86c6238d1cffffab69c251c2f45660d23a8dfcd932821811a94e85808bc21',
  'turto_pdf_logo_305.png.b64': '71a0ae5f632a57e7dfe4204d3f0d494071024e53a25a5850e66481b9875c7d40',
- 'design_rows_306.py': 'e23ef4b108fd5fa4259a10624e1244c907a87d98b083c641604d5bd75f99e4e9'}
+ 'design_rows_306.py': '1ceb657e4686ad6eeddf45b0152b30a4be8b6999b84530d880126d88567f43dc'}
 
 
 def _matches(path: Path, expected: str) -> bool:
