@@ -3,6 +3,7 @@ from __future__ import annotations
 """Installed Tk/SQLite regression for unused legacy HIT rows, using TEST_ONLY data."""
 
 import copy
+from contextlib import closing
 import gc
 import hashlib
 import io
@@ -120,7 +121,7 @@ def main():
 
             store = ActionStore(root / "TEST_ONLY_counts.sqlite3")
             record = store.save(action_name="TEST_ONLY legacy defaults", payload=explicit)
-            with store._connect() as connection:
+            with closing(store._connect()) as connection, connection:
                 connection.execute("UPDATE actions SET payload_json=?, hit_count=3 WHERE id=?",
                                    (json.dumps(legacy, ensure_ascii=False), record["id"]))
             snapshot = Path(store.path).read_bytes()
