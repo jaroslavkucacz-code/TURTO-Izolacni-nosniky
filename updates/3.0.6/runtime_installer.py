@@ -104,9 +104,9 @@ PAYLOADS = {'app_runtime.pyw': ('5d282066d94d8903feba0e6ccff629dc11a1c735',
  'turto_pdf_logo_305.png.b64': ('f3993a50d2a79e51e1d88994e056a6c88d9a7931',
                                 'updates/3.0.5/turto_pdf_logo_305.png.b64',
                                 '71a0ae5f632a57e7dfe4204d3f0d494071024e53a25a5850e66481b9875c7d40'),
- 'design_rows_306.py': ('5d282066d94d8903feba0e6ccff629dc11a1c735',
+ 'design_rows_306.py': ('9c58481ed5ba8dc311f241e55670b91d62afd6b1',
                         'updates/3.0.6/design_rows_306.py',
-                        'e23ef4b108fd5fa4259a10624e1244c907a87d98b083c641604d5bd75f99e4e9')}
+                        '1ceb657e4686ad6eeddf45b0152b30a4be8b6999b84530d880126d88567f43dc')}
 BASE_REQUIRED = (
     "app_base.py", "app_runtime_244.pyw", "app_runtime_243.pyw", "app_runtime_242.pyw",
     "project_ui.py", "project_model.py", "hit_workspace.py", "platform_workspace.py",
