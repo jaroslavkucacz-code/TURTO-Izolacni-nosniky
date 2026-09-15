@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.5 — 2026-09-15
+
+- Standardní firemní logo TURTO ve všech PDF výstupech, na souhrnu, detailech i poznámkách.
+- Přesné dodané PNG s průhledností; samostatný zdroj od loga a ikony v aplikaci.
+- PDF nevyžaduje starý vektorový soubor; poškozené firemní logo zastaví export bez přepsání existujícího PDF.
+- Beze změny výpočtů, katalogů a uživatelské databáze.
+
 ## 2.2.5
 
 Další sjednocení hierarchie záložek a kontextových akcí bez změny výpočtů.
