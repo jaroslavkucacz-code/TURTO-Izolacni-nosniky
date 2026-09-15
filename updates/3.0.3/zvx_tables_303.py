@@ -18,6 +18,7 @@ import re
 VERSION = "3.0.3"
 SOURCE_SHA256 = "454a158c77f218ca709efce2f6a89f7e58982712bac290e2d882fccca0a9dd77"
 SOURCE_URL = "https://downloads.halfen.com/catalogues/de/media/declarationofperformance/reinforcementsystems/CONF-DOP_HIT-HP_SP_07-23-E.pdf"
+COMPLETE_SHA256 = "f4c82ee84362fadc4e411e8e8c8c24a622154c332e3544cb7daff10405c9d7ce"
 DATA_FILE = Path(__file__).with_name("zvx_annex3_303.json.gz.b64")
 LOG = logging.getLogger(__name__)
 PRODUCT = re.compile(r"HIT-(HP|SP)\s+ZVX\s+(\d{4})-hh[^-]*-(100|050|033|025)-30-(06|08|10|12)")
@@ -117,8 +118,12 @@ def _safe_rows(records):
 
 
 def reference_data():
-    data = json.loads(gzip.decompress(base64.b64decode(DATA_FILE.read_text(encoding='ascii'))))
-    if data.get('source_sha256') != SOURCE_SHA256:
+    encoded = ''.join(DATA_FILE.read_text(encoding='ascii').split())
+    data = json.loads(gzip.decompress(base64.b64decode(encoded, validate=True)))
+    if (data.get('source_sha256') != SOURCE_SHA256
+            or data.get('complete_sha256') != COMPLETE_SHA256
+            or data.get('complete_records') != 1772
+            or len(data.get('added_records', [])) != 160):
         raise ValueError('Nesouhlasí původ referenčních tabulek ZVX.')
     return data
 
@@ -127,6 +132,9 @@ def repair_database(database, source_pdf=None):
     if getattr(database, '_zvx_tables_303', False):
         return True
     source_hash = str(getattr(database, 'source_sha256', '')).strip().lower()
+    original = list(database.zvx_records)
+    if len({_key(r) for r in original}) != len(original):
+        raise ValueError('Databáze obsahuje duplicitní klíče ZVX; automatické doplnění zastaveno.')
     if source_hash == SOURCE_SHA256:
         reference = reference_data()
         combined = {_key(r): deepcopy(r) for r in database.zvx_records}
@@ -181,10 +189,13 @@ def install(base):
             database = getattr(self, 'hit_db', None)
             if result and database is not None:
                 try:
+                    was_repaired = getattr(database, '_zvx_tables_303', False)
                     repaired = repair_database(database, getattr(self, 'hit_source_pdf', None))
+                    if repaired and not was_repaired:
+                        self.recalculate_hit_all()
                     text = ' • ZVX/ZDX: sloupce opraveny 3.0.3' if repaired else ' • ZVX/ZDX: pro kontrolu úplnosti načtěte původní DoP.'
                     if repaired and database._zvx_tables_303_audit['blocked_records']:
-                        text += ' (1 nejasný řádek C20/25 vyloučen z návrhu)'
+                        text += ' (nejasné řádky C20/25 vyloučeny z návrhu: ' + str(len(database._zvx_tables_303_audit['blocked_records'])) + ')' 
                 except Exception as exc:
                     LOG.exception('Nelze bezpečně doplnit Annex 3')
                     text = ' • ZVX/ZDX: doplnění zastaveno: ' + str(exc)
