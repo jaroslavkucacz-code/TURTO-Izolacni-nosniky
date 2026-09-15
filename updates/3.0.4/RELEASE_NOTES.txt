@@ -1,0 +1,19 @@
+TURTO 3.0.4
+2026-09-15
+
+Dekodér a přenos skutečných dat do PDF.
+
+- Hromadný dekodér rozlišuje explicitní prefixy T/XT/CXT, generační koncovky, V/VV, délku a geometrii. T-QP-VV1-H200-L300-5.0 a XT-KL-O-M3-V1-CV1-H250-7.2 se porovnávají přesně s odpovídajícím načteným katalogem, bez nabídky nesouvisejících typů. Při více podmínkách šířky stěny zůstává potřebná volba geometrie.
+- Koncovky 5.0 / 1.0 / 7.2 jsou generace, nikoliv tloušťka izolantu. Nesouhlas řady, generace, V/VV, krytí, rozměru nebo betonu nelze obejít přibližným výsledkem.
+- CXT-AP-MM1-VV1-REI30-LR200-B200-L300-1.0 je identifikován podle příkladu v technických informacích výrobce (CXT AP/CZ/2024.1, str. 19). Jde pouze o identifikaci: nejsou vytvořeny žádné skalární M/V únosnosti, automatická záměna zůstává zakázaná. Samostatné posouzení vyžaduje KF a grafy Ft/Fc (str. 22–23). LR200 není výška desky. Jiné varianty vyžadují odpovídající načtené podklady.
+- PDF Dekodéru a Záměn izolačních nosníků se sestavuje přímo z dat AKCE a vybrané cílové varianty. Přeložené, přesunuté nebo skryté sloupce tabulky na výstup nemají vliv. Rozsah exportu určuje výběr částí, nikoliv náhodné označení řádku v tabulce.
+- PDF záměn uvádí celé původní i cílové označení, počet kusů, výšku, délku, izolant, krytí, beton, tlakový přenos, směrové požadavky a únosnosti na prvek v kN/prvek nebo kNm/prvek, skutečné využití a stav kontroly. Převádějí se i poznámky, katalogové zdroje a platné uživatelské potvrzení.
+- Chybějící nebo zastaralá záměna nesmí vytisknout falešné VYHOVUJE / 0,0 %. Chybějící hodnoty zůstávají neurčené a vyžadují přepočet. Dekódování bez statického posouzení má vlastní stav a není označeno VYHOVUJE.
+- Smíšené PDF zachovává členění částí AKCE a rozdíl mezi katalogovým porovnáním 1:1 a skutečným VEd smykových trnů. Předchozí numerické návrhové adaptéry a kontroly záměn zůstávají zachovány.
+- V PDF je použito schválené logo a verze 3.0.4. Měřené stránkování a příloha poznámek zabraňují ořezání dlouhých technických údajů.
+- Aktualizace nemění zákaznické actions.sqlite3 ani původní katalogové soubory. TEST_ONLY data jsou pouze v testech; nedodávají se do produkčních katalogů. Testy schémat T/XT nepotvrzují úplnost soukromé katalogové databáze uživatele. Test přenosu smykových záměn používá cílové HIT hodnoty z původního SHA-ověřeného DoP.
+
+Dříve vytvořené chybné PDF je nutné po aktualizaci znovu exportovat z původní AKCE. Z jejich neúplného obsahu nelze spolehlivě rekonstruovat chybějící data.
+
+Podklad CXT AP: https://www.schoeck.com/viewfile/8304/Technicke_informace_Schoeck_Isokorb_CXT_typ_AP__8304__.pdf
+Identifikace, katalogová záměna a úplné statické posouzení jsou různé kroky. Výslednou záměnu musí schválit statik stavby.
