@@ -1,12 +1,12 @@
 {
-  "version": "3.0.1",
-  "runtime_layout": "32",
-  "notes": "Oprava skutečné průběžné klasifikace hromadného výkazu a zobrazení schváleného loga. Úplné XT označení již nepadá do obecných návrhů; chybějící katalogový záznam má stav Chybí data. Bez změny statických hodnot, katalogů a actions.sqlite3.",
+  "version": "3.0.2",
+  "runtime_layout": "33",
+  "notes": "Oprava automatických smykových záměn Schöck XT QL/QP/QP-Z při nezadaném zdrojovém krytí. Zdroj zůstává dle typu; HIT ZDX/ZVX používá pevné dolní krytí 30 mm. Zachovány kontroly únosností, délky, výšky, betonu a tlakových ložisek. Bez změny katalogových hodnot a actions.sqlite3.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/15ec470158dfdabfc9cb5a54a028d9fc427bf25d/updates/3.0.1/app.pyw",
-      "sha256": "93048e69ffc5236f8c826b9407fedbd302c3db9e10e737b2291c048e1e774df1"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/b0e339842390b28d5d5d926c67781cb4e5a061a4/updates/3.0.2/app.pyw",
+      "sha256": "d5e46715522f1ac3367c88f139b5229e0f65e911687105e7eef25f2457a7f4c4"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6fd9aa4f390a4c67fc3967eb8ccdb7ff2371b361/updates/3.0.1/RELEASE_NOTES.txt",
-      "sha256": "36be444dd6ff059b9aca74fa43292b989788e144464ae5c1346cf7663873084b"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8d877f8da1dd8f5f7a382f534a20653c749992de/updates/3.0.2/RELEASE_NOTES.txt",
+      "sha256": "0120c4f48df614a2a4e114d73e253c149ab2cbbb43f13cb8a4382333b1dc7ba5"
     }
   ]
 }
