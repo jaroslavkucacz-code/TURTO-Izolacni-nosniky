@@ -1,0 +1,18 @@
+TURTO 3.0.3
+2026-09-15
+
+Oprava načítání tabulek HIT ZVX/ZDX (Annex 3).
+
+- Sloupce se rozlišují podle skutečné polohy v PDF, nikoliv podle zaokrouhleného počtu prutů a ložisek na metr. Již se neztrácejí skupiny různých délek se zdánlivě stejnou hustotou výztuže.
+- Pro ověřené DoP CONF-DOP_HIT-HP/SP-07-23 se při načtení automaticky doplní 160 dříve vynechaných tabulkových záznamů; 159 z nich se zpřístupní pro návrh. Dosavadní správné hodnoty se nemění.
+- Jeden nesrovnalý řádek výrobce (SP 0202/033/12, H170-210, C20/25, str. 99) je preventivně vyřazen z návrhu a zaznamenán v auditu. Náhradní hodnota se nevymýšlí. Neovlivňuje řešené pozice H240/H250 pro C25/30.
+- Doplnění vyžaduje shodu SHA-256 zdrojového DoP a kontrolní otisk celé sady tabulek. Rozdílné, neúplné nebo duplicitní záznamy automatickou opravu zastaví. U neznámého vydání je nutné načíst odpovídající původní DoP.
+- Opravuje se aktivní databáze HIT v paměti. Původní uložený katalogový soubor ani actions.sqlite3 se nepřepisují. Výkaz není nutné znovu importovat: po aktualizaci otevřete původní akci a použijte Záměny / Navrhnout vše.
+- Zachovány kontroly krytí, směru a velikosti sil, skutečné délky, výšky, betonu, geometrie a tlakových ložisek, předchozí ISO dekodér i schválené logo.
+- Testovací sada reprodukuje čtyři původní neúspěšné pozice P021/P025/P026/P027 a ověřuje návrh všech 15 smykových pozic přes skutečné tlačítko. Cílové hodnoty HIT pocházejí z originálního ověřeného DoP; zdrojové pozice jsou reprodukcí uživatelem dodaného výkazu, nikoliv nově ověřeným katalogem Schöck.
+- Aktualizace je připnutá na neměnné commity a SHA-256; zachována obnova při poškození a návrat souborů při chybě instalace.
+
+Zdroj: https://downloads.halfen.com/catalogues/de/media/declarationofperformance/reinforcementsystems/CONF-DOP_HIT-HP_SP_07-23-E.pdf
+SHA-256 DoP: 454a158c77f218ca709efce2f6a89f7e58982712bac290e2d882fccca0a9dd77
+
+Automaticky nalezený kandidát nenahrazuje konečné technické potvrzení záměny a ověření podmínek zabudování.

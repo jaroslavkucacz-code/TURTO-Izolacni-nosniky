@@ -1,18 +1,18 @@
-# TURTO 3.0.2
+# TURTO 3.0.3
 
-Oprava smykových záměn Schöck XT QL/QP/QP-Z: nezadané zdrojové krytí zůstává „dle typu“, cílový HIT ZVX/ZDX má pevné dolní krytí 30 mm. Bez změny katalogových únosností a databáze akcí. Podrobnosti v `updates/3.0.2/RELEASE_NOTES.txt`.
+Oprava fyzických sloupců tabulek HIT ZVX/ZDX a automatické doplnění dříve vynechaných záznamů z ověřeného DoP při načtení starší databáze HIT. Jeden nesrovnalý řádek C20/25 se nepoužije pro návrh. Původní uložené soubory katalogů ani databáze akcí se nepřepisují. Podrobnosti v `updates/3.0.3/RELEASE_NOTES.txt`.
 
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.2** (`3.0.2`)
+**Aktuální vydání: TURTO 3.0.3** (`3.0.3`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
 - **Izolační nosníky** – Dekodér / Návrh / Záměny
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
-Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Nejde o doplnění chybějících statických tabulek. Testovací data TEST_ONLY se do aplikace nedodávají.
+Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
 
 ## Aktuální funkce
 
@@ -42,7 +42,7 @@ Dekódované prvky, návrhy a záměny obou produktových oblastí se ukládají
 
 ## PDF
 
-Od TURTO 2.2.8 používá hlavní tlačítko **Export PDF…** výběr rozsahu. Lze exportovat:
+Od TURTO 2.2.8 používá hlavní tlačítko **Export PDF…** výběrr rozsahu. Lze exportovat:
 
 - celou AKCI,
 - všechny Izolační nosníky,
@@ -77,7 +77,7 @@ Nouzová oprava obnovuje ověřený bootstrap a updater, ale nemění databázi 
 
 ## Vývoj a kontrola vydání
 
-Aktivní CI je pouze:
+Aktivní kontrolní workflow:
 
 ```text
 .github/workflows/ci.yml
@@ -94,7 +94,8 @@ Kontroluje mimo jiné:
 - jednotné tabulky a ovládání,
 - rozsah PDF exportu,
 - Windows PowerShell recovery,
-- skutečnou aktualizaci 3.0.1 → 3.0.2 a tlačítko Navrhnout vše na Windows/Linux.
+- skutečné aktualizace 3.0.1 → 3.0.2 a 3.0.2 → 3.0.3 a tlačítko Navrhnout vše na Windows/Linux,
+- původní Annex 3 přímo z ověřeného DoP, opravu staršího souboru HIT v paměti, přepočet kN/m na skutečný prvek, pozice P021/P025/P026/P027, ochranu nesrovnalých dat a SQLite round-trip.
 
 Hlavní dokumentace:
 
