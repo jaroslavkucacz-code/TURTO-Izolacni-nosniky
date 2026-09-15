@@ -1,15 +1,18 @@
-# TURTO – technické prvky
+# TURTO 3.0.2
+
+Oprava smykových záměn Schöck XT QL/QP/QP-Z: nezadané zdrojové krytí zůstává „dle typu“, cílový HIT ZVX/ZDX má pevné dolní krytí 30 mm. Bez změny katalogových únosností a databáze akcí. Podrobnosti v `updates/3.0.2/RELEASE_NOTES.txt`.
+
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.1** (`3.0.1`)
+**Aktuální vydání: TURTO 3.0.2** (`3.0.2`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
 - **Izolační nosníky** – Dekodér / Návrh / Záměny
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
-TURTO 3.0.1 opravuje načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečnou průběžnou klasifikaci hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Nejde o doplnění chybějících statických tabulek. Testovací data TEST_ONLY se do aplikace nedodávají.
+Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Nejde o doplnění chybějících statických tabulek. Testovací data TEST_ONLY se do aplikace nedodávají.
 
 ## Aktuální funkce
 
@@ -90,7 +93,8 @@ Kontroluje mimo jiné:
 - PohlCon a MAX FRANK,
 - jednotné tabulky a ovládání,
 - rozsah PDF exportu,
-- Windows PowerShell recovery.
+- Windows PowerShell recovery,
+- skutečnou aktualizaci 3.0.1 → 3.0.2 a tlačítko Navrhnout vše na Windows/Linux.
 
 Hlavní dokumentace:
 
