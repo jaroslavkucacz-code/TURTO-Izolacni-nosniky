@@ -8,11 +8,11 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '3.0.4'
+$Version = '3.0.5'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = 'cdacaedb5b4db02193ac668fe284a027dfda9525'
+$AppCommit = '56f72cc3fb8909f3befd8fbc86792b4be172c161'
 $UpdaterCommit = '307c17bda050b38543f6a7f5cc228555b0698182'
-$AppSha256 = '169622a1a883fd7106f8f1ef89effb1710d4645283d0b8c60c0cc0dc8fa00293'
+$AppSha256 = '3a05c6a99c1226d5c0f570c69a3e17c58961842153907eff31d6c598c5fa2f6c'
 $UpdaterSha256 = '2eb9a19329479615c41288d790a40aa8fe8a82280d49271c8fec42a132bf355e'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'

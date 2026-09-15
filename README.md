@@ -1,11 +1,13 @@
-# TURTO 3.0.4
+# TURTO 3.0.5
+
+PDF výstupy všech částí nosníků a trnů používají standardní firemní logo TURTO z dodaného PNG. Logo je na každé stránce v původní kvalitě, s průhledností a zachovanými proporcemi. Symbol a ikona uvnitř programu zůstávají beze změny. Podrobnosti v `updates/3.0.5/RELEASE_NOTES.txt`.
 
 Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF přímo z dat AKCE. PDF zachovává celé záměny, rozměry, směrové kontroly, jednotky na prvek a skutečné využití; chybějící data nemohou vytvořit falešné VYHOVUJE / 0,0 %. CXT AP zůstává zvláštním posouzením KF. Podrobnosti v `updates/3.0.4/RELEASE_NOTES.txt`.
 
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.4** (`3.0.4`)
+**Aktuální vydání: TURTO 3.0.5** (`3.0.5`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
