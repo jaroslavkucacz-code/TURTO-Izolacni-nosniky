@@ -1,0 +1,13 @@
+TURTO 3.0.1
+
+Oprava hromadného dekódování a zobrazení schváleného loga.
+
+- Oprava je zapojená do skutečného průběžného zpracování tlačítka Analyzovat, nikoliv jen do synchronní obálky.
+- Úplná označení XT KL, QL, QP, QP-Z a ZL se porovnávají se strukturovanými záznamy katalogu podle zadaných parametrů.
+- Chybějící odpovídající záznam je označen Chybí data; program nenabízí nesouvisející obecné varianty a nezaměňuje VV1 za V1.
+- Zadané H, L, generace a požární provedení se zachovávají. Převzetí požárního provedení ze vstupu není ověřením požární odolnosti.
+- Platný kompaktní soubor schváleného symbolu se načítá při inicializaci ikony a záhlaví; validuje se PNG i jeho kontrolní součty.
+- Nová kontrola instalace, obnovy poškozeného loga, rollbacku, skutečného Tk tlačítka a uložení/načtení SQLite na Windows a Linuxu.
+- Testovací katalog je výslovně TEST_ONLY a není dodáván do uživatelských katalogů.
+
+Statické hodnoty, únosnosti a katalogové soubory se nemění. Toto vydání nedoplňuje chybějící katalogové tabulky výrobce. Databáze actions.sqlite3 není součástí aktualizace.
