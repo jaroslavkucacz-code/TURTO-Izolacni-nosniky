@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.6 — 2026-09-15
+
+- Návrhové moduly HIT se otevírají bez automatických prvních řádků; prázdné načtení a nová AKCE zůstávají prázdné.
+- Počty starších akcí se při čtení přepočítají bez nepoužitých přesných výchozích řádků, bez změny databáze a časových údajů.
+- Rozpracované zadání a výslovně přidané řádky se zachovají i bez výsledku výpočtu.
+- Zachováno firemní logo v PDF a stávající ikona aplikace.
+
 ## 3.0.5 — 2026-09-15
 
 - Standardní firemní logo TURTO ve všech PDF výstupech, na souhrnu, detailech i poznámkách.
