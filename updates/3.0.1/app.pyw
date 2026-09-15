@@ -16,8 +16,8 @@ from tkinter import messagebox
 
 VERSION = "3.0.1"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "df2b23a4f909e427b0c62f6737d16014faef7c7f"
-INSTALLER_SHA256 = "5eb3df0673365aee59c681e3c63f746097989d70881596594af0f8f411d5c5ad"
+INSTALLER_COMMIT = "e2308cd23d557939e69421e5a9d3eb792ab1e06c"
+INSTALLER_SHA256 = "641222a1e86723534ff56034ea9900e34f0b9335c049ea8e16a373d1eefc3b23"
 RUNTIME_LAYOUT = "32"
 
 ROOT = Path(__file__).resolve().parent
@@ -28,7 +28,7 @@ STARTUP_LOG = ROOT / "Logy" / "startup.log"
 
 CRITICAL_PROGRAM_SHA256 = {
     'app_runtime.pyw': 'c47e68e78fc3a4a8397fdb652e54f8e235e17804eea9e109784694cb01003304',
-    'branding_301.py': 'c811082110b17c3ad817c10ae583d70695b22520a0fff9051ab494ebae95e4ce',
+    'branding_301.py': 'e45b20aada0d267963a8aaf54139805629f76e06ead4de83e785e199aa97a17f',
     'iso_bulk_301.py': 'eff6e5b0b6c7cfbed756ca4b2109d895f8cb565b7f39e1935a252627b3f1d192',
     'turto_icon_301.png.b64': 'd98c9ae427a9837b038bc3b9352fd13c3e563a98d4e85ff4529fdc7f7d7ed11d',
     'app_runtime_246.pyw': 'f9b7647b35b6d33d1aad7222eda0dd6573cb6ce882f942a71645f90a8ae3a5b9',
