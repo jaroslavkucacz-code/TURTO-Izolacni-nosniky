@@ -1,0 +1,8 @@
+TURTO Statika 3.0.14
+
+Rychlý dekodér, našeptávač a hromadný import používají společné přesné rozpoznání Schöck T/XT.
+Našeptávání respektuje zadanou řadu, generaci, třídu betonu a parametry typu.
+Nedostupný katalogový záznam je jasně oznámen; neúplné označení nabízí odpovídající možnosti.
+Při startu Windows EXE se hned zobrazí okno načítání s průběžným stavem.
+Okno načítání reaguje i během přípravy katalogů a po otevření aplikace se zavře.
+Oprava funguje prostřednictvím online aktualizace i ve stávajícím EXE.
