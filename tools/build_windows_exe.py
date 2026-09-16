@@ -108,6 +108,11 @@ def main():
     # Preserve third-party license files in the redistributed runtime.
     import importlib.metadata
     licenses = DIST / 'Licence'
+    for source in [Path(sys.base_prefix) / 'LICENSE.txt', *Path(sys.base_prefix).glob('tcl/**/license.terms')]:
+        if source.is_file():
+            destination = licenses / 'Python-Tcl-Tk' / source.relative_to(sys.base_prefix)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
     for package in ('pyinstaller', 'Pillow', 'openpyxl', 'pdfplumber', 'reportlab',
                     'pdfminer.six', 'pypdfium2', 'cryptography', 'cffi', 'charset-normalizer', 'et_xmlfile'):
         distribution = importlib.metadata.distribution(package)

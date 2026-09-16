@@ -158,6 +158,7 @@ def update_probe(root):
 
 def main():
     assert sys.platform == 'win32'
+    sys.stdout.reconfigure(encoding='utf-8', errors='backslashreplace')
     output = ROOT / 'build/windows/proof'; output.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='TURTO český test ') as folder:
         root = Path(folder) / 'TURTO Statika'
@@ -192,7 +193,10 @@ def main():
         finally:
             for name in ('probe-window.png', 'probe-pdf.png', 'probe.pdf', 'probe.xlsx'):
                 if (root / name).exists(): shutil.copy2(root / name, output / name)
-            if (root / 'Logy').exists(): shutil.copytree(root / 'Logy', output / 'Logy', dirs_exist_ok=True)
+            if (root / 'Logy').exists():
+                shutil.copytree(root / 'Logy', output / 'Logy', dirs_exist_ok=True)
+                for log in (root / 'Logy').glob('*.log'):
+                    print(log.name + '\n' + log.read_text(encoding='utf-8', errors='replace')[-12000:])
 
 
 if __name__ == '__main__':
