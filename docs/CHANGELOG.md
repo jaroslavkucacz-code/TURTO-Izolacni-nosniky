@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.9 — 2026-09-16
+
+- Opuštění políčka, přepnutí modulu ani změna názvu/počtu kusů neruší ruční volbu HIT.
+- Ruční výběr z nabídky a dialogu Varianty ruší čekající přepočet a ověřuje volbu proti aktuálním vstupům.
+- Volba se zachovává v AKCI a při přípravě PDF pro desky/balkony, doplňkové prvky i WT.
+- Skutečné úpravy statických parametrů nadále spouštějí nový automatický návrh.
+- Regresní test skutečného Tk rozhraní a SQLite před/po aktualizaci na Windows a Linuxu. Bez změny statických tabulek a zákaznické databáze.
+
 ## 3.0.8 — 2026-09-16
 
 - Záměna T-QP-VV1-REI120-H200-L300-5.0 za HIT-HP ZDX: rozšíření pravidla pevného cílového krytí z XT na ověřené T QP-VV 5.0.

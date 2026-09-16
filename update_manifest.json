@@ -1,12 +1,12 @@
 {
-  "version": "3.0.8",
-  "runtime_layout": "39",
-  "notes": "Oprava záměny Schöck T-QP-VV generace 5.0 za HIT-HP ZDX: pevné cílové krytí 30 mm při nespecifikovaném CV zdroje, zachované kontroly obou směrů smyku, délky, izolantu, výšky, betonu a tlakových ložisek. Funguje i pro dříve uložené AKCE.",
+  "version": "3.0.9",
+  "runtime_layout": "40",
+  "notes": "Zachování ručně vybraného HIT při přepínání modulů, přidání řádku, opuštění políčka a doběhu odloženého přepočtu. Ruční volba se ukládá do AKCE; skutečné změny zadání nadále vyvolají nový návrh.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/2de61fc46f8fa23784e01931a0a191fce189bd2a/updates/3.0.8/app.pyw",
-      "sha256": "07816e37beabcce83a623b6ccb3f327df18affbedda3c430fe1239b5c6a11594"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/dd6b12187c63e9641a9e3ea12b94c49e631ee291/updates/3.0.9/app.pyw",
+      "sha256": "0c7ae6d128e2127d7563e1bf60058d56dbd35d873ebebaf2bbfc1fc5f21510bc"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f005b4246949fb308e48e890c48531e8daaf1961/updates/3.0.8/RELEASE_NOTES.txt",
-      "sha256": "606c25dbd1940522e7a162cd289b17f99478263c717c0392e7da613b67c1ddcc"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/048cc51fd5cc84e1432c49859b82003bfa550c54/updates/3.0.9/RELEASE_NOTES.txt",
+      "sha256": "581845b675e055fa348c06911497923b8d369262956cca01e34af374b4d7fa90"
     }
   ]
 }
