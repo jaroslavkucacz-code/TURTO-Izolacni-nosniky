@@ -17,9 +17,9 @@ BASE_PATH = "updates/2.2.46/runtime_installer.py"
 BASE_SHA256 = "9c9a435923c0cb4514dedeaaf06a10fb743c3b4201ed999d36b63ee617b2bad2"
 MARKER = ".turto_runtime_3_0_12.ok"
 
-PAYLOADS = {'app_runtime.pyw': ('c396b4d2e7c7fafc3e40e726b29456f6ed8d2f0e',
+PAYLOADS = {'app_runtime.pyw': ('7a5984c88576479a64e8f3f4ae91eef365a795a2',
                      'updates/3.0.12/app_runtime.pyw',
-                     'bd40eb41457988ff03c8c63375728090e913c57866a28700f28ee4bcc6bc408a'),
+                     '850431062af4ff0a19e6e4b59255ea37941efe3d59de551a520b12094326e8e7'),
  'branding_301.py': ('c396b4d2e7c7fafc3e40e726b29456f6ed8d2f0e',
                      'updates/3.0.12/branding_301.py',
                      'c1bccb41ea87278a4598b4de80370da3e8f207d577e79be2d29a6630094a92f3'),
