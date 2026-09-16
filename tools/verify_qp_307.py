@@ -148,7 +148,9 @@ def main():
                 app.quick_var.set(fix.EXAMPLE)
                 app.apply_quick_designation()
                 app.update()
-                assert app.current_result is not None and app.current_result.record["height_mm"] == "200"
+                assert app.current_result is not None and app.current_result.record["height_mm"] == "200", dict(
+                    errors=errors, result=str(app.current_result), concrete=app.project_concrete_var.get(),
+                    catalogs=list(app.database.catalogs), selectors={k: str(c.get()) for k, c in app.combos.items()})
                 assert app.current_result.record["results"][0]["negative"] == -30.9
                 assert "3.0.7" in app._turto_brand_title.cget("text")
                 dialog = bulk_import.BulkImportDialog(app, database=app.database, colors=app.colors,
