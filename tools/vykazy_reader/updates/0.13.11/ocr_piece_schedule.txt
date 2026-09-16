@@ -1,0 +1,128 @@
+    def _extract_visual_infill_schedule(self, page, floor, source, page_no, kind, low, candidates):
+        """Read coloured six-column piece schedules only after digital extraction failed.
+
+        Rendered grid geometry separates cells; one OCR call reads an atlas of all
+        candidate cells. No quantity is inferred from total metres, and all results
+        remain explicitly marked for manual review. No project-specific values.
+        """
+        if not self.ocr_enabled():
+            return []
+        def bands(indices):
+            groups = []
+            for n in indices:
+                if groups and n <= groups[-1][-1] + 2:
+                    groups[-1].append(int(n))
+                else:
+                    groups.append([int(n)])
+            return [int(round(sum(g) / len(g))) for g in groups]
+
+        crops = []
+        records = []
+        seen = []
+        sx, sy = low.shape[1] / page.rect.width, low.shape[0] / page.rect.height
+        for _score, x, y, w, h, _density, saturation in candidates:
+            if w < 300 or saturation < 0.002:
+                continue
+            roi = low[y:y+h, x:x+w]
+            black = ((roi.max(2) < 120) * 255).astype(np.uint8)
+            horizontal = cv2.morphologyEx(black, cv2.MORPH_OPEN, np.ones((1, max(25, w//3)), np.uint8))
+            vertical = cv2.morphologyEx(black, cv2.MORPH_OPEN, np.ones((max(20, h//3), 1), np.uint8))
+            ys = bands(np.flatnonzero((horizontal > 0).sum(1) > w * 0.65))
+            xs = bands(np.flatnonzero((vertical > 0).sum(0) > h * 0.48))
+            # Supported layout: title, headers, then data; idx/name/length/qty/total/note.
+            if len(xs) != 7 or not 4 <= len(ys) <= 20:
+                continue
+            bbox = (x, y, x+w, y+h)
+            if any(abs(x-a) < 12 and abs(y-b) < 12 for a,b,_,_ in seen):
+                continue
+            seen.append(bbox)
+            for top, bottom in zip(ys[2:-1], ys[3:]):
+                record = []
+                for left, right in zip(xs, xs[1:]):
+                    rect = fitz.Rect((x+left+3)/sx, (y+top+3)/sy,
+                                     (x+right-3)/sx, (y+bottom-3)/sy)
+                    pix = page.get_pixmap(matrix=fitz.Matrix(8, 8), clip=rect, alpha=False)
+                    rgb = np.frombuffer(pix.samples, np.uint8).reshape(pix.height, pix.width, pix.n)[:, :, :3]
+                    mask = rgb.max(2).astype(np.int16) - rgb.min(2).astype(np.int16) > 35
+                    yy, xx = np.where(mask)
+                    crop = None
+                    if len(xx):
+                        crop = np.where(mask, 0, 255).astype(np.uint8)[yy.min():yy.max()+1, xx.min():xx.max()+1]
+                    record.append(len(crops))
+                    crops.append(crop)
+                records.append(record)
+            if len(crops) > 600:
+                break
+        nonempty = [im for im in crops if im is not None]
+        if not nonempty:
+            return []
+        width = max(im.shape[1] for im in nonempty) + 64
+        height = sum((im.shape[0] + 64) for im in nonempty) + 32
+        if width * height > 20000000:
+            self.log(f"{source}: OCR tabulek mezikusů přesahuje bezpečný limit; nutná ruční kontrola.")
+            return []
+        atlas = np.full((height, width), 255, np.uint8)
+        positions = {}
+        cy = 32
+        for idx, im in enumerate(crops):
+            if im is None:
+                continue
+            hh, ww = im.shape
+            atlas[cy:cy+hh, 32:32+ww] = im
+            positions[idx] = (cy, cy+hh)
+            cy += hh + 64
+        image = Image.fromarray(atlas)
+        image = image.resize((max(1, width//2), max(1, height//2)), Image.Resampling.LANCZOS)
+        y_scale = height / image.height
+        try:
+            data = pytesseract.image_to_data(image, config="--psm 6", timeout=12,
+                                            output_type=pytesseract.Output.DICT)
+        except Exception as exc:
+            self.log(f"{source}: OCR tabulek mezikusů se nezdařilo: {exc}")
+            return []
+        cells = defaultdict(list)
+        for i, word in enumerate(data["text"]):
+            if not str(word).strip():
+                continue
+            wy = (float(data["top"][i]) + float(data["height"][i]) / 2) * y_scale
+            for idx, (y0, y1) in positions.items():
+                if y0-4 <= wy <= y1+4:
+                    cells[idx].append(((int(data["block_num"][i]), int(data["par_num"][i]), int(data["line_num"][i])), int(data["left"][i]), str(word)))
+                    break
+        def value(idx):
+            return normalize_spaces(" ".join(w for _y, _x, w in sorted(cells[idx])))
+        def number(text):
+            text = text.strip().replace(",", ".")
+            return float(text) if re.fullmatch(r"\d+(?:\.\d+)?", text) else None
+        result = []
+        for rec in records:
+            idx, name, length_text, qty_text, total_text, note = [value(i) for i in rec]
+            if not re.fullmatch(r"\d+", idx) or classify_element_name(name) != "infill":
+                continue
+            # This fallback is for piece schedules, not running-metre infill.
+            if not re.search(r"MEZIKUS|EBEA[\s-]*ZS", normalize_key(name)):
+                continue
+            qty = number(qty_text)
+            if qty is not None and not qty.is_integer():
+                qty = None
+            length, total = number(length_text), number(total_text)
+            thickness, height_mm, element_length = parse_infill_dimensions(name + " " + note)
+            if element_length is None and length is not None and length > 0:
+                element_length = int(round(length * 1000))
+            if length is None and element_length is not None:
+                length = element_length / 1000
+            status = "OCR – zkontrolovat mezikusy (počet, označení a rozměry)"
+            if qty is None:
+                status += " · chybí jednoznačný počet kusů"
+            elif length is not None and total is not None and abs(length * qty - total) > 0.01:
+                status += " · rozdíl délka × počet / celkem"
+            result.append(BeamRow(
+                floor="SUMÁŘ" if kind == "summary" else floor, source=source,
+                raw_name=name, length_m=length, qty=qty, total_m=total, note=note,
+                status=status, confidence=0.65, raw_ocr=" | ".join([idx,name,length_text,qty_text,total_text,note]),
+                page=page_no, source_kind=kind, read_method="OCR fallback (ručně povoleno)",
+                element_type="infill", quantity_unit="ks", thickness_mm=thickness,
+                height_mm=height_mm, element_length_mm=element_length,
+            ))
+        return self._dedupe(result)
+
