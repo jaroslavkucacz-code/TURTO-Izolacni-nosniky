@@ -40,8 +40,10 @@ def ui(root, baseline=False):
          patch.object(messagebox,'showwarning',return_value=None), \
          patch.object(messagebox,'showinfo',return_value=None):
         app=runtime['_base'].ThermalConnectorApp();app.geometry('1400x880');pump(app)
+        app.main_notebook.select(app.hit_tab);pump(app)
         app.hit_db=hit_core.HitDatabase(root/'TEST_ONLY_hit.b64')
         shared=app.shared_thermal_design;shared.show_legacy();group(app,'standard')
+        assert app.hit_canvas.winfo_ismapped() and app.hit_canvas.winfo_height()>50
         assert app._turto_universal_tables_224_installed
         stats={'scans':0,'visits':0,'calculations':0,'notebook_unmaps':0}
         original_scan=table_controls.scan; original_walk=table_controls._walk_widgets
@@ -68,6 +70,7 @@ def ui(root, baseline=False):
             assert len(app.hit_rows)==COUNT and all(r.selected_candidate for r in app.hit_rows)
             row=app.hit_rows[0];wanted=choose(row);pump(app)
             initial=dict(stats);load_seconds=time.perf_counter()-start
+            print('Initial', '310' if baseline else '311', initial, 'seconds',round(load_seconds,3),flush=True)
             before=snapshot();calc_start=stats['calculations']
             for _ in range(3):
                 group(app,'aux');group(app,'wt');group(app,'standard')
@@ -80,7 +83,7 @@ def ui(root, baseline=False):
             def visible():
                 canvas=app.hit_canvas;h=canvas.winfo_height();y0=canvas.canvasy(0)
                 visible_rows=[r for r in app.hit_rows if y0 <= app.hit_rows_frame.grid_bbox(0,r.row_no,0,r.row_no)[1] < y0+h]
-                assert visible_rows
+                assert visible_rows,(y0,h,canvas.cget('scrollregion'),app.hit_rows_frame.grid_bbox(),errors)
                 assert all(r.product_combo.winfo_ismapped() for r in visible_rows),[(r.row_no,r._hit_grid_visible) for r in visible_rows]
             width=app.hit_rows_frame.winfo_reqwidth()
             for fraction in (.25,.7,1.0,.4,0.0):
@@ -102,9 +105,9 @@ def ui(root, baseline=False):
                 assert mounted==tuple(r._hit_grid_visible for r in app.hit_rows)
                 group(app,'standard')
                 app.hit_canvas.yview_moveto(0);pump(app)
-                row.med_pos_entry.focus_force();pump(app)
+                row.ved_pos_entry.focus_force();pump(app)
                 app.hit_canvas.yview_moveto(1);pump(app);visible()
-                assert row.med_pos_entry.winfo_manager()=='grid'  # No synthetic FocusOut while scrolling.
+                assert row.ved_pos_entry.winfo_manager()=='grid'  # No synthetic FocusOut while scrolling.
                 app.hit_canvas.focus_force();app.hit_canvas.yview_moveto(0);pump(app)
                 for geometry in ('1100x680','1550x900','1200x740'):
                     app.geometry(geometry);pump(app);visible()
