@@ -24,3 +24,8 @@ actions.sqlite3-*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Reproducible Windows distribution
+build/
+dist/
+TURTO-Statika-*-Windows-x64.zip*
