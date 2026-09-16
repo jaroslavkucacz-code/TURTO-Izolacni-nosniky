@@ -108,3 +108,9 @@ Automatický CI tuto uživatelskou kontrolu UI nenahrazuje.
 ## 12. Databáze
 
 Běžný release nesmí obsahovat `actions.sqlite3`. Pokud verze skutečně potřebuje databázovou migraci, musí mít samostatně zdokumentovaný migrační krok, zálohu a rollback. Taková migrace nesmí být skrytá uvnitř běžné aktualizace programových souborů.
+
+## Windows EXE
+
+Od 3.0.12 jediný workflow `ci.yml` navíc sestavuje přenosný balíček TURTO Statika. Windows checkout zachovává LF kvůli ověřování SHA-256. `tools/build_windows_exe.py` instaluje úplný runtime z připnutých Git objektů, poté balí Python/Tk a závislosti. Zdroje TURTO zůstávají vedle EXE pro online aktualizace.
+
+`tools/verify_windows_exe.py` testuje kopii skutečného EXE bez Pythonu na PATH: GUI, ikonu, SQLite, PDF/XLSX a restart po aktualizaci. Distribuce neobsahuje testovací ani uživatelská data. Po úspěšném sestavení na `main` vznikne GitHub Release s ZIP a SHA-256. Nové externí závislosti vyžadují nové sestavení celého balíčku.
