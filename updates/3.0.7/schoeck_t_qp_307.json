@@ -1,0 +1,80 @@
+{
+  "catalog": {
+    "id": "schoeck-t-qp-vv-5.0-at-2025.1-reviewed",
+    "edition": "Schöck T QP-VV 5.0 / AT/2025.1",
+    "publication_label": "březen 2025 – ověřená tabulka QP-VV",
+    "publication_date": "2025-03-01",
+    "source_url": "https://www.schoeck.com/viewfile/32993/ARCHIV_Technische_Information_Schoeck_Isokorb_T_fuer_Stahlbetonkonstruktionen_Maerz_2025__32993__.pdf",
+    "source_filename": "ARCHIV_Technische_Information_Schoeck_Isokorb_T_fuer_Stahlbetonkonstruktionen_Maerz_2025__32993__.pdf",
+    "source_sha256": "4e0647bb14bf92ac82a3a306aae8c1a16a6a5769d40d727650ede35cd327e1c3",
+    "source_pages": [
+      125,
+      128,
+      131
+    ]
+  },
+  "concrete": "C25/30",
+  "height_max_mm": 300,
+  "table": [
+    {
+      "shear": "VV1",
+      "vrd_kn": 30.9,
+      "length_mm": 300,
+      "height_min_mm": 180
+    },
+    {
+      "shear": "VV2",
+      "vrd_kn": 46.4,
+      "length_mm": 400,
+      "height_min_mm": 180
+    },
+    {
+      "shear": "VV3",
+      "vrd_kn": 61.8,
+      "length_mm": 500,
+      "height_min_mm": 180
+    },
+    {
+      "shear": "VV4",
+      "vrd_kn": 45.3,
+      "length_mm": 300,
+      "height_min_mm": 190
+    },
+    {
+      "shear": "VV5",
+      "vrd_kn": 68.0,
+      "length_mm": 400,
+      "height_min_mm": 190
+    },
+    {
+      "shear": "VV6",
+      "vrd_kn": 69.6,
+      "length_mm": 300,
+      "height_min_mm": 200
+    },
+    {
+      "shear": "VV7",
+      "vrd_kn": 104.4,
+      "length_mm": 400,
+      "height_min_mm": 200
+    },
+    {
+      "shear": "VV8",
+      "vrd_kn": 87.0,
+      "length_mm": 300,
+      "height_min_mm": 210
+    },
+    {
+      "shear": "VV9",
+      "vrd_kn": 130.4,
+      "length_mm": 400,
+      "height_min_mm": 210
+    },
+    {
+      "shear": "VV10",
+      "vrd_kn": 189.4,
+      "length_mm": 500,
+      "height_min_mm": 210
+    }
+  ]
+}
