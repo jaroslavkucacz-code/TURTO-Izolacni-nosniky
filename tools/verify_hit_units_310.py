@@ -241,6 +241,8 @@ def ui(root, baseline=False):
             row.ved_pos.set('20');row.required_length.set('330');entry(row,'required_length').event_generate('<FocusOut>')
             assert row.selected_candidate is None
             row.required_length.set('333');entry(row,'required_length').event_generate('<FocusOut>')
+            assert row.selected_candidate is None  # Global length permission remains authoritative.
+            app.hit_l033_var.set(True);app.recalculate_hit_all()
             assert row.candidates and all(c.physical_length_mm==333 for c in row.candidates)
             from PIL import ImageGrab
             ImageGrab.grab().save(ROOT/f'units310-window-{sys.platform}.png')
