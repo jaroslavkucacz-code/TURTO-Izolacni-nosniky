@@ -1,0 +1,7 @@
+TURTO Statika 3.0.13
+
+Nižší spotřeba paměti při spuštění i při práci s katalogy.
+Pomocný index našeptávání používá úsporné seznamy a připravuje se jednou po načtení katalogů.
+Shodné texty katalogů sdílejí paměť; číselné hodnoty a zdroje zůstávají stejné.
+Odstraněno opakované sestavování vyhledávacích seznamů při spuštění.
+Aktualizace funguje také v EXE verzi přes tlačítko Aktualizovat.
