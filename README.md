@@ -1,4 +1,6 @@
-# TURTO 3.0.6
+# TURTO 3.0.7
+
+Doplněna skutečná tabulka Schöck T-QP-VV generace 5.0 ze zdroje AT/2025.1. Označení `T-QP-VV1-REI120-H200-L300-5.0` funguje v běžném dekodéru i hromadném importu; zachová H200, L300, 80 mm izolantu a ±30,9 kN/prvek pro C25/30. Zdroj a jeho otisk jsou v `updates/3.0.7/schoeck_t_qp_307.json`.
 
 Moduly Desky / balkony, Doplňkové prvky a Stěny WT začínají prázdné. Nová AKCE ani načtení prázdného návrhu automaticky nepřidává první řádek. Přehled AKCÍ nezapočítává přesně rozpoznané starší výchozí řádky bez úprav; změněné a výslovně přidané návrhy se zachovávají i nedokončené. Přepočet počtů při zobrazení seznamu je pouze čtecí, bez migrace databáze. Podrobnosti v `updates/3.0.6/RELEASE_NOTES.txt`.
 
@@ -9,7 +11,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.6** (`3.0.6`)
+**Aktuální vydání: TURTO 3.0.7** (`3.0.7`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -116,3 +118,4 @@ TURTO je katalogová databázová a návrhová pomůcka. Nenahrazuje technické 
 ## Ověření 3.0.4
 
 `tools/verify_decoder_pdf_304.py` ověřuje skutečný přechod 3.0.3 → 3.0.4, tlačítka Analyzovat a Navrhnout vše, všech šest rozsahů PDF, uložení do SQLite, vybranou variantu, momentové a smykové jednotky a odmítnutí neúplných výsledků. Překlady a pořadí sloupců GUI nemají ovlivnit PDF. Schématové katalogy TEST_ONLY se do instalace nedodávají. Původní chybné exporty znovu vytvořte z AKCE; samotné neúplné PDF neobsahuje všechna potřebná data.
+

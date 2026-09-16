@@ -1,0 +1,12 @@
+TURTO 3.0.7
+2026-09-16
+
+Doplnění skutečných dat pro T-QP-VV generace 5.0.
+
+- T-QP-VV1-REI120-H200-L300-5.0 se rozpozná v běžném dekodéru, našeptávači i hromadném importu.
+- Doplněny třídy VV1 až VV10 podle tabulky výrobce Schöck AT/2025.1, str. 128; zdrojové PDF, jeho vydání, stránky a SHA-256 jsou uvedeny v datech.
+- VV1 pro C25/30 má VRd,z = ±30,9 kN na prvek, délku 300 mm a izolant 80 mm. Nevytváří se momentová únosnost.
+- Zachovány přísné kontroly VV/V, řady T/XT, generace, požární varianty, betonu, výšky a délky. Chybějící údaje se nenahrazují podobným typem.
+- Vlastní odpovídající katalogové záznamy uživatele mají před doplňkovou tabulkou přednost.
+- Rozpoznaný prvek lze uložit do AKCE a znovu načíst včetně skutečné výšky a obou znamének smyku.
+- Zachováno firemní logo PDF, logo aplikace a oprava prázdných řádků z 3.0.6. Aktualizace nemění actions.sqlite3 ani soubory uživatelských katalogů.
