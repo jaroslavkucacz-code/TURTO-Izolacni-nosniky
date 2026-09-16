@@ -10,8 +10,8 @@
     },
     {
       "path": "updater.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c396b4d2e7c7fafc3e40e726b29456f6ed8d2f0e/updates/3.0.12/updater.py",
-      "sha256": "86ada2941c27d3cce62bf55ba4577cd39222c1df5dea2bdac7498c4bd429f21c"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e5f4fe6a2b43ae99a6db6cd75d12a9bbbf24852c/updates/3.0.12/updater.py",
+      "sha256": "332b86d1db56db55f639d34577ab7f4c48ac192dad987c85f48e584796bf7bcd"
     },
     {
       "path": "RELEASE_NOTES.txt",
