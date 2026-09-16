@@ -15,6 +15,8 @@ import tempfile
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+VERSION = (ROOT / 'CURRENT_VERSION').read_text().strip()
+LAYOUT = json.loads((ROOT / 'update_manifest.json').read_text(encoding='utf-8'))['runtime_layout']
 
 
 def windows():
@@ -43,7 +45,7 @@ def wait_window(process_id=None):
     deadline = time.monotonic() + 60
     while time.monotonic() < deadline:
         for hwnd, pid, title in windows():
-            if (process_id is None or process_id == pid) and title.startswith('TURTO Statika 3.0.12'):
+            if (process_id is None or process_id == pid) and title.startswith(f'TURTO Statika {VERSION}'):
                 return hwnd, pid, title
         time.sleep(.2)
     raise AssertionError(('Application window did not open', windows()))
@@ -78,8 +80,8 @@ def probe(root):
          patch.object(messagebox, 'showinfo', return_value=None), \
          patch.object(messagebox, 'showwarning', return_value=None):
         app = runtime['_base'].ThermalConnectorApp(); pump(app)
-        assert app.title().startswith('TURTO Statika 3.0.12'), app.title()
-        assert app._turto_brand_title.cget('text').startswith('TURTO Statika 3.0.12')
+        assert app.title().startswith(f'TURTO Statika {VERSION}'), app.title()
+        assert app._turto_brand_title.cget('text').startswith(f'TURTO Statika {VERSION}')
         assert app._turto_native_icon_loaded
         assert not app.hit_rows and not app.aux_rows and not app.wt_rows
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
@@ -140,7 +142,7 @@ def update_probe(root):
     for name in ('app.pyw', 'updater.py'):
         data = (root / name).read_bytes(); (source / name).write_bytes(data)
         files.append({'path': name, 'url': (source / name).as_uri(), 'sha256': hashlib.sha256(data).hexdigest()})
-    manifest = {'version': '3.0.12', 'runtime_layout': '43', 'files': files}
+    manifest = {'version': VERSION, 'runtime_layout': LAYOUT, 'files': files}
     # urllib's file handler treats query strings literally; substitute transport,
     # keeping _download_checked, worker creation and transactional apply real.
     from urllib.parse import urlparse, unquote
@@ -153,7 +155,7 @@ def update_probe(root):
     with patch.object(messagebox, 'askyesno', return_value=True), \
          patch.object(messagebox, 'showinfo', return_value=None), \
          patch.object(messagebox, 'showerror', side_effect=lambda *a, **k: (_ for _ in ()).throw(AssertionError(a))):
-        function(app, '3.0.11'); app.mainloop()
+        function(app, '0.0.0'); app.mainloop()
 
 
 def main():
@@ -182,7 +184,7 @@ def main():
                            env=env, cwd=folder, check=True, timeout=60)
             hwnd, pid, title = wait_window()
             try:
-                assert 'OK: TURTO 3.0.12' in (root / 'Logy/update_apply.log').read_text(encoding='utf-8')
+                assert f'OK: TURTO {VERSION}' in (root / 'Logy/update_apply.log').read_text(encoding='utf-8')
                 assert database.read_bytes() == before, 'Update changed existing AKCE'
                 proof['update_restart'] = title; proof['database_preserved'] = True
             finally:

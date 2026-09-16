@@ -1,12 +1,12 @@
 {
-  "version": "3.0.12",
-  "runtime_layout": "43",
-  "notes": "TURTO Statika: přenosné Windows EXE bez instalace Pythonu, zachování online aktualizací a dosavadní databáze AKCÍ.",
+  "version": "3.0.13",
+  "runtime_layout": "44",
+  "notes": "Nižší spotřeba paměti: úsporný index našeptávání, sdílení shodných textů katalogů a odstranění opakované přípravy vyhledávání při spuštění.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/ac2b288cd598a6db248b1dfb88effafed653efb3/updates/3.0.12/app.pyw",
-      "sha256": "6578104041cb7d7ab2a94daf36c77921d1d44c0b71e32e71ae203f94fee8c28c"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1e31b4a316f3b0545a8ee94b953392c58343d946/updates/3.0.13/app.pyw",
+      "sha256": "efc4febe20447def41282c53bf203abf53fffda4ba419084bf6f6f072e1d1047"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c396b4d2e7c7fafc3e40e726b29456f6ed8d2f0e/updates/3.0.12/RELEASE_NOTES.txt",
-      "sha256": "83487dddea28d5ba26baa6fd49355e472eee71fcb89f479cccd586e0f3542ddd"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/38af36ed6c43d38dac9f1a4d32167af0a43a2710/updates/3.0.13/RELEASE_NOTES.txt",
+      "sha256": "de97ae6229f81690ab2f278d115c0159af8bffd62ccba38f0b0ed4ef3cd1b4f6"
     }
   ]
 }

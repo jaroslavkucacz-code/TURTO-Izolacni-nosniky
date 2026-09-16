@@ -1,6 +1,6 @@
-# TURTO Statika 3.0.12
+# TURTO Statika 3.0.13
 
-[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.12/TURTO-Statika-3.0.12-Windows-x64.zip)
+[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.13/TURTO-Statika-3.0.13-Windows-x64.zip)
 
 Rozbalte celý balíček a spusťte **TURTO Statika.exe**. Python se neinstaluje. Při přechodu ze stávajícího programu zkopírujte obsah balíčku do jeho dosavadní složky; databáze AKCÍ a nastavení nejsou součástí balíčku. Podrobnosti: [návod k EXE](packaging/windows/CTETE_ME.txt).
 
