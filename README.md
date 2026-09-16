@@ -1,6 +1,6 @@
-# TURTO Statika 3.0.13
+# TURTO Statika 3.0.14
 
-[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.13/TURTO-Statika-3.0.13-Windows-x64.zip)
+[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.14/TURTO-Statika-3.0.14-Windows-x64.zip)
 
 Rozbalte celý balíček a spusťte **TURTO Statika.exe**. Python se neinstaluje. Při přechodu ze stávajícího programu zkopírujte obsah balíčku do jeho dosavadní složky; databáze AKCÍ a nastavení nejsou součástí balíčku. Podrobnosti: [návod k EXE](packaging/windows/CTETE_ME.txt).
 
@@ -31,6 +31,10 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
 Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
+
+## Dekodér a spuštění 3.0.14
+
+Rychlé zadání, našeptávání a hromadný import Schöck T/XT používají stejné přesné rozpoznání. Rozpracované označení nabízí pouze odpovídající model a parametry při zadaném betonu. Chybějící katalogové hodnoty jsou oznámeny jako nedostupná data. Při startu Windows se zobrazí samostatně reagující okno načítání; funguje i po online aktualizaci původního EXE.
 
 ## Aktuální funkce
 
