@@ -39,7 +39,8 @@ def ui(root, baseline=False):
     with patch.object(messagebox,'showerror',lambda *a,**k:errors.append(str(a))), \
          patch.object(messagebox,'showwarning',return_value=None), \
          patch.object(messagebox,'showinfo',return_value=None):
-        app=runtime['_base'].ThermalConnectorApp();app.geometry('1400x880');pump(app)
+        app=runtime['_base'].ThermalConnectorApp();pump(app,.6)
+        app.geometry('1500x1100');pump(app)
         app.main_notebook.select(app.hit_tab);pump(app)
         app.hit_db=hit_core.HitDatabase(root/'TEST_ONLY_hit.b64')
         shared=app.shared_thermal_design;shared.show_legacy();group(app,'standard')
@@ -81,6 +82,7 @@ def ui(root, baseline=False):
                 assert stats['calculations']==calc_start,stats
             # Wheel and track/thumb/programmatic moves must all mount the viewport.
             def visible():
+                assert app.hit_canvas.winfo_ismapped(), 'Select the legacy design panel before inspecting its viewport'
                 canvas=app.hit_canvas;h=canvas.winfo_height();y0=canvas.canvasy(0)
                 visible_rows=[r for r in app.hit_rows if y0 <= app.hit_rows_frame.grid_bbox(0,r.row_no,0,r.row_no)[1] < y0+h]
                 assert visible_rows,(y0,h,canvas.cget('scrollregion'),app.hit_rows_frame.grid_bbox(),errors)
@@ -109,7 +111,7 @@ def ui(root, baseline=False):
                 app.hit_canvas.yview_moveto(1);pump(app);visible()
                 assert row.ved_pos_entry.winfo_manager()=='grid'  # No synthetic FocusOut while scrolling.
                 app.hit_canvas.focus_force();app.hit_canvas.yview_moveto(0);pump(app)
-                for geometry in ('1100x680','1550x900','1200x740'):
+                for geometry in ('1100x1000','1550x1100','1200x1050'):
                     app.geometry(geometry);pump(app);visible()
                 assert snapshot()==before
                 # Real edits still recalculate and invalidate an old manual result.
@@ -126,7 +128,7 @@ def ui(root, baseline=False):
                 app.remove_hit_row(app.hit_rows[-1]);pump(app)
                 assert action_payload.save_action(app,as_new=True,forced_name='TEST_ONLY smooth 311')
                 store=action_payload.action_store(app);saved=store.load(app.action_id)
-                action_payload.load_action_record(app,saved);pump(app)
+                action_payload.load_action_record(app,saved);group(app,'standard');pump(app)
                 assert len(app.hit_rows)==COUNT-1;assert_choice(app.hit_rows[0],wanted)
                 assert hit_units_310.basis(app.hit_rows[0])=='per_element'
                 app.hit_canvas.yview_moveto(.6);pump(app);visible()
