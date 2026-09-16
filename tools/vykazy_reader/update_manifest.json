@@ -1,12 +1,13 @@
 {
   "schema": 1,
   "channel": "TURTO-Vykazy",
-  "version": "0.13.10",
+  "version": "0.13.11",
   "notes": [
-    "V Databázi akcí lze sloupce tabulek přirozeně rozšiřovat a zmenšovat; všechny sloupce se také podílejí na roztažení při změně velikosti okna.",
-    "Záhlaví tabulek je vždy zarovnáno stejně jako hodnoty v daném sloupci.",
-    "Úprava platí pro seznam akcí, verze podkladů, originální PDF i Historii oprav.",
-    "Stejné pravidlo zarovnání záhlaví se používá i u ostatních řaditelných tabulek programu."
+    "Prázdné nebo chybové výsledky se při Analyzovat nepřebírají z databázové cache; PDF se znovu přečte bez nutnosti mazat akci.",
+    "Ručně povolené OCR nově načítá samostatné šestisloupcové tabulky mezikusů v kusech včetně poznámky a rozměrů; výsledky zůstávají označené ke kontrole.",
+    "Digitální PDF a AutoCAD SHX mají stále přednost. OCR se nikdy nezapíná automaticky.",
+    "Mezikusy uvedené pouze v celkovém výkazu se zobrazují v pohledu Celkový výkaz z PDF; automaticky se nerozpočítávají mezi podlaží.",
+    "Po aktualizaci spusťte Analyzovat znovu. U PDF bez textové vrstvy tabulek a bez SHX anotací ponechte Povolit OCR ručně zapnuté."
   ],
   "patches": [
     {
@@ -63,6 +64,13 @@
       "to": "0.13.10",
       "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6b8e6f0f05dc04730f5fea02c3e88981c6cf70e7/tools/vykazy_reader/updates/0.13.10/update_0_13_9_to_0_13_10.py",
       "sha256": "72fbccacfbfa51e8b0d043df403d4c5f3850b93a6969e6c639915529974f7b3f",
+      "targets": ["app.py", "VERSION.txt"]
+    },
+    {
+      "from": "0.13.10",
+      "to": "0.13.11",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/2cc21d8787e937da12a747f591d2d7e4357f7cee/tools/vykazy_reader/updates/0.13.11/update_0_13_10_to_0_13_11.py",
+      "sha256": "e38f318e26bc291c9aa1e2a9bbf74bec86ce5997dccb3056ac7c6767852e780a",
       "targets": ["app.py", "VERSION.txt"]
     }
   ]
