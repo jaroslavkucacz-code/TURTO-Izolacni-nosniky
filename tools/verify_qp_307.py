@@ -2,8 +2,8 @@ from __future__ import annotations
 
 """Actual 306 -> 307 installation, manufacturer data, quick entry and SQLite.
 
-No synthetic Schöck capacity fixture is used. --headless runs the data/update
-checks only; the mandatory Windows/Linux CI runs also exercise real Tk widgets.
+No synthetic Schöck capacity fixture is used. A display is required by the
+installer and the real widgets; Linux CI provides it through Xvfb.
 """
 import copy
 import gc
@@ -135,9 +135,9 @@ def main():
         assert db.resolve_designation(full, preferred_concrete="C25/30").record["height_mm"] == "200"
         report["checks"].append("real catalogue, all VV grades, strict rejects, aliases and persistent selections")
 
-        if "--headless" not in sys.argv:
+        if "--skip-ui" not in sys.argv:
             import tkinter as tk
-            from tkinter import messagebox
+            from tkinter import messagebox, ttk
             import bulk_import, action_payload
             errors = []
             tk.Tk.report_callback_exception = lambda self, *exc: errors.append("".join(traceback.format_exception(*exc)))
@@ -145,13 +145,18 @@ def main():
                  patch.object(messagebox, "showwarning", lambda *a, **kw: errors.append(str(a))):
                 app = runtime["_base"].ThermalConnectorApp()
                 app.update()
-                app.quick_var.set(fix.EXAMPLE)
-                app.apply_quick_designation()
+                app.project_quick_entry.insert(0, fix.EXAMPLE)
+                app.project_quick_position_var.set("TEST_ONLY")
+                app.project_quick_quantity_var.set("2")
+                buttons = [w for w in app.project_quick_entry.master.winfo_children()
+                           if isinstance(w, ttk.Button) and w.cget("text") == "Dekódovat a přidat"]
+                assert len(buttons) == 1
+                buttons[0].invoke()
                 app.update()
-                assert app.current_result is not None and app.current_result.record["height_mm"] == "200", dict(
-                    errors=errors, result=str(app.current_result), concrete=app.project_concrete_var.get(),
-                    catalogs=list(app.database.catalogs), selectors={k: str(c.get()) for k, c in app.combos.items()})
-                assert app.current_result.record["results"][0]["negative"] == -30.9
+                assert len(app.project.rows) == 1, dict(errors=errors, rows=app.project.rows)
+                quick_row = app.project.rows[0]
+                assert quick_row["selection"]["height_mm"] == "200"
+                assert quick_row["snapshot"]["results"][0]["negative"] == -30.9
                 assert "3.0.7" in app._turto_brand_title.cget("text")
                 dialog = bulk_import.BulkImportDialog(app, database=app.database, colors=app.colors,
                     preferred_concrete="C25/30", existing_positions=[], start_position="P001")
@@ -164,7 +169,7 @@ def main():
                 assert len(dialog.items) == 1 and dialog.items[0].ready
                 result = dialog.items[0].result
                 assert result.record["results"][0]["positive"] == 30.9
-                app.project.rows = [create_project_row(result, position="TEST_ONLY", quantity=2, source_text=fix.EXAMPLE)]
+                assert result.results == quick_row["snapshot"]["results"]
                 dialog.destroy()
                 assert not app.hit_rows and not app.aux_rows and not app.wt_rows
                 assert action_payload.save_action(app, as_new=True, forced_name="TEST_ONLY QP 307")
