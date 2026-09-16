@@ -215,15 +215,15 @@ def check_and_update(parent, current_version: str) -> None:
             _apply_script(latest, files, runtime_layout),
             encoding="utf-8",
         )
-        subprocess.Popen(
-            [sys.executable, *(["--run-script"] if getattr(sys, "frozen", False) else []), str(script), str(ROOT)],
-            cwd=str(temp),
-            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
-        )
         messagebox.showinfo(
             "Aktualizace",
             "Aktualizace byla ověřena a připravena. Program se ukončí a soubory se bezpečně nahradí.",
             parent=parent,
+        )
+        subprocess.Popen(
+            [sys.executable, *(["--run-script"] if getattr(sys, "frozen", False) else []), str(script), str(ROOT)],
+            cwd=str(temp),
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
         )
         parent.after(200, parent.destroy)
     except Exception as exc:
