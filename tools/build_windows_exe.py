@@ -8,6 +8,7 @@ import ast
 import base64
 import hashlib
 import io
+import importlib.util
 import json
 import os
 import runpy
@@ -76,6 +77,18 @@ def hidden_imports():
             names = [a.name for a in node.names] if isinstance(node, ast.Import) else (
                 [node.module] if isinstance(node, ast.ImportFrom) and node.module and not node.level else [])
             imports.update(n for n in names if n.split('.')[0] not in own and n != '__future__')
+            if isinstance(node, ast.ImportFrom) and names and names[0].split('.')[0] not in own:
+                # "from tkinter import filedialog" also imports a submodule.
+                # Class/function names are not modules and are ignored.
+                for alias in node.names:
+                    if alias.name == '*':
+                        continue
+                    candidate = f'{node.module}.{alias.name}'
+                    try:
+                        if importlib.util.find_spec(candidate) is not None:
+                            imports.add(candidate)
+                    except (ImportError, AttributeError, ValueError):
+                        pass
     return sorted(imports)
 
 
