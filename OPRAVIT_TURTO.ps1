@@ -10,10 +10,10 @@ Add-Type -AssemblyName System.Windows.Forms
 
 $Version = '3.0.12'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = '31e81729318b1efa6381d95d92d2030d590bd9bb'
-$UpdaterCommit = '307c17bda050b38543f6a7f5cc228555b0698182'
-$AppSha256 = 'ae0c24778d7b487deeb40d89324354a4751b70099fee8703f9f309e7d00a316f'
-$UpdaterSha256 = '2eb9a19329479615c41288d790a40aa8fe8a82280d49271c8fec42a132bf355e'
+$AppCommit = '22882c141c61f54bb1ee658030030ecd38c5c898'
+$UpdaterCommit = 'c396b4d2e7c7fafc3e40e726b29456f6ed8d2f0e'
+$AppSha256 = 'e9f7ebf8141201ae25d9a063737fd0466c847e4a2dbac298bf26c66c7f2ba5f8'
+$UpdaterSha256 = '86ada2941c27d3cce62bf55ba4577cd39222c1df5dea2bdac7498c4bd429f21c'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'
 $RecoveryLogName = 'recovery.log'
@@ -157,7 +157,7 @@ try {
     $appTemp = Join-Path $tempDir 'app.pyw'
     $updaterTemp = Join-Path $tempDir 'updater.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/3.0.11/app.pyw"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/3.0.12/app.pyw"
     $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/3.0.12/updater.py"
 
     Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog

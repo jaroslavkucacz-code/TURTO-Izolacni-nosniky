@@ -100,6 +100,19 @@ def main():
     for name in ('app.pyw', 'updater.py', 'RELEASE_NOTES.txt', 'version.txt', '.turto_runtime_current.ok'):
         shutil.copy2(STAGE / name, DIST / name)
     shutil.copy2(ROOT / 'packaging/windows/CTETE_ME.txt', DIST)
+    # Preserve third-party license files in the redistributed runtime.
+    import importlib.metadata
+    licenses = DIST / 'Licence'
+    for package in ('pyinstaller', 'Pillow', 'openpyxl', 'pdfplumber', 'reportlab',
+                    'pdfminer.six', 'pypdfium2', 'cryptography', 'cffi', 'charset-normalizer', 'et_xmlfile'):
+        distribution = importlib.metadata.distribution(package)
+        for entry in distribution.files or []:
+            if any(token in entry.name.lower() for token in ('license', 'licence', 'copying', 'notice')):
+                source = Path(distribution.locate_file(entry))
+                if source.is_file() and source.suffix.lower() not in ('.py', '.pyc'):
+                    destination = licenses / package / Path(str(entry)).name
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(source, destination)
     # Do not replace the legacy VBS launcher or include customer files.
     assert not list(DIST.rglob('*.sqlite3'))
     assert not list(DIST.rglob('TEST_ONLY*'))
