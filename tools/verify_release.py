@@ -165,6 +165,16 @@ def verify_recovery(
     if assignment(text, "$UpdaterSha256", quote="'").lower() != updater_hash:
         fail("Recovery $UpdaterSha256 neodpovídá manifestu.")
 
+    startup = manifest_targets.get("startup_window.py")
+    if startup is not None:
+        commit, digest, source = startup
+        if assignment(text, "$StartupCommit", quote="'").lower() != commit:
+            fail("Recovery $StartupCommit neodpovídá manifestu.")
+        if assignment(text, "$StartupSha256", quote="'").lower() != digest:
+            fail("Recovery $StartupSha256 neodpovídá manifestu.")
+        if source not in text:
+            fail("Recovery nemá připnutou cestu startup_window.py.")
+
     batch_text = launcher.read_text(encoding="utf-8", errors="replace")
     if "recovery.log" not in batch_text:
         fail("OPRAVIT_TURTO.bat neodkazuje na obecný recovery.log.")
