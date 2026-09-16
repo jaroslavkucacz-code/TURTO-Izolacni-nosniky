@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.8 — 2026-09-16
+
+- Záměna T-QP-VV1-REI120-H200-L300-5.0 za HIT-HP ZDX: rozšíření pravidla pevného cílového krytí z XT na ověřené T QP-VV 5.0.
+- Nespecifikované CV zdroje zůstává nespecifikované; cílové ZDX používá dolní krytí 30 mm dle HALFEN HIT 20.2-EN, str. 77.
+- Nemění se statická data ani kontroly únosnosti v obou směrech, délky, výšky, izolantu, betonu a tlakových ložisek.
+- Integrační test otevírá AKCI uloženou ve 3.0.7, spouští skutečné tlačítko Navrhnout vše a ukládá/načítá záměnu přes SQLite. Ověřené tabulky HIT se čtou přímo z DoP výrobce.
+- Online aktualizace bez změny zákaznické databáze; zachována loga a oprava prázdných návrhů.
+
 ## 3.0.7 — 2026-09-16
 
 - Skutečná tabulka Schöck T-QP-VV 5.0 ze zdroje AT/2025.1, ověřená proti PDF.

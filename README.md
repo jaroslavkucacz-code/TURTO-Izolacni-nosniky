@@ -1,4 +1,6 @@
-# TURTO 3.0.7
+# TURTO 3.0.8
+
+Opravena záměna dekódovaného Schöck T-QP-VV za HIT-HP ZDX. U dříve uložené AKCE stačí na kartě záměn znovu použít **Navrhnout vše**. Zdrojové CV se nedoplňuje; cílové krytí ZDX je pevně 30 mm. Kontroly únosnosti, geometrie, délky, izolantu, betonu a ložisek zůstávají aktivní.
 
 Doplněna skutečná tabulka Schöck T-QP-VV generace 5.0 ze zdroje AT/2025.1. Označení `T-QP-VV1-REI120-H200-L300-5.0` funguje v běžném dekodéru i hromadném importu; zachová H200, L300, 80 mm izolantu a ±30,9 kN/prvek pro C25/30. Zdroj a jeho otisk jsou v `updates/3.0.7/schoeck_t_qp_307.json`.
 
@@ -11,7 +13,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.7** (`3.0.7`)
+**Aktuální vydání: TURTO 3.0.8** (`3.0.8`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 

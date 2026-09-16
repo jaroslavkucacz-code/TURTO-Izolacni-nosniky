@@ -1,12 +1,12 @@
 {
-  "version": "3.0.7",
-  "runtime_layout": "38",
-  "notes": "Oprava T-QP-VV1-REI120-H200-L300-5.0: ověřená tabulka Schöck T-QP-VV 5.0, běžný dekodér i hromadný import, přísná kontrola rozměrů a betonu. Zachována uživatelská data, obě loga a oprava prázdných návrhů.",
+  "version": "3.0.8",
+  "runtime_layout": "39",
+  "notes": "Oprava záměny Schöck T-QP-VV generace 5.0 za HIT-HP ZDX: pevné cílové krytí 30 mm při nespecifikovaném CV zdroje, zachované kontroly obou směrů smyku, délky, izolantu, výšky, betonu a tlakových ložisek. Funguje i pro dříve uložené AKCE.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d21a1d10c51471f4e73dde6c2a2aa77a2a66a637/updates/3.0.7/app.pyw",
-      "sha256": "f822607fa40857c6fc8dec7cab826ee847825880cae23c20e67cc853b9f30932"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/2de61fc46f8fa23784e01931a0a191fce189bd2a/updates/3.0.8/app.pyw",
+      "sha256": "07816e37beabcce83a623b6ccb3f327df18affbedda3c430fe1239b5c6a11594"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/4ca42cbf8d075f0e7dfbdf98c0d0c73eebaa4746/updates/3.0.7/RELEASE_NOTES.txt",
-      "sha256": "c9f95b623f6ba8dc08f0fc94271e9f19d8bb9d7bafd1e7a3256079c1013badaa"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f005b4246949fb308e48e890c48531e8daaf1961/updates/3.0.8/RELEASE_NOTES.txt",
+      "sha256": "606c25dbd1940522e7a162cd289b17f99478263c717c0392e7da613b67c1ddcc"
     }
   ]
 }
