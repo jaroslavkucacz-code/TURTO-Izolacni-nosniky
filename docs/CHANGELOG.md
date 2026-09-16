@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.11 — 2026-09-16
+
+- Mapování políček HIT již nevyvolává opakované průchody celým stromem ovládacích prvků. Nová Treeview nadále dostává třídění a ovládání sloupců.
+- Přepínání návrhových skupin zachovává již zobrazený panel. Obnovování tabulek se slučuje.
+- Posouvání využívá rezervu řádků, stabilní šířky sloupců a reaguje i na přímý posun táhlem. Skryté záložky nemění viditelnost řádků, fokus se neztrácí při posouvání.
+- Porovnávací Tk test na 80 řádcích před/po aktualizaci, kontroly navigace, editací, ručních voleb, jednotek a SQLite na Windows/Linuxu.
+- Beze změny statických výpočtů a katalogových tabulek; runtime 42.
+
 ## 3.0.10 — 2026-09-16
 
 - Jednotky kN/m a kNm/m nebo kN/prvek a kNm/prvek pro každý řádek návrhu Desky / balkony.

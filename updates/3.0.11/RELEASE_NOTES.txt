@@ -1,0 +1,16 @@
+TURTO 3.0.11 – plynulejší tabulky a přepínání modulů
+
+Zobrazení každého políčka již nespouští nové procházení celého rozhraní.
+Ovládání sloupců a třídění se připojuje pouze k nově zobrazeným tabulkám;
+souběžné požadavky na obnovení se slučují do jedné aktualizace.
+
+Při přepnutí mezi Desky / balkony, Doplňkové prvky a Stěny WT se již neskrývá
+a znovu nezobrazuje celý návrhový panel. Posun tabulky využívá rezervu
+připravených řádků a udržuje šířky sloupců. Zobrazení se správně aktualizuje
+při posunu kolečkem i táhlem a při změně velikosti okna.
+Skrytá záložka nepřeskupuje své řádky; rozpracované políčko neztrácí fokus
+jen kvůli posunu tabulky.
+
+Statické výpočty, katalogy, zadání jednotek na metr/prvek, ruční volby HIT
+a uložené AKCE se nemění. Skutečná změna vstupů nadále spouští přepočet.
+Aktualizace nemění zákaznickou databázi.
