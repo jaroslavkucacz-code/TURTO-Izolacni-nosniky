@@ -365,11 +365,10 @@ def main() -> int:
     current_version = (ROOT / "CURRENT_VERSION").read_text(encoding="utf-8").strip()
     assert manifest["version"] == current_version
     assert int(manifest["runtime_layout"]) >= 12
-    assert {item["path"] for item in manifest["files"]} == {
-        "app.pyw",
-        "updater.py",
-        "RELEASE_NOTES.txt",
-    }
+    expected_roots = {"app.pyw", "updater.py", "RELEASE_NOTES.txt"}
+    if tuple(int(part) for part in current_version.split(".")) >= (3, 0, 14):
+        expected_roots.add("startup_window.py")
+    assert {item["path"] for item in manifest["files"]} == expected_roots
     assert all(item["path"] != "actions.sqlite3" for item in manifest["files"])
 
     print(

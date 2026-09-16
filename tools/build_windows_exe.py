@@ -69,7 +69,7 @@ def prepare():
 
 
 def hidden_imports():
-    files = list((STAGE / 'Program').glob('*.py*')) + [STAGE / 'app.pyw', STAGE / 'updater.py']
+    files = list((STAGE / 'Program').glob('*.py*')) + list(STAGE.glob('*.py*'))
     own = {p.stem for p in files}
     imports = {'unittest.mock', 'tkinter', 'tkinter.ttk', 'sqlite3', 'ssl', 'encodings', 'ctypes.wintypes'}
     for path in files:
@@ -115,7 +115,8 @@ def main():
     subprocess.run(command, check=True)
     for name in ('Program', 'catalogs'):
         shutil.copytree(STAGE / name, DIST / name, dirs_exist_ok=True)
-    for name in ('app.pyw', 'updater.py', 'RELEASE_NOTES.txt', 'version.txt', '.turto_runtime_current.ok'):
+    root_files = [item['path'] for item in json.loads((ROOT / 'update_manifest.json').read_text(encoding='utf-8'))['files']]
+    for name in [*root_files, 'version.txt', '.turto_runtime_current.ok']:
         shutil.copy2(STAGE / name, DIST / name)
     shutil.copy2(ROOT / 'packaging/windows/CTETE_ME.txt', DIST)
     # Preserve third-party license files in the redistributed runtime.

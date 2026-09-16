@@ -8,12 +8,14 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '3.0.13'
+$Version = '3.0.14'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = '1e31b4a316f3b0545a8ee94b953392c58343d946'
+$AppCommit = '056561e7618f45a32b5851929f9df6a15e7ac1b7'
 $UpdaterCommit = 'e5f4fe6a2b43ae99a6db6cd75d12a9bbbf24852c'
-$AppSha256 = 'efc4febe20447def41282c53bf203abf53fffda4ba419084bf6f6f072e1d1047'
+$AppSha256 = '8f4ab4a86a389dac28053b884a92f7f9a4dfb207ef30ddbc4747dbd0317ba9af'
 $UpdaterSha256 = '332b86d1db56db55f639d34577ab7f4c48ac192dad987c85f48e584796bf7bcd'
+$StartupCommit = '2e4b2450424243a0ce8682a29c62da7f95ee739b'
+$StartupSha256 = '14d2ac307cff18412d5710203876b0a29122c38e5ddb71c652cff8df3d4e907d'
 $RuntimeMarker = '.turto_runtime_current.ok'
 $StartupLog = 'startup.log'
 $RecoveryLogName = 'recovery.log'
@@ -135,7 +137,7 @@ try {
     $backup = Join-Path $backupRoot $stamp
     New-Item -ItemType Directory -Path $backup -Force | Out-Null
 
-    foreach ($name in @('app.pyw', 'updater.py', $RuntimeMarker)) {
+    foreach ($name in @('app.pyw', 'updater.py', 'startup_window.py', $RuntimeMarker)) {
         $source = Join-Path $target $name
         if (Test-Path -LiteralPath $source) {
             Copy-Item -LiteralPath $source -Destination (Join-Path $backup $name) -Force
@@ -156,13 +158,18 @@ try {
     New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
     $appTemp = Join-Path $tempDir 'app.pyw'
     $updaterTemp = Join-Path $tempDir 'updater.py'
+    $startupTemp = Join-Path $tempDir 'startup_window.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/3.0.13/app.pyw"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/3.0.14/app.pyw"
     $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/3.0.12/updater.py"
+
+    $startupUrl = "https://raw.githubusercontent.com/$Repository/$StartupCommit/updates/3.0.14/startup_window.py"
+    Download-VerifiedFile $startupUrl $startupTemp $StartupSha256 'startup_window.py' $recoveryLog
 
     Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog
     Download-VerifiedFile $updaterUrl $updaterTemp $UpdaterSha256 'updater.py' $recoveryLog
 
+    Copy-Item -LiteralPath $startupTemp -Destination (Join-Path $target 'startup_window.py') -Force
     Copy-Item -LiteralPath $appTemp -Destination (Join-Path $target 'app.pyw') -Force
     Copy-Item -LiteralPath $updaterTemp -Destination (Join-Path $target 'updater.py') -Force
 
@@ -181,7 +188,11 @@ try {
 
     $vbs = Join-Path $target 'Spustit_program.vbs'
     $app = Join-Path $target 'app.pyw'
-    if (Test-Path -LiteralPath $vbs) {
+    $exe = Join-Path $target 'TURTO Statika.exe'
+    if (Test-Path -LiteralPath $exe) {
+        Start-Process -FilePath $exe -WorkingDirectory $target
+    }
+    elseif (Test-Path -LiteralPath $vbs) {
         Start-Process -FilePath 'wscript.exe' -ArgumentList ('"' + $vbs + '"') -WorkingDirectory $target
     }
     elseif (Get-Command 'pyw.exe' -ErrorAction SilentlyContinue) {

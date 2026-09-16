@@ -1,12 +1,12 @@
 {
-  "version": "3.0.13",
-  "runtime_layout": "44",
-  "notes": "Nižší spotřeba paměti: úsporný index našeptávání, sdílení shodných textů katalogů a odstranění opakované přípravy vyhledávání při spuštění.",
+  "version": "3.0.14",
+  "runtime_layout": "45",
+  "notes": "Oprava rychlého dekodéru a našeptávání Schöck T/XT; okamžitě viditelné načítací okno při startu Windows EXE.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/1e31b4a316f3b0545a8ee94b953392c58343d946/updates/3.0.13/app.pyw",
-      "sha256": "efc4febe20447def41282c53bf203abf53fffda4ba419084bf6f6f072e1d1047"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/056561e7618f45a32b5851929f9df6a15e7ac1b7/updates/3.0.14/app.pyw",
+      "sha256": "8f4ab4a86a389dac28053b884a92f7f9a4dfb207ef30ddbc4747dbd0317ba9af"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,13 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/38af36ed6c43d38dac9f1a4d32167af0a43a2710/updates/3.0.13/RELEASE_NOTES.txt",
-      "sha256": "de97ae6229f81690ab2f278d115c0159af8bffd62ccba38f0b0ed4ef3cd1b4f6"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/2e4b2450424243a0ce8682a29c62da7f95ee739b/updates/3.0.14/RELEASE_NOTES.txt",
+      "sha256": "1a6d0658259861178ecc87b1fcc26b5b5204e9d4dd577699cc0a13d9d9b519e5"
+    },
+    {
+      "path": "startup_window.py",
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/2e4b2450424243a0ce8682a29c62da7f95ee739b/updates/3.0.14/startup_window.py",
+      "sha256": "14d2ac307cff18412d5710203876b0a29122c38e5ddb71c652cff8df3d4e907d"
     }
   ]
 }

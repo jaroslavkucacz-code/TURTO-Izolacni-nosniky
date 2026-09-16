@@ -69,6 +69,9 @@ def probe(root):
     assert boot['_runtime_ready'](), 'Shipped payload must start completely offline.'
     runtime = runpy.run_path(str(root / 'Program/app_runtime.pyw'))
     runtime['selftest']()
+    sys.path.insert(0, str(ROOT/'tools'))
+    import verify_decoder_314
+    decoder_codes = verify_decoder_314.fixture(root)
     import hit_core, hit_workspace, hit_export_ui, hit_pdf, hit_excel, hit_units_310, action_payload
     errors = []
     tk.Tk.report_callback_exception = lambda self, *exc: errors.append(''.join(traceback.format_exception(*exc)))
@@ -84,6 +87,7 @@ def probe(root):
         assert app._turto_brand_title.cget('text').startswith(f'TURTO Statika {VERSION}')
         assert app._turto_native_icon_loaded
         assert not app.hit_rows and not app.aux_rows and not app.wt_rows
+        decoder_proof = verify_decoder_314.exercise(app, decoder_codes)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -122,7 +126,7 @@ def probe(root):
         ImageGrab.grab().save(root / 'probe-window.png')
         assert not errors, errors
         (root / 'probe.json').write_text(json.dumps({'frozen': True, 'title': app.title(),
-            'database': str(store.path), 'action_id': app.action_id,
+            'database': str(store.path), 'action_id': app.action_id, 'decoder': decoder_proof,
             'checks': ['offline bootstrap', 'Tk icon and title', 'empty initial rows', 'HIT per element',
                        'SQLite roundtrip', 'PDF with logo', 'XLSX', 'TLS', 'PDF rasterizer']}), encoding='utf-8')
         app.destroy()
@@ -139,9 +143,10 @@ def update_probe(root):
     # replacement logic are unmodified; network discovery alone is substituted.
     source = root / 'TEST_ONLY_update'; source.mkdir()
     files = []
-    for name in ('app.pyw', 'updater.py'):
+    for name in ('app.pyw', 'updater.py', 'startup_window.py'):
         data = (root / name).read_bytes(); (source / name).write_bytes(data)
         files.append({'path': name, 'url': (source / name).as_uri(), 'sha256': hashlib.sha256(data).hexdigest()})
+    (root/'startup_window.py').unlink()  # Simulate an existing EXE without the new loading module.
     manifest = {'version': VERSION, 'runtime_layout': LAYOUT, 'files': files}
     # urllib's file handler treats query strings literally; substitute transport,
     # keeping _download_checked, worker creation and transactional apply real.
@@ -174,9 +179,35 @@ def main():
                            env=env, cwd=folder, check=True, timeout=120)
             proof = json.loads((root / 'probe.json').read_text(encoding='utf-8'))
             database = Path(proof['database']); before = database.read_bytes()
+            started = time.monotonic()
             process = subprocess.Popen([str(exe)], env=env, cwd=folder)
             try:
+                deadline = time.monotonic()+8
+                loading = None
+                while time.monotonic() < deadline:
+                    loading = next((h for h,p,t in windows() if p==process.pid and t=='TURTO Statika – Načítání'), None)
+                    if loading:
+                        break
+                    time.sleep(.02)
+                assert loading, 'No visible loading window during actual EXE startup'
+                proof['loading_visible_seconds'] = round(time.monotonic()-started, 3)
+                from ctypes import wintypes
+                user = ctypes.windll.user32
+                user.SendMessageTimeoutW.argtypes = [wintypes.HWND,wintypes.UINT,wintypes.WPARAM,wintypes.LPARAM,wintypes.UINT,wintypes.UINT,ctypes.POINTER(ctypes.c_size_t)]
+                user.SendMessageTimeoutW.restype = ctypes.c_ssize_t
+                reply = ctypes.c_size_t()
+                assert user.SendMessageTimeoutW(loading,0,0,0,2,1000,ctypes.byref(reply)), 'Loading window froze'
+                rect = wintypes.RECT()
+                user.GetWindowRect.argtypes = [wintypes.HWND,ctypes.POINTER(wintypes.RECT)]
+                user.GetWindowRect(loading,ctypes.byref(rect))
+                from PIL import ImageGrab
+                ImageGrab.grab(bbox=(rect.left,rect.top,rect.right,rect.bottom)).save(output/'startup-window.png')
                 _, _, title = wait_window(process.pid)
+                proof['main_visible_seconds'] = round(time.monotonic()-started, 3)
+                deadline = time.monotonic()+3
+                while any(p==process.pid and t=='TURTO Statika – Načítání' for _,p,t in windows()) and time.monotonic()<deadline:
+                    time.sleep(.05)
+                assert not any(p==process.pid and t=='TURTO Statika – Načítání' for _,p,t in windows()), 'Loading window did not close'
                 proof['default_launch'] = title
             finally:
                 process.terminate(); process.wait(timeout=10)
@@ -186,12 +217,15 @@ def main():
             try:
                 assert f'OK: TURTO {VERSION}' in (root / 'Logy/update_apply.log').read_text(encoding='utf-8')
                 assert database.read_bytes() == before, 'Update changed existing AKCE'
+                assert (root/'startup_window.py').read_bytes()==(root/'TEST_ONLY_update/startup_window.py').read_bytes()
                 proof['update_restart'] = title; proof['database_preserved'] = True
             finally:
                 # This PID belongs to the isolated test application just restarted.
                 subprocess.run(['taskkill', '/PID', str(pid), '/T', '/F'], check=True, capture_output=True)
             (output / 'windows-exe-test.json').write_text(json.dumps(proof, indent=2), encoding='utf-8')
             print(json.dumps(proof, indent=2))
+            import base64
+            print('STARTUP_PREVIEW_B64:'+base64.b64encode((output/'startup-window.png').read_bytes()).decode())
         finally:
             for name in ('probe-window.png', 'probe-pdf.png', 'probe.pdf', 'probe.xlsx'):
                 if (root / name).exists(): shutil.copy2(root / name, output / name)

@@ -127,7 +127,10 @@ def main() -> int:
     assert current >= (2, 2, 16)
     assert int(str(manifest["runtime_layout"])) >= 9
     manifest_paths = {str(item["path"]) for item in manifest["files"]}
-    assert manifest_paths == {"app.pyw", "updater.py", "RELEASE_NOTES.txt"}
+    expected_roots = {"app.pyw", "updater.py", "RELEASE_NOTES.txt"}
+    if current >= (3, 0, 14):
+        expected_roots.add("startup_window.py")
+    assert manifest_paths == expected_roots
     assert "actions.sqlite3" not in manifest_paths
 
     # Exercise the fast path. A valid 2.2.15 Program must receive only the two
