@@ -1,12 +1,12 @@
 {
-  "version": "3.0.10",
-  "runtime_layout": "41",
-  "notes": "Jednotky návrhu HIT na metr nebo na prvek, samostatně pro každý řádek. Přepočet podle délky každé varianty, uložení do AKCE a správné jednotky v PDF, Excelu i schránce.",
+  "version": "3.0.11",
+  "runtime_layout": "42",
+  "notes": "Plynulejší posouvání tabulky HIT a přepínání modulů. Odstraněné opakované průchody celým rozhraním, zachování panelu při přepnutí a stabilní zobrazení řádků.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/65a327a930d170b7748fb38888b40c14be38729e/updates/3.0.10/app.pyw",
-      "sha256": "869fce61f8f1c5e65f6c375f792327e1085651078a35fff59ebf662570c8efe4"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/31e81729318b1efa6381d95d92d2030d590bd9bb/updates/3.0.11/app.pyw",
+      "sha256": "ae0c24778d7b487deeb40d89324354a4751b70099fee8703f9f309e7d00a316f"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/83871f6f21a8d802c7656a795de14c46863f2265/updates/3.0.10/RELEASE_NOTES.txt",
-      "sha256": "9b3178d630eaf45214b87fedf5610f78140bf5a78d47c28dc9a1cea5945161f2"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/75f9662999ff85bfd37ef5310821759dc643d3a6/updates/3.0.11/RELEASE_NOTES.txt",
+      "sha256": "21b23a1d4bb74a379b3be257662ef20e93f1910eaa1a801d31b233cb8a24b2c0"
     }
   ]
 }

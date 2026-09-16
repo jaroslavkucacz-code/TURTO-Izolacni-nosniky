@@ -1,4 +1,6 @@
-# TURTO 3.0.10
+# TURTO 3.0.11
+
+Plynulejší posouvání tabulky HIT a přepínání modulů. Odstraněné opakované průchody celým rozhraním, zachování panelu při přepnutí a stabilní zobrazení řádků.
 
 Jednotky návrhu HIT na metr nebo na prvek, samostatně pro každý řádek. Přepočet podle délky každé varianty, uložení do AKCE a správné jednotky v PDF, Excelu i schránce. V Desky / balkony vyberte u řádku **Jednotky účinků**. Přepnutí ponechá zadaná čísla a přepočítá návrh; 20 kN/prvek při délce 500 mm odpovídá 40 kN/m. Počet kusů přepočet neovlivňuje. Starší AKCE se načítají v původních jednotkách na metr.
 
@@ -17,7 +19,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.10** (`3.0.10`)
+**Aktuální vydání: TURTO 3.0.11** (`3.0.11`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
