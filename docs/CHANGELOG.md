@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.7 — 2026-09-16
+
+- Skutečná tabulka Schöck T-QP-VV 5.0 ze zdroje AT/2025.1, ověřená proti PDF.
+- Jednotné přísné rozpoznání T-QP v běžném dekodéru, našeptávači i importu.
+- Regrese pro zadaný VV1-H200-L300, ostatní VV třídy, chybnou geometrii, beton a generaci; uložení a načtení AKCE.
+- Vlastní odpovídající katalogové záznamy zůstávají zachovány. Bez zásahu do actions.sqlite3.
+
 ## 3.0.6 — 2026-09-15
 
 - Návrhové moduly HIT se otevírají bez automatických prvních řádků; prázdné načtení a nová AKCE zůstávají prázdné.
@@ -121,3 +128,4 @@ Technický úklid a stabilizace bez změny statických pravidel nebo katalogový
 ## 2.1.2
 
 Stabilizační startovací základ po regresi 2.1.1.
+
