@@ -634,6 +634,8 @@ jobs:
         run: python tools/build_windows_exe.py
       - name: Test frozen GUI, SQLite, PDF, Excel and online update restart
         run: python tools/verify_windows_exe.py
+      - name: Compare idle RAM and catalogue results in actual EXE
+        run: python tools/verify_memory_313.py
       - name: Package tested application
         shell: pwsh
         run: |
