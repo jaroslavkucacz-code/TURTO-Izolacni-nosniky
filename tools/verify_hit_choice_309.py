@@ -82,7 +82,7 @@ def user_sequence(app, row):
     # explicitly too, so headless window managers cannot skip the regression.
     entry(row, 'ved_pos').event_generate('<FocusOut>')
     group(app, 'aux')
-    button(app.hit_aux_tab, '+ HT')
+    button(app.hit_aux_tab, '+ Přidat řádek')
     group(app, 'standard')
     pump(app, .5)
 
@@ -186,7 +186,7 @@ def ui(root, baseline=False):
             aux.name.set('TEST_ONLY HT'); aux.quantity.set('3')
             entry(aux, 'quantity').event_generate('<FocusOut>')
             group(app, 'wt')
-            button(app.hit_wt_tab, '+ Přidat WT')
+            button(app.hit_wt_tab, '+ Přidat řádek')
             wt = app.wt_rows[0]
             wt.med_neg.set('1')
             entry(wt, 'med_neg').event_generate('<FocusOut>')
