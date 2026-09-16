@@ -70,6 +70,20 @@ def _header(self):
 
 _base.ThermalConnectorApp._build_header = _header
 
+_previous_init = _base.ThermalConnectorApp.__init__
+
+
+@wraps(_previous_init)
+def _init(self, *args, **kwargs):
+    _previous_init(self, *args, **kwargs)
+    # The platform workspace assigns its own legacy title during construction.
+    # Set the final product name while retaining AKCE name and dirty indicator.
+    self.base_window_title = f"TURTO Statika {APP_VERSION}"
+    self._update_project_title()
+
+
+_base.ThermalConnectorApp.__init__ = _init
+
 try:
     import platform_workspace
     platform_workspace.WORKSPACE_VERSION = APP_VERSION
