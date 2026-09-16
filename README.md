@@ -1,4 +1,6 @@
-# TURTO 3.0.8
+# TURTO 3.0.9
+
+Ručně vybraný HIT zůstává zachovaný při přepnutí mezi Desky / balkony, Doplňkové prvky a Stěny WT, přidání řádku v jiném modulu i opuštění políčka. Opraven také souběh ruční volby s odloženým přepočtem. Skutečné změny návrhových parametrů nadále spouštějí nový návrh.
 
 Opravena záměna dekódovaného Schöck T-QP-VV za HIT-HP ZDX. U dříve uložené AKCE stačí na kartě záměn znovu použít **Navrhnout vše**. Zdrojové CV se nedoplňuje; cílové krytí ZDX je pevně 30 mm. Kontroly únosnosti, geometrie, délky, izolantu, betonu a ložisek zůstávají aktivní.
 
@@ -13,7 +15,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO 3.0.8** (`3.0.8`)
+**Aktuální vydání: TURTO 3.0.9** (`3.0.9`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 

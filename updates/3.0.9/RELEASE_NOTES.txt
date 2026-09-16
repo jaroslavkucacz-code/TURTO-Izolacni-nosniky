@@ -1,0 +1,13 @@
+TURTO 3.0.9 – zachování ručně vybraného HIT
+
+Ručně vybraný HIT se již nepřepíše automatickou variantou při opuštění políčka,
+přepnutí mezi Desky / balkony, Doplňkové prvky a Stěny WT ani přidání řádku v jiném modulu.
+Zachovává se výběr z rozbalovacího seznamu i dialogu Varianty, také při doběhu
+odloženého přepočtu. Změna názvu nebo počtu kusů nemění vybraný typ.
+Ruční volba zůstává uložená v AKCI a při přípravě PDF.
+
+Skutečná změna návrhových parametrů nadále vyvolá přepočet a nový automatický návrh.
+Každá zachovávaná varianta se ověřuje proti aktuálním vstupům; nevyhovující starý
+výsledek se neobnovuje. Statické výpočty a katalogové tabulky se nemění.
+Aktualizace nemění databázi AKCÍ. Zachovává předchozí opravy T-QP-VV, prázdných
+návrhových řádků i firemní logo v PDF.
