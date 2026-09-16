@@ -1,0 +1,12 @@
+TURTO 3.0.8 – záměna T-QP-VV za HIT
+
+Opraveno navázání dekódovaných Schöck T-QP-VV generace 5.0 na automatické záměny za HIT.
+Původní pravidlo pro neuvedené CV pokrývalo pouze Schöck XT a řadu T blokovalo.
+T-QP-VV1-REI120-H200-L300-5.0 nyní nabídne HIT-HP ZDX se zachováním obousměrného smyku,
+80 mm izolantu, výšky, betonu, tlakových ložisek a pravidel délky včetně 300 → 333 mm.
+Zdrojové krytí zůstává nespecifikované. Pro cílový HIT ZDX se použije jeho pevné dolní krytí 30 mm.
+Výslovně zadané požadavky na krytí se automaticky nepřepisují.
+
+U dříve uložené AKCE otevřete Záměny za HIT a znovu použijte Navrhnout vše.
+Není nutné původní prvek znovu dekódovat. Uložená data se při aktualizaci nemění.
+Zachováno firemní logo v PDF a oprava prázdných návrhových řádků.
