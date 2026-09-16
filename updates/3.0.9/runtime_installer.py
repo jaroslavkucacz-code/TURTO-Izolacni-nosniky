@@ -116,9 +116,9 @@ PAYLOADS = {'app_runtime.pyw': ('048cc51fd5cc84e1432c49859b82003bfa550c54',
  'shear_cover_308.py': ('f005b4246949fb308e48e890c48531e8daaf1961',
                         'updates/3.0.8/shear_cover_308.py',
                         'c74a879a7ade048589f4feb02245fe342395b7ec75ed446063f04e5c006cc13a'),
- 'hit_choice_309.py': ('048cc51fd5cc84e1432c49859b82003bfa550c54',
+ 'hit_choice_309.py': ('f079e59e4b7dd22c1778594f1a6fd66f71ef5332',
                        'updates/3.0.9/hit_choice_309.py',
-                       '305dbb655db386bc33956fad7df828dbcc3fb31ce50b19452fa0484bcd846964')}
+                       '893ebe7a38a78ebc87f845ebd987f0555c2416e94a49f2252cb811bff1863f6b')}
 
 
 def _digest(path: Path) -> str | None:
