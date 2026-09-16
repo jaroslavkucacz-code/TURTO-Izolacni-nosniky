@@ -8,7 +8,7 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '3.0.11'
+$Version = '3.0.12'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
 $AppCommit = '31e81729318b1efa6381d95d92d2030d590bd9bb'
 $UpdaterCommit = '307c17bda050b38543f6a7f5cc228555b0698182'
@@ -158,7 +158,7 @@ try {
     $updaterTemp = Join-Path $tempDir 'updater.py'
 
     $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/3.0.11/app.pyw"
-    $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/2.2.15/updater.py"
+    $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/3.0.12/updater.py"
 
     Download-VerifiedFile $appUrl $appTemp $AppSha256 'app.pyw' $recoveryLog
     Download-VerifiedFile $updaterUrl $updaterTemp $UpdaterSha256 'updater.py' $recoveryLog

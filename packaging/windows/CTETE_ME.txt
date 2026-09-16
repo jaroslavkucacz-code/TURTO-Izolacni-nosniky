@@ -1,0 +1,20 @@
+TURTO Statika – přenosná aplikace pro Windows 10/11 (64 bitů)
+
+Rozbalte celý ZIP do vlastní zapisovatelné složky a spusťte TURTO Statika.exe.
+Python se samostatně neinstaluje. Složky Program, catalogs a _internal musí
+zůstat u EXE. Samotné EXE nepřenášejte bez zbytku balíčku.
+Zástupce na plochu vytvoříte k souboru TURTO Statika.exe.
+
+Přechod ze stávajícího TURTO:
+1. Ukončete TURTO a zazálohujte jeho dosavadní složku.
+2. Zkopírujte obsah složky TURTO Statika do dosavadní složky programu.
+   Soubory programu můžete nahradit. Balíček neobsahuje databázi AKCÍ
+   ani osobní nastavení, a proto je nepřepisuje.
+3. Spouštějte TURTO Statika.exe. Dosavadní nastavení a AKCE zůstávají
+   ve stejném umístění jako dříve.
+
+Online aktualizace jsou dostupné přímo v programu. Po aktualizaci se
+znovu spustí EXE. Při budoucí změně zabaleného Pythonu nebo knihoven
+bude potřeba stáhnout nový kompletní balíček.
+
+Vytvořil Ing. Jaroslav Kučera

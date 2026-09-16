@@ -1,22 +1,22 @@
 {
-  "version": "3.0.11",
-  "runtime_layout": "42",
-  "notes": "Plynulejší posouvání tabulky HIT a přepínání modulů. Odstraněné opakované průchody celým rozhraním, zachování panelu při přepnutí a stabilní zobrazení řádků.",
+  "version": "3.0.12",
+  "runtime_layout": "43",
+  "notes": "TURTO Statika: přenosné Windows EXE bez instalace Pythonu, zachování online aktualizací a dosavadní databáze AKCÍ.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/31e81729318b1efa6381d95d92d2030d590bd9bb/updates/3.0.11/app.pyw",
-      "sha256": "ae0c24778d7b487deeb40d89324354a4751b70099fee8703f9f309e7d00a316f"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/22882c141c61f54bb1ee658030030ecd38c5c898/updates/3.0.12/app.pyw",
+      "sha256": "e9f7ebf8141201ae25d9a063737fd0466c847e4a2dbac298bf26c66c7f2ba5f8"
     },
     {
       "path": "updater.py",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/307c17bda050b38543f6a7f5cc228555b0698182/updates/2.2.15/updater.py",
-      "sha256": "2eb9a19329479615c41288d790a40aa8fe8a82280d49271c8fec42a132bf355e"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c396b4d2e7c7fafc3e40e726b29456f6ed8d2f0e/updates/3.0.12/updater.py",
+      "sha256": "86ada2941c27d3cce62bf55ba4577cd39222c1df5dea2bdac7498c4bd429f21c"
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/75f9662999ff85bfd37ef5310821759dc643d3a6/updates/3.0.11/RELEASE_NOTES.txt",
-      "sha256": "21b23a1d4bb74a379b3be257662ef20e93f1910eaa1a801d31b233cb8a24b2c0"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/c396b4d2e7c7fafc3e40e726b29456f6ed8d2f0e/updates/3.0.12/RELEASE_NOTES.txt",
+      "sha256": "83487dddea28d5ba26baa6fd49355e472eee71fcb89f479cccd586e0f3542ddd"
     }
   ]
 }
