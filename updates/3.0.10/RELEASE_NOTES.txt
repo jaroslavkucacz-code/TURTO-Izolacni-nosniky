@@ -1,0 +1,17 @@
+TURTO 3.0.10 – návrh HIT na metr nebo na prvek
+
+V tabulce Desky / balkony lze u každého řádku zvolit kN/m a kNm/m,
+nebo kN/prvek a kNm/prvek. Jedna AKCE může obsahovat oba způsoby zadání.
+Volba se ukládá s návrhem a uvádí se v PDF, Excelu i kopírované tabulce.
+Nově přidaný řádek přebírá jednotky předchozího řádku. Starší uložené návrhy
+bez této volby se načítají v původních jednotkách na metr.
+
+Přepnutí jednotek ponechá zadaná čísla a přepočítá návrh v nových jednotkách.
+Při zadání na prvek se účinky dělí skutečnou délkou každé posuzované varianty:
+1000, 500, 333 nebo 250 mm. Počet kusů není součástí přepočtu.
+Katalogové únosnosti se nadále zobrazují s jednotkami na metr.
+Příklad: 20 kN/prvek při délce 500 mm odpovídá 40 kN/m.
+
+Používají se stávající výpočty a geometrické i směrové kontroly. Statické tabulky
+se nemění. Zachována ruční volba HIT při přepínání modulů, prázdné výchozí
+návrhy, záměna T-QP-VV a firemní logo TURTO v PDF. Aktualizace nemění databázi AKCÍ.
