@@ -118,7 +118,7 @@ def ui(root, baseline=False):
             record_id = app.action_id
             user_sequence(app, row)
             assert row.product.get() != wanted and not row._manual_product
-            (root/'baseline.json').write_text(json.dumps({'id':record_id, 'wanted':wanted}), encoding='utf-8')
+            (root/'baseline.json').write_text(json.dumps({'id':record_id, 'wanted':wanted, 'database':str(action_payload.action_store(app).path)}), encoding='utf-8')
             assert not errors, errors
         else:
             data = json.loads((root/'baseline.json').read_text())
@@ -247,7 +247,9 @@ def main():
             runpy.run_path(str(ROOT/'updates/3.0.8/runtime_installer.py'))['install_runtime'](root)
         # Real updates restart Python: old runtime patches must stay in a child.
         subprocess.run([sys.executable,str(Path(__file__).resolve()),'--baseline',str(root)],check=True)
-        protected = [root/'actions.sqlite3',root/'TEST_ONLY_hit.b64'] + [program/name for name in (
+        database = Path(json.loads((root/'baseline.json').read_text())['database'])
+        assert database.resolve().is_relative_to(root.resolve())
+        protected = [database,root/'TEST_ONLY_hit.b64'] + [program/name for name in (
             'isokorb_qp_307.py','schoeck_t_qp_307.json','shear_cover_308.py','design_rows_306.py',
             'turto_pdf_logo_305.png.b64','turto_icon_301.png.b64')]
         before = {p:digest(p) for p in protected}
