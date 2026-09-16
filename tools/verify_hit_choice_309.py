@@ -236,7 +236,8 @@ def main():
     with tempfile.TemporaryDirectory(prefix='turto309_') as folder:
         root = Path(folder); program = root/'Program'
         os.environ.update(TURTO_ROOT=str(root),TURTO_PROGRAM_DIR=str(program),
-                          APPDATA=str(root/'appdata'),LOCALAPPDATA=str(root/'localappdata'))
+                          APPDATA=str(root/'appdata'),LOCALAPPDATA=str(root/'localappdata'),
+                          XDG_CONFIG_HOME=str(root/'xdg'))
         shutil.copytree(ROOT/'updates/1.1.17/catalogs',root/'catalogs')
         data = {'schema_version':4,'source_document':'TEST_ONLY UI fixture; NOT FOR DESIGN','zvx_records':[
             {'series':'HP','concrete':'C25/30','length_code':33,'h_min':160,'h_max':300,

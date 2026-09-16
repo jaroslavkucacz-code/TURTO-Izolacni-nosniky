@@ -120,6 +120,11 @@ PAYLOADS = {'app_runtime.pyw': ('048cc51fd5cc84e1432c49859b82003bfa550c54',
                        'updates/3.0.9/hit_choice_309.py',
                        '893ebe7a38a78ebc87f845ebd987f0555c2416e94a49f2252cb811bff1863f6b')}
 
+BASE_REQUIRED = (
+    "app_base.py", "app_runtime_244.pyw", "app_runtime_243.pyw", "app_runtime_242.pyw",
+    "project_ui.py", "project_model.py", "hit_workspace.py", "platform_workspace.py",
+    "action_workspace.py", "action_store.py", "action_payload.py", "updater.py",
+)
 
 def _digest(path: Path) -> str | None:
     if not path.is_file():
