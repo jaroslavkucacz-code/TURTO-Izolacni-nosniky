@@ -14,6 +14,7 @@ import runpy
 import shutil
 import subprocess
 import sys
+import tempfile
 from unittest.mock import patch
 from urllib.parse import urlparse
 
@@ -39,7 +40,11 @@ def prepare():
     STAGE.mkdir(parents=True)
     os.environ.update(TURTO_ROOT=str(STAGE), TURTO_PROGRAM_DIR=str(STAGE / 'Program'))
     shutil.copytree(ROOT / 'updates/1.1.17/catalogs', STAGE / 'catalogs')
-    with patch('urllib.request.urlopen', git_source):
+    # Historical installers atomically rename from the temporary directory.
+    # Windows CI has TEMP on C: and checkout on D:, so stage on the same volume.
+    temporary = WORK / 'installer-temp'
+    temporary.mkdir(parents=True, exist_ok=True)
+    with patch('urllib.request.urlopen', git_source), patch.object(tempfile, 'tempdir', str(temporary)):
         installer = runpy.run_path(str(ROOT / f'updates/{VERSION}/runtime_installer.py'))
         installer['install_runtime'](STAGE)
     manifest = json.loads((ROOT / 'update_manifest.json').read_text(encoding='utf-8'))
