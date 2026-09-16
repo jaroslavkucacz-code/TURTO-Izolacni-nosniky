@@ -78,7 +78,8 @@ def _install_row(cls, *, flag, timer, preserve_arg, show, events):
                 metadata = _values(self, ('name', 'quantity'))
                 if metadata != getattr(self, '_turto_metadata_309', None):
                     _dirty(self)
-                    self._turto_metadata_309 = metadata
+                    # Retain the existing quantity validation and normalization.
+                    self.recalculate()
                 return None
             return original(self, *args, **kwargs)
         return changed
