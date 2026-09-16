@@ -38,6 +38,28 @@ def walk(widget):
         yield from walk(child)
 
 
+def prepare_307(root):
+    # An online update restarts Python. Keep the old runtime in its own process
+    # so its historical UI patches cannot contaminate the new application.
+    program = root / 'Program'
+    sys.path.insert(0, str(program))
+    runtime = runpy.run_path(str(program/'app_runtime.pyw'))
+    import catalog_engine, isokorb_qp_307 as qp, shear_cover_302 as shear
+    import substitution_workspace as sub, zvx_tables_303 as zvx, hit_core
+    from project_model import create_project_row, ProjectDocument
+    from action_store import ActionStore
+    import action_payload
+    original = create_project_row(catalog_engine.CatalogDatabase(root/'catalogs').resolve_designation(
+        qp.EXAMPLE, preferred_concrete='C25/30'), position='P001', quantity=2, source_text=qp.EXAMPLE)
+    assert sub.source_metadata(original)['errors'] == [shear.COVER_ERROR]
+    document = ProjectDocument(name='TEST_ONLY saved QP 307', rows=[original])
+    store = ActionStore(root/'actions.sqlite3')
+    record = store.save(action_name=document.name, payload={
+        'schema_version':1, 'application':'TURTO ISO', 'action_name':document.name,
+        'project':document.to_dict(), 'hit_design':{'schema_version':1, 'rows':[]}})
+    (root/'baseline307.json').write_text(json.dumps({'original':original,'record':record},ensure_ascii=False),encoding='utf-8')
+
+
 def main():
     report = dict(version='3.0.8', platform=sys.platform, checks=[])
     cache = {}
@@ -61,21 +83,9 @@ def main():
         with patch('urllib.request.urlopen', source):
             runpy.run_path(str(ROOT/'updates/3.0.7/runtime_installer.py'))['install_runtime'](root)
         sys.path.insert(0, str(program))
-        runtime = runpy.run_path(str(program/'app_runtime.pyw'))
-        import catalog_engine, isokorb_qp_307 as qp, shear_cover_302 as shear
-        import substitution_workspace as sub, zvx_tables_303 as zvx, hit_core
-        from project_model import create_project_row, ProjectDocument
-        from action_store import ActionStore
-        import action_payload
-        original = create_project_row(catalog_engine.CatalogDatabase(root/'catalogs').resolve_designation(
-            qp.EXAMPLE, preferred_concrete='C25/30'), position='P001', quantity=2, source_text=qp.EXAMPLE)
-        assert sub.source_metadata(original)['errors'] == [shear.COVER_ERROR]
-        document = ProjectDocument(name='TEST_ONLY saved QP 307', rows=[original])
-        store = ActionStore(root/'actions.sqlite3')
-        record = store.save(action_name=document.name, payload={
-            'schema_version':1, 'application':'TURTO ISO', 'action_name':document.name,
-            'project':document.to_dict(), 'hit_design':{'schema_version':1, 'rows':[]}})
-        gc.collect()
+        subprocess.run([sys.executable, str(Path(__file__).resolve()), '--prepare-307', str(root)], check=True)
+        baseline = json.loads((root/'baseline307.json').read_text(encoding='utf-8'))
+        original, record = baseline['original'], baseline['record']
         protected = [root/'actions.sqlite3', program/'isokorb_qp_307.py', program/'schoeck_t_qp_307.json',
                      program/'design_rows_306.py', program/'turto_pdf_logo_305.png.b64', program/'turto_icon_301.png.b64']
         before = {p: digest(p) for p in protected}
@@ -89,6 +99,10 @@ def main():
         assert runpy.run_path(str(root/'app.pyw'))['_runtime_ready']()
         runtime = runpy.run_path(str(program/'app_runtime.pyw'))
         runtime['selftest']()
+        import shear_cover_302 as shear, substitution_workspace as sub
+        import zvx_tables_303 as zvx, hit_core, action_payload
+        from action_store import ActionStore
+        store = ActionStore(root/'actions.sqlite3')
         report['checks'].append('actual update and idempotency; saved SQLite action, source catalogue, logos and empty-row fix preserved')
 
         pdf_path = root/'hit-dop.pdf'
@@ -188,4 +202,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) == 3 and sys.argv[1] == '--prepare-307':
+        prepare_307(Path(sys.argv[2]))
+    else:
+        main()
