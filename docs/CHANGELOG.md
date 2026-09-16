@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.10 — 2026-09-16
+
+- Jednotky kN/m a kNm/m nebo kN/prvek a kNm/prvek pro každý řádek návrhu Desky / balkony.
+- Posouzení na prvek podle skutečné délky každé varianty (1000/500/333/250 mm), bez použití počtu kusů.
+- Zachování jednotek i ruční volby v AKCI; starší návrhy zůstávají na metr. PDF, Excel a schránka uvádějí jednotky vstupů samostatně od katalogových únosností na metr.
+- Skutečná aktualizace 3.0.9, Tk rozhraní, směrové výpočty, délky, SQLite a výstupy ověřovány na Windows a Linuxu.
+- Beze změny katalogových tabulek; runtime 41.
+
 ## 3.0.9 — 2026-09-16
 
 - Opuštění políčka, přepnutí modulu ani změna názvu/počtu kusů neruší ruční volbu HIT.
