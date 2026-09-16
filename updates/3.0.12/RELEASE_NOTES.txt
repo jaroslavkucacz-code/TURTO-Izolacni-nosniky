@@ -1,0 +1,8 @@
+TURTO 3.0.12
+
+TURTO Statika pro Windows
+- Nový název aplikace TURTO Statika.
+- Přenosné EXE pro 64bitový Windows, bez samostatné instalace Pythonu.
+- Zachování online aktualizací včetně automatického restartu EXE.
+- Zachována dosavadní umístění nastavení a databáze AKCÍ.
+- Beze změny statických výpočtů a katalogových dat.
