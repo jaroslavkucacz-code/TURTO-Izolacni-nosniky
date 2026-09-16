@@ -44,7 +44,7 @@ def ui(root, baseline=False):
         app.main_notebook.select(app.hit_tab);pump(app)
         app.hit_db=hit_core.HitDatabase(root/'TEST_ONLY_hit.b64')
         shared=app.shared_thermal_design;shared.show_legacy();group(app,'standard')
-        assert app.hit_canvas.winfo_ismapped() and app.hit_canvas.winfo_height()>50
+        assert app.hit_canvas.winfo_ismapped() and app.hit_canvas.winfo_height()>50, (app.winfo_geometry(),app.winfo_screenwidth(),app.winfo_screenheight(),app.hit_canvas.winfo_geometry(),app.hit_canvas.winfo_ismapped())
         assert app._turto_universal_tables_224_installed
         stats={'scans':0,'visits':0,'calculations':0,'notebook_unmaps':0}
         original_scan=table_controls.scan; original_walk=table_controls._walk_widgets

@@ -587,6 +587,10 @@ jobs:
       - name: Actual update, 80-row Tk scrolling, navigation, editing and SQLite on Linux
         if: runner.os == 'Linux'
         run: xvfb-run -a -s "-screen 0 1600x1000x24" python tools/verify_ui_smooth_311.py
+      - name: Provide a full-size desktop for Windows Tk viewport tests
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
       - name: Actual update, 80-row Tk scrolling, navigation, editing and SQLite on Windows
         if: runner.os == 'Windows'
         run: python tools/verify_ui_smooth_311.py
