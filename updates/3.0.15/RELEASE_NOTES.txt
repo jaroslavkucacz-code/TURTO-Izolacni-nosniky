@@ -1,0 +1,8 @@
+TURTO Statika 3.0.15
+
+Obnovené původní katalogy Schöck CZ/2024.1 (září 2024) a ISOPRO 2018 v instalaci EXE i online aktualizaci.
+Katalogové soubory jsou přesnou kopií dat původní instalace; původní únosnosti a zdrojová vydání se nemění.
+Opraveno dohledání starších uložených QL/QP/QP-Z s výškou H240/H250 v katalogových rozsazích výšek.
+Řádky stejného katalogového vydání opět zobrazí OK, pokud uložené hodnoty souhlasí.
+Opraveno přidání původního katalogového označení vybraného z našeptávače.
+Uložené AKCE, ruční volby HIT a vlastní katalogy zůstávají zachovány.
