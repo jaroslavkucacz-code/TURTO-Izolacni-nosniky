@@ -175,6 +175,10 @@ def update_probe(root):
         'Program/schoeck_dorn_decoder.py':'updates/2.2.0/schoeck_dorn_decoder.py',
         'Program/shear_workflow_236.py':'updates/2.2.36/shear_workflow_236.py',
         'Program/shear_schedule_io_236.py':'updates/2.2.36/shear_schedule_io_236.py',
+        'Program/hit_wt.py':'updates/1.1.25/hit_wt.py',
+        'Program/hit_wt_ui.py':'updates/1.1.25/hit_wt_ui.py',
+        'Program/hit_export_ui_127.py':'updates/1.1.27/hit_export_ui.py',
+        'Program/hit_pdf_127.py':'updates/1.1.27/hit_pdf.py',
     }.items():
         shutil.copy2(ROOT/path, root/name)
     for name in ('decoder_315.py','isopro_2018_en.json.gz.b64','schoeck_cz_2024_1_2024_09.json.gz.b64','.turto_runtime_3_0_15.ok'):
