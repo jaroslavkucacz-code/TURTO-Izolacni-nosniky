@@ -16,8 +16,8 @@ from tkinter import messagebox
 
 VERSION = "3.0.16"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "e6d19100a2e2e9a68eca15778e8a1428f451294c"
-INSTALLER_SHA256 = "e34c53afb922ca2a592a6c3f8eed82af796e24570eff4c1449a0cbe73de4f475"
+INSTALLER_COMMIT = "e653cf568b5a49febba847b1fc452840fada160b"
+INSTALLER_SHA256 = "cf95509fdfdc679f6987a8216651c0d02a7e30730c28641ba8192a8f8707625d"
 RUNTIME_LAYOUT = "47"
 
 ROOT = Path(__file__).resolve().parent
@@ -69,7 +69,7 @@ CRITICAL_PROGRAM_SHA256 = {'app_runtime.pyw': '0ac8c51f238190caeeabe2cea718c16fd
  'isopro_2018_en.json.gz.b64': '560d7f70f90e93285cd4010a05633afc87da6dd0afa5700c20d9b1c8c83c4b0f',
  'schoeck_cz_2024_1_2024_09.json.gz.b64': 'd90cd37a97bc3b2f955b6ffdf4c6c4d25f1d3715b332625a58e7f90f8be94043',
  'shear_dowels_catalog.py': '2eac1519f8f98f01f722c8a5c2d4dbf8cb549346475bff2e1ce89bb2dc03be94',
- 'schoeck_dorn_decoder.py': 'a5006795856c895519a129bc8a155ed315895dd6d79ca5f2be4f04e0b5276b28'}
+ 'schoeck_dorn_decoder.py': 'd517c335219ebc68de705e4e43ce9bf70e089dde4bf3c5732911409539a1df1d'}
 
 
 def _matches(path: Path, expected: str) -> bool:
