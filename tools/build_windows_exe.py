@@ -105,6 +105,7 @@ def main():
         VarFileInfo([VarStruct('Translation', [1033, 1200])])])''', encoding='utf-8')
     command = [sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--onedir', '--windowed',
                '--noupx', '--name', 'TURTO Statika', '--icon', str(WORK / 'turto.ico'),
+               '--manifest', str(ROOT / 'packaging/windows/TURTO-Statika.manifest'),
                '--version-file', str(WORK / 'version_info.txt'), '--distpath', str(ROOT / 'dist'),
                '--workpath', str(WORK / 'pyinstaller'), '--specpath', str(WORK)]
     for name in hidden_imports():

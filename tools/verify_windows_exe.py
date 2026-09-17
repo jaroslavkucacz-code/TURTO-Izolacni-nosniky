@@ -93,6 +93,8 @@ def probe(root):
         decoder_proof["workflow317"] = verify_workflow_317.exercise(app)
         import verify_shear_choice_318
         decoder_proof["choice318"] = verify_shear_choice_318.exercise(app)
+        import verify_st_wt_319
+        decoder_proof['st_wt319'] = verify_st_wt_319.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -173,6 +175,10 @@ def update_probe(root):
         'Program/schoeck_dorn_decoder.py':'updates/2.2.0/schoeck_dorn_decoder.py',
         'Program/shear_workflow_236.py':'updates/2.2.36/shear_workflow_236.py',
         'Program/shear_schedule_io_236.py':'updates/2.2.36/shear_schedule_io_236.py',
+        'Program/hit_wt.py':'updates/1.1.25/hit_wt.py',
+        'Program/hit_wt_ui.py':'updates/1.1.25/hit_wt_ui.py',
+        'Program/hit_export_ui_127.py':'updates/1.1.27/hit_export_ui.py',
+        'Program/hit_pdf_127.py':'updates/1.1.27/hit_pdf.py',
     }.items():
         shutil.copy2(ROOT/path, root/name)
     for name in ('decoder_315.py','isopro_2018_en.json.gz.b64','schoeck_cz_2024_1_2024_09.json.gz.b64','.turto_runtime_3_0_15.ok'):
@@ -212,6 +218,8 @@ def reopen_probe(root):
     verify_workflow_317.reopen_saved(app)
     import verify_shear_choice_318
     verify_shear_choice_318.reopen_saved(app)
+    import verify_st_wt_319
+    verify_st_wt_319.reopen_saved(app)
     app.destroy()
 
 

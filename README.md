@@ -1,6 +1,6 @@
-# TURTO Statika 3.0.18
+# TURTO Statika 3.0.19
 
-[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.18/TURTO-Statika-3.0.18-Windows-x64.zip)
+[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.19/TURTO-Statika-3.0.19-Windows-x64.zip)
 
 Rozbalte celý balíček a spusťte **TURTO Statika.exe**. Python se neinstaluje. Při přechodu ze stávajícího programu zkopírujte obsah balíčku do jeho dosavadní složky; databáze AKCÍ a nastavení nejsou součástí balíčku. Podrobnosti: [návod k EXE](packaging/windows/CTETE_ME.txt).
 
@@ -25,7 +25,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO Statika 3.0.18** (`3.0.18`)
+**Aktuální vydání: TURTO Statika 3.0.19** (`3.0.19`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -33,6 +33,12 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
 Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
+
+## ST / WT a čitelnost 3.0.19
+
+V záložce **Nosníky ST / stěny WT** lze přidat HIT-ST (HP/SP, řady 1–4). Skutečná výška může ležet mezi tabulkovými hodnotami: např. ST 550 mm používá únosnost pro 500 mm, WT 1620 mm pro 1500 mm. Sloupec **h tab.** ukazuje použitou výšku; skutečná geometrie zůstává v označení a exportech. Platí katalogový rozsah ST 400–1000 mm, WT-1 až WT-4 1250–3500 mm a WT-5 až WT-7 1000–3500 mm; mimo něj program neextrapoluje. Tabulky byly ověřeny proti [katalogu HALFEN](https://www.halfen.com/cdn/Medien%20I%20Media/Druckschriften%20-%20Printed%20materials/Technische%20Produktinformationen/HALFEN_HIT_20_v2026-03-EN.pdf).
+
+Calibri je větší v tabulkách a vstupních polích, pomocné popisky mají vyšší kontrast. Nové EXE deklaruje systémové DPI; globální vyhlazování Windows se nemění.
 
 ## Výběr alternativ trnů 3.0.18
 

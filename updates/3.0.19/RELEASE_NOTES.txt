@@ -1,0 +1,8 @@
+TURTO Statika 3.0.19
+
+- Návrh HIT-ST pro konzolové nosníky: HP/SP, ST-1 až ST-4, h 400–1000 mm, B 220–340 mm. Tabulky HALFEN HIT 20.2-EN, str. 154–158.
+- Společná záložka Nosníky ST / stěny WT, samostatná tlačítka Přidat ST a Přidat WT. Typ, ruční výběr i skutečná geometrie se ukládají do AKCE.
+- Mezilehlé výšky ST a WT používají konzervativně nejbližší nižší tabulkovou výšku: ST po 100 mm, WT po 250 mm. Skutečná výška zůstává v označení; h tab. je vidět v tabulce, PDF, Excelu i schránce. Bez interpolace a bez extrapolace mimo katalogový rozsah.
+- WT-1 až WT-4 zůstávají od h 1250 mm, WT-5 až WT-7 od 1000 mm. ST nepřebírá vodorovnou únosnost WT. Při více současných účincích zůstává KONTROLA KOMBINACE.
+- Čitelnější Calibri: větší písmo v tabulkách a vstupních polích, vyšší kontrast pomocných popisků a výška řádků podle písma. EXE výslovně používá systémové DPI; nemění globální vyhlazování Windows.
+- Ověřeno 438 původních tabulkových variant WT beze změny výsledků, mezní a mezilehlé výšky, uložení a otevření ruční varianty, PDF a Excel. Nové návrhy se stále automaticky nezakládají.
