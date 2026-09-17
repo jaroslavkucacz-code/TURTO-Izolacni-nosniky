@@ -175,13 +175,14 @@ def export_hit_pdf(owner: Any) -> None:
 
     standard = sum(1 for row in rows if row.get("group") == "Desky / balkony")
     aux = sum(1 for row in rows if row.get("group") == "Doplňkové prvky")
+    st = sum(1 for row in rows if row.get("group") == "Nosníky ST")
     wt = sum(1 for row in rows if row.get("group") == "Stěny WT")
     try:
         owner.hit_status_var.set(
-            f"PDF celé AKCE exportováno: {target.name} • desky {standard} • doplňky {aux} • WT {wt}"
+            f"PDF celé AKCE exportováno: {target.name} • desky {standard} • doplňky {aux} • ST {st} • WT {wt}"
         )
         owner.set_status(
-            f"PDF Návrhu HIT obsahuje všechny skupiny: {standard} desky/balkony, {aux} doplňkové, {wt} WT."
+            f"PDF Návrhu HIT obsahuje všechny skupiny: {standard} desky/balkony, {aux} doplňkové, {st} ST, {wt} WT."
         )
     except Exception:
         pass

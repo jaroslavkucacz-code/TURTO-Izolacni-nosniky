@@ -21,3 +21,15 @@ def install(base):
                 w.configure(text='+ Přidat WT')
         return result
     cls._build_hit_tab=build
+    original_init=cls.__init__
+    @wraps(original_init)
+    def init(self,*a,**k):
+        original_init(self,*a,**k)
+        pending=[self.hit_tab]
+        while pending:
+            w=pending.pop();pending.extend(w.winfo_children())
+            if isinstance(w,ttk.Label):
+                text=str(w.cget('text'))
+                if 'PDF zahrnuje' in text or 'Export PDF nahoře' in text:
+                    w.configure(text=text.replace('Stěny WT','Nosníky ST / stěny WT').replace('i WT.','i ST / WT.'))
+    cls.__init__=init
