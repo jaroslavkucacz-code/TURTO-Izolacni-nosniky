@@ -20,6 +20,7 @@ def exercise(app):
     # Preserve archival full assemblies and component-only restrictions.
     assert ui.decode_dowel('LD Ø25-S-A4')['legacy']
     assert ui.decode_dowel('LD 20 Part A4')['decoder_only']
+    assert ui.decode_dowel('STACON LD Ø20 Part A4')['decoder_only']
     assert ui.decode_dowel('SLD 40')['legacy']
     assert not ui.decode_dowel('SCHOECK STACON LD Ø S-A4')
     expected = catalog.schock_capacity_from_designation('Schöck Stacon LD 20', 240, 20, 30)

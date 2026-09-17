@@ -68,8 +68,9 @@ def decode_dowel(text: str) -> dict[str, Any] | None:
     raw = str(text or "").strip()
     upper = raw.upper().replace("–", "-").replace("—", "-")
 
+    upper = re.sub(r"(\bLD\s*(?:[- ]?Q)?\s*[- ]?\s*)[Ø⌀]\s*(?=\d)", r"\1", upper)
     # Explicit Stacon is the current catalogue, even with sleeve/material suffix.
-    if re.search(r"\bSTACON\b", upper):
+    if re.search(r"\bSTACON\b", upper) and not _PART.search(upper):
         return _ORIGINAL_DECODE(raw)
 
     match = _SLDQ.search(upper)
@@ -96,7 +97,6 @@ def decode_dowel(text: str) -> dict[str, Any] | None:
             decoder_only=False,
         )
 
-    upper = re.sub(r"(\bLD\s*(?:[- ]?Q)?\s*[- ]?\s*)[Ø⌀]\s*(?=\d)", r"\1", upper)
     match = _LD.search(upper)
     if match:
         q = bool(match.group("q"))
