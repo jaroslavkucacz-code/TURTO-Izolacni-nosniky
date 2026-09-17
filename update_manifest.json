@@ -1,12 +1,12 @@
 {
-  "version": "3.0.17",
-  "runtime_layout": "48",
-  "notes": "Katalogová VRd současných smykových trnů v tabulce a exportu; přehlednější ovládání a zalamování lišt ve všech záložkách.",
+  "version": "3.0.18",
+  "runtime_layout": "49",
+  "notes": "Volba alternativy smykového trnu tlačítkem, dvojklikem nebo Enterem; zachování výběru při přepočtu, uložení a exportu.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/12855693299ad390c630ed1536184fe0d61cff25/updates/3.0.17/app.pyw",
-      "sha256": "3e163f6d82d59f895f06be41d259b8cbd4343bedba755d55d8888e30cb3cba17"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f1899ec3f4ceae9a71897faea6f8e202c7db58b2/updates/3.0.18/app.pyw",
+      "sha256": "b54545d74dc76e72c4859f1704cd9988bfc55e44ca11c3a209180bfbdb34f87c"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/02534506bd62606728f4494481ce0778987745ed/updates/3.0.17/RELEASE_NOTES.txt",
-      "sha256": "d28a12f8f74249ee95f40e40130cdaa989ee5508d143f5e7ed004f36b645690e"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/51a3cf7b1a464219241b23114d7b85295edf56f3/updates/3.0.18/RELEASE_NOTES.txt",
+      "sha256": "6596a2814d6baa603399462d063a595708f1df026aaa7c2f3df4ce79284d9cd0"
     },
     {
       "path": "startup_window.py",

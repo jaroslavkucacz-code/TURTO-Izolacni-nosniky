@@ -1,6 +1,6 @@
-# TURTO Statika 3.0.17
+# TURTO Statika 3.0.18
 
-[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.17/TURTO-Statika-3.0.17-Windows-x64.zip)
+[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.18/TURTO-Statika-3.0.18-Windows-x64.zip)
 
 Rozbalte celý balíček a spusťte **TURTO Statika.exe**. Python se neinstaluje. Při přechodu ze stávajícího programu zkopírujte obsah balíčku do jeho dosavadní složky; databáze AKCÍ a nastavení nejsou součástí balíčku. Podrobnosti: [návod k EXE](packaging/windows/CTETE_ME.txt).
 
@@ -25,7 +25,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO Statika 3.0.17** (`3.0.17`)
+**Aktuální vydání: TURTO Statika 3.0.18** (`3.0.18`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -33,6 +33,10 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
 Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
+
+## Výběr alternativ trnů 3.0.18
+
+V Návrhu lze alternativu převzít tlačítkem **Použít vybranou alternativu**, dvojklikem nebo Enterem. Volba se ukládá s AKCÍ a zachovává při přepočtu i v exportu. Pokud přestane vyhovovat, program vypíše chybu; návrat k prvnímu vhodnému typu umožňuje **Obnovit automatický návrh**. Nabídka se řídí výrobcem daného řádku, včetně CRET.
 
 ## Tabulka trnů a ovládání 3.0.17
 
