@@ -16,8 +16,8 @@ from tkinter import messagebox
 
 VERSION = "3.0.19"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "3e919ca5f256b595cb95acf63c498aae40ae0727"
-INSTALLER_SHA256 = "e74b4047acca1301af82233c7c0dbdb02e90b9c556437edb37bf14e2391d1414"
+INSTALLER_COMMIT = "686dbef70514ec9ea650ae815bcde9cf91766e9f"
+INSTALLER_SHA256 = "17a07485e859698bc80e31a956c4736075be3a96eac420c35d26cb9c9b16f632"
 RUNTIME_LAYOUT = "50"
 
 ROOT = Path(__file__).resolve().parent
@@ -77,8 +77,8 @@ CRITICAL_PROGRAM_SHA256 = {'app_runtime.pyw': '3e45bf1d2eee02396473e8a12ddbc4c77
  'shear_choice_318.py': '49b1119614edc750fe441616c4331f45f092a81eccc17a9d696cf0160ea2a596',
  'hit_wt.py': '640fbe9d73dea2ae31c64d9e3e00507ba2c44c31c77b5232b88ecdf06f0800d8',
  'hit_wt_ui.py': '6eda7d6f66c4094534f4d4ffb49a9a8a544a0d65884428bcab10fb7c84cc1aed',
- 'hit_export_ui_127.py': 'efabed1442c8ea4a328820cc996970471d1f51561f87c36c884788c1612dcbb9',
- 'st_workspace_319.py': 'b27358ec313abb666895c060b2872f179286d1e3cb3886366f4cefd8ce5f2ab6',
+ 'hit_export_ui_127.py': '3bc63343df01f0836c07d62a588088bd64d3e9307102c6f1981592df155f9cad',
+ 'st_workspace_319.py': 'd35dcd346d92d7eb386dbfafff7cb7bf2f38e517eb9c99fdeff8f7cd7d9efefe',
  'readability_319.py': '6fa64aaf406234ff2d0d69351a6de32ea2f3bcd86ce0e5dbd9f8608312d5d5ea'}
 
 
