@@ -89,6 +89,8 @@ def probe(root):
         decoder_proof = verify_catalogues_315.exercise(app)
         import verify_stacon_316
         decoder_proof["stacon"] = verify_stacon_316.exercise(app)
+        import verify_workflow_317
+        decoder_proof["workflow317"] = verify_workflow_317.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -157,6 +159,8 @@ def update_probe(root):
         'Program/decoder_314.py':'updates/3.0.14/decoder_314.py',
         'Program/shear_dowels_catalog.py':'updates/2.1.0/shear_dowels_catalog.py',
         'Program/schoeck_dorn_decoder.py':'updates/2.2.0/schoeck_dorn_decoder.py',
+        'Program/shear_workflow_236.py':'updates/2.2.36/shear_workflow_236.py',
+        'Program/shear_schedule_io_236.py':'updates/2.2.36/shear_schedule_io_236.py',
     }.items():
         shutil.copy2(ROOT/path, root/name)
     for name in ('decoder_315.py','isopro_2018_en.json.gz.b64','schoeck_cz_2024_1_2024_09.json.gz.b64','.turto_runtime_3_0_15.ok'):
@@ -192,6 +196,8 @@ def reopen_probe(root):
     verify_catalogues_315.reopen_saved(app)
     import verify_stacon_316
     verify_stacon_316.exercise(app)
+    import verify_workflow_317
+    verify_workflow_317.reopen_saved(app)
     app.destroy()
 
 
