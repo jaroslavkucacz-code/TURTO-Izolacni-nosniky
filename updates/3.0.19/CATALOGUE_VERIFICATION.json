@@ -1,0 +1,19 @@
+{
+  "source": "https://www.halfen.com/cdn/Medien%20I%20Media/Druckschriften%20-%20Printed%20materials/Technische%20Produktinformationen/HALFEN_HIT_20_v2026-03-EN.pdf",
+  "sha256": "ec99c89f26763ce9c5a53175b34571b8aaa9f936e4728a1b5d418a9235ad1399",
+  "printed_pages": [
+    154,
+    155,
+    157,
+    158,
+    161,
+    162,
+    163,
+    164,
+    165,
+    167
+  ],
+  "st_moment_cells_checked_against_pdf": 56,
+  "method": "Extracted printed p.155 rows compared with shipped data; conservative lower-height lookup is an application rule, not interpolation prescribed by the catalogue.",
+  "scope": "ST and WT only; existing slab and auxiliary calculation rules unchanged."
+}

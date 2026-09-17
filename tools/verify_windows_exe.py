@@ -93,6 +93,8 @@ def probe(root):
         decoder_proof["workflow317"] = verify_workflow_317.exercise(app)
         import verify_shear_choice_318
         decoder_proof["choice318"] = verify_shear_choice_318.exercise(app)
+        import verify_st_wt_319
+        decoder_proof['st_wt319'] = verify_st_wt_319.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -212,6 +214,8 @@ def reopen_probe(root):
     verify_workflow_317.reopen_saved(app)
     import verify_shear_choice_318
     verify_shear_choice_318.reopen_saved(app)
+    import verify_st_wt_319
+    verify_st_wt_319.reopen_saved(app)
     app.destroy()
 
 
