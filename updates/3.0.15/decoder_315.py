@@ -153,7 +153,10 @@ def _patch(cls):
             # may contain a printed range (>=160) rather than an H token.
             # Accept only an exact stored label/alias, never a fuzzy substitute.
             labels = [result.record.get('designation', ''), *(result.record.get('aliases') or [])]
-            if any(catalog._normalise(text) == catalog._normalise(label) for label in labels if label):
+            concrete_ok = (not preferred_concrete
+                           or result.family.get('catalog_id') == families.AP_ID
+                           or families._concrete(result.record.get('concrete_min')) == families._concrete(preferred_concrete))
+            if concrete_ok and any(catalog._normalise(text) == catalog._normalise(label) for label in labels if label):
                 return result
             if scope['valid'] and matches(result.family, result.record, scope, preferred_concrete):
                 return result
