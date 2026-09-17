@@ -146,9 +146,7 @@ PAYLOADS = {'app_runtime.pyw': ('f74bd1515718dc167ecc0c4fd881ced8527f49c2',
  'shear_dowels_catalog.py': ('f74bd1515718dc167ecc0c4fd881ced8527f49c2',
                              'updates/3.0.16/shear_dowels_catalog.py',
                              '2eac1519f8f98f01f722c8a5c2d4dbf8cb549346475bff2e1ce89bb2dc03be94'),
- 'schoeck_dorn_decoder.py': ('f74bd1515718dc167ecc0c4fd881ced8527f49c2',
-                             'updates/3.0.16/schoeck_dorn_decoder.py',
-                             'a5006795856c895519a129bc8a155ed315895dd6d79ca5f2be4f04e0b5276b28')}
+ 'schoeck_dorn_decoder.py': ('2fb3dd44a7180ca8550b169bcc737c00efc3a2d8', 'updates/3.0.16/schoeck_dorn_decoder.py', 'd517c335219ebc68de705e4e43ce9bf70e089dde4bf3c5732911409539a1df1d')}
 
 BASE_REQUIRED = (
     "app_base.py", "app_runtime_244.pyw", "app_runtime_243.pyw", "app_runtime_242.pyw",
