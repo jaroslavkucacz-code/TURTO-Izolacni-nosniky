@@ -105,8 +105,13 @@ def exercise(app):
     app.shear_decoder_tree.selection_remove(*app.shear_decoder_tree.selection());pump(app)
     controls=next(buttons for table,buttons,_ in app._selection_actions_317 if table is app.shear_decoder_tree)
     assert controls and all(b.instate(['disabled']) for b in controls)
+    more=next(w for w in walk(app) if isinstance(w,ttk.Menubutton) and w.cget('text')=='Řádky…' and visible(w))
+    menu=more.nametowidget(more.cget('menu'))
+    delete_index=next(i for i in range(menu.index('end')+1) if menu.type(i)=='command' and menu.entrycget(i,'label')=='Smazat')
+    assert menu.entrycget(delete_index,'state')=='disabled'
     app.shear_decoder_tree.selection_set('1');pump(app)
     assert any(not b.instate(['disabled']) for b in controls)
+    assert menu.entrycget(delete_index,'state')=='normal'
     # Different SLD cover values survive row transfer and bulk synchronization.
     sld.update(name='S003',quantity=2,cover_mm=20,geometry_confirmed=True)
     enrich(sld);app.shear_decoder_rows.append(sld);app.refresh_shear_tables();pump(app)

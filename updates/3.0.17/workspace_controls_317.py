@@ -150,7 +150,11 @@ def apply(owner):
             tree=max(trees,key=lambda w:len(w.cget('columns')))
             buttons=[w for w in walk(panel) if isinstance(w,ttk.Button) and str(w.cget('text')) in labels]
             if not buttons:continue
-            def sync(event=None, tree=tree, buttons=buttons):
+            menus=[]
+            for widget in walk(panel):
+                if isinstance(widget,ttk.Menubutton) and str(widget.cget('text'))=='Řádky…':
+                    menus.append(widget.nametowidget(widget.cget('menu')))
+            def sync(event=None, tree=tree, buttons=buttons, menus=menus):
                 selected=bool(tree.selection())
                 for button in buttons:
                     previous=getattr(button,'_empty_selection_317',None)
@@ -160,6 +164,10 @@ def apply(owner):
                     elif previous is not None:
                         if not previous:button.state(['!disabled'])
                         del button._empty_selection_317
+                for menu in menus:
+                    for index in range((menu.index('end') or 0)+1):
+                        if menu.type(index)=='command' and menu.entrycget(index,'label') in labels:
+                            menu.entryconfigure(index,state='normal' if selected else 'disabled')
             tree.bind('<<TreeviewSelect>>',sync,add='+')
             tree.bind('<Map>',sync,add='+')
             owner._selection_actions_317.append((tree,buttons,sync));sync()
