@@ -1,12 +1,12 @@
 {
-  "version": "3.0.16",
-  "runtime_layout": "47",
-  "notes": "Oprava rozpoznání Schöck Stacon LD Ø20 S-A4 ve výkazech; zachování počtu kusů a správné edice katalogu.",
+  "version": "3.0.17",
+  "runtime_layout": "48",
+  "notes": "Katalogová VRd současných smykových trnů v tabulce a exportu; přehlednější ovládání a zalamování lišt ve všech záložkách.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8a9661abef048f89987e100d8bb2ebda9b69ce6e/updates/3.0.16/app.pyw",
-      "sha256": "c52fca1c3fd4c2beacbf57c15383cd6ac494d68f5cf104b4e3ad81fcbfd236af"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/08d567591eb2114a06540fa65e7ec375a85f29fd/updates/3.0.17/app.pyw",
+      "sha256": "c5a9ea398d3300efc618d816d3077d9ea0e86d28c52db151927bbbad6672c453"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f74bd1515718dc167ecc0c4fd881ced8527f49c2/updates/3.0.16/RELEASE_NOTES.txt",
-      "sha256": "2679b4b5b4269918bee5c3fe83e9f8ed74b3e6563054b0b62876bcc160cfc960"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/02534506bd62606728f4494481ce0778987745ed/updates/3.0.17/RELEASE_NOTES.txt",
+      "sha256": "d28a12f8f74249ee95f40e40130cdaa989ee5508d143f5e7ed004f36b645690e"
     },
     {
       "path": "startup_window.py",
