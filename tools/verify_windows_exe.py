@@ -70,8 +70,7 @@ def probe(root):
     runtime = runpy.run_path(str(root / 'Program/app_runtime.pyw'))
     runtime['selftest']()
     sys.path.insert(0, str(ROOT/'tools'))
-    import verify_decoder_314
-    decoder_codes = verify_decoder_314.fixture(root)
+    import verify_catalogues_315
     import hit_core, hit_workspace, hit_export_ui, hit_pdf, hit_excel, hit_units_310, action_payload
     errors = []
     tk.Tk.report_callback_exception = lambda self, *exc: errors.append(''.join(traceback.format_exception(*exc)))
@@ -87,7 +86,7 @@ def probe(root):
         assert app._turto_brand_title.cget('text').startswith(f'TURTO Statika {VERSION}')
         assert app._turto_native_icon_loaded
         assert not app.hit_rows and not app.aux_rows and not app.wt_rows
-        decoder_proof = verify_decoder_314.exercise(app, decoder_codes)
+        decoder_proof = verify_catalogues_315.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -146,6 +145,22 @@ def update_probe(root):
     for name in ('app.pyw', 'updater.py', 'startup_window.py'):
         data = (root / name).read_bytes(); (source / name).write_bytes(data)
         files.append({'path': name, 'url': (source / name).as_uri(), 'sha256': hashlib.sha256(data).hexdigest()})
+    # Reproduce a genuine, valid 3.0.14 installation with the incomplete
+    # original catalogue set, then run its normal online updater to 3.0.15.
+    for name, path in {
+        'app.pyw':'updates/3.0.14/app.pyw',
+        'Program/app_runtime.pyw':'updates/3.0.14/app_runtime.pyw',
+        'Program/catalog_engine.py':'updates/3.0.13/catalog_engine.py',
+        'Program/project_model.py':'updates/1.1.17/project_model.py',
+        'Program/decoder_314.py':'updates/3.0.14/decoder_314.py',
+    }.items():
+        shutil.copy2(ROOT/path, root/name)
+    for name in ('decoder_315.py','isopro_2018_en.json.gz.b64','schoeck_cz_2024_1_2024_09.json.gz.b64','.turto_runtime_3_0_15.ok'):
+        (root/'Program'/name).unlink(missing_ok=True)
+    (root/'Program/.turto_runtime_3_0_14.ok').write_text('3.0.14')
+    (root/'.turto_runtime_current.ok').write_text('45')
+    (root/'version.txt').write_text('3.0.14')
+    assert runpy.run_path(str(root/'app.pyw'))['_runtime_ready'](), 'Baseline must be a valid 3.0.14 installation'
     (root/'startup_window.py').unlink()  # Simulate an existing EXE without the new loading module.
     manifest = {'version': VERSION, 'runtime_layout': LAYOUT, 'files': files}
     # urllib's file handler treats query strings literally; substitute transport,
@@ -160,7 +175,18 @@ def update_probe(root):
     with patch.object(messagebox, 'askyesno', return_value=True), \
          patch.object(messagebox, 'showinfo', return_value=None), \
          patch.object(messagebox, 'showerror', side_effect=lambda *a, **k: (_ for _ in ()).throw(AssertionError(a))):
-        function(app, '0.0.0'); app.mainloop()
+        function(app, '3.0.14'); app.mainloop()
+
+
+def reopen_probe(root):
+    import runpy
+    assert runpy.run_path(str(root/'app.pyw'))['_runtime_ready']()
+    runtime=runpy.run_path(str(root/'Program/app_runtime.pyw'))
+    sys.path.insert(0, str(ROOT/'tools'))
+    import verify_catalogues_315
+    app=runtime['_base'].ThermalConnectorApp()
+    verify_catalogues_315.reopen_saved(app)
+    app.destroy()
 
 
 def main():
@@ -222,6 +248,10 @@ def main():
             finally:
                 # This PID belongs to the isolated test application just restarted.
                 subprocess.run(['taskkill', '/PID', str(pid), '/T', '/F'], check=True, capture_output=True)
+            subprocess.run([str(exe), '--run-script', str(Path(__file__).resolve()), '--reopen-probe', str(root)],
+                           env=env, cwd=folder, check=True, timeout=120)
+            assert database.read_bytes() == before, 'Reopening must preserve the original stored action'
+            proof['saved_legacy_rows_ok_after_314_update'] = 28
             (output / 'windows-exe-test.json').write_text(json.dumps(proof, indent=2), encoding='utf-8')
             print(json.dumps(proof, indent=2))
             import base64
@@ -238,4 +268,5 @@ def main():
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == '--probe': probe(Path(sys.argv[2]))
     elif len(sys.argv) > 1 and sys.argv[1] == '--update-probe': update_probe(Path(sys.argv[2]))
+    elif len(sys.argv) > 1 and sys.argv[1] == '--reopen-probe': reopen_probe(Path(sys.argv[2]))
     else: main()

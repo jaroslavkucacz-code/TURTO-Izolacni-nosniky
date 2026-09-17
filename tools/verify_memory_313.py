@@ -139,14 +139,20 @@ def main():
             with zipfile.ZipFile(archive) as package:
                 package.extractall(Path(folder)/'host312')
             old_host = Path(folder)/'host312/TURTO Statika'
-        for label, engine in [('312', 'updates/1.1.17/catalog_engine.py'), ('313', 'updates/3.0.13/catalog_engine.py')]:
+        for label, engine in [('312', 'updates/1.1.17/catalog_engine.py'), ('313', None)]:
             root = Path(folder) / label
             shutil.copytree(source, root)
             if frozen:
                 shutil.copy2(old_host/'TURTO Statika.exe', root/'TURTO Statika.exe')
                 shutil.rmtree(root/'_internal')
                 shutil.copytree(old_host/'_internal', root/'_internal')
-            shutil.copy2(ROOT / engine, root / 'Program/catalog_engine.py')
+            if engine:
+                shutil.copy2(ROOT / engine, root / 'Program/catalog_engine.py')
+            # Give both engine representations the same restored manufacturer
+            # data in the same order; the old engine predates bundled fallback.
+            for name in ('isopro_2018_en.json.gz.b64','schoeck_cz_2024_1_2024_09.json.gz.b64'):
+                if (root/'Program'/name).is_file():
+                    shutil.copy2(root/'Program'/name, root/'catalogs'/name)
             for cache in (root / 'Program').rglob('__pycache__'):
                 shutil.rmtree(cache)
             env = dict(os.environ, APPDATA=str(root/'TEST_ONLY_appdata'),

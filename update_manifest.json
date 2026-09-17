@@ -1,12 +1,12 @@
 {
-  "version": "3.0.14",
-  "runtime_layout": "45",
-  "notes": "Oprava rychlého dekodéru a našeptávání Schöck T/XT; okamžitě viditelné načítací okno při startu Windows EXE.",
+  "version": "3.0.15",
+  "runtime_layout": "46",
+  "notes": "Obnova původních katalogů Schöck a ISOPRO v EXE; oprava Nenalezeno u uložených QL/QP a přidání z našeptávače.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/056561e7618f45a32b5851929f9df6a15e7ac1b7/updates/3.0.14/app.pyw",
-      "sha256": "8f4ab4a86a389dac28053b884a92f7f9a4dfb207ef30ddbc4747dbd0317ba9af"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/a3358cd91c0e90d49a2eaefa9dd8ddf8c441c1c7/updates/3.0.15/app.pyw",
+      "sha256": "fd8f80766aa7fc1d34f2c0485755d4858849cb6452f263c68344a9b73821725f"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/2e4b2450424243a0ce8682a29c62da7f95ee739b/updates/3.0.14/RELEASE_NOTES.txt",
-      "sha256": "1a6d0658259861178ecc87b1fcc26b5b5204e9d4dd577699cc0a13d9d9b519e5"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d321d428680ddbad888ed8eaad385d6ee642ffff/updates/3.0.15/RELEASE_NOTES.txt",
+      "sha256": "15abca4d5b6c1a2c9d325b71aa7874cb666a4356a81acd7feb780d945acaf7ae"
     },
     {
       "path": "startup_window.py",
