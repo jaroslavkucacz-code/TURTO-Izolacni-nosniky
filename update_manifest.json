@@ -1,12 +1,12 @@
 {
-  "version": "3.0.15",
-  "runtime_layout": "46",
-  "notes": "Obnova původních katalogů Schöck a ISOPRO v EXE; oprava Nenalezeno u uložených QL/QP a přidání z našeptávače.",
+  "version": "3.0.16",
+  "runtime_layout": "47",
+  "notes": "Oprava rozpoznání Schöck Stacon LD Ø20 S-A4 ve výkazech; zachování počtu kusů a správné edice katalogu.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/a3358cd91c0e90d49a2eaefa9dd8ddf8c441c1c7/updates/3.0.15/app.pyw",
-      "sha256": "fd8f80766aa7fc1d34f2c0485755d4858849cb6452f263c68344a9b73821725f"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/fdf1ec7a7fb3854690ade6647302371dd2fe7475/updates/3.0.16/app.pyw",
+      "sha256": "a1028bfada4c1ef82d856d16713f6dbd79812a4519c14423924dc21226f98d78"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d321d428680ddbad888ed8eaad385d6ee642ffff/updates/3.0.15/RELEASE_NOTES.txt",
-      "sha256": "15abca4d5b6c1a2c9d325b71aa7874cb666a4356a81acd7feb780d945acaf7ae"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f74bd1515718dc167ecc0c4fd881ced8527f49c2/updates/3.0.16/RELEASE_NOTES.txt",
+      "sha256": "2679b4b5b4269918bee5c3fe83e9f8ed74b3e6563054b0b62876bcc160cfc960"
     },
     {
       "path": "startup_window.py",

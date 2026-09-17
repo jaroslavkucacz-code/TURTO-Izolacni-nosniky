@@ -1,6 +1,6 @@
-# TURTO Statika 3.0.15
+# TURTO Statika 3.0.16
 
-[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.15/TURTO-Statika-3.0.15-Windows-x64.zip)
+[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.16/TURTO-Statika-3.0.16-Windows-x64.zip)
 
 Rozbalte celý balíček a spusťte **TURTO Statika.exe**. Python se neinstaluje. Při přechodu ze stávajícího programu zkopírujte obsah balíčku do jeho dosavadní složky; databáze AKCÍ a nastavení nejsou součástí balíčku. Podrobnosti: [návod k EXE](packaging/windows/CTETE_ME.txt).
 
@@ -25,7 +25,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO Statika 3.0.15** (`3.0.15`)
+**Aktuální vydání: TURTO Statika 3.0.16** (`3.0.16`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -33,6 +33,10 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
 Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
+
+## Import smykových trnů 3.0.16
+
+Rozpoznání zápisu `SCHOECK STACON LD Ø20 S-A4` (také ⌀), včetně počtu kusů z výkazu. Výslovný STACON používá současný katalog; archivní LD zůstává zachováno.
 
 ## Dekodér a spuštění 3.0.15
 
