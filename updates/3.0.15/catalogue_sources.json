@@ -1,0 +1,26 @@
+{
+  "archive": "TURTO_Izolacni_nosniky_v0.5.0.zip",
+  "archive_sha256": "ae8c8598a3d8e90bd5ffc6cfd8e65c97ba1e43e67f72764993d698a148ef7e2c",
+  "catalogues": [
+    {
+      "name": "isopro_2018_en.json.gz.b64",
+      "catalog_id": "isopro-en-2018-user-source",
+      "sha256": "560d7f70f90e93285cd4010a05633afc87da6dd0afa5700c20d9b1c8c83c4b0f",
+      "original_sha256": "cae26b71f001fee90e89b0d3855fc8a902217808ee944d9b35d7bf7f5c2e6efe",
+      "source_member": "TURTO_Izolacni_nosniky_v0.5.0/catalogs/isopro_2018_en.json",
+      "families": 19,
+      "records": 10633,
+      "source_filename": "Katalog_ISOPRO_AT_2018_EN.pdf"
+    },
+    {
+      "name": "schoeck_cz_2024_1_2024_09.json.gz.b64",
+      "catalog_id": "schoeck-cz-2024.1-2024-09",
+      "sha256": "d90cd37a97bc3b2f955b6ffdf4c6c4d25f1d3715b332625a58e7f90f8be94043",
+      "original_sha256": "3d479bc76b07fe0ab320a0c57147b967056bc2fbc8f1ae7bb799b00fce66231c",
+      "source_member": "TURTO_Izolacni_nosniky_v0.5.0/catalogs/schoeck_cz_2024_1_2024_09.json",
+      "families": 30,
+      "records": 3584,
+      "source_filename": "Schoeck_Isokorb_XT_T_CZ_2024_1_09_2024.pdf"
+    }
+  ]
+}
