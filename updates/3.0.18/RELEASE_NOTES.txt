@@ -1,0 +1,12 @@
+TURTO Statika 3.0.18
+
+Smykové trny – výběr alternativy
+- V Návrhu označte řádek a poté alternativní typ. Tlačítko „Použít vybranou alternativu“, dvojklik nebo Enter jej převezme do návrhu.
+- Vybraný typ se zachová při přepočtu, přepínání záložek, uložení a otevření AKCE i v exportu.
+- „Obnovit automatický návrh“ vrátí výběr podle původního pořadí katalogových kandidátů.
+- Pokud ručně zvolený typ pro změněné zadání nevyhovuje, řádek vypíše chybu; nepoužije staré únosnosti ani bez upozornění jiný typ.
+- Alternativy používají výrobce daného řádku, včetně Aschwanden CRET. Změna výrobce pro přidávaný řádek neovlivní předchozí návrhy.
+- Sjednocený výběr výrobce; potvrzovací tlačítka jsou v záhlaví alternativ a obě tabulky mají místo i v menším okně.
+- Seznam alternativ se obnovuje na místě a zachovává označení při běžném obnovení tabulky.
+
+Katalogové tabulky a podmínky použitelnosti zůstávají zachované. Výběr se ukládá do stávající AKCE bez migrace databáze.

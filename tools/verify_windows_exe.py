@@ -91,6 +91,8 @@ def probe(root):
         decoder_proof["stacon"] = verify_stacon_316.exercise(app)
         import verify_workflow_317
         decoder_proof["workflow317"] = verify_workflow_317.exercise(app)
+        import verify_shear_choice_318
+        decoder_proof["choice318"] = verify_shear_choice_318.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -106,11 +108,21 @@ def probe(root):
             quantity='2', ved_pos='20', ved_neg='10', load_basis='per_element'))
         app.hit_rows.append(row); app.recalculate_hit_all(); pump(app)
         assert row.selected_candidate and hit_units_310.basis(row) == 'per_element'
+        # The same release must preserve existing HIT alternative selection too.
+        assert len(row.candidates) > 1
+        chosen_hit = row.candidates[1].designation
+        row.product_combo.current(1); row.product_combo.event_generate('<<ComboboxSelected>>')
+        for group in ('aux', 'wt', 'standard'):
+            app.shared_thermal_design.show_hit_group(group); pump(app)
+        app.recalculate_hit_all(); pump(app)
+        assert row.selected_candidate.designation == chosen_hit and row._manual_product
         assert action_payload.save_action(app, as_new=True, forced_name='TEST_ONLY EXE roundtrip')
         store = action_payload.action_store(app); saved = store.load(app.action_id)
         action_payload.load_action_record(app, saved); pump(app)
         assert len(app.hit_rows) == 1 and hit_units_310.basis(app.hit_rows[0]) == 'per_element'
+        assert app.hit_rows[0].selected_candidate.designation == chosen_hit
         rows = hit_export_ui.collect_hit_rows(app)
+        assert rows[0]['candidate']['designation'] == chosen_hit
         assert rows[0]['actions_per_metre']['v_pos'] == 40
         hit_pdf.write_hit_proposal_pdf(root / 'probe.pdf', project_name='TEST_ONLY EXE', rows=rows)
         import pdfplumber
@@ -198,6 +210,8 @@ def reopen_probe(root):
     verify_stacon_316.exercise(app)
     import verify_workflow_317
     verify_workflow_317.reopen_saved(app)
+    import verify_shear_choice_318
+    verify_shear_choice_318.reopen_saved(app)
     app.destroy()
 
 
