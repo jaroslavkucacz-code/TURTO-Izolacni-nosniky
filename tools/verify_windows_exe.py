@@ -87,6 +87,8 @@ def probe(root):
         assert app._turto_native_icon_loaded
         assert not app.hit_rows and not app.aux_rows and not app.wt_rows
         decoder_proof = verify_catalogues_315.exercise(app)
+        import verify_stacon_316
+        decoder_proof["stacon"] = verify_stacon_316.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -146,13 +148,15 @@ def update_probe(root):
         data = (root / name).read_bytes(); (source / name).write_bytes(data)
         files.append({'path': name, 'url': (source / name).as_uri(), 'sha256': hashlib.sha256(data).hexdigest()})
     # Reproduce a genuine, valid 3.0.14 installation with the incomplete
-    # original catalogue set, then run its normal online updater to 3.0.15.
+    # original catalogue set, then run its normal online updater to the current release.
     for name, path in {
         'app.pyw':'updates/3.0.14/app.pyw',
         'Program/app_runtime.pyw':'updates/3.0.14/app_runtime.pyw',
         'Program/catalog_engine.py':'updates/3.0.13/catalog_engine.py',
         'Program/project_model.py':'updates/1.1.17/project_model.py',
         'Program/decoder_314.py':'updates/3.0.14/decoder_314.py',
+        'Program/shear_dowels_catalog.py':'updates/2.1.0/shear_dowels_catalog.py',
+        'Program/schoeck_dorn_decoder.py':'updates/2.2.0/schoeck_dorn_decoder.py',
     }.items():
         shutil.copy2(ROOT/path, root/name)
     for name in ('decoder_315.py','isopro_2018_en.json.gz.b64','schoeck_cz_2024_1_2024_09.json.gz.b64','.turto_runtime_3_0_15.ok'):
@@ -186,6 +190,8 @@ def reopen_probe(root):
     import verify_catalogues_315
     app=runtime['_base'].ThermalConnectorApp()
     verify_catalogues_315.reopen_saved(app)
+    import verify_stacon_316
+    verify_stacon_316.exercise(app)
     app.destroy()
 
 
