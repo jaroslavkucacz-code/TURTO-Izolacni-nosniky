@@ -16,8 +16,8 @@ from tkinter import messagebox
 
 VERSION = "3.0.17"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "d1e18897ca7db17e87b606731274dcd0792fd170"
-INSTALLER_SHA256 = "02eff613b391a073beff1e18c1aa115574b25881c507e057561f471448915d1b"
+INSTALLER_COMMIT = "8d0ed0518e77cdde8981e31afba8e4e0483ab22c"
+INSTALLER_SHA256 = "a7efe4afd0527205555e7340a00a6a48a0b3552b535b6d6010154fbde1cf47b7"
 RUNTIME_LAYOUT = "48"
 
 ROOT = Path(__file__).resolve().parent
@@ -71,7 +71,7 @@ CRITICAL_PROGRAM_SHA256 = {'app_runtime.pyw': 'fcaceca7891d423379557b25ee9791adc
  'shear_dowels_catalog.py': '2eac1519f8f98f01f722c8a5c2d4dbf8cb549346475bff2e1ce89bb2dc03be94',
  'schoeck_dorn_decoder.py': 'd517c335219ebc68de705e4e43ce9bf70e089dde4bf3c5732911409539a1df1d',
  'shear_capacity_317.py': '7614155706abab32c195aa32bf468351ec3b7ce9b6dd1626596cf5388eb8fb00',
- 'workspace_controls_317.py': 'fe11cfa8044c729671679ea646fec8ca474ab55972cdaa081a26bad90b7cbfee',
+ 'workspace_controls_317.py': '205cfe7631a2c4b98b0481861e783ae646db1d8f8347c8530b9fda9bcb18bc7d',
  'shear_workflow_236.py': '6b76b22e75912470632b802d4c368c24d4f154bffee7e1a43c27e6a95e8503b0',
  'shear_schedule_io_236.py': 'b3063e5754c15389cee95783755b2827be997a304c1999742a212408134dde31'}
 
