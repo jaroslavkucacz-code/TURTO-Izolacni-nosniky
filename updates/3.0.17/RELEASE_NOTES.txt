@@ -1,0 +1,7 @@
+TURTO Statika 3.0.17
+
+Oprava chybějící katalogové VRd a zdroje současných smykových trnů v tabulce Dekodéru. Existující uložené řádky se doplní při otevření akce; původní označení a počty zůstávají zachovány. Chybějící geometrie nebo údaj mimo katalog má vysvětlení místo prázdné buňky. Katalogová hodnota se používá také v exportu. Schöck Stacon SLD umožňuje zadat cnom 20 / 30 mm; zachována nutnost kontroly desky.
+
+Ovládání: sjednocené Načíst výkaz…, odstraněn nadbytečný výběr pouze Leviat vedle společného našeptávače, přehlednější označení Řádky… a Návrhové moduly HIT. Dlouhé lišty akcí se zalamují dle šířky okna. Aktivní filtry jsou zvýrazněné. Akce s vybraným řádkem jsou bez výběru neaktivní. Odstraněn opakovaný nadpis Izolační nosníky.
+
+Kontrola všech šesti hlavních záložek, návrhu Leviat / Peikko, modulů Desky/balkony, Doplňkové prvky a Stěny WT. Ověřen skutečný import -> tabulka -> uložení/otevření -> kopírování/exportní data -> návrh záměny. Zachovány katalogové hodnoty a dosavadní výpočty.
