@@ -1,0 +1,5 @@
+TURTO Statika 3.0.16
+
+Oprava importu Schöck Stacon LD s označením průměru Ø / ⌀, např. SCHOECK STACON LD Ø20 S-A4.
+Počet kusů z výkazu se zachovává. Výslovné označení STACON používá současný katalog, staré LD25-S-A4 archivní katalog.
+Stávající katalogové hodnoty a uložené akce se nemění.
