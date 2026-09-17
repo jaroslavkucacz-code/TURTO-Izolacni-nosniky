@@ -1,0 +1,18 @@
+{
+  "version": "3.0.15",
+  "manifest_root_only": true,
+  "runtime_directory": "Program",
+  "runtime_layout": "46",
+  "required_targets": [
+    "app.pyw",
+    "updater.py",
+    "RELEASE_NOTES.txt",
+    "startup_window.py"
+  ],
+  "preserve": [
+    "actions.sqlite3",
+    "catalogs",
+    "Dokumentace",
+    "Zaloha"
+  ]
+}
