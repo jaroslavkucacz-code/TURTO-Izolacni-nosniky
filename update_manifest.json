@@ -1,12 +1,12 @@
 {
-  "version": "3.0.18",
-  "runtime_layout": "49",
-  "notes": "Volba alternativy smykového trnu tlačítkem, dvojklikem nebo Enterem; zachování výběru při přepočtu, uložení a exportu.",
+  "version": "3.0.19",
+  "runtime_layout": "50",
+  "notes": "Návrh HIT-ST vedle WT; mezilehlé výšky s nižší tabulkovou únosností; čitelnější písmo a kontrast.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/f1899ec3f4ceae9a71897faea6f8e202c7db58b2/updates/3.0.18/app.pyw",
-      "sha256": "b54545d74dc76e72c4859f1704cd9988bfc55e44ca11c3a209180bfbdb34f87c"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/7991e12e98d70a58546c61b9ee08b5aa0f729079/updates/3.0.19/app.pyw",
+      "sha256": "7f172fde47ba9985da0e6a01d123995142fda5a79da79c973a1ae54c569f925d"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/51a3cf7b1a464219241b23114d7b85295edf56f3/updates/3.0.18/RELEASE_NOTES.txt",
-      "sha256": "6596a2814d6baa603399462d063a595708f1df026aaa7c2f3df4ce79284d9cd0"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/04deeff098d6aad06ae44f51fb49092bc6bacde3/updates/3.0.19/RELEASE_NOTES.txt",
+      "sha256": "d703d280ed15b0ada752df54db7d27e2cb7b14ea80cb9da13b79fa037ccc65b2"
     },
     {
       "path": "startup_window.py",
