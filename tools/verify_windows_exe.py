@@ -97,6 +97,8 @@ def probe(root):
         decoder_proof['st_wt319'] = verify_st_wt_319.exercise(app)
         import verify_decoder_length_320
         decoder_proof['length320'] = verify_decoder_length_320.exercise(app)
+        import verify_designation_format_321
+        decoder_proof['format321'] = verify_designation_format_321.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -230,6 +232,8 @@ def reopen_probe(root):
     verify_st_wt_319.reopen_saved(app)
     import verify_decoder_length_320
     verify_decoder_length_320.reopen_saved(app)
+    import verify_designation_format_321
+    verify_designation_format_321.reopen_saved(app)
     app.destroy()
 
 

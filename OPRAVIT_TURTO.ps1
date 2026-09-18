@@ -8,11 +8,11 @@ $ProgressPreference = 'SilentlyContinue'
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$Version = '3.0.20'
+$Version = '3.0.21'
 $Repository = 'jaroslavkucacz-code/TURTO-Izolacni-nosniky'
-$AppCommit = '92d6f9558a842a4ed9036bc7961b4437ce669bd4'
+$AppCommit = 'cabef22a49f216183b5477634997630e17ccf249'
 $UpdaterCommit = 'e5f4fe6a2b43ae99a6db6cd75d12a9bbbf24852c'
-$AppSha256 = '3d99c6bd47680a73371588b5856f722006e4a07fd22fdeb0aa0e4928c6bfad45'
+$AppSha256 = '2721e77ac6f277e3bfb2af265401d932549fccc9de5118407ffb6c61374644ec'
 $UpdaterSha256 = '332b86d1db56db55f639d34577ab7f4c48ac192dad987c85f48e584796bf7bcd'
 $StartupCommit = '2e4b2450424243a0ce8682a29c62da7f95ee739b'
 $StartupSha256 = '14d2ac307cff18412d5710203876b0a29122c38e5ddb71c652cff8df3d4e907d'
@@ -160,7 +160,7 @@ try {
     $updaterTemp = Join-Path $tempDir 'updater.py'
     $startupTemp = Join-Path $tempDir 'startup_window.py'
 
-    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/3.0.20/app.pyw"
+    $appUrl = "https://raw.githubusercontent.com/$Repository/$AppCommit/updates/3.0.21/app.pyw"
     $updaterUrl = "https://raw.githubusercontent.com/$Repository/$UpdaterCommit/updates/3.0.12/updater.py"
 
     $startupUrl = "https://raw.githubusercontent.com/$Repository/$StartupCommit/updates/3.0.14/startup_window.py"

@@ -1,12 +1,12 @@
 {
-  "version": "3.0.20",
-  "runtime_layout": "51",
-  "notes": "Vlastní délka nosníku v Dekodéru: jednotlivě, hromadně a dodatečně; uložení, záměny a exporty.",
+  "version": "3.0.21",
+  "runtime_layout": "52",
+  "notes": "Schöck: sjednocení formátu označení v dekodéru, našeptávači a hromadném importu; srozumitelná kontrola chybějících dat.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/92d6f9558a842a4ed9036bc7961b4437ce669bd4/updates/3.0.20/app.pyw",
-      "sha256": "3d99c6bd47680a73371588b5856f722006e4a07fd22fdeb0aa0e4928c6bfad45"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/cabef22a49f216183b5477634997630e17ccf249/updates/3.0.21/app.pyw",
+      "sha256": "2721e77ac6f277e3bfb2af265401d932549fccc9de5118407ffb6c61374644ec"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d15468cef0753c46866127e3458f691882d95167/updates/3.0.20/RELEASE_NOTES.txt",
-      "sha256": "fdb686c62d9af98f1b17b0ca85c77e1657ba08aefd64b099ef998b76f7c798bb"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/cc4d74e086b55e32ef067dc223a7c3e5691b052f/updates/3.0.21/RELEASE_NOTES.txt",
+      "sha256": "86e80543d545998327f05e1bd8312451a07e92bbcf68d273e62728f56651620e"
     },
     {
       "path": "startup_window.py",
