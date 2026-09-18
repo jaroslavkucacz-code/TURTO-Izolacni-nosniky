@@ -1,0 +1,10 @@
+TURTO Statika 3.0.20
+
+- Délka jednoho nosníku v Dekodéru: nové pole Délka prvku [m] v rychlém zadání, dialogu řádku a dodatečné úpravě. Přijímá např. 0,5 / 0.75 / 500 mm; prázdné pole ponechá délku z označení nebo katalogu.
+- Hromadný import podporuje sloupec Délka [m] (také [mm] / [cm]) v záhlaví. Např. Pozice; Ks; Označení; Délka [m]; Poznámka. Bez záhlaví lze použít výslovnou poznámku délka=0,5 m. Čísla v obyčejné poznámce se za délku nepovažují.
+- V kontrole výkazu lze označit jeden či více řádků a tlačítkem Použít na označené nastavit společnou délku. Z označení / katalogu obnoví automatickou délku. Délky jednotlivých řádků se nesdílejí přes vyhledávací cache.
+- Sloupec Délka [m], délka v detailu a v exportech PDF / Excel / schránka. Detail nabízí přímou úpravu údajů. Uložení AKCE, opětovné otevření, duplikace i změna betonu zachovají délku.
+- Změna délky ruší dřívější návrh a potvrzení záměny; ostatní upřesnění geometrie zůstávají. Hodnoty na metr se přepočítávají podle délky jednoho prvku, nezávisle na počtu kusů. Původní katalogová data se nemění.
+- Únosnosti uvedené na prvek se délkou nenásobí. Pokud se zadaná délka liší od doložené katalogové délky takového typu, řádek vyžaduje kontrolu a automatická záměna se neprovede.
+- Před spuštěním hromadné analýzy se dočistí zavřené dialogy v hlavním vlákně Tk; odstraněn reprodukovaný pád po předchozí úpravě řádku.
+- Zachován návrh ST/WT, jednotky na prvek / na metr, ruční volby HIT a smykových trnů a standardní logo TURTO.
