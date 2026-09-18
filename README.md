@@ -1,6 +1,6 @@
-# TURTO Statika 3.0.21
+# TURTO Statika 3.0.22
 
-[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.21/TURTO-Statika-3.0.21-Windows-x64.zip)
+[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.22/TURTO-Statika-3.0.22-Windows-x64.zip)
 
 Rozbalte celý balíček a spusťte **TURTO Statika.exe**. Python se neinstaluje. Při přechodu ze stávajícího programu zkopírujte obsah balíčku do jeho dosavadní složky; databáze AKCÍ a nastavení nejsou součástí balíčku. Podrobnosti: [návod k EXE](packaging/windows/CTETE_ME.txt).
 
@@ -25,7 +25,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO Statika 3.0.21** (`3.0.21`)
+**Aktuální vydání: TURTO Statika 3.0.22** (`3.0.22`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -34,11 +34,17 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 
 Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
 
+## Archiv Schöck T KL 2.0 – 3.0.22
+
+Doplněn český archiv CZ/2023.1 z dubna 2023: T KL generace 2.0, M1–M12, V1/V2/VV1, CV1/CV2, REI120 a tabulkové výšky. Sedm řádků KL z dodaného výkazu (2311 ks) lze dekódovat a použít jako zdroj pro záměnu HIT. Zdrojové vydání a stránky se ukládají do AKCE a uvádějí v exportu. Původní PDF lze otevřít nebo stáhnout v **Katalozích**.
+
+Dvě nejasné buňky M10/CV1/H180 a H190 se nepoužívají; program vysvětlí důvod. KL-U 2.0 a ZL 2.0 zůstávají neověřené, jiná generace se nedoplňuje. Podklady a přesný rozsah: [ověření archivu](updates/3.0.22/ARCHIVE_SOURCE.md).
+
 ## Formát označení Schöck 3.0.21
 
 Dekodér, našeptávač a hromadný import přijímají mezery mezi parametry, různé typografické pomlčky a desetinnou čárku generace. Například `T typ KL-M5-V1-REI120 - CV1 - H200.2,0` se přečte jako `T-KL-M5-V1-REI120-CV1-H200-2.0`. Původní zápis zůstává uložený. Množství `1 475,00` znamená 1475 ks.
 
-Oprava zápisu nemění generaci ani parametry. V distribuovaných katalozích chybí T KL / KL-U generace 2.0 a T ZL; takové řádky zobrazí **Chybí data**, rozpoznané označení a konkrétní důvod. Nejednoznačné `QP-VV-V1` vyžaduje opravu třídy. U QP bez `L` je nutné délku doplnit nebo výslovně potvrdit konkrétní katalogovou variantu. Formátování nikdy nepřebírá únosnosti z jiné generace.
+Oprava zápisu nemění generaci ani parametry. Od verze 3.0.22 je doplněn T KL 2.0. Nadále chybí doložené KL-U generace 2.0 a T ZL 2.0; takové řádky zobrazí **Chybí data**, rozpoznané označení a konkrétní důvod. Nejednoznačné `QP-VV-V1` vyžaduje opravu třídy. U QP bez `L` je nutné délku doplnit nebo výslovně potvrdit konkrétní katalogovou variantu. Formátování nikdy nepřebírá únosnosti z jiné generace.
 
 ## Délka dekódovaných nosníků 3.0.20
 
