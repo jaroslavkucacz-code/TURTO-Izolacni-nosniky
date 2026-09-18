@@ -16,8 +16,8 @@ from tkinter import messagebox
 
 VERSION = "3.0.20"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "09ed4a9e246ee7670a53fceae01a69c15ab6416a"
-INSTALLER_SHA256 = "ba7481eb74d3b336a39d0d494c7464a29f6b9cb7b993934d36dfc69d4cbb82b6"
+INSTALLER_COMMIT = "232f0f069508d03c1a4e81dfdfc7094d69b3936f"
+INSTALLER_SHA256 = "969d646654bebdd1decf9996d183d08110ac5a9747f5a033662390fa98657c40"
 RUNTIME_LAYOUT = "51"
 
 ROOT = Path(__file__).resolve().parent
@@ -137,7 +137,7 @@ def _activate_program() -> None:
 
 
 def _download_installer() -> Path:
-    url = f"https://raw.githubusercontent.com/{REPOSITORY}/{INSTALLER_COMMIT}/updates/3.0.19/runtime_installer.py"
+    url = f"https://raw.githubusercontent.com/{REPOSITORY}/{INSTALLER_COMMIT}/updates/{VERSION}/runtime_installer.py"
     folder = Path(tempfile.mkdtemp(prefix="turto_315_boot_"))
     target = folder / "runtime_installer.py"
     last = None
@@ -146,7 +146,7 @@ def _download_installer() -> Path:
             request = urllib.request.Request(
                 url + f"?turto={time.time_ns()}_{attempt}",
                 headers={
-                    "User-Agent": "TURTO-3.0.19-Bootstrap",
+                    "User-Agent": f"TURTO-{VERSION}-Bootstrap",
                     "Cache-Control": "no-cache, no-store",
                     "Pragma": "no-cache",
                 },
@@ -165,7 +165,7 @@ def _download_installer() -> Path:
             if attempt < 3:
                 time.sleep(1 + attempt)
     shutil.rmtree(folder, ignore_errors=True)
-    raise RuntimeError(f"Nelze stáhnout runtime installer 3.0.19.\n{last}")
+    raise RuntimeError(f"Nelze stáhnout runtime installer {VERSION}.\n{last}")
 
 
 def _repair_runtime() -> None:
@@ -176,7 +176,7 @@ def _repair_runtime() -> None:
             raise RuntimeError("Runtime installer neobsahuje install_runtime().")
         install(ROOT)
         if not PROGRAM_MARKER.is_file():
-            raise RuntimeError("Opravený runtime nemá značku verze 3.0.19.")
+            raise RuntimeError(f"Opravený runtime nemá značku verze {VERSION}.")
         ROOT_MARKER.write_text(RUNTIME_LAYOUT, encoding="utf-8")
         if not _runtime_ready():
             raise RuntimeError("Opravený runtime neprošel závěrečnou kontrolou.")
@@ -273,7 +273,7 @@ def main() -> int:
 
 
 def selftest() -> None:
-    assert VERSION == "3.0.19" and RUNTIME_LAYOUT == "50"
+    assert VERSION == "3.0.20" and RUNTIME_LAYOUT == "51"
     assert len(INSTALLER_COMMIT) == 40 and len(INSTALLER_SHA256) == 64
     assert all(len(value) == 64 for value in CRITICAL_PROGRAM_SHA256.values())
     assert "app_runtime_246.pyw" in CRITICAL_PROGRAM_SHA256
