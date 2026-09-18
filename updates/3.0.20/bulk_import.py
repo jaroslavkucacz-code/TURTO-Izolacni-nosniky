@@ -292,6 +292,8 @@ class BulkImportDialog(tk.Toplevel):
             state="disabled",
         )
         self.manual_button.pack(side="left", padx=(7, 0))
+        from workspace_controls_317 import FlowToolbar
+        self._candidate_actions_flow = FlowToolbar(candidate_actions, list(candidate_actions.winfo_children()))
 
         candidate_frame = ttk.Frame(candidate_card, style="Card.TFrame")
         candidate_frame.grid(row=3, column=0, sticky="nsew")
@@ -325,11 +327,11 @@ class BulkImportDialog(tk.Toplevel):
         ttk.Label(
             bottom,
             text=(
-                "Zelené řádky jsou bezpečně připravené. Žluté vyžadují výběr varianty nebo mají dohledaný archivní zdroj. "
-                "Červené nejsou rozpoznatelné. Volbou „Neřešit – zadám ručně“ lze libovolný nevyřešený řádek vědomě přeskočit; "
-                "šedý řádek se hromadně nevloží a zůstává určen pro následné ruční zadání."
+                "Zelené = připravené, žluté = doplnit, červené = nerozpoznané, šedé = přeskočené. "
+                "Ctrl / Shift označí více řádků."
             ),
             style="Muted.TLabel",
+            wraplength=740,
         ).grid(row=0, column=0, sticky="w")
         ttk.Button(bottom, text="Zrušit", command=self._cancel).grid(row=0, column=1, padx=(8, 0))
         self.insert_button = ttk.Button(
@@ -344,6 +346,17 @@ class BulkImportDialog(tk.Toplevel):
         self.bind("<Escape>", lambda _event: self._cancel())
         self.bind("<Control-Return>", lambda _event: self._analyze())
         self.text.focus_set()
+        # Explicit bounds after the initial layout keep the length controls and
+        # footer reachable even when tables request more than the screen width.
+        def fit():
+            if not self.winfo_exists():
+                return
+            width = min(1380, max(1000, parent.winfo_width() - 40))
+            height = min(860, max(680, parent.winfo_height() - 40))
+            x = parent.winfo_rootx() + max(0, (parent.winfo_width() - width) // 2)
+            y = parent.winfo_rooty() + max(0, (parent.winfo_height() - height) // 2)
+            self.geometry(f"{width}x{height}{x:+d}{y:+d}")
+        self.after(0, fit)
 
 
     def _apply_length(self, reset=False):

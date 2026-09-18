@@ -83,6 +83,10 @@ def exercise(app):
         deadline=time.monotonic()+20
         while dialog._analysis_running and time.monotonic()<deadline:pump(app,.04)
         assert not dialog._analysis_running and len(dialog.items)==3
+        for w in (dialog.length_entry, dialog.length_apply_button, dialog.length_reset_button, dialog.insert_button):
+            assert w.winfo_ismapped()
+            assert 0 <= w.winfo_rootx()-dialog.winfo_rootx() < dialog.winfo_width()
+            assert w.winfo_rooty()+w.winfo_height() <= dialog.winfo_rooty()+dialog.winfo_height()
         assert [length.item_length(i) for i in dialog.items]==[500,750,300]
         dialog.review_tree.selection_set(('i0','i1'));dialog.length_var.set('0,6')
         dialog.length_apply_button.invoke()
