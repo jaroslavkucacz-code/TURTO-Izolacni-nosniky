@@ -67,7 +67,8 @@ class BulkImportDialog(tk.Toplevel):
         self.geometry("1380x860")
         self.minsize(1000, 680)
         self.transient(parent)
-        place_dialog_on_parent(self, parent)
+        # Positioned once after layout below; generic centering can use the
+        # tables' oversized requested width before the toplevel is mapped.
         self.grab_set()
         self.configure(background=colors["bg"])
         self.protocol("WM_DELETE_WINDOW", self._cancel)

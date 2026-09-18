@@ -83,6 +83,7 @@ def exercise(app):
         deadline=time.monotonic()+20
         while dialog._analysis_running and time.monotonic()<deadline:pump(app,.04)
         assert not dialog._analysis_running and len(dialog.items)==3
+        assert dialog.winfo_width() <= 1380 and dialog.winfo_height() <= 860
         for w in (dialog.length_entry, dialog.length_apply_button, dialog.length_reset_button, dialog.insert_button):
             assert w.winfo_ismapped()
             assert 0 <= w.winfo_rootx()-dialog.winfo_rootx() < dialog.winfo_width()
