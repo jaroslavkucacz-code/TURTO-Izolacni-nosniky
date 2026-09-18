@@ -1,0 +1,16 @@
+TURTO Statika 3.0.21
+
+Dekodér Schöck nyní sjednocuje zápis v jednotlivém zadání, našeptávači i hromadném importu:
+- mezery kolem pomlček a mezi parametry, například REI120 CV1;
+- mezery mezi názvem parametru a číslem, například H 200;
+- desetinnou čárku v generaci a oddělení výšky tečkou, například H200.2,0 -> H200-2.0;
+- prefix T typ / XT typ / CXT typ a běžné typografické pomlčky.
+
+Původní zápis výkazu zůstává zachovaný. Počet 1 475,00 se načte jako 1475 kusů.
+Generace, smyková třída, rozměry a únosnosti se formátováním nemění.
+
+Pokud je označení přečtené, ale v načtených katalozích chybí daná generace, kontrola zobrazí „Chybí data“, sjednocené označení a dostupné generace stejné řady.
+V distribuovaných datech není T KL / KL-U generace 2.0 ani T ZL; nedochází k jejich záměně za jiné generace.
+Zápis QP-VV-V1 vyžaduje ověření smykové třídy. U QP bez délky L lze konkrétní katalogovou délku výslovně vybrat v našeptávači nebo potvrdit v hromadném dialogu.
+
+Databáze akcí a zákaznické katalogy zůstávají zachované. Beze změny zůstávají výpočty, návrhy HIT a ručně zadané délky prvků.
