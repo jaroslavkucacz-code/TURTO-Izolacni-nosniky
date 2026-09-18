@@ -99,6 +99,8 @@ def probe(root):
         decoder_proof['length320'] = verify_decoder_length_320.exercise(app)
         import verify_designation_format_321
         decoder_proof['format321'] = verify_designation_format_321.exercise(app)
+        import verify_archive_catalog_322
+        decoder_proof['archive322'] = verify_archive_catalog_322.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -189,6 +191,7 @@ def update_probe(root):
         'Program/project_ui_base.py':'updates/1.1.17/project_ui.py',
         'Program/project_ui_prev.py':'updates/1.1.23/project_ui.py',
         'Program/decoder_detail.py':'updates/1.1.23/decoder_detail.py',
+        'Program/catalog_browser_2210.py':'updates/2.2.10/catalog_browser.py',
     }.items():
         shutil.copy2(ROOT/path, root/name)
     for name in ('decoder_315.py','isopro_2018_en.json.gz.b64','schoeck_cz_2024_1_2024_09.json.gz.b64','.turto_runtime_3_0_15.ok'):
@@ -234,6 +237,8 @@ def reopen_probe(root):
     verify_decoder_length_320.reopen_saved(app)
     import verify_designation_format_321
     verify_designation_format_321.reopen_saved(app)
+    import verify_archive_catalog_322
+    verify_archive_catalog_322.reopen_saved(app)
     app.destroy()
 
 

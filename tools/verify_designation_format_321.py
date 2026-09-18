@@ -21,7 +21,7 @@ def exercise(app):
     assert sum(i.quantity for i in items) == 2896
     assert all(i.source_designation == line.split('\t')[0] for i,line in zip(items,lines))
     assert fmt.normalize(items[0].designation) == 'T-KL-M5-V1-REI120-CV1-H200-2.0'
-    for n in (0,1,2,3,4,6,7,8,9,10,12):
+    for n in (4,7,8,9):
         item = items[n]
         assert fmt.parsed_code(item.designation) and not item.ready and not item.candidates
         assert item.message.startswith('Označení přečteno') and '2.0' in item.message
@@ -58,7 +58,7 @@ def exercise(app):
     assert len(live)>=7
     for original in ('HIT-SP ZDX-0202-20-100-200','CRET 122','MXL 30-WU280-180'):
         assert fmt.normalize(original)==original
-    for original in (items[0].designation,items[11].designation,items[5].designation,
+    for original in (items[4].designation,items[11].designation,items[5].designation,
                      'T typ KL-M5-V1-REI120 CV9-H200-2.2',
                      'T typ KL-M5-V99-REI120 CV1-H200-2.2',
                      'T typ KL-M5-V1-REI120 CV1-H999-2.2',
@@ -83,7 +83,7 @@ def exercise(app):
     assert len(app.project.rows)==1 and app.project.rows[0]['source_text']==live[0]
     assert app.project.rows[0]['selection']['generation']=='2.2'
     before=deepcopy(app.project.rows)
-    app.project_quick_designation_var.set(items[0].designation)
+    app.project_quick_designation_var.set(items[4].designation)
     with patch.object(messagebox,'showerror') as error:
         app.quick_add_project_row();assert error.called and '2.0' in str(error.call_args)
     assert app.project.rows==before
@@ -93,9 +93,9 @@ def exercise(app):
         dialog._analyze();deadline=time.monotonic()+30
         while dialog._analysis_running and time.monotonic()<deadline:pump(app,.04)
         assert not dialog._analysis_running and len(dialog.items)==14
-        assert dialog.review_tree.set('i0','status')=='Chybí data'
-        assert dialog.review_tree.set('i0','resolved')==fmt.normalize(items[0].designation)
-        assert dialog.review_tree.set('i0','input')==items[0].designation
+        assert dialog.review_tree.set('i4','status')=='Chybí data'
+        assert dialog.review_tree.set('i4','resolved')==fmt.normalize(items[4].designation)
+        assert dialog.review_tree.set('i4','input')==items[4].designation
         item=dialog.items[5]
         dialog.review_tree.selection_set('i5');dialog._on_review_selected()
         # Use the real candidate confirmation handler.
@@ -104,9 +104,9 @@ def exercise(app):
         assert item.ready and '-H200-L300-5.0' in item.result.designation
         with patch.object(messagebox,'askyesno',return_value=True):dialog.insert_button.invoke()
     with patch.object(app,'wait_window',side_effect=operate):app.bulk_paste_project_rows()
-    assert len(app.project.rows)==3
-    assert [r['quantity'] for r in app.project.rows]==[1,13,1475]
-    assert app.project.rows[1]['source_text']==items[5].source_designation
+    assert len(app.project.rows)==10
+    assert [r['quantity'] for r in app.project.rows]==[1,391,1475,44,28,13,70,253,50,1475]
+    assert app.project.rows[5]['source_text']==items[5].source_designation
     store=action_payload.action_store(app)
     saved=store.save(action_name='TEST_ONLY formatted321',payload=action_payload.serialize_action(app))
     payload=deepcopy(app.project.rows)
