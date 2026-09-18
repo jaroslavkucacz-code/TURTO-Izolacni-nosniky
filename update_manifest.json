@@ -1,12 +1,12 @@
 {
-  "version": "3.0.19",
-  "runtime_layout": "50",
-  "notes": "Návrh HIT-ST vedle WT; mezilehlé výšky s nižší tabulkovou únosností; čitelnější písmo a kontrast.",
+  "version": "3.0.20",
+  "runtime_layout": "51",
+  "notes": "Vlastní délka nosníku v Dekodéru: jednotlivě, hromadně a dodatečně; uložení, záměny a exporty.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/8654c8121690cf7c1b8f5742bc3749ab9e17c8ad/updates/3.0.19/app.pyw",
-      "sha256": "0c555a2d20d230c43f6db2b53630cdbb8642ff4708276ecbe8615c99ee9920ce"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/92d6f9558a842a4ed9036bc7961b4437ce669bd4/updates/3.0.20/app.pyw",
+      "sha256": "3d99c6bd47680a73371588b5856f722006e4a07fd22fdeb0aa0e4928c6bfad45"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/04deeff098d6aad06ae44f51fb49092bc6bacde3/updates/3.0.19/RELEASE_NOTES.txt",
-      "sha256": "d703d280ed15b0ada752df54db7d27e2cb7b14ea80cb9da13b79fa037ccc65b2"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/d15468cef0753c46866127e3458f691882d95167/updates/3.0.20/RELEASE_NOTES.txt",
+      "sha256": "fdb686c62d9af98f1b17b0ca85c77e1657ba08aefd64b099ef998b76f7c798bb"
     },
     {
       "path": "startup_window.py",

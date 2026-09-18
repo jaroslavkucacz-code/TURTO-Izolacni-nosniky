@@ -2,6 +2,7 @@ from __future__ import annotations
 
 """Statická kontrola vydání TURTO; používá pouze standardní knihovnu."""
 
+import ast
 import hashlib
 import json
 import py_compile
@@ -113,6 +114,30 @@ def verify_bootstrap(
         fail(
             f"Bootstrap RUNTIME_LAYOUT={bootstrap_layout!r}, ale manifest runtime_layout={runtime_layout!r}."
         )
+    # Validate the URL actually constructed by the bootstrap, not only its pin
+    # constants. A stale version in this path breaks update-and-restart while
+    # a complete offline package can still pass every startup check.
+    tree = ast.parse(text)
+    downloader = next((n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == '_download_installer'), None)
+    if downloader is not None:
+        constants = {'VERSION': version, 'REPOSITORY': REPOSITORY, 'INSTALLER_COMMIT': installer_commit}
+        def url_part(node):
+            if isinstance(node, ast.Constant) and isinstance(node.value, str):
+                return node.value
+            if isinstance(node, ast.JoinedStr):
+                return ''.join(url_part(v) for v in node.values)
+            if isinstance(node, ast.FormattedValue) and isinstance(node.value, ast.Name):
+                return constants[node.value.id]
+            raise ValueError('nepodporovaný zápis URL')
+        try:
+            url_node = next(n.value for n in ast.walk(downloader) if isinstance(n, ast.Assign)
+                            and any(isinstance(t, ast.Name) and t.id == 'url' for t in n.targets))
+            actual_url = url_part(url_node)
+        except (StopIteration, KeyError, ValueError) as exc:
+            fail(f'Nelze ověřit skutečnou bootstrap URL: {exc}')
+        expected_url = f'https://raw.githubusercontent.com/{REPOSITORY}/{installer_commit}/updates/{version}/runtime_installer.py'
+        if actual_url != expected_url:
+            fail(f'Bootstrap stahuje jinou instalační verzi: {actual_url}; očekáváno {expected_url}')
     actual_installer_hash = sha256(installer)
     if actual_installer_hash != installer_hash:
         fail(
