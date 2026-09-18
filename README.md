@@ -1,6 +1,6 @@
-# TURTO Statika 3.0.19
+# TURTO Statika 3.0.20
 
-[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.19/TURTO-Statika-3.0.19-Windows-x64.zip)
+[Stáhnout TURTO Statika pro Windows (ZIP)](https://github.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/releases/download/v3.0.20/TURTO-Statika-3.0.20-Windows-x64.zip)
 
 Rozbalte celý balíček a spusťte **TURTO Statika.exe**. Python se neinstaluje. Při přechodu ze stávajícího programu zkopírujte obsah balíčku do jeho dosavadní složky; databáze AKCÍ a nastavení nejsou součástí balíčku. Podrobnosti: [návod k EXE](packaging/windows/CTETE_ME.txt).
 
@@ -25,7 +25,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO Statika 3.0.19** (`3.0.19`)
+**Aktuální vydání: TURTO Statika 3.0.20** (`3.0.20`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -33,6 +33,14 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
 Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
+
+## Délka dekódovaných nosníků 3.0.20
+
+V rychlém zadání vyplňte **Délka prvku [m]**, například `0,5` nebo `0,75`. Prázdné pole zachová délku z označení / katalogu. U již vloženého řádku použijte **Upravit pozici / ks / délku**; stejná úprava je dostupná z detailu.
+
+Hromadný výkaz může mít například záhlaví `Pozice; Ks; Označení; Délka [m]; Poznámka`. Použít lze také `[mm]` a `[cm]`. V kontrole výkazu lze označit více řádků pomocí Ctrl / Shift, zadat společnou délku a kliknout na **Použít na označené**. Délka se ukládá s AKCÍ a přenáší do PDF, Excelu a schránky.
+
+Po změně délky se předchozí záměna musí znovu navrhnout. Katalogové hodnoty na metr zůstávají nezměněné a celkové hodnoty se odvozují od délky jednoho prvku; počet kusů se do této délky nezapočítává. Hodnoty na prvek se délkou nenásobí. U takových typů odlišná délka oproti doložené katalogové variantě vyžaduje kontrolu.
 
 ## ST / WT a čitelnost 3.0.19
 
