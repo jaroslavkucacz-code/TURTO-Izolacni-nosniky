@@ -1,0 +1,11 @@
+TURTO Statika 3.0.22 – archiv Schöck T KL 2.0
+
+Doplněny doložené únosnosti T KL generace 2.0 z českých Technických informací CZ/2023.1, duben 2023, str. 44–47: M1–M12, V1/V2/VV1, CV1/CV2, REI120, tabulkové výšky 160–300 mm (CV2 od 180 mm), beton C25/30. Záznamy fungují v dekodéru, našeptávači, hromadném importu i záměnách. Zdrojové vydání a stránky jsou uvedeny u výsledků a v exportu. PDF je dostupné v Katalozích.
+
+Sedm položek T KL 2.0 z dodaného výkazu (2311 ks) nyní odpovídá katalogu. Původní zápis a množství se zachovávají. Délka prvku se nadále může zadat samostatně.
+
+Nejasné znaménko momentu v tištěné tabulce M10/CV1/H180 a H190: tyto kombinace nejsou načteny, program vysvětlí důvod. Hodnoty se automaticky neopravují ani neinterpolují.
+
+KL-U s generací 2.0 zůstává k ověření – archiv uvádí 7.1. U izolačního mezikusu ZL není generace 2.0 doložena. QP bez délky L vyžaduje potvrzení varianty; nejednoznačnou třídu QP-VV-V1 je potřeba upřesnit. Jiné generace se automaticky nepřebírají.
+
+Uložené akce, jejich snímky únosností a potvrzené záměny se nemění.
