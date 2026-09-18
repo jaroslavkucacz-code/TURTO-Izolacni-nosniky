@@ -223,7 +223,7 @@ def _download(commit: str, path: str, expected: str) -> bytes:
     for attempt in range(4):
         try:
             req = urllib.request.Request(url + f"?turto={time.time_ns()}", headers={
-                "User-Agent": "TURTO-3.0.19-runtime", "Cache-Control": "no-cache, no-store"})
+                "User-Agent": f"TURTO-{VERSION}-runtime", "Cache-Control": "no-cache, no-store"})
             with urllib.request.urlopen(req, timeout=45) as response:
                 data = response.read()
             if hashlib.sha256(data).hexdigest() != expected:
@@ -284,7 +284,7 @@ def install_runtime(root: Path | str) -> Path:
             raise RuntimeError("actions.sqlite3 se během instalace změnila.")
         _atomic_write(program / MARKER, VERSION.encode("utf-8"))
         if not _revision_ok(program):
-            raise RuntimeError("Runtime TURTO 3.0.19 neprošel závěrečnou kontrolou.")
+            raise RuntimeError(f"Runtime TURTO {VERSION} neprošel závěrečnou kontrolou.")
     except Exception:
         for target in reversed(targets):
             data = backups[target]
@@ -297,7 +297,7 @@ def install_runtime(root: Path | str) -> Path:
 
 
 def selftest() -> None:
-    assert VERSION == "3.0.19" and RUNTIME_LAYOUT == "50"
+    assert VERSION == "3.0.20" and RUNTIME_LAYOUT == "51"
     assert len(BASE_COMMIT) == 40 and len(BASE_SHA256) == 64
     assert "actions.sqlite3" not in PAYLOADS
     assert all(Path(n).name == n and len(p[0]) == 40 and len(p[2]) == 64 for n, p in PAYLOADS.items())
