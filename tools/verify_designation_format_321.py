@@ -104,9 +104,14 @@ def exercise(app):
         assert item.ready and '-H200-L300-5.0' in item.result.designation
         with patch.object(messagebox,'askyesno',return_value=True):dialog.insert_button.invoke()
     with patch.object(app,'wait_window',side_effect=operate):app.bulk_paste_project_rows()
-    assert len(app.project.rows)==10
-    assert [r['quantity'] for r in app.project.rows]==[1,391,1475,44,28,13,70,253,50,1475]
-    assert app.project.rows[5]['source_text']==items[5].source_designation
+    if getattr(app,'_source_completion',False):
+        assert len(app.project.rows)==15
+        assert [r['quantity'] for r in app.project.rows]==[1,*QUANTITIES,1475]
+        assert app.project.rows[6]['source_text']==items[5].source_designation
+    else:
+        assert len(app.project.rows)==10
+        assert [r['quantity'] for r in app.project.rows]==[1,391,1475,44,28,13,70,253,50,1475]
+        assert app.project.rows[5]['source_text']==items[5].source_designation
     store=action_payload.action_store(app)
     saved=store.save(action_name='TEST_ONLY formatted321',payload=action_payload.serialize_action(app))
     payload=deepcopy(app.project.rows)

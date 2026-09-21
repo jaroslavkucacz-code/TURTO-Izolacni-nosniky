@@ -101,6 +101,8 @@ def probe(root):
         decoder_proof['format321'] = verify_designation_format_321.exercise(app)
         import verify_archive_catalog_322
         decoder_proof['archive322'] = verify_archive_catalog_322.exercise(app)
+        import verify_completion_323
+        decoder_proof['completion323'] = verify_completion_323.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -255,7 +257,7 @@ def main():
         exe = root / 'TURTO Statika.exe'
         try:
             subprocess.run([str(exe), '--run-script', str(Path(__file__).resolve()), '--probe', str(root)],
-                           env=env, cwd=folder, check=True, timeout=120)
+                           env=env, cwd=folder, check=True, timeout=300)
             proof = json.loads((root / 'probe.json').read_text(encoding='utf-8'))
             database = Path(proof['database']); before = database.read_bytes()
             started = time.monotonic()

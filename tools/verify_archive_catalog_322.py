@@ -80,7 +80,7 @@ def exercise(app):
     sub.design_targets(TargetProbe(),row=row,metadata=sub.source_metadata(row))
     assert calls
     for call in calls:
-        actions=call[5];code=next(iter(call[6]));millimetres={25:250,33:333,50:500,100:1000}[code]
+        actions=call[5];code=next(iter(call[6]));millimetres={25:250,33:330 if getattr(app,'_source_completion',False) else 333,50:500,100:1000}[code]
         assert abs(actions.m_neg*millimetres/1000-17.45)<1e-8
         assert abs(actions.v_pos*millimetres/1000-30.9)<1e-8
     # SQLite retains source edition and capacities; they are not upgraded to 2.2.
