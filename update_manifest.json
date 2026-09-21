@@ -1,12 +1,12 @@
 {
-  "version": "3.0.22",
-  "runtime_layout": "53",
-  "notes": "Doplněn ověřený archiv Schöck T KL 2.0 CZ/2023.1: dekodér, import, záměny a původní PDF v Katalozích.",
+  "version": "3.0.23",
+  "runtime_layout": "54",
+  "notes": "HIT 330 mm, kompaktní Návrh a Záměny, import neúplných položek a jejich doplnění z katalogu nebo ručně.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/381437b82d399690f5d546ab1841bb41500236f2/updates/3.0.22/app.pyw",
-      "sha256": "78daddfba744523966bcf5eed42749df2a20df836951f10ae17f10f9466f18d5"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/617dc78e495548ecb7e3ae612adcfc62f2d90b64/updates/3.0.23/app.pyw",
+      "sha256": "06c9e1923fbaab82d3ce68b1d68b17e9bc5cb4d25ddfbd56171d208ad2209fda"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/6552fe64ebb841e7a3c529b666684bdfbc35eafd/updates/3.0.22/RELEASE_NOTES.txt",
-      "sha256": "7bcdf137c5370195ec7d07cabb8e3947d46afd4bec432b48f9a07e343ae3fa0d"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/617dc78e495548ecb7e3ae612adcfc62f2d90b64/updates/3.0.23/RELEASE_NOTES.txt",
+      "sha256": "7b36c0531b8a8ceb493482139873dc0f5753c3fbac19623890b5730a89d7ce1b"
     },
     {
       "path": "startup_window.py",
