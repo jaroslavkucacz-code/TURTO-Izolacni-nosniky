@@ -25,7 +25,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO Statika 3.0.22** (`3.0.22`)
+**Aktuální vydání: TURTO Statika 3.0.23** (`3.0.23`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -33,6 +33,12 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
 Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
+
+## Upřesnění importovaných prvků a délka HIT – 3.0.23
+
+Hromadný import ponechá i neúplné položky. V **Záměnách → Upřesnit zdroj / geometrii…** lze nejprve vybrat konkrétní katalogový záznam a potom ručně doplnit chybějící parametry včetně samostatného krytí HIT. Neúplné údaje se označí, ruční změny a původní podklady se zachovají v AKCI.
+
+Fyzická délka HIT 033 je opravena na **330 mm**, včetně přepočtů a exportů. Dříve potvrzené záměny s 333 mm vyžadují nový návrh. Volby délek jsou u sebe a Návrh i Záměny mají kompaktní rozložení. Podrobnosti: [změny 3.0.23](updates/3.0.23/RELEASE_NOTES.txt).
 
 ## Archiv Schöck T KL 2.0 – 3.0.22
 

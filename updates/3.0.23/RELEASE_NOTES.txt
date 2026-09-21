@@ -1,0 +1,16 @@
+TURTO Statika 3.0.23
+
+Hromadný výkaz a upřesnění záměn
+- Import vloží všechny analyzované položky v původním pořadí, včetně nerozpoznaných či neúplných. Zachová počet kusů a původní popis.
+- Neúplné položky jsou označeny „Doplnit v Záměnách“ a nemají potvrzený návrh.
+- V Záměnách vyberte řádek a „Upřesnit zdroj / geometrii…“. Nejprve lze vybrat konkrétní záznam z nahraných katalogů, podle označení nebo katalogových parametrů.
+- Na druhé kartě lze ručně doplnit nebo opravit rozměry, beton, krytí zdroje i HIT, typ HIT, geometrii a směrové únosnosti včetně jednotek.
+- Krytí HIT je samostatná volba. Například T typ QP - V1 - REI120 - H200 - 5.0 lze upřesnit katalogovým záznamem L300 a zvolit ZVX s krytím 30 mm. Neznámé krytí zdroje zůstává neznámé.
+- Ruční změny jsou označeny. Původní popis a katalogová data zůstávají uložené v AKCI. Změna zdrojových parametrů zneplatní staré únosnosti, dokud se znovu nevyberou z katalogu nebo ručně nezadají.
+
+Délka HIT a uspořádání
+- Opravena fyzická délka HIT 033 z 333 na 330 mm v návrhu, dekodéru, záměnách, převodech jednotek a exportech. Označení výrobku 033 se nemění.
+- Starší záměny vypočtené s délkou 333 mm vyžadují „Navrhnout vše“. Původní potvrzení se nepřenáší do nového výpočtu.
+- Volba 250 mm je vedle ostatních délek. Odstraněny nadměrné mezery nad pracovním obsahem Návrhu a Záměn.
+
+Aktualizace nemění databázi uložených AKCÍ ani uživatelské katalogy.
