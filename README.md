@@ -40,12 +40,6 @@ Hromadný import ponechá i neúplné položky. V **Záměnách → Upřesnit zd
 
 Fyzická délka HIT 033 je opravena na **330 mm**, včetně přepočtů a exportů. Dříve potvrzené záměny s 333 mm vyžadují nový návrh. Volby délek jsou u sebe a Návrh i Záměny mají kompaktní rozložení. Podrobnosti: [změny 3.0.23](updates/3.0.23/RELEASE_NOTES.txt).
 
-## Upřesnění importovaných prvků a délka HIT – 3.0.23
-
-Hromadný import ponechá i neúplné položky. V **Záměnách → Upřesnit zdroj / geometrii…** lze nejprve vybrat konkrétní katalogový záznam a potom ručně doplnit chybějící parametry včetně samostatného krytí HIT. Neúplné údaje se označí, ruční změny a původní podklady se zachovají v AKCI.
-
-Fyzická délka HIT 033 je opravena na **330 mm**, včetně přepočtů a exportů. Dříve potvrzené záměny s 333 mm vyžadují nový návrh. Volby délek jsou u sebe a Návrh i Záměny mají kompaktní rozložení. Podrobnosti: [změny 3.0.23](updates/3.0.23/RELEASE_NOTES.txt).
-
 ## Archiv Schöck T KL 2.0 – 3.0.22
 
 Doplněn český archiv CZ/2023.1 z dubna 2023: T KL generace 2.0, M1–M12, V1/V2/VV1, CV1/CV2, REI120 a tabulkové výšky. Sedm řádků KL z dodaného výkazu (2311 ks) lze dekódovat a použít jako zdroj pro záměnu HIT. Zdrojové vydání a stránky se ukládají do AKCE a uvádějí v exportu. Původní PDF lze otevřít nebo stáhnout v **Katalozích**.
