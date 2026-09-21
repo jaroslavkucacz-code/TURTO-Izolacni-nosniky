@@ -49,6 +49,7 @@ def exercise(app):
     assert dialog.matches and len(dialog.matches)==1
     dialog.tree.selection_set('0');dialog.choose()
     assert dialog.row['snapshot']['results'] and dialog.vars['length'].get()=='300'
+    assert dialog.vars['height_mm'].get()=='200'
     assert dialog.vars['source_cover'].get()==''
     dialog.vars['target_cover'].set('30');dialog.vars['target_type'].set('ZVX');dialog.save()
     assert dialog.result is not None

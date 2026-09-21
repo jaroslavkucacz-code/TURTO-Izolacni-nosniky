@@ -81,6 +81,7 @@ def form_values(row):
     selection, snapshot = row['selection'],row['snapshot']
     values = {key: str(selection.get(key) or '') for key in SELECTION_KEYS}
     values.update(source_text=row.get('source_text',''),
+        height_mm=str(meta.get('source_height_mm') or ''),
         length=str(meta.get('source_length_mm') or ''),
         insulation=str(meta.get('source_insulation_mm') or ''),
         source_cover=str(meta.get('source_cover_mm') or ''),
