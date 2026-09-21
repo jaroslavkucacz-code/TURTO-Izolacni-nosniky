@@ -16,8 +16,8 @@ from tkinter import messagebox
 
 VERSION = "3.0.23"
 REPOSITORY = "jaroslavkucacz-code/TURTO-Izolacni-nosniky"
-INSTALLER_COMMIT = "b1e48402e945feaaf0483d183b613376e1e7063e"
-INSTALLER_SHA256 = "f5ec8df11c3d2f173655db3f3b701564b49f424d611820620b7d28f6ac959c9a"
+INSTALLER_COMMIT = "51c9280b7b8dde717c449ba0a0f1a1496e71ad2c"
+INSTALLER_SHA256 = "8f8c58072c0f4bfc25489b4331ed9ea8a457c5864e4daddc3f96a6a2b0fade8f"
 RUNTIME_LAYOUT = "54"
 
 ROOT = Path(__file__).resolve().parent
@@ -91,7 +91,7 @@ CRITICAL_PROGRAM_SHA256 = {'app_runtime.pyw': '292f58bda91959b3b7b248b1f7bf1754b
  'hit_decoder_catalog_prev.py': '234c65655471b8797bbf9e974fcfe2c6f03c376ef1cee23012c88ef046bd35dd',
  'hit_schedule_base.py': '7ef843c7d2c92bdafc72fc44f5892efeb5852ebf914fb8e416b592a18f70dae1',
  'hit_workspace_base.py': 'd1c9629d945b5949561616316aa968c35b6023f3ed7a3437f75761c96feb5a17',
- 'source_completion.py': 'fb77962604af79575c00fd0d57c728e261515fbfc9e76086a8405e2ff301d3a5',
+ 'source_completion.py': '393ea0a6e5caa471cbb593adb9b1c64c87b1b42f62a8bf180d7d190dd66fc2ff',
  'thermal_design.py': '48c3318938f024145ec16ce19efdb90f30c6aa1356dd9866c8ff52c56b232c05',
  'thermal_design_ui.py': '4925a4b7846f713ff6aee84b9aa64005ea167ffe89002239eb71fd3fbd1eec25'}
 
