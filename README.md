@@ -25,7 +25,7 @@ Přesné rozpoznání explicitních T/XT/CXT označení a oprava exportu PDF př
 
 Vytvořil Ing. Jaroslav Kučera
 
-**Aktuální vydání: TURTO Statika 3.0.23** (`3.0.23`)
+**Aktuální vydání: TURTO Statika 3.0.24** (`3.0.24`)
 
 TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produktových oblastí. Aktuálně jsou aktivní:
 
@@ -33,6 +33,10 @@ TURTO je lokální Windows aplikace pro jednu společnou **AKCI** a více produk
 - **Smykové trny** – Dekodér / Návrh / Záměny
 
 Zachována oprava z TURTO 3.0.1: načítání schváleného symbolu v záhlaví a ikoně hlavního okna a skutečná průběžná klasifikace hromadného výkazu. Úplné označení XT se nehledá mezi nesouvisejícími obecnými návrhy; chybějící katalogový záznam je označen **Chybí data**. Tato oprava dekodéru sama nedoplňuje chybějící tabulky Schöck; doplnění HIT Annexu 3 ve verzi 3.0.3 je samostatně kontrolované podle zdrojového DoP. Testovací data TEST_ONLY se do aplikace nedodávají.
+
+## Tabulky, mezivýplně a čitelnost – 3.0.24
+
+Šířky sloupců se při přetahování nevracejí zpět a jejich rozložení se zachovává mezi verzemi. Záložky mají kompaktní rozložení včetně Dekodéru ISO. Schöck ZL se převádí na popis mezivýplně podle tloušťky a výšky, také v Excelu a PDF. Opraveno DPI starších instalovaných EXE pro ostré vykreslení textů ve Windows. Podrobnosti: [změny 3.0.24](updates/3.0.24/RELEASE_NOTES.txt).
 
 ## Upřesnění importovaných prvků a délka HIT – 3.0.23
 

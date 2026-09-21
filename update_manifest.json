@@ -1,12 +1,12 @@
 {
-  "version": "3.0.23",
-  "runtime_layout": "54",
-  "notes": "HIT 330 mm, kompaktní Návrh a Záměny, import neúplných položek a jejich doplnění z katalogu nebo ručně.",
+  "version": "3.0.24",
+  "runtime_layout": "55",
+  "notes": "Kompaktní záložky, trvalé šířky a zobrazení sloupců, mezivýplně Schöck ZL a ostré vykreslení na displeji Windows.",
   "files": [
     {
       "path": "app.pyw",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/eaf3db90d8fe467bee47013d5312bf999211561f/updates/3.0.23/app.pyw",
-      "sha256": "9758ad17521792b82069d8386b072f7dcdaea6b8fb31cf92f8472c94d71488e9"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e88e2489fc9e89e53a784dd361b75471203deee0/updates/3.0.24/app.pyw",
+      "sha256": "03b40bd0f7fc3ead825a407852a7bdee7c9b19edfb5108faa0e490a4b7b4b800"
     },
     {
       "path": "updater.py",
@@ -15,8 +15,8 @@
     },
     {
       "path": "RELEASE_NOTES.txt",
-      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/eaf3db90d8fe467bee47013d5312bf999211561f/updates/3.0.23/RELEASE_NOTES.txt",
-      "sha256": "7b36c0531b8a8ceb493482139873dc0f5753c3fbac19623890b5730a89d7ce1b"
+      "url": "https://raw.githubusercontent.com/jaroslavkucacz-code/TURTO-Izolacni-nosniky/e88e2489fc9e89e53a784dd361b75471203deee0/updates/3.0.24/RELEASE_NOTES.txt",
+      "sha256": "462d2d7bdba874d85b0d716f4d14996e0b276d1b31ce2730e0273ad189a8e2f1"
     },
     {
       "path": "startup_window.py",
