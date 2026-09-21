@@ -196,6 +196,14 @@ def update_probe(root):
         'Program/catalog_browser_2210.py':'updates/2.2.10/catalog_browser.py',
     }.items():
         shutil.copy2(ROOT/path, root/name)
+    # Restore every pinned 3.0.14 payload, including engines later releases
+    # replace (physical HIT length changed in 3.0.23). A partial downgrade
+    # can no longer represent a valid baseline for the real updater.
+    baseline = runpy.run_path(str(ROOT/'updates/3.0.14/runtime_installer.py'))
+    for name, (_commit, path, expected) in baseline['PAYLOADS'].items():
+        data = (ROOT/path).read_bytes()
+        assert hashlib.sha256(data).hexdigest() == expected, path
+        (root/'Program'/name).write_bytes(data)
     for name in ('decoder_315.py','isopro_2018_en.json.gz.b64','schoeck_cz_2024_1_2024_09.json.gz.b64','.turto_runtime_3_0_15.ok'):
         (root/'Program'/name).unlink(missing_ok=True)
     (root/'Program/.turto_runtime_3_0_14.ok').write_text('3.0.14')
