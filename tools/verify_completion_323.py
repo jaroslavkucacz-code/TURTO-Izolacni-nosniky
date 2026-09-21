@@ -143,6 +143,7 @@ def exercise(app):
     for width in (1250,1900):
         app.geometry(f'{width}x900+10+10');app.main_notebook.select(app.hit_tab)
         app.shared_thermal_design.show_legacy()
+        app.shared_thermal_design.show_hit_group('standard')
         pump(app)
         checks=[w for w in walk(app.hit_tab) if isinstance(w,ttk.Checkbutton) and w.cget('text') in ('1000 mm','500 mm','330 mm','250 mm')]
         assert len(checks)==4
@@ -154,5 +155,6 @@ def exercise(app):
         parent=app.sub_tree.master
         while parent.master is not app.substitution_tab:parent=parent.master
         assert parent.winfo_y()<80,(width,parent.winfo_y())
+    action_payload_prev._clear_hit_rows(app)
     return dict(imported=14,quantity=2903,unresolved_retained=7,qp_catalogue_and_manual_cover=True,
         manual_parameters=True,sqlite=True,length_mm=330,layouts=[1250,1900])
