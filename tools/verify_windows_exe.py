@@ -66,6 +66,7 @@ def probe(root):
     assert all('site-packages' not in p.lower() for p in sys.path), sys.path
     assert shutil.which('python') is None
     boot = runpy.run_path(str(root / 'app.pyw'))
+    boot['_configure_dpi']()
     assert boot['_runtime_ready'](), 'Shipped payload must start completely offline.'
     runtime = runpy.run_path(str(root / 'Program/app_runtime.pyw'))
     runtime['selftest']()
@@ -103,6 +104,8 @@ def probe(root):
         decoder_proof['archive322'] = verify_archive_catalog_322.exercise(app)
         import verify_completion_323
         decoder_proof['completion323'] = verify_completion_323.exercise(app)
+        import verify_workspace_324
+        decoder_proof['workspace324'] = verify_workspace_324.exercise(app)
         data = {'schema_version': 4, 'source_document': 'TEST_ONLY; NOT FOR DESIGN', 'zvx_records': [
             {'series': 'HP', 'concrete': 'C25/30', 'length_code': 50, 'h_min': 160, 'h_max': 300,
              'vrd': cap, 'code': code, 'diameter': '08', 'page': 0}
@@ -229,7 +232,9 @@ def update_probe(root):
 
 def reopen_probe(root):
     import runpy
-    assert runpy.run_path(str(root/'app.pyw'))['_runtime_ready']()
+    boot=runpy.run_path(str(root/'app.pyw'))
+    boot['_configure_dpi']()
+    assert boot['_runtime_ready']()
     runtime=runpy.run_path(str(root/'Program/app_runtime.pyw'))
     sys.path.insert(0, str(ROOT/'tools'))
     import verify_catalogues_315
@@ -249,6 +254,8 @@ def reopen_probe(root):
     verify_designation_format_321.reopen_saved(app)
     import verify_archive_catalog_322
     verify_archive_catalog_322.reopen_saved(app)
+    import verify_workspace_324
+    verify_workspace_324.reopen_saved(app)
     app.destroy()
 
 
@@ -291,7 +298,15 @@ def main():
                 user.GetWindowRect(loading,ctypes.byref(rect))
                 from PIL import ImageGrab
                 ImageGrab.grab(bbox=(rect.left,rect.top,rect.right,rect.bottom)).save(output/'startup-window.png')
-                _, _, title = wait_window(process.pid)
+                main_hwnd, _, title = wait_window(process.pid)
+                # Includes existing pre-3.0.19 hosts lacking a DPI manifest.
+                user.GetWindowDpiAwarenessContext.argtypes = [wintypes.HWND]
+                user.GetWindowDpiAwarenessContext.restype = ctypes.c_void_p
+                user.GetAwarenessFromDpiAwarenessContext.argtypes = [ctypes.c_void_p]
+                for window in (loading, main_hwnd):
+                    if user.IsWindow(window):
+                        assert user.GetAwarenessFromDpiAwarenessContext(user.GetWindowDpiAwarenessContext(window)) == 1
+                proof['native_dpi_awareness'] = 'system'
                 proof['main_visible_seconds'] = round(time.monotonic()-started, 3)
                 deadline = time.monotonic()+3
                 while any(p==process.pid and t=='TURTO Statika – Načítání' for _,p,t in windows()) and time.monotonic()<deadline:

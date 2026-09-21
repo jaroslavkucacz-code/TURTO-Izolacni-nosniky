@@ -1,0 +1,12 @@
+TURTO Statika 3.0.24
+
+- Odstraněny nadměrné svislé mezery v pracovních záložkách izolačních nosníků i smykových trnů, včetně Dekodéru ISO.
+- Šířky sloupců se při přetahování a obnovení tabulky nevracejí zpět. Šířky, pořadí a skryté sloupce se ukládají do uživatelského nastavení nezávisle na verzi programu a názvu AKCE.
+- Zachováno dosavadní nastavení sloupců. Opraveno dokončení přetažení i mimo záhlaví a souběh správců sloupců v hromadném importu.
+- Schöck ZL se zobrazuje jako nenosná mezivýplň, např. „Mezivýplň tl. 80 mm, výšky 200 mm“. Rozměry vycházejí z aktuálních údajů, řady T/XT a ručního upřesnění. Chybějící rozměry lze doplnit v Záměnách.
+- Mezivýplně zůstávají ve výkazu, AKCI, Excelu i PDF bez smyšlených únosností či využití nosného HIT.
+- Ostré vykreslení na škálovaném displeji Windows: DPI se nastaví před otevřením načítacího okna, také u starších již nainstalovaných EXE.
+
+Zachovány změny 3.0.23: skutečná délka HIT 330 mm, volba 250 mm u ostatních délek, import všech neúplných řádků, doplnění z katalogu i ručně a samostatná volba krytí HIT.
+
+Aktualizace zachovává AKCE, uživatelské katalogy i nastavení. Uložte rozpracovanou AKCI a program znovu spusťte.
